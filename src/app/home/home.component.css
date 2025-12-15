@@ -1,0 +1,734 @@
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 50px;
+  }
+  
+  /* Slider Base */
+  .slider {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: #f4f4f4;
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 3.7 / 1; /* masaüstü oranı */
+    margin: 0 auto;
+    transition: all 0.3s ease;
+  }
+  
+  /* Slider Track & Slides */
+  .slider-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  
+  .slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* taşmadan görünüm */
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  
+  .slide img:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Arrows */
+  .slider-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 15px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .arrow {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: all;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .arrow:hover {
+    background: white;
+    transform: scale(1.1);
+  }
+  
+  /* Dots */
+  .slider-controls {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  
+  .slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .slider-dot.active {
+    background: #fff;
+    border-color: #667eea;
+  }
+
+
+/*CATEGORY */
+
+/* Container */
+.category-container {
+  max-width: min(1200px, 100vw - 2rem);
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+/* Label */
+.category-label {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: block;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+/* Slider Box */
+.slider-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 16px);
+
+}
+
+/* Slider Window */
+.slider-window {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Slider Track */
+.slider-track {
+
+  padding-left: 2px;
+  display: flex;
+  gap: clamp(23px, 2.5vw, 20px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Category Item - Responsive Widths */
+.category-item {
+  width: 220px;
+  flex: 0 0 clamp(160px, 20vw, 220px);
+  text-align: center;
+}
+
+/* Item Inner */
+.item-inner {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.item-inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.item-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+
+.item-title{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+}
+
+/* Arrow Buttons */
+.category-arrow {
+  background: #ffffff;
+  border: none;
+  font-size: clamp(20px, 4vw, 28px);
+  cursor: pointer;
+  padding: clamp(8px, 2vw, 12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: clamp(40px, 8vw, 56px);
+  height: clamp(40px, 8vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #333;
+  flex-shrink: 0;
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.category-arrow.left {
+  left: 8px;
+}
+
+/* Sağ ok */
+.category-arrow.right {
+  right: 8px;
+}
+
+
+/* Hidden State */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+
+/* category features banner */
+
+.category-features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+
+/* Images Grid */
+.category-images-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Image Item */
+.category-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* ✔ senin banner’ın oranı */
+  border-radius: 12px;
+  background: #f3f4f6;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.category-image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+
+
+/* BEST SELLER CONTAINER */
+.best-container {
+  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin-bottom: 20px;
+}
+
+.best-label {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* SLIDER BOX */
+.best-box {
+  position: relative;
+  width: 100%;
+}
+
+/* SLIDER WINDOW */
+.slider-window-best {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 15px 0;     /* gölge yüksekliğine göre 10-20px arası */
+  margin: -15px 0;     /* dışarı taşmasını engeller */
+  box-sizing: border-box;
+  padding-left: 2px;        /* gölge kadar boşluk bırak */
+}
+
+
+
+/* SLIDER TRACK */
+.slider-track-best {
+  display: flex;
+  gap: clamp(12px, 2.5vw, 27px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* BEST ITEM */
+.best-item {
+
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  min-width: 200px; /* Slider için width sınırı */
+
+}
+
+.best-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* IMAGE BOX */
+.image-box {
+  width: 100%;
+  height: 200px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* ITEM TITLE */
+.item-title {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ITEM RATING */
+.item-rating {
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.item-rating span {
+  color: #888;
+}
+
+/* ITEM BOTTOM */
+.item-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #06772D;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.add-cart {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: #f5f5f5;
+}
+
+/* ARROW BUTTONS */
+.best-arrow {
+  background: #ffffff;
+  border: none;
+  font-size: clamp(20px, 4vw, 28px);
+  cursor: pointer;
+  padding: clamp(8px, 2vw, 12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: clamp(40px, 8vw, 56px);
+  height: clamp(40px, 8vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #333;
+  flex-shrink: 0;
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.best-arrow.left { left: 0; }
+.best-arrow.right { right: 0; }
+
+.hidden { display: none; }
+
+
+
+/* advantages */
+
+.advantages {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+}
+
+.adv-item {
+  background: white;
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.adv-item:hover {
+  transform: translateY(-8px);
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #e74c3c; /* Kırmızı renk */
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+
+
+/* footer */
+.site-footer {
+  background-color: #f8f9fa;
+  padding: 40px 0 20px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #000;
+  font-weight: bold;
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-column ul li {
+  margin-bottom: 8px;
+}
+.footer-column ul li a {
+  color: #555;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-column ul li a:hover {
+  color: #e30613;
+}
+.phone {
+  color: #e30613 !important;
+  font-size: 24px !important;
+  font-weight: bold;
+}
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #dee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #666;
+}
+.payment-icons img {
+  height: 30px;
+  margin-right: 15px;
+}
+.social-icons a {
+  margin-left: 15px;
+}
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.social-icons img:hover {
+  opacity: 1;
+}
+.copyright {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+}
+
+  /* Tablet */
+  @media (max-width: 992px) {
+    .slider {
+      aspect-ratio: 3.2 / 1;
+      max-width: 100%;
+    }
+  
+    .arrow {
+      width: 38px;
+      height: 38px;
+    }
+    
+  }
+  
+  /* Mobil */
+  @media (max-width: 768px) {
+  
+    .slider {
+      aspect-ratio: 2.7 / 1; /* daha dik oran */
+      
+    }
+  
+    .slide img {
+      object-fit: cover; /* içeriği doldur */
+    }
+  
+    .arrow {
+      width: 32px;
+      height: 32px;
+    }
+  
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .category-arrow {
+      display: none; /* Hide arrows on mobile, use touch scroll */
+    }
+    
+    .slider-window {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .slider-window::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .slider-track {
+      gap: 12px;
+      padding: 4px;
+    } 
+    
+
+/* cateogry feature*/
+.category-images-box {
+    grid-template-columns: 1fr; /* ✔ mobilde alt alta gelsin */
+  }
+
+  .category-image {
+    aspect-ratio: 300 / 150; /* oran aynı, divi tam kaplıyor */
+  }
+
+  /* BEST SELLER */
+  .best-container {
+    padding: 8px;
+  }
+
+  .slider-window-best{
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .slider-track-best {
+    gap: clamp(8px, 4vw, 16px);
+  }
+
+  .best-item {
+    min-width: 155px;
+    padding: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* hafif gölge */
+  }
+
+  .image-box {
+    height: 150px;
+  }
+
+  .item-title {
+    font-size: 15px;
+  }
+
+  .item-rating {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .item-price {
+    font-size: 15px;
+  }
+
+  .add-cart {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .best-arrow {
+    display: none;
+  }
+}
+  /* Küçük Mobil */
+  @media (max-width: 480px) {
+ 
+    .slider-arrows, .best-arrow{
+        display: none;
+    }
+    .arrow {
+      width: 28px;
+      height: 28px;
+    }
+  
+    .slider-dot {
+      width: 7px;
+      height: 7px;
+    }
+  /* BEST SELLER */
+  .best-label {
+    margin-bottom: 10px;
+  }
+
+  .best-item {
+  }
+  .slider-track-best {
+    gap: 10px;
+  }
+
+  .image-box {
+    height: 120px;
+  }
+
+  .item-title {
+    font-size: 15px;
+  }
+
+  .item-rating {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .item-price {
+    font-size: 14px;
+  }
+
+  .add-cart {
+    padding: 4px 6px;
+    font-size: 13px;
+  }
+
+  .best-arrow {
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+  }
+  }
+  

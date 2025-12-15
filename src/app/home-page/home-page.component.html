@@ -1,0 +1,31 @@
+
+<input [(ngModel)]="login" type="text" placeholder="phoneNumber Or Email"> <br>
+<input [(ngModel)]="password" type="text" placeholder="password"><br>
+<button (click)="tryToLogin()" >Giriş </button><br>
+{{login }} <br> {{password }}
+<br><br>
+<button (click)="tryToGetInfo()">bilgilerimi al</button>
+
+
+<div class="checkout-card">
+    <h3>Ödeme Bilgileri</h3>
+  
+    <label for="name">Ad Soyad</label>
+    <input id="name" type="text" [(ngModel)]="customerName" placeholder="Kart sahibinin adı" />
+  
+    <label>Kart Bilgileri</label>
+    <!-- Stripe Elements burada mount edilecek -->
+    <div #cardInfo id="card-element" style="padding:10px; border:1px solid #e6e6e6; border-radius:8px;"></div>
+  
+    <div *ngIf="cardErrors" class="error" style="color:#fa755a; margin-top:8px;">
+      {{ cardErrors }}
+    </div>
+  
+    <button (click)="pay()" [disabled]="loading" style="margin-top:12px;">
+      {{ loading ? 'İşleniyor...' : 'Ödemeyi Tamamla' }}
+    </button>
+  
+    <div *ngIf="paymentMessage" style="margin-top:12px;">
+      {{ paymentMessage }}
+    </div>
+  </div>
