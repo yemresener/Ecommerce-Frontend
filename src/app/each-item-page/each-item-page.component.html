@@ -9,8 +9,36 @@
 
     <div class="product-content">
         <div class="product-image-section">
+
             <div class="product-image">
-                <img src="assets/images/category3.jpg" alt="">
+                <button (click)="prev()" class="image-button left">&#10094;</button>
+
+            <div class="image-window">
+                <div
+                class="image-track"
+                [style.transform]="getTransform()"
+                >
+                <img
+                    *ngFor="let item of itemSlider.items"
+                    [src]="item.img"
+                    alt=""
+                />
+                </div>
+            </div>
+
+            <button (click)="next()" class="image-button right">&#10095;</button>
+
+            </div>
+            
+            <div class="thumbs">
+                <div
+                  class="thumb"
+                *ngFor="let item of itemSlider.items; let i=index"
+                [class.active]="i ===sliderState.index"
+                (click)="sliderState.index=i"
+                >
+                  <img [src]="item.img" alt="">
+                </div>
             </div>
         </div>
 

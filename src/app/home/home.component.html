@@ -61,81 +61,71 @@
 
 
 <div class="best-container">
-  <label class="best-label">Popüler Ürünler</label>
+  <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
-  <div class="best-box">
+  <app-slider [slider]="bestSellerSlider" [itemWidth]="242">
 
-    <!-- Sol ok -->
-    <button class="best-arrow left" 
-            (click)="prev(bestSellerSlider)" 
-            [class.hidden]="bestSellerSlider.index === 0">‹</button>
+    <div class="best-item" *ngFor="let item of bestSellerSlider.items">
+      <div class="image-box">
+        <img [src]="item.img" alt="">
+      </div>
 
-    <!-- Slider window -->
-    <div class="slider-window-best">
-      <div class="slider-track-best" [style.transform]="getTransform(bestSellerSlider)">
-        <div class="best-item" *ngFor="let item of bestSellerSlider.items">
-          <div class="image-box">
-            <img [src]="item.img" alt="">
-          </div>
-          <label class="item-title">{{item.title}}</label>
-          <div class="item-rating">
-            <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
-            {{item.avg}} <span>({{item.commentCount}})</span>
-          </div>
-          <div class="item-bottom">
-            <span class="item-price">{{item.price}}<label style="font-size: 10px;">TL</label></span>
-            <button class="add-cart"><i class="fa-solid fa-cart-plus"></i></button>
-          </div>
-        </div>
+      <label class="item-title">{{ item.title }}</label>
+
+      <div class="item-rating">
+        <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
+        {{ item.avg }} <span>({{ item.commentCount }})</span>
+      </div>
+
+      <div class="item-bottom">
+        <span class="item-price">
+          {{ item.price }}<label style="font-size: 10px;">TL</label>
+        </span>
+        <button class="add-cart">
+          <i class="fa-solid fa-cart-plus"></i>
+        </button>
       </div>
     </div>
 
-    <!-- Sağ ok -->
-    <button class="best-arrow right" 
-            (click)="next(bestSellerSlider)" 
-            [class.hidden]="bestSellerSlider.index >= MaxIndex(bestSellerSlider)">›</button>
-
-  </div>
+  </app-slider>
 </div>
+
 
 
 <div class="best-container">
   <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
-  <div class="best-box">
+  <app-slider [slider]="forYouSlider" [itemWidth]="242">
 
-    <!-- Sol ok -->
-    <button class="best-arrow left" 
-            (click)="prev(forYouSlider)" 
-            [class.hidden]="forYouSlider.index === 0">‹</button>
+    <div class="best-item" *ngFor="let item of forYouSlider.items">
+      <div class="image-box">
+        <img [src]="item.img" alt="">
+      </div>
 
-    <!-- Slider window -->
-    <div class="slider-window-best">
-      <div class="slider-track-best" [style.transform]="getTransform(forYouSlider)">
-        <div class="best-item" *ngFor="let item of forYouSlider.items">
-          <div class="image-box">
-            <img [src]="item.img" alt="">
-          </div>
-          <label class="item-title">{{item.title}}</label>
-          <div class="item-rating">
-            <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
-            {{item.avg}} <span>({{item.commentCount}})</span>
-          </div>
-          <div class="item-bottom">
-            <span class="item-price">{{item.price}}<label style="font-size: 10px;">TL</label></span>
-            <button class="add-cart"><i class="fa-solid fa-cart-plus"></i></button>
-          </div>
-        </div>
+      <label class="item-title">{{ item.title }}</label>
+
+      <div class="item-rating">
+        <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
+        {{ item.avg }} <span>({{ item.commentCount }})</span>
+      </div>
+
+      <div class="item-bottom">
+        <span class="item-price">
+          {{ item.price }}<label style="font-size: 10px;">TL</label>
+        </span>
+        <button class="add-cart">
+          <i class="fa-solid fa-cart-plus"></i>
+        </button>
       </div>
     </div>
 
-    <!-- Sağ ok -->
-    <button class="best-arrow right" 
-            (click)="next(forYouSlider)" 
-            [class.hidden]="forYouSlider.index >= MaxIndex(forYouSlider)">›</button>
-
-  </div>
+  </app-slider>
 </div>
+
+
+
+
+
 
 <div style="
     max-width:1200px;

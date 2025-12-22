@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SliderComponent } from '../shared/components/slider/slider.component';
+import { SliderModel } from '../shared/components/slider/slider.model';
+
 interface Slide{
   img:string;
   title?:string;
 }
 
-interface SliderModel {
-  items: any[];
-  index: number;
-  visible: number;
-}
+
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule,SliderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

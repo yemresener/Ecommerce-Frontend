@@ -1,0 +1,36 @@
+<div class="best-box">
+
+    <!-- Sol ok -->
+    <button
+      class="best-arrow left"
+      (click)="prev()"
+      [class.hidden]="slider.index === 0"
+    >
+      ‹
+    </button>
+  
+    <!-- Slider window -->
+    <div class="slider-window-best">
+      <div
+        class="slider-track-best"
+        [style.transform]="getTransform()"
+      >
+        <ng-content></ng-content>
+      </div>
+    </div>
+  
+    <!-- Sağ ok -->
+    <button
+      class="best-arrow right"
+      (click)="next()"
+      [class.hidden]="slider.index >= maxIndex()"
+    >
+      ›
+    </button>
+  
+  </div>
+
+
+
+
+  
