@@ -1,0 +1,230 @@
+
+
+/* GENEL AYARLAR */
+.review-container {
+    max-width: 1200px;
+    width: 95%; /* Mobilde kenarlara sıfır yapışmaması için */
+    margin: 30px auto;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    animation: fadeIn 0.6s ease-out;
+    margin-top: 50px;
+}
+
+.review-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* ANA KUTU (GRID YAPISI) */
+.review-box {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Sol 350px, Sağ kalan alan */
+    gap: 24px;
+    align-items: start;
+}
+
+/* SOL: ÜRÜN ÖZET (STICKY) */
+.short-product {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 24px;
+    position: sticky; /* Sayfa kayarken takip eder */
+    top: 20px;
+}
+
+.short-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.short-img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.short-product-title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* SAĞ: YORUMLAR */
+.reviews {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 24px;
+    
+}
+
+.comments-title {
+    font-size: 18px;
+    font-weight: 600;
+
+}
+
+.each-comment {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+
+.each-comment:last-child {
+    border-bottom: none;
+}
+
+.comment-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.comment-user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+}
+
+.comment-details {
+    flex: 1;
+}
+
+.rating-text {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 8px;
+}
+.stars{
+    margin-bottom: 10px;
+}
+
+.review-count{
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+}
+
+.stars i,.stars-comment i {
+    color: #f5a623;
+    font-size: 13px;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #999;
+    margin-left: auto;
+}
+
+.comment-content {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+
+}
+
+/* RATING CHART (PUAN TABLOSU) */
+.rating-chart {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.star-label {
+    min-width: 35px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.star-label i {
+    color: #f5a623;
+    font-size: 12px;
+}
+
+.bar {
+    flex: 1;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #f5a623;
+    transition: width 0.8s ease-in-out;
+}
+
+.count {
+    min-width: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    
+}
+
+/* ======================
+   RESPONSIVE (MOBİL UYUM)
+====================== */
+
+/* Tablet ve Küçük Ekranlar */
+@media (max-width: 992px) {
+    .review-box {
+        grid-template-columns: 1fr; /* Yan yana yapıyı alt alta yap */
+        gap: 20px;
+    }
+
+    .short-product {
+        position: static; /* Mobilde yukarıda sabit kalmasın */
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Telefon Ekranları */
+@media (max-width: 576px) {
+    .comment-user-info {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 8px;
+    }
+    
+    .comment-date {
+        grid-column: 1 / span 2; /* Tarihi en alta atar */
+        margin-left: 0;
+        margin-top: 4px;
+    }
+
+    .review-title {
+        font-size: 18px;
+    }
+
+    .reviews, .short-product {
+        padding: 15px;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

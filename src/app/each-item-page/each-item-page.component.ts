@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
 
 interface product{
   images:[];
@@ -26,7 +26,7 @@ interface sliderState{
 
 @Component({
   selector: 'app-each-item-page',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,ProductReviewComponent],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
@@ -37,7 +37,10 @@ export class EachItemPageComponent {
     items:[
       { img: 'assets/images/category11.jpg', },
       { img: 'assets/images/category2.jpg' },
-      { img: 'assets/images/category3.jpg' }
+      { img: 'assets/images/category3.jpg' },
+      { img: 'assets/images/category4.jpg' },
+      
+
 
     ]
   };
