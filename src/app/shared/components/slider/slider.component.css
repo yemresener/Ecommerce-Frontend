@@ -52,7 +52,7 @@
     gap: clamp(12px, 2.5vw, 27px);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  @media(max-width:768px){
+  @media(max-width:990px){
     .best-arrow{
         display: none;
     }

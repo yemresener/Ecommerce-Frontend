@@ -1,0 +1,27 @@
+    <div class="best-item">
+        <div class="image-box">
+        <img [src]="item.img" alt="">
+        </div>
+    
+        <label class="item-title">
+        {{ item.title }}
+        </label>
+    
+        <div class="item-rating">
+        <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
+        {{ item.avg }}
+        <span>({{ item.commentCount }})</span>
+        </div>
+    
+        <div class="item-bottom">
+        <span class="item-price">
+            {{ item.price }}
+            <small>TL</small>
+        </span>
+    
+        <button class="add-cart">
+            <i class="fa-solid fa-cart-plus"></i>
+        </button>
+        </div>
+    </div>
+  

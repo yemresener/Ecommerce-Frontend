@@ -14,14 +14,14 @@ export class SliderComponent<T> {
   @Input() itemWidth= 242;
 
   maxIndex(){
-    return Math.max(0, this.slider.items.length - this.slider.visible);
+    return Math.max(0, this.slider.items.length - this.slider.visible); 
   }
 
   next(){
-    const max = this.maxIndex();
-    this.slider.index = Math.min(
+    const max = this.maxIndex(); 
+    this.slider.index = Math.min( 
       this.slider.index + this.slider.visible,
-      max
+      max //8
     );
   }
 
@@ -33,6 +33,6 @@ export class SliderComponent<T> {
   }
 
   getTransform(){
-    return `translateX(-${this.slider.index * this.itemWidth}px)`;
+    return `translateX(-${this.slider.index * (this.itemWidth)}px)`;
   }
 }

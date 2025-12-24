@@ -396,35 +396,6 @@
   background-color: #f5f5f5;
 }
 
-/* ARROW BUTTONS */
-.best-arrow {
-  background: #ffffff;
-  border: none;
-  font-size: clamp(20px, 4vw, 28px);
-  cursor: pointer;
-  padding: clamp(8px, 2vw, 12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  width: clamp(40px, 8vw, 56px);
-  height: clamp(40px, 8vw, 56px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  color: #333;
-  flex-shrink: 0;
-  position: absolute;
-  top: 46%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
-.best-arrow.left { left: 0; }
-.best-arrow.right { right: 0; }
-
-.hidden { display: none; }
-
-
 
 /* advantages */
 
@@ -606,7 +577,7 @@
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      -ms-overflow-style: none;
+      -ms-overflow-style: none; 
     }
     
     .slider-window::-webkit-scrollbar {
@@ -645,37 +616,6 @@
     gap: clamp(8px, 4vw, 16px);
   }
 
-  .best-item {
-    min-width: 155px;
-    padding: 5px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* hafif gölge */
-  }
-
-  .image-box {
-    height: 150px;
-  }
-
-  .item-title {
-    font-size: 15px;
-  }
-
-  .item-rating {
-    font-size: 15px;
-    margin-bottom: 20px;
-  }
-
-  .item-price {
-    font-size: 15px;
-  }
-
-  .add-cart {
-    padding: 5px 8px;
-    font-size: 12px;
-  }
-
-  .best-arrow {
-    display: none;
-  }
 }
   /* Küçük Mobil */
   @media (max-width: 480px) {
@@ -703,32 +643,5 @@
     gap: 10px;
   }
 
-  .image-box {
-    height: 120px;
-  }
-
-  .item-title {
-    font-size: 15px;
-  }
-
-  .item-rating {
-    font-size: 13px;
-    margin-bottom: 15px;
-  }
-
-  .item-price {
-    font-size: 14px;
-  }
-
-  .add-cart {
-    padding: 4px 6px;
-    font-size: 13px;
-  }
-
-  .best-arrow {
-    font-size: 18px;
-    width: 30px;
-    height: 30px;
-  }
   }
   

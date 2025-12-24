@@ -59,39 +59,22 @@
   </div>
 </div>
 
-
 <div class="best-container">
   <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
   <app-slider [slider]="bestSellerSlider" [itemWidth]="242">
 
-    <div class="best-item" *ngFor="let item of bestSellerSlider.items">
-      <div class="image-box">
-        <img [src]="item.img" alt="">
-      </div>
-
-      <label class="item-title">{{ item.title }}</label>
-
-      <div class="item-rating">
-        <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
-        {{ item.avg }} <span>({{ item.commentCount }})</span>
-      </div>
-
-      <div class="item-bottom">
-        <span class="item-price">
-          {{ item.price }}<label style="font-size: 10px;">TL</label>
-        </span>
-        <button class="add-cart">
-          <i class="fa-solid fa-cart-plus"></i>
-        </button>
-      </div>
-    </div>
+    <app-card
+      *ngFor="let item of bestSellerSlider.items"
+      [item]="item">
+    </app-card>
 
   </app-slider>
 </div>
 
 
 
+<!--- 
 <div class="best-container">
   <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
@@ -121,7 +104,21 @@
 
   </app-slider>
 </div>
+-->
 
+
+<div class="best-container">
+  <label class="best-label">Sizin İçin Seçtiklerimiz</label>
+
+  <app-slider [slider]="forYouSlider" [itemWidth]="242">
+
+    <app-card
+      *ngFor="let item of forYouSlider.items"
+      [item]="item">
+    </app-card>
+
+  </app-slider>
+</div>
 
 
 

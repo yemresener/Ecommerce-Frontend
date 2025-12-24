@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { SliderModel } from '../shared/components/slider/slider.model';
-
+import { CardComponent } from '../shared/components/product/card/card.component';
 interface Slide{
   img:string;
   title?:string;
@@ -12,7 +12,7 @@ interface Slide{
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,SliderComponent],
+  imports: [CommonModule,SliderComponent,CardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

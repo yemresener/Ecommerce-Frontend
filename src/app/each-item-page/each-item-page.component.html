@@ -13,7 +13,8 @@
             <div class="product-image">
                 <button (click)="prev()" class="image-button left">&#10094;</button>
 
-            <div class="image-window">
+            <div class="image-window"   (touchstart)="onTouchStart($event)"
+            (touchend)="onTouchEnd($event)">
                 <div
                 class="image-track"
                 [style.transform]="getTransform()"
@@ -23,12 +24,20 @@
                     [src]="item.img"
                     alt=""
                 />
+                
                 </div>
+              
+                <div class="image-counter">
+                    {{sliderState.index+1 }}/{{itemSlider.items.length}}
+                </div>
+
             </div>
 
             <button (click)="next()" class="image-button right">&#10095;</button>
 
             </div>
+       
+
             
             <div class="thumbs">
                 <div
@@ -61,6 +70,7 @@
                 <div class="price">
                     1.299<span class="currency">,99 TL</span>
                 </div>
+       
             </div>
 
             <div class="actions">
@@ -68,12 +78,12 @@
                     <i class="fas fa-shopping-cart"></i>
                     Sepete Ekle
                 </button>
-                
+            </div>
                 <div class="delivery-badge">
                     <i class="fas fa-truck-fast"></i>
                     <span>19 Aralık'ta Kargoda!</span>
                 </div>
-            </div>
+    
 
             <div class="description-section">
                 <div class="description-title">
@@ -107,5 +117,49 @@
     </div>
 </div>
 
+<div class="price-section-mobile">
+    <div class="price-mobile">
+        1.299,99 <label style="font-size: 10px;">TL</label>
+    </div>
+    <button style="width: 75%;" class="add-to-cart">
+        <i class="fas fa-shopping-cart"></i>
+        Sepete Ekle
+    </button>
+</div>
+
+
+
+
 
 <app-product-review></app-product-review>
+
+<div class="reco-container">
+  <label class="reco-label">Bu ürünleri de inceleyebilirsin</label>
+
+  <app-slider [slider]="recommendationProducts" [itemWidth]="242">
+
+    <app-card
+      *ngFor="let item of recommendationProducts.items"
+      [item]="item">
+    </app-card>
+
+  </app-slider>
+</div>
+
+
+<div class="reco-container">
+    <label class="reco-label">Kategorinin sevilen ürünleri</label>
+  
+    <app-slider [slider]="categoryBests" [itemWidth]="242">
+  
+      <app-card
+        *ngFor="let item of categoryBests.items"
+        [item]="item">
+      </app-card>
+  
+    </app-slider>
+  </div>
+  
+  
+
+

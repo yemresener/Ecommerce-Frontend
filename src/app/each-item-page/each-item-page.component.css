@@ -1,5 +1,3 @@
-
-
 .container {
     max-width: 1200px;
     width: 100%;
@@ -24,7 +22,7 @@
 }
 
 .breadcrumb {
-    padding: 24px 40px;
+    padding: 20px 24px;
     font-size: 14px;
     border-bottom: 1px solid #e2e8f0;
 }
@@ -46,11 +44,12 @@
 .product-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-/*     gap: 60px;
-    padding: 60px;
-    */
+    /* gap: 60px;
+        padding: 60px;
+        */
     margin-top: 30px;
-}
+    }
+
 /* IMAGE AND ARROWS */
 .product-image-section {
     position: relative;
@@ -63,37 +62,36 @@
     position: relative;
     overflow: hidden;
     border: 1px solid #e5e7eb;
-    background: #f8fafc; /* boşluk olursa kötü durmasın */
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-
+    
 }
 
-  /* VIEWPORT */
-  .image-window {
+/* VIEWPORT */
+.image-window {
     width: 100%;
     height: 100%;
     overflow: hidden;
-  }
-  
-  /* TRACK */
-  .image-track {
+    position: relative
+}
+
+/* TRACK */
+.image-track {
     display: flex;
     height: 100%;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* IMAGE */
-  .image-track img {
+}
+
+/* IMAGE */
+.image-track img {
     width: 100%;
     height: 100%;
     flex-shrink: 0;
     object-fit: contain;
-  }
-
-
+}
 
 .image-button {
     background: #ffffff;
@@ -128,8 +126,6 @@
 .image-button.right {
     right: 12px;
 }
-
-/* IMAGE AND ARROWS */
 
 .badge {
     position: absolute;
@@ -190,6 +186,9 @@
     padding: 24px;
     border-radius: 16px;
     border: 2px solid #bae6fd;
+}
+.price-section-mobile {
+    display: none;
 }
 
 .price {
@@ -302,7 +301,6 @@
 }
 
 /* THUMBS */
-
 .thumbs {
     width: 500px;
     margin-top: 14px;
@@ -310,16 +308,15 @@
     gap: 10px;
     overflow-x: auto;
     padding-bottom: 4px;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
     justify-content: center;
-  }
-  
-  .thumbs::-webkit-scrollbar {
-    display: none; /* Chrome */
-  }
-  
-  /* THUMB ITEM */
-  .thumb {
+}
+
+.thumbs::-webkit-scrollbar {
+    display: none;
+}
+
+.thumb {
     width: 68px;
     height: 68px;
     border-radius: 10px;
@@ -330,34 +327,30 @@
     border: 2px solid transparent;
     transition: all 0.25s ease;
     position: relative;
-  }
-  
-  /* IMAGE */
-  .thumb img {
+}
+
+.thumb img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: transform 0.25s ease;
-  }
-  
-  /* HOVER */
-  .thumb:hover {
+}
+
+.thumb:hover {
     border-color: #cbd5f5;
-  }
-  
-  .thumb:hover img {
+}
+
+.thumb:hover img {
     transform: scale(1.05);
-  }
-  
-  /* ACTIVE THUMB */
-  .thumb.active {
+}
+
+.thumb.active {
     border-color: #3b82f6;
     box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
     background: #ffffff;
-  }
-  
-  /* ACTIVE INDICATOR (optional çizgi) */
-  .thumb.active::after {
+}
+
+.thumb.active::after {
     content: '';
     position: absolute;
     bottom: -6px;
@@ -367,20 +360,41 @@
     height: 3px;
     border-radius: 2px;
     background: #3b82f6;
-  }
+}
 
+.reco-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin-bottom: 20px;
+}
 
+.reco-label {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+    display: block;
+    margin-bottom: 20px;
+}
 
-
-  @media (max-width: 1024px) {
+/* =========================
+   TABLET (1024px ve altı)
+========================= */
+@media (max-width: 1024px) {
     .product-content {
         gap: 40px;
         padding: 40px 30px;
     }
 
+    .product-image,
+    .thumbs {
+        width: 460px;
+        max-width: 100%;
+    }
+
     .product-image {
-        width: 420px;
-        height: 420px;
+        height: 460px;
     }
 
     .product-title {
@@ -397,9 +411,15 @@
 }
 
 /* =========================
-   MOBIL (768px ve altı)
+   MOBİL (768px ve altı)
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 815px) {
+    .container {
+        padding: 8px;
+    }
+    .container{
+        width: 95%;
+    }
     .breadcrumb {
         padding: 16px 20px;
         font-size: 13px;
@@ -407,37 +427,45 @@
 
     .product-content {
         grid-template-columns: 1fr;
-        padding: 24px 16px;
         gap: 32px;
+        padding: 24px 16px;
     }
-
-    /* IMAGE */
+    .product-image-section{
+        align-items: center;
+        text-align: center;
+        display: grid;
+        justify-content: center;
+    
+    }
     .product-image {
         width: 100%;
         height: auto;
         aspect-ratio: 1 / 1;
+        align-items: center;
+        max-width: 500px;
     }
 
-    .image-button {
-        width: 44px;
-        height: 44px;
-        font-size: 14px;
-    }
-
-    /* THUMBS */
     .thumbs {
-        justify-content: flex-start;
-        padding: 0 4px;
+        width: 100%;
+        max-width: 500px;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 10px 8px;
     }
 
     .thumb {
-        width: 60px;
-        height: 60px;
+        width: 64px;
+        height: 64px;
     }
 
-    /* DETAILS */
+    .image-button {
+        width: 48px;
+        height: 48px;
+        font-size: 16px;
+    }
+
     .product-title {
-        font-size: 22px;
+        font-size: 24px;
         line-height: 1.3;
     }
 
@@ -454,31 +482,26 @@
         font-size: 13px;
     }
 
-    /* PRICE */
     .price-section {
-        padding: 20px;
+        display: none; /* Mobilde sabit fiyat çubuğu var, üstteki gizleniyor */
     }
 
-    .price {
-        font-size: 32px;
+    .actions {
+        display: block;
     }
 
-    .currency {
-        font-size: 20px;
-    }
-
-    /* ACTIONS */
     .add-to-cart {
-        padding: 16px;
-        font-size: 16px;
+        width: 100%;
+        padding: 18px;
+        font-size: 17px;
     }
 
     .delivery-badge {
+        justify-content: center;
+        font-size: 15px;
         padding: 12px 16px;
-        font-size: 14px;
     }
 
-    /* DESCRIPTION */
     .description-title {
         font-size: 16px;
     }
@@ -487,34 +510,137 @@
         font-size: 14px;
     }
 
-    /* FEATURES */
     .features {
         grid-template-columns: 1fr;
     }
+
+
 }
 
 /* =========================
-   KÜÇÜK MOBİL (480px)
+   KÜÇÜK MOBİL (480px ve altı)
 ========================= */
 @media (max-width: 480px) {
+    .product-content {
+        padding: 20px 12px;
+        gap: 28px;
+    }
+
     .product-title {
-        font-size: 20px;
+        font-size: 21px;
     }
 
     .price {
         font-size: 28px;
     }
 
+    .thumbs {
+        gap: 10px;
+    }
+
     .thumb {
-        width: 54px;
-        height: 54px;
+        width: 58px;
+        height: 58px;
+    }
+
+    .image-button {
+        width: 42px;
+        height: 42px;
+        font-size: 14px;
     }
 
     .image-button.left {
-        left: 6px;
+        left: 8px;
     }
 
     .image-button.right {
-        right: 6px;
+        right: 8px;
     }
+
+    .description-text {
+        font-size: 14.5px;
+    }
+
+    .feature-item {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .price-section, .actions{
+        display: none;
+    }
+
+.price-section-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-top: 1px solid #bae6fd;
+    padding: 10px;
+    justify-content: center;
+    z-index: 999;
+}
+.add-to-cart{
+    width: 100%; /* Mobilde ve bazı yerlerde tam genişlik olsun */
+    max-width: 250px; /* Çok geniş ekranlarda aşırı uzamasın */
+    margin: 0 auto;
+}
+
+
+.price-mobile{
+    font-size: 20px;
+    font-weight: 800;
+    color: #0c4a6e;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin-left: 10px;
+}
+
+
+}
+@media(max-width:576px){
+    
+    .reco-label {
+        font-size: 18px;
+    }
+    .image-track {
+
+        
+        /* Scroll snap özellikleri */
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+      }
+      
+      /* Scrollbar'ı gizle */
+      .image-track::-webkit-scrollbar {
+        display: none;
+      }
+      
+      /* Her bir image için snap point */
+      .image-track > * {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+    .thumbs{
+        display: none
+    }
+    .image-button{
+        display: none;
+    }
+    .image-counter {
+        
+        position: absolute;
+        bottom: 8px;
+        left: 10px;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 5px;
+        z-index: 5;
+        background-color: rgb(185, 185, 185);
+        color: rgb(255, 255, 255);
+      }
+
 }
