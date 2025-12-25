@@ -60,8 +60,9 @@
                         </div>
                         <span class="count">1</span>
                     </div>
+                    
                 </div>
-
+                <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
             </div>
         </div>
         <div class="reviews">
@@ -106,4 +107,37 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- Comment Create Layout -->
+<div class="modal-overlay" *ngIf="commentPopUp" (click)="commentPopUp=0">
+    <div class="create-container"  (click)="$event.stopPropagation()">
+
+        <div class="create-box">
+            <button class="close-button" (click)="commentPopUp=0" >
+                &times;
+            </button>
+            <label class="rating-title">Ürünü Puanla <hr style="margin-top: 20px; border: 1px solid rgb(204, 204, 204);"></label>
+
+            <div class="rating-box">
+            
+                <div class="create-stars" data-rating="0"   (mouseleave)="clearHover()">
+                    <i *ngFor="let star of [1,2,3,4,5]" class="fa-solid fa-star"
+                    [class.active]="(hoverRating || rating)>=star"
+                    (mouseenter)="setHover(star)"
+                    (click)="setRating(star)"
+                    ></i>
+                </div>
+            
+                <input type="hidden" id="rating-value" value="0">
+
+            </div>
+            <textarea spellcheck="false" placeholder="Bu ürün hakkında paylaşmak istediğiniz tecrübe ve deneyimlerinizi yazınız" class="create-text-area"></textarea>
+            <div class="action-buttons">
+                <button class="cancel-button"  (click)="commentPopUp=0">Vazgeç</button>
+                <button class="create-button">Gönder</button>
+            </div>
+        </div>
+    </div>
 </div>

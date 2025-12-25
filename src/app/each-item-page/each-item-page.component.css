@@ -381,7 +381,10 @@
 /* =========================
    TABLET (1024px ve altı)
 ========================= */
-@media (max-width: 1024px) {
+@media (max-width: 1305px) {
+    .container{
+        width: 95%;
+    }
     .product-content {
         gap: 40px;
         padding: 40px 30px;
@@ -413,22 +416,20 @@
 /* =========================
    MOBİL (768px ve altı)
 ========================= */
-@media (max-width: 815px) {
+@media (max-width: 855px) {
     .container {
         padding: 8px;
     }
-    .container{
-        width: 95%;
-    }
+  
     .breadcrumb {
-        padding: 16px 20px;
-        font-size: 13px;
+        display: none;
     }
 
     .product-content {
         grid-template-columns: 1fr;
         gap: 32px;
         padding: 24px 16px;
+        margin-top: 0;
     }
     .product-image-section{
         align-items: center;
@@ -482,9 +483,7 @@
         font-size: 13px;
     }
 
-    .price-section {
-        display: none; /* Mobilde sabit fiyat çubuğu var, üstteki gizleniyor */
-    }
+    
 
     .actions {
         display: block;
@@ -494,6 +493,7 @@
         width: 100%;
         padding: 18px;
         font-size: 17px;
+        
     }
 
     .delivery-badge {
@@ -522,8 +522,9 @@
 ========================= */
 @media (max-width: 480px) {
     .product-content {
-        padding: 20px 12px;
         gap: 28px;
+        padding: 0;
+        margin-top: 8px;
     }
 
     .product-title {
@@ -584,7 +585,7 @@
 }
 .add-to-cart{
     width: 100%; /* Mobilde ve bazı yerlerde tam genişlik olsun */
-    max-width: 250px; /* Çok geniş ekranlarda aşırı uzamasın */
+    max-width: 230px; /* Çok geniş ekranlarda aşırı uzamasın */
     margin: 0 auto;
 }
 

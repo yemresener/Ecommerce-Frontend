@@ -272,6 +272,10 @@ body {
     display: flex;
     justify-content: center;
    }
+   .category-bar{
+    display: none; 
+   }
+
 }
 
 @media (max-width: 480px) {
