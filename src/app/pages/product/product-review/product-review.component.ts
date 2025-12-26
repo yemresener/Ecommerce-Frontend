@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 export class ProductReviewComponent {
   commentPopUp = 0;
 
-
+  @Input() addCart:boolean=false;
 
   rating=0;
   hoverRating=0;

@@ -1,7 +1,5 @@
 <div class="review-container">
-    <label class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
-    font-size: 18px;
-    color: gray;">(2)</label></label>
+    <ng-content select="[review-title]"></ng-content>
     <div class="review-box">
         <div class="short-product">
             <img class="short-img" src="assets/images/category11.jpg" alt="">
@@ -62,9 +60,15 @@
                     </div>
                     
                 </div>
-                <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
+                <div class="action-buttons">
+                    <button *ngIf="addCart" class="add-to-cart" >  <i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
+                    <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
+                </div>
+
             </div>
+
         </div>
+        
         <div class="reviews">
             <label class="comments-title">Yorumlar</label>
             <div class="each-comment">
@@ -103,7 +107,81 @@
                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure fugit, magnam, vero quibusdam ducimus placeat facilis nobis ratione velit, odit sed repellendus veniam! Velit dolores facilis sit, laudantium enim architecto laborum quidem quia voluptates iste atque corrupti, molestiae minima ipsum dolor amet cumque voluptate ullam sequi. Quae commodi quos earum?
                 </div>
             </div>
-            
+            <div class="each-comment">
+                <div class="comment-user-info">
+                    <img src="assets/images/category11.jpg" alt="">
+                    Yunus123
+                    <div class="stars-comment">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="rating-text">5</span>
+                    <label class="comment-date">20.12.2025 11:45</label>
+                </div>
+                <div class="comment-content">
+                    Ürün çok güzel beğendik teşekkür ederiz :)))
+                </div>
+            </div>
+            <div class="each-comment">
+                <div class="comment-user-info">
+                    <img src="assets/images/category11.jpg" alt="">
+                    Yunus123
+                    <div class="stars-comment">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="rating-text">5</span>
+                    <label class="comment-date">20.12.2025 11:45</label>
+                </div>
+                <div class="comment-content">
+                    Ürün çok güzel beğendik teşekkür ederiz :)))
+                </div>
+            </div>
+            <div class="each-comment">
+                <div class="comment-user-info">
+                    <img src="assets/images/category11.jpg" alt="">
+                    Yunus123
+                    <div class="stars-comment">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="rating-text">5</span>
+                    <label class="comment-date">20.12.2025 11:45</label>
+                </div>
+                <div class="comment-content">
+                    Ürün çok güzel beğendik teşekkür ederiz :)))
+                </div>
+            </div>
+            <div class="each-comment">
+                <div class="comment-user-info">
+                    <img src="assets/images/category11.jpg" alt="">
+                    Yunus123
+                    <div class="stars-comment">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="rating-text">5</span>
+                    <label class="comment-date">20.12.2025 11:45</label>
+                </div>
+                <div class="comment-content">
+                    Ürün çok güzel beğendik teşekkür ederiz :)))
+                </div>
+            </div>
+            <div *ngIf="!addCart" class="more-box">
+               <a href="/comment"> <button class="more-comment">Tüm Yorumları Gör (19)</button></a>
+            </div>
         </div>
     </div>
 

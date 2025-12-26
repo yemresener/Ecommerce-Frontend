@@ -58,7 +58,7 @@
 .product-image {
     width: 500px;
     height: 500px;
-    border-radius: 20px;
+    border-radius: 10px;
     position: relative;
     overflow: hidden;
     border: 1px solid #e5e7eb;
@@ -364,8 +364,9 @@
 
 .reco-container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px;
+     width: 95%; /* review ile eşit ve mobile uyumlu*/
+    margin: 30px auto;
+    padding: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     margin-bottom: 20px;
 }
@@ -378,6 +379,12 @@
     margin-bottom: 20px;
 }
 
+.review-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+}
+
 /* =========================
    TABLET (1024px ve altı)
 ========================= */
@@ -387,7 +394,7 @@
     }
     .product-content {
         gap: 40px;
-        padding: 40px 30px;
+       /*  padding: 40px 30px; */
     }
 
     .product-image,
@@ -428,7 +435,6 @@
     .product-content {
         grid-template-columns: 1fr;
         gap: 32px;
-        padding: 24px 16px;
         margin-top: 0;
     }
     .product-image-section{
@@ -603,7 +609,9 @@
 
 }
 @media(max-width:576px){
-    
+    .review-title {
+        font-size: 18px;
+    }
     .reco-label {
         font-size: 18px;
     }

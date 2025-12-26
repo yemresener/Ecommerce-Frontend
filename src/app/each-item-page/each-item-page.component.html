@@ -131,12 +131,16 @@
 
 
 
-<app-product-review></app-product-review>
+<app-product-review>
+    <label review-title  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
+        font-size: 18px;
+        color: gray;">(2)</label></label>
+</app-product-review>
 
 <div class="reco-container">
   <label class="reco-label">Bu ürünleri de inceleyebilirsin</label>
 
-  <app-slider [slider]="recommendationProducts" [itemWidth]="242">
+  <app-slider [slider]="recommendationProducts" [itemWidth]="245">
 
     <app-card
       *ngFor="let item of recommendationProducts.items"
@@ -150,7 +154,7 @@
 <div class="reco-container">
     <label class="reco-label">Kategorinin sevilen ürünleri</label>
   
-    <app-slider [slider]="categoryBests" [itemWidth]="242">
+    <app-slider [slider]="categoryBests" [itemWidth]="245">
   
       <app-card
         *ngFor="let item of categoryBests.items"

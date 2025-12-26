@@ -38,10 +38,13 @@
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding: 15px 0;     /* gölge yüksekliğine göre 10-20px arası */
-    margin: -15px 0;     /* dışarı taşmasını engeller */
     box-sizing: border-box;
-    padding-left: 2px;        /* gölge kadar boşluk bırak */
+
+    /*
+        padding: 15px 0;     
+        margin: -15px 0;  
+        padding-left: 2px;        
+    */
   }
   
   
