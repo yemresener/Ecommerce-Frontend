@@ -1,0 +1,107 @@
+<body>
+    
+
+    <div class="container">
+        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">(2)</span></label>
+        <div class="container-box">
+
+            <div class="cart-box">
+
+                <div class="each-item">
+                    <button class="selected-btn"></button>
+                    <img class="item-image" src="assets/images/category5.jpg" alt="">
+                    <div class="grid-box">
+                        <label class="item-title">Royal Canin Köpek Yaş Maması 45gr</label>
+
+                        <div class="product-price-box">
+                            <div class="product-quantities">
+                                <button class="qty-btn delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            
+                                <label class="item-quantity">2</label>
+                            
+                                <button class="qty-btn add">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <label class="item-price">1299,59 TL</label>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="each-item">
+                    <button class="selected-btn"></button>
+                    <img class="item-image" src="assets/images/category5.jpg" alt="">
+                    <div class="grid-box">
+                        <label class="item-title">Royal Canin Köpek Yaş Maması 45gr</label>
+
+                        <div class="product-price-box">
+                            <div class="product-quantities">
+                                <button class="qty-btn delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            
+                                <label class="item-quantity">2</label>
+                            
+                                <button class="qty-btn add">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <label class="item-price">1299,59 TL</label>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cart-detail-box">
+                <div class="cart-detail">
+                    <label class="cart-detail-title">Sipariş Özeti</label>
+                    <div class="each-detail">
+                        <label class="cart-items-title">2 Adet Ürün</label>
+                        <label class="cart-items-sum">1.250,00 TL</label>
+                    </div>
+
+                    <div class="each-detail">
+                        <label class="cart-items-title">Kargo Ücreti</label>
+                        <label class="cart-items-cargo"><label class="cargo-fee">60,90</label> BEDAVA</label>
+                    </div>
+
+                    <hr>
+
+                    <div class="each-detail">
+                        <label class="final-price-title">Toplam Tutar</label>
+                        <label class="final-price">1250,00 TL</label>
+                    </div>
+                    
+                    <button class="cart-approve-button">Sepeti Onayla</button>
+                    <label class="cart-info">Bir sonraki sayfada bu siparişi inceleyip ödemeyi onaylayana kadar ücret tahsil edilmez.</label>
+
+                    
+                </div>
+
+                <div (click)="couponInput=1" class="coupon-box"  [class.hidden]="couponInput">
+                    <div class="label-angle" [class.open]="couponInput" >
+                        <label class="coupon-label" >İndirim Kodu Ekle</label>
+                        <i class="coupon-angle" *ngIf="!couponInput" [class]="couponInput ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down '" ></i>
+                    </div>
+                    
+
+                    <div class="couponHidden" (click)="$event.stopPropagation()" *ngIf="couponInput">
+                        
+                        <input class="coupon-input" type="text" placeholder="İndirim Kodunu Giriniz">
+                        <button class="submit-coupon">Uygula</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</body>
