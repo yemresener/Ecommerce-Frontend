@@ -10,7 +10,12 @@
     </button>
   
     <!-- Slider window -->
-    <div class="slider-window-best">
+    <div class="slider-window-best"
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+    (mouseleave)="onMouseUp()"
+    >
       <div
         class="slider-track-best"
         [style.transform]="getTransform()"

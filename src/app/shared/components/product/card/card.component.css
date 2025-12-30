@@ -21,6 +21,11 @@
     border: 1px solid #e5e7eb;
     
   }
+  .best-item.small{
+    min-width: 184.8px;
+    box-sizing: border-box;
+
+  }
   
   .best-item:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
@@ -37,7 +42,10 @@
     overflow: hidden;
     margin-bottom: 5px;
   }
-  
+  .image-box.small {
+    height: 150px;
+  }
+
   .image-box img {
     width: 100%;
     height: 100%;

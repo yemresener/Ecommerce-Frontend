@@ -9,4 +9,5 @@ import { CommonModule } from '@angular/common';
 })
 export class CardComponent {
   @Input() item:any;
+  @Input() itemSize:number=0;
 }
