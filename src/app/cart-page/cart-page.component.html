@@ -45,6 +45,7 @@
                         </div>
                     </div>
                     
+                    
 
                     <div class="each-item">
                         <button class="selected-btn" [class.active]="checked" (click)="checked=!checked">
@@ -182,16 +183,17 @@
        
     </div>
 
-   <div class="m-detail-container">
+   <div class="m-detail-container" [class.open]="mPrice">
         <div class="m-show-detail">
-
-            <div class="m-each-detail">
-                <label class="m-product-title">Ürünler</label>
-                <label class="m-product-price">1250,00 TL</label>
-            </div>
-            <div class="m-each-detail">
-                <label class="m-product-title">Kargo</label>
-                <label class="m-product-price">Bedava</label>
+            <div class="m-show-box">
+                <div class="m-each-detail">
+                    <label class="m-product-title">Ürünler</label>
+                    <label class="m-product-price">1250,00 TL</label>
+                </div>
+                <div class="m-each-detail">
+                    <label class="m-product-title">Kargo</label>
+                    <label class="m-product-price" style="color: rgb(6, 119, 45);">Kargo Bedava <label class="cargo-fee">60,90</label></label>
+                </div>
             </div>
         </div>
 
@@ -199,7 +201,7 @@
         <div class="m-detail">
             <div class="m-detail-box">
                 <label class="m-cart-count">SEÇİLEN ÜRÜNLER (2)</label>
-                <label class="m-price">1299,99 TL <i class="fa-solid fa-angle-up"></i></label>
+                <label (click)="mPrice=!mPrice"  class="m-price">1299,99 TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
             </div>
             <button class="m-approve-btn">Sepeti Onayla</button>  
         </div>

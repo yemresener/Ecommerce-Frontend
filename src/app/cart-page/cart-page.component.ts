@@ -11,7 +11,7 @@ import { CardComponent } from '../shared/components/product/card/card.component'
 export class CartPageComponent {
   couponInput=0;
   checked=true;
-
+  mPrice=false;
 
 
   recommendationProducts ={
