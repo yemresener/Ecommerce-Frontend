@@ -1,0 +1,51 @@
+
+.category-features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Images Grid */
+  .category-images-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  /* Image Item */
+  .category-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;   /* ✔ senin banner’ın oranı */
+    border-radius: 12px;
+    background: #f3f4f6;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .category-image:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  }
+  
+
+  
+.best-label {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: block;
+}
+
+
+@media(max-width:768px){
+  .category-images-box {
+    grid-template-columns: 1fr; /* ✔ mobilde alt alta gelsin */
+  }
+
+  .category-image {
+    aspect-ratio: 300 / 150; /* oran aynı, divi tam kaplıyor */
+  }
+}

@@ -22,32 +22,8 @@
 </div>
 
 
-<div class="category-container">
-  <label class="category-label">Kategorilerdeki İndirimleri Keşfet</label>
 
-  <div class="slider-box">
-
-    <button class="category-arrow  left" (click)="prev(categorySlider)" [class.hidden]="categorySlider.index ===0">‹</button>
-
-    <div class="slider-window">
-      <div class="slider-track" [style.transform]="getTransform(categorySlider)">
-        <div class="category-item" *ngFor="let c of categorySlider.items ">
-          <div class="item-inner">
-            <img [src]="c.img" alt="">
-          </div>
-          <p class="item-title">{{c.title}}</p>
-        </div>
-      </div>
-    </div>
-
-    <button class="category-arrow right" (click)="next(categorySlider)" [class.hidden]="categorySlider.index === MaxIndex(categorySlider)">
-      ›
-    </button>
-
-  </div> 
-
-</div>
-
+<!--
 <div class="category-features">
   <div class="category-images-box">
     <img class="category-image" src="assets/images/categorybanner6.jpg" alt="">
@@ -57,8 +33,8 @@
     <img class="category-image" src="assets/images/categorybanner5.jpg" alt="">
 
   </div>
-</div>
-
+</div>-->
+<!--
 <div class="best-container">
   <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
@@ -71,7 +47,7 @@
 
   </app-slider>
 </div>
-
+-->
 
 
 <!--- 
@@ -106,7 +82,7 @@
 </div>
 -->
 
-
+<!--
 <div class="best-container">
   <label class="best-label">Sizin İçin Seçtiklerimiz</label>
 
@@ -119,8 +95,41 @@
 
   </app-slider>
 </div>
+-->
+
+<ng-container *ngFor="let s of sliders">
+
+  <!-- CATEGORY -->
+
+  <app-category-slider
+    *ngIf="s.itemType === 'category' && s.sectionType!='banner_campaign'"
+    [title]="s.title"
+    [items]="s.items">
+  </app-category-slider>
 
 
+  <!-- BANNER -->
+  <app-banner-section
+    *ngIf="s.sectionType === 'banner_campaign'"
+    [title]="s.title"
+    [items]="s.items">
+
+  </app-banner-section>
+
+  <app-main-slider
+    *ngIf="s.sectionType=== 'main_slider'"
+    [items]="s.items"
+  ></app-main-slider>
+
+  <!-- PRODUCT / ADVERT -->
+  <app-product-section
+    *ngIf="s.itemType === 'product'"
+    [title]="s.title"
+    [items]="s.items"
+    [sectionType]="s.sectionType">
+  </app-product-section>
+
+</ng-container>
 
 
 

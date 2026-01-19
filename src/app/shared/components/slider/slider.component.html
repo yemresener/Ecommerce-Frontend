@@ -11,10 +11,14 @@
   
     <!-- Slider window -->
     <div class="slider-window-best"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+    
     (mousedown)="onMouseDown($event)"
     (mousemove)="onMouseMove($event)"
     (mouseup)="onMouseUp()"
     (mouseleave)="onMouseUp()"
+    [class.mobile]="type!=='main'"
     >
       <div
         class="slider-track-best"

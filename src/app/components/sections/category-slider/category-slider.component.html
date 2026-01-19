@@ -1,0 +1,23 @@
+<div class="category-container">
+    <label class="category-label">{{title}}</label>
+    <app-slider
+      *ngIf="categorySlider"
+      [slider]="categorySlider">
+    <div class="slider-box">
+    
+  
+      <div class="slider-window">
+        <div class="slider-track">
+          <div class="category-item" *ngFor="let c of categorySlider.items ">
+            <div class="item-inner">
+              <img [src]="c.img" alt="">
+            </div>
+            <p class="item-title">{{c.title}}</p>
+          </div>
+        </div>
+      </div>
+  
+    </div> 
+  </app-slider>
+
+  </div>

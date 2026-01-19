@@ -12,7 +12,7 @@ export class SliderComponent<T> {
 
   @Input() slider!: SliderModel<T>;
   @Input() itemWidth= 242;
-
+  @Input() type='';
   maxIndex(){
     return Math.max(0, this.slider.items.length - this.slider.visible); 
   }
@@ -23,6 +23,8 @@ export class SliderComponent<T> {
       this.slider.index + this.slider.visible,
       max //8
     );
+
+    console.log('slidercount',this.slider.index)
   }
 
   prev(){
@@ -33,6 +35,10 @@ export class SliderComponent<T> {
   }
 
   getTransform(){
+    if(this.type==='main'){
+      return `translateX(-${this.slider.index * 100}%)`;
+
+    }
     return `translateX(-${this.slider.index * (this.itemWidth)}px)`;
   }
 
@@ -68,4 +74,59 @@ export class SliderComponent<T> {
       .querySelector('.slider-window-best')
       ?.classList.remove('dragging');
   }
+
+/* MOBILE */
+
+nextMobile() {
+  const len = this.slider.items.length; 
+  if (!len) return;
+  if (this.slider.index === len - 1) {
+    this.slider.index = 0;
+  } else {
+    this.slider.index++; 
+  }
+}
+
+prevMobile() {
+  const len = this.slider.items.length;
+  if (!len) return;
+  
+  if (this.slider.index === 0) {
+    this.slider.index = len - 1;
+  } else {
+    this.slider.index--;
+  }
+
+}
+
+
+
+
+
+  touchStartX=0;
+  touchEndX=0;
+
+  onTouchStart(event:TouchEvent){
+    if (this.type !== 'main') return;
+    this.touchStartX=event.touches[0].clientX;
+  }
+  onTouchEnd(event:TouchEvent){
+    if (this.type !== 'main') return;
+    this.touchEndX=event.changedTouches[0].clientX;
+    this.handleSwipe();
+  }
+  handleSwipe(){
+    const diff = this.touchStartX - this.touchEndX;
+    console.log('tip',this.type?? +'mal')
+    if(Math.abs(diff)<10) return;
+    if(diff>0){
+      this.nextMobile();
+    }
+    else{
+      this.prevMobile();
+    }
+  }
+
+
+
 }

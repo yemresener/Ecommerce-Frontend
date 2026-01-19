@@ -1,0 +1,88 @@
+
+/* Container */
+.category-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+
+  }
+  
+  /* Label */
+  .category-label {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Slider Box */
+  .slider-box {
+    display: flex;
+   
+  }
+  
+  /* Slider Window */
+  .slider-window {
+    width: 100%;
+
+  }
+  
+  /* Slider Track */
+  .slider-track {
+    padding-left: 2px;
+    display: flex;
+    gap: clamp(23px, 2.5vw, 20px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+  }
+  
+  /* Category Item - Responsive Widths */
+  .category-item {
+    width: 220px;
+    flex: 0 0 clamp(160px, 20vw, 220px);
+    text-align: center;
+  }
+  
+  /* Item Inner */
+  .item-inner {
+    width: 100%;
+    height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .item-inner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .item-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  
+  .item-title{
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  }
+  
+
+  
+  
+  /* Hidden State */
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }

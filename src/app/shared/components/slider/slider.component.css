@@ -18,7 +18,7 @@
     color: #333;
     flex-shrink: 0;
     position: absolute;
-    top: 46%;
+    top: 50%;
     transform: translateY(-50%);
     z-index: 10;
   }
@@ -39,23 +39,27 @@
     width: 100%;
     position: relative;
     box-sizing: border-box;
-
+    padding-bottom: 2px;  /* kaymanın sebebi bu olur probably */
     /*
         padding: 15px 0;     
         margin: -15px 0;  
         padding-left: 2px;        
     */
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: cursor;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+
   }
   
   .slider-window-best {
     cursor: grab;
   }
   
+.slider-window-best.mobile{
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
   .slider-window-best.dragging {
     cursor: grabbing;
     user-select: none;
@@ -76,10 +80,6 @@
   @media(max-width:990px){
 
     .slider-window-best{
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+
       }
   }

@@ -1,0 +1,16 @@
+<div class="best-container">
+    <label class="best-label">{{title}} asdas</label>
+  
+    <app-slider
+      *ngIf="productSlider"
+      [slider]="productSlider"
+      [itemWidth]="245">
+  
+      <app-card
+        *ngFor="let item of productSlider.items"
+        [item]="item">
+      </app-card>
+  
+    </app-slider>
+  </div>
+  

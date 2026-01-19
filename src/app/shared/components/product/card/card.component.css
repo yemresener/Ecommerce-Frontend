@@ -19,7 +19,7 @@
     position: relative;
     min-width: 200px; /* Slider için width sınırı */
     border: 1px solid #e5e7eb;
-    
+    height: 95%;
   }
   .best-item.small{
     min-width: 184.8px;
@@ -65,6 +65,10 @@
   .item-rating {
     font-size: 14px;
     margin-bottom: 30px;
+  }
+  .item-rating.none{
+    visibility: hidden;
+    pointer-events: none;
   }
   .item-rating span {
     color: #888;

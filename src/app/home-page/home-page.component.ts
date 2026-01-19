@@ -18,6 +18,8 @@ import {
   StripeElementsOptions
 } from '@stripe/stripe-js';
 
+import { ProductServiceService } from '../Services/product-service.service';
+
 @Component({
   selector: 'app-home-page',
   imports: [FormsModule,HttpClientModule,CommonModule],
@@ -25,7 +27,7 @@ import {
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
-  constructor(private http:HttpClient, private payment:PaymentServiceService){}
+  constructor(private http:HttpClient, private payment:PaymentServiceService, private productService:ProductServiceService){}
   @ViewChild('cardInfo') cardInfo!: ElementRef<HTMLDivElement>;
 
   stripe:Stripe|null=null;
@@ -139,10 +141,75 @@ export class HomePageComponent {
 
 
 
+  name:string='';
+  category_id?:number;
+  price?:number;
+  stock?:number;
+  image: File[] = [];
+
+ addImage(event:any){
+  const files: FileList = event.target.files;
+  this.image = Array.from(files); 
+  console.log(this.image)
+ }
+
+  createProduct(){
+    const formData = new FormData();
+
+    formData.append('name', this.name);
+    formData.append('category_id', String(this.category_id));
+    formData.append('price', String(this.price));
+    formData.append('stock', String(this.stock));
+
+    this.image.forEach(file=>{
+      formData.append('image[]',file);
+    });
+
+    this.productService.createProduct(formData).subscribe({
+      next:(res)=>{
+        console.log(res)
+      },
+      error(err) {
+        console.log(err)
+      },
+    })
+    console.log(this.image);
+    }
+  
 
 
 
 
+
+
+
+    title:string='';
+    campaignImage!: File;
+    
+    onFileSelected(event: any) {
+      const file = event.target.files[0];
+      if (file) {
+        this.campaignImage = file;
+      }
+      console.log(this.campaignImage  )
+    }
+    
+    createCampaign(){
+      const formData= new FormData();
+      formData.append('title',this.title);
+      formData.append('image',this.campaignImage)
+      console.log(formData);
+      const url = `http://127.0.0.1:8000/api/createCampaign`;
+      this.http.post(url,formData,{withCredentials:true}).subscribe({
+        next:(res)=>{
+          console.log(res)
+  
+        },
+        error(err) {
+          console.log(err)
+        },
+      }) 
+    }
 
 
 

@@ -1,0 +1,41 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 50px;
+  }
+  
+  /* Slider Base */
+  .slider {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: #f4f4f4;
+    width: 100%;
+    aspect-ratio: 3.7 / 1;
+  }
+  
+  /* Slider Track & Slides */
+  .slider-track {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  
+  .slide {
+    min-width: 100%; 
+  }
+  
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* taşmadan görünüm */
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  
+  .slide img:hover {
+    transform: scale(1.03);
+  }
+  

@@ -29,3 +29,27 @@
       {{ paymentMessage }}
     </div>
   </div>
+
+
+
+<div class="test" style="margin-top: 30px;">
+  <input type="text" placeholder="name" [(ngModel)]="name">
+  <input type="text" placeholder="category_id" [(ngModel)]="category_id">
+  <input type="text" placeholder="price" [(ngModel)]="price">
+  <input type="text" placeholder="stock" [(ngModel)]="stock">
+
+  <button (click)="createProduct()">submit</button>
+
+  <input multiple type="file" (change)="addImage($event)">
+</div>
+
+
+
+<div class="deneme" style="margin-top: 30px;">
+<input type="text" placeholder="title" [(ngModel)]="title">
+
+<input type="file" (change)="onFileSelected($event)">
+<button (click)="createCampaign()">ekle</button>
+</div>
+
+  

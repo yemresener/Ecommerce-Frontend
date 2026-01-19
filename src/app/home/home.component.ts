@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { SliderModel } from '../shared/components/slider/slider.model';
 import { CardComponent } from '../shared/components/product/card/card.component';
+import { SliderServiceService } from '../Services/slider-service.service';
+import { HomeSection } from '../models/home-section';
+import { BannerSectionComponent } from '../components/sections/banner-section/banner-section.component';
+import { CategorySliderComponent } from '../components/sections/category-slider/category-slider.component';
+import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
+import { MainSliderComponent } from '../components/sections/main-slider/main-slider.component';
 interface Slide{
   img:string;
   title?:string;
@@ -12,19 +18,75 @@ interface Slide{
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,SliderComponent,CardComponent],
+  imports: [CommonModule,SliderComponent,CardComponent,CategorySliderComponent,MainSliderComponent,ProductSectionComponent,BannerSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
  
-
+  constructor(public sliderService:SliderServiceService){}
   slides:Slide[]=[];
   currentIndex=0;
   ngOnInit() {
     this.slides=this.loadSlides();
-    
+    this.loadSliders();
+    console.log(this.sliders)
   }
+
+  sliders:HomeSection[]=[];
+
+  loadSliders(){
+    this.sliderService.getSlider('home').subscribe({
+      next:(res:any)=>{
+      this.sliders = res.data.map((s: any) => this.mapSection(s));
+      console.log(this.sliders);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    });
+  }
+  mapSection(s: any): HomeSection {
+    return {
+      id: s.id,
+      sectionType: s.type,              // banner, hero
+      title: s.title,
+      itemType: s.items[0]?.type,       // category, product
+      items: this.mapItems(s.items)
+    };
+  }
+
+  mapItems(items: any[]) {
+    return items.map(i => {
+  
+      // CATEGORY
+      if (i.type === 'category') {
+        return {
+          id: i.ref.id,
+          title: i.ref.name,
+          img: i.image ?? 'assets/images/category4.jpg',
+          slug: i.ref.slug
+        };
+      }
+  
+      // PRODUCT / ADVERT
+      if (i.type === 'product') {
+        return {
+          id: i.ref.id,
+          title: i.ref.title,
+          price: i.ref.price,
+          avg: i.ref.avg_rating ?? 0,
+          commentCount: i.ref.total_comments ?? 0,
+          img: i.ref.images?.[0] ?? 'assets/no-product.png',
+          item_ref:i.ref.item_ref
+        };
+      }
+  
+      return i;
+    });
+  }
+
+
 
   loadSlides():Slide[]{
     const images = ['bannerRoyal.jpg', 'bannerHill.jpg','bannerNd.jpg']; 
@@ -91,36 +153,6 @@ export class HomeComponent {
   };
 
 
-  MaxIndex(slider:SliderModel){
-    return slider.items.length-slider.visible;
-  }
 
-
-  next(slider:SliderModel){
-    const max = this.MaxIndex(slider);
-    console.log(max);
-    if(max - slider.index ===1){
-      slider.index++;
-    }else if(slider.index<max){
-      slider.index+=2;
-    }
-  }
-
-
-
-  prev(slider:SliderModel){
-    if(slider.index===1){
-      slider.index--;
-    }else if (slider.index>0){
-      slider.index-=2;
-    }
-  }
-
- /* goTo(i:number){
-    this.categoryIndex=i;
-  }*/
-  getTransform(slider:SliderModel){
-    return `translateX(-${slider.index * 242}px)`; 
-  }
 
 }

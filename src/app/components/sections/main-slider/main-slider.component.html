@@ -1,0 +1,22 @@
+<div class="container">
+        <div class="slider main-slider">
+
+            <app-slider
+            [slider]="mainSlider"
+            [itemWidth]="1200"
+            [type]="'main'"
+            >
+
+
+            <div class="slider-track">
+                <div *ngFor="let slide of items" class="slide" >
+                    <img [src]="slide.ref.image" [alt]="slide.ref.title">
+                </div>
+            </div>
+
+
+        </app-slider>
+
+        </div>
+</div>
+  
