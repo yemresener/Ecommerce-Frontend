@@ -4,7 +4,8 @@
     <button
       class="best-arrow left"
       (click)="prev()"
-      [class.hidden]="slider.index === 0"
+      [class.hidden]="slider.index === 0 && type!=='main'"
+      [class.main]="type==='main'"
     >
       ‹
     </button>
@@ -32,11 +33,12 @@
     <button
       class="best-arrow right"
       (click)="next()"
-      [class.hidden]="slider.index >= maxIndex()"
+      [class.hidden]="slider.index >= maxIndex() && type!=='main'"
+      [class.main]="type==='main'"
     >
       ›
     </button>
-  
+    <label *ngIf="type==='main'" class="index-count">{{slider.index+1 }} / {{slider.items.length}}</label>
   </div>
 
 

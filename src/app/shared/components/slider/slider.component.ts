@@ -1,10 +1,10 @@
 import { Component,Input  } from '@angular/core';
 import { SliderModel } from './slider.model';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-slider',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css'
 })
@@ -18,6 +18,9 @@ export class SliderComponent<T> {
   }
 
   next(){
+    if(this.type==='main'){
+      return this.nextMobile();
+    }
     const max = this.maxIndex(); 
     this.slider.index = Math.min( 
       this.slider.index + this.slider.visible,
@@ -28,6 +31,9 @@ export class SliderComponent<T> {
   }
 
   prev(){
+    if(this.type==='main'){
+      return this.prevMobile();
+    }
     this.slider.index = Math.max(
       this.slider.index - this.slider.visible,
       0

@@ -48,7 +48,10 @@
 <div class="deneme" style="margin-top: 30px;">
 <input type="text" placeholder="title" [(ngModel)]="title">
 
-<input type="file" (change)="onFileSelected($event)">
+<input type="file" (change)="onFileSelected($event,'main')">
+for mobile
+<input type="file" (change)="onFileSelected($event,'mobile')">
+
 <button (click)="createCampaign()">ekle</button>
 </div>
 

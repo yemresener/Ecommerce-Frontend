@@ -185,12 +185,14 @@ export class HomePageComponent {
 
     title:string='';
     campaignImage!: File;
-    
-    onFileSelected(event: any) {
+    campaignMobileImage!:File;
+
+    onFileSelected(event: any,image:string) {
       const file = event.target.files[0];
-      if (file) {
-        this.campaignImage = file;
+      if (file && image==='main') {
+        return this.campaignImage = file;
       }
+      this.campaignMobileImage=file;
       console.log(this.campaignImage  )
     }
     
@@ -198,6 +200,7 @@ export class HomePageComponent {
       const formData= new FormData();
       formData.append('title',this.title);
       formData.append('image',this.campaignImage)
+      if(this.campaignMobileImage) formData.append('mobile_image',this.campaignMobileImage);
       console.log(formData);
       const url = `http://127.0.0.1:8000/api/createCampaign`;
       this.http.post(url,formData,{withCredentials:true}).subscribe({

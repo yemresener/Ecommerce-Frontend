@@ -10,7 +10,10 @@
 
             <div class="slider-track">
                 <div *ngFor="let slide of items" class="slide" >
-                    <img [src]="slide.ref.image" [alt]="slide.ref.title">
+                    <picture>
+                        <source media="(max-width: 600px)" [attr.srcset]="slide.ref.mobile_image">
+                        <img [src]="slide.ref.image" [alt]="slide.ref.title">
+                    </picture>
                 </div>
             </div>
 

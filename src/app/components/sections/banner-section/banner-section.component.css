@@ -40,12 +40,96 @@
 }
 
 
-@media(max-width:768px){
+
+
+/* Tablets */
+@media (max-width: 992px) {
+  .category-features {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
   .category-images-box {
-    grid-template-columns: 1fr; /* ✔ mobilde alt alta gelsin */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 14px;
+  }
+  .category-images-box > .category-image:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 450px; /* isteğe bağlı, çok uzamasın diye */
+  }
+
+  .best-label {
+    font-size: 20px;
   }
 
   .category-image {
-    aspect-ratio: 300 / 150; /* oran aynı, divi tam kaplıyor */
+    border-radius: 10px;
   }
+}
+
+/* Large phones */
+@media (max-width: 758px) {
+
+  .category-images-box {
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  }
+
+  .category-images-box > .category-image:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 350px; /* isteğe bağlı, çok uzamasın diye */
+  }
+
+  .best-label {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .category-image:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media(max-width:600px){
+  .category-images-box {
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .category-images-box > .category-image:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 300px; /* isteğe bağlı, çok uzamasın diye */
+  }
+
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .category-features {
+    padding: 0 10px;
+  }
+
+  .category-images-box {
+    gap: 12px;
+    justify-self: center;
+  }
+
+  .best-label {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .category-images-box > .category-image:last-child:nth-child(odd) {
+    max-width: 100%;
+
+  }
+  .category-image {
+    border-radius: 8px;
+    width: 100%;
+    min-height: 100%;
+  }
+
 }

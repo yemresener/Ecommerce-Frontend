@@ -38,4 +38,27 @@
   .slide img:hover {
     transform: scale(1.03);
   }
-  
+
+  @media(max-width:992px){
+    .slider {
+      aspect-ratio: 3.2 / 1;
+      max-width: 100%;
+    }
+    .slide img{
+      width:100%;
+      aspect-ratio: 3.2 / 1;
+
+    }
+  }
+
+  @media(max-width:600px){
+    .slider {
+      aspect-ratio: 2 / 1;
+      max-width: 100%;
+    }
+    .slide img{
+      width:100%;
+      aspect-ratio: 2 / 1;
+
+    }
+  }

@@ -26,6 +26,13 @@
   .best-arrow.left { left: 0; }
   .best-arrow.right { right: 0; }
   
+  .best-arrow.left.main{
+    left: 10px;
+  }
+  .best-arrow.right.main{
+    right:10px;
+  }
+
   .hidden { display: none; }
 
   .best-box {
@@ -72,6 +79,24 @@
     gap: clamp(12px, 2.5vw, 27px);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+.index-count{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  background-color: #646464;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 12px;
+  padding: 3px 8px;
+  z-index: 10;
+}
+  
   @media (max-width:1245px) {
     .best-arrow{
       display: none;
