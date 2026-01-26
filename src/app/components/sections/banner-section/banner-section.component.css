@@ -16,12 +16,14 @@
   /* Image Item */
   .category-image {
     width: 100%;
-    aspect-ratio: 16 / 9;   /* ✔ senin banner’ın oranı */
+    aspect-ratio: 2.1/1 ;   /* ✔ senin banner’ın oranı */
     border-radius: 12px;
     background: #f3f4f6;
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
+
+  
   
   .category-image:hover {
     transform: translateY(-4px);

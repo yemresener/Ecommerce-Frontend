@@ -55,4 +55,16 @@ for mobile
 <button (click)="createCampaign()">ekle</button>
 </div>
 
+
+<div class="deneme" style="margin-top: 30px;">
+  KATEGORi
+  <input type="text" placeholder="name" [(ngModel)]="categoryName">
+  <input type="number" placeholder="pratentid" [(ngModel)]="parentId">
+  <input type="file" (change)="onFileSelected($event)">
+  
+  <button (click)="createCategory()">ekle</button>
+  </div>
+  
+    
+
   

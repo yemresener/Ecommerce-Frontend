@@ -64,7 +64,7 @@ export class HomeComponent {
         return {
           id: i.ref.id,
           title: i.ref.name,
-          img: i.image ?? 'assets/images/category4.jpg',
+          img: i.ref.image ?? 'assets/category1.jpg',
           slug: i.ref.slug
         };
       }
@@ -86,7 +86,7 @@ export class HomeComponent {
     });
   }
 
-
+/* PROTOTYPE */
 
   loadSlides():Slide[]{
     const images = ['bannerRoyal.jpg', 'bannerHill.jpg','bannerNd.jpg']; 

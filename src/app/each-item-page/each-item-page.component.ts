@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component,SimpleChanges } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { CardComponent } from '../shared/components/product/card/card.component';
-
+import { EachItemService } from '../Services/each-item.service';
+import { ActivatedRoute } from '@angular/router';
+import { Advert } from '../interfaces/advert';
+import { SliderModel } from '../shared/components/slider/slider.model';
 interface product{
   images:[];
   title:string;
@@ -14,7 +17,7 @@ interface product{
   product:[];
   
 }
-interface SliderModel<T> {
+interface SliderModelws<T> {
   items: T[];
 }
 interface productImage{
@@ -35,32 +38,56 @@ interface sliderState{
 
 export class EachItemPageComponent {
 
-  itemSlider: SliderModel<productImage> = {
-    items:[
-      { img: 'assets/images/category11.jpg', },
-      { img: 'assets/images/category2.jpg' },
-      { img: 'assets/images/category3.jpg' },
-      { img: 'assets/images/category4.jpg' },
-      
+  constructor(private route:ActivatedRoute,private itemService:EachItemService){}
 
-
-    ]
-  };
-  sliderState:sliderState={
-    visible:1,
-    index:0,
+  slug:string='' ;
+  ngOnInit(){
+    this.slug=this.route.snapshot.paramMap.get('slug') ?? '';
+    this.getAdvert();
+    
   }
+
+  advert!:Advert;
+  itemSlider!:SliderModel<any>
+
+  getAdvert(){
+    this.itemService.getAdvert(this.slug).subscribe({
+      next:(res)=>{
+        this.advert=res.data;
+        console.log(res.data);
+        if(this.advert?.item_ref?.images?.length){
+          this.itemSlider={
+            items:this.advert.item_ref.images,
+            index:0,
+            visible:1
+          }
+          console.log('slider',this.itemSlider);
+
+        }
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
+
+
+
+
   
+
+
+
 
 
   next() {
     const len = this.itemSlider.items.length; 
     if (!len) return;
   
-    if (this.sliderState.index === len - 1) {
-      this.sliderState.index = 0;
+    if (this.itemSlider.index === len - 1) {
+      this.itemSlider.index = 0;
     } else {
-      this.sliderState.index++; 
+      this.itemSlider.index++; 
     }
   }
   
@@ -68,16 +95,16 @@ export class EachItemPageComponent {
     const len = this.itemSlider.items.length;
     if (!len) return;
     
-    if (this.sliderState.index === 0) {
-      this.sliderState.index = len - 1;
+    if (this.itemSlider.index === 0) {
+      this.itemSlider.index = len - 1;
     } else {
-      this.sliderState.index--;
+      this.itemSlider.index--;
     }
   
   }
   
   getTransform() {
-    return `translateX(-${this.sliderState.index * 100}%)`;
+    return `translateX(-${this.itemSlider.index * 100}%)`;
   }
 // MOBILE SWIPE 
 
@@ -105,6 +132,31 @@ export class EachItemPageComponent {
   }
 
   // MOBILE SWIPE 
+
+
+}
+
+
+/*
+
+  
+  itemSlider: SliderModelws<productImage> = {
+    items:[
+      { img: 'assets/images/category11.jpg', },
+      { img: 'assets/images/category2.jpg' },
+      { img: 'assets/images/category3.jpg' },
+      { img: 'assets/images/category4.jpg' },
+      
+
+
+    ]
+  };
+  sliderState:sliderState={
+    visible:1,
+    index:0,
+  }
+  
+
 
 
   recommendationProducts ={
@@ -151,6 +203,6 @@ export class EachItemPageComponent {
 
   }
 
-
+*/
 
 

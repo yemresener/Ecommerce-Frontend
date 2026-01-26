@@ -187,7 +187,7 @@ export class HomePageComponent {
     campaignImage!: File;
     campaignMobileImage!:File;
 
-    onFileSelected(event: any,image:string) {
+    onFileSelected(event: any,image:string|null=null) {
       const file = event.target.files[0];
       if (file && image==='main') {
         return this.campaignImage = file;
@@ -214,6 +214,24 @@ export class HomePageComponent {
       }) 
     }
 
+    categoryName!:string;
+    parentId!:string;
+    createCategory(){
+      const formData = new FormData();
+      formData.append('name',this.categoryName);
+      formData.append('image',this.campaignMobileImage);
+      formData.append('parent_id',this.parentId);
+      const url = `http://127.0.0.1:8000/api/createCategory`;
+      this.http.post(url,formData,{withCredentials:true}).subscribe({
+        next:(res)=>{
+          console.log(res);
+
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
+    }
 
 
 

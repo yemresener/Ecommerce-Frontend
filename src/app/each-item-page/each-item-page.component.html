@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="advert">
     <div class="breadcrumb">
         <span><i class="fas fa-home"></i> Ana Sayfa</span>
         <i class="fas fa-chevron-right"></i>
@@ -8,10 +8,10 @@
     </div>
 
     <div class="product-content">
-        <div class="product-image-section">
+        <div class="product-image-section" *ngIf="itemSlider">
 
             <div class="product-image">
-                <button (click)="prev()" class="image-button left">&#10094;</button>
+                <button *ngIf="itemSlider.items.length>1" (click)="prev()" class="image-button left">&#10094;</button>
 
             <div class="image-window"   (touchstart)="onTouchStart($event)"
             (touchend)="onTouchEnd($event)">
@@ -21,19 +21,19 @@
                 >
                 <img
                     *ngFor="let item of itemSlider.items"
-                    [src]="item.img"
+                    [src]="item.path"
                     alt=""
                 />
                 
                 </div>
               
                 <div class="image-counter">
-                    {{sliderState.index+1 }}/{{itemSlider.items.length}}
+                    {{itemSlider.index+1 }}/{{itemSlider.items.length}}
                 </div>
 
             </div>
 
-            <button (click)="next()" class="image-button right">&#10095;</button>
+            <button *ngIf="itemSlider.items.length>1" (click)="next()" class="image-button right">&#10095;</button>
 
             </div>
        
@@ -42,19 +42,19 @@
             <div class="thumbs">
                 <div
                   class="thumb"
-                *ngFor="let item of itemSlider.items; let i=index"
-                [class.active]="i ===sliderState.index"
-                (click)="sliderState.index=i"
+                *ngFor="let item of itemSlider?.items; let i=index"
+                [class.active]="i ===itemSlider?.index"
+                (click)="itemSlider.index=i"
                 >
-                  <img [src]="item.img" alt="">
+                  <img [src]="item.path" alt="">
                 </div>
             </div>
         </div>
 
         <div class="product-details">
-            <label class="product-title">Royal Canin Kısırlaştırılmış 1.5kg Kedi Maması</label>
+            <label class="product-title">{{advert?.title}}</label>
             
-            <div class="rating-section">
+            <div class="rating-section" *ngIf="advert?.avg_rating">
                 <div class="stars">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -62,13 +62,13 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                 </div>
-                <span class="rating-text">4.8</span>
-                <span class="review-count">(33 değerlendirme)</span>
+                <span class="rating-text">{{advert?.avg_rating}}</span>
+                <span class="review-count">{{advert?.total_comments}}</span>
             </div>
 
             <div class="price-section">
                 <div class="price">
-                    1.299<label class="currency">,99 TL</label>
+                    {{advert?.item_ref?.price}}<label class="currency">TL</label>
                 </div>
        
             </div>
@@ -92,27 +92,18 @@
                     Ürün Açıklaması
                 </div>
                 <p class="description-text">
-                    Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar.
+                    {{ advert?.description }} Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar.
                 </p>
 
-                <div class="features">
+                <div class="features" *ngFor="let item of advert?.item_ref?.features">
                     <div class="feature-item">
                         <i class="fas fa-check-circle"></i>
-                        <span>Dengeli beslenme</span>
+                        <span>{{item}}</span>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Kilo kontrolü</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Sağlıklı cilt & tüy</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Sindirim desteği</span>
-                    </div>
+                 
                 </div>
+
+                
             </div>
         </div>
     </div>
@@ -120,7 +111,7 @@
 
 <div class="price-section-mobile">
     <div class="price-mobile">
-        1.299,99 <label style="font-size: 10px;">TL</label>
+        {{advert?.item_ref?.price}} <label style="font-size: 10px;">TL</label>
     </div>
     <button style="width: 75%;" class="add-to-cart">
         <i class="fas fa-shopping-cart"></i>
@@ -130,7 +121,7 @@
 
 
 
-
+<!--
 
 <app-product-review>
     <label review-title  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
@@ -166,5 +157,5 @@
   </div>
   
   
-
+-->
 

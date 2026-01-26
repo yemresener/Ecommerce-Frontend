@@ -56,52 +56,49 @@
             </div>
 
       
-
+            <div class="nav-hover-wrapper" (mouseleave)="activeCategory = null">
             <!-- Category Bar -->
-            <div class="category-bar">
-                <div class="category-list">
-                    <li (mouseenter)="activeMenu = true"
-                    (mouseleave)="activeMenu = false" class="category-item"><a href="/kedi" class="category-link">Kedi Ürünleri</a></li>
-                    <li (mouseenter)="activeMenu = true"
-                    (mouseleave)="activeMenu = false" class="category-item"><a href="/kopek" class="category-link">Köpek Ürünleri</a></li>
-                    <li class="category-item"><a href="/kus" class="category-link">Kuş Ürünleri</a></li>
-                    <li class="category-item"><a href="/balik" class="category-link">Balık Ürünleri</a></li>
-                    <li class="category-item"><a href="/aksesuar" class="category-link">Aksesuarlar</a></li>
-                    <li class="category-item"><a href="/mama" class="category-link">Mamalar</a></li>
+                <div class="category-bar">
+                    <div class="category-list">
+                        <li *ngFor="let item of categories" (mouseenter)="activeCategory = item"
+                         class="category-item"><a href="{{item.slug}}" class="category-link">{{item.name}}</a></li>
+
+
+                        
+                    </div>
                     
                 </div>
                 
-            </div>
+
             
-        <div class="mega-menu" *ngIf="activeMenu" (mouseenter)="activeMenu = true"
-        (mouseleave)="activeMenu = false">
-            <div class="mega-col">
-              <h4>Kuru Mamalar</h4>
-              <a href="#">Tavuklu</a>
-              <a href="#">Somonlu</a>
-              <a href="#">Hipoalerjenik</a>
+                <div class="mega-menu" *ngIf="activeCategory && activeCategory.children?.length"
+                
+                (mouseleave)="activeCategory = null">
+                    <div class="mega-col">
+                     <h4>{{activeCategory.name}}</h4>
+                        <a *ngFor="let child of activeCategory.children" href="{{child.slug}}">{{child.name}}</a>
+                    </div>
+
+                    <div class="mega-products">
+                        <h4 class="mega-products-title">Popüler Ürünler</h4>
+                    
+                        <div class="products-container">
+                          <div class="product-box" *ngFor="let item of activeCategory.popular_adverts">
+                            <img src="{{item.item_ref.image}}" class="product-image">
+                            <span class="product-label">{{item.title}}</span>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
             </div>
         
-            <div class="mega-col">
-              <h4>Yaş Mamalar</h4>
-              <a href="#">Pouch</a>
-              <a href="#">Konserve</a>
-            </div>
         
-            <div class="mega-col">
-              <h4>Özel Seriler</h4>
-              <a href="#">Premium</a>
-              <a href="#">Tahılsız</a>
-              <a href="#">Veteriner Serisi</a>
-            </div>
-          </div>
+
         </div>
-        
-        
-
-        
     </nav>
-
 
 
         

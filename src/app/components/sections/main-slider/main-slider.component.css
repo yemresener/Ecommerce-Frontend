@@ -53,12 +53,12 @@
 
   @media(max-width:600px){
     .slider {
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 1.7 / 1;
       max-width: 100%;
     }
     .slide img{
       width:100%;
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 1.7 / 1;
 
     }
   }
