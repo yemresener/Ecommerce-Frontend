@@ -20,6 +20,7 @@
     min-width: 200px; /* Slider için width sınırı */
     border: 1px solid #e5e7eb;
     height: 95%;
+    max-width: 200px;
   }
   .best-item.small{
     min-width: 184.8px;

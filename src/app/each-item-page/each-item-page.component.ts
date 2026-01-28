@@ -8,6 +8,9 @@ import { EachItemService } from '../Services/each-item.service';
 import { ActivatedRoute } from '@angular/router';
 import { Advert } from '../interfaces/advert';
 import { SliderModel } from '../shared/components/slider/slider.model';
+import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
+import { MiniAdvert } from '../interfaces/mini-advert';
+import { ApiResponse } from '../interfaces/api-response';
 interface product{
   images:[];
   title:string;
@@ -31,7 +34,7 @@ interface sliderState{
 
 @Component({
   selector: 'app-each-item-page',
-  imports: [FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent],
+  imports: [ProductSectionComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
@@ -44,7 +47,6 @@ export class EachItemPageComponent {
   ngOnInit(){
     this.slug=this.route.snapshot.paramMap.get('slug') ?? '';
     this.getAdvert();
-    
   }
 
   advert!:Advert;
@@ -62,8 +64,11 @@ export class EachItemPageComponent {
             visible:1
           }
           console.log('slider',this.itemSlider);
-
         }
+        console.log('porduct',this.advert?.product_id)
+        this.getPopularAdverts();
+        this.getRecoAdverts();
+
       },
       error:(err)=>{
         console.log(err)
@@ -71,8 +76,33 @@ export class EachItemPageComponent {
     })
   }
 
+  popularAdverts: MiniAdvert[] = [];
+  getPopularAdverts(){
+    this.itemService.popularAdvertsByCategory(this.advert?.category_id,this.advert?.product_id).subscribe({
+      next:(res: ApiResponse<MiniAdvert[]>)=>{
+        this.popularAdverts=res.data;
+        console.log('POPRES',res);
+        console.log('sa',this.popularAdverts);
 
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
 
+  recoAdverts!:MiniAdvert[];
+  getRecoAdverts(){
+    this.itemService.recoAdvertsByFeature(this.advert?.product_id).subscribe({
+      next:(res:ApiResponse<MiniAdvert[]>)=>{
+        this.recoAdverts=res.data;
+        console.log('RECOLAR',this.recoAdverts);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
 
   
 

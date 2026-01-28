@@ -1,6 +1,7 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Advert } from '../../../interfaces/advert';
 @Component({
   selector: 'app-product-review',
   imports: [CommonModule,FormsModule],
@@ -11,6 +12,16 @@ export class ProductReviewComponent {
   commentPopUp = 0;
 
   @Input() addCart:boolean=false;
+  @Input() advert!:Advert;
+
+  
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if(changes['advert']){
+      console.log('advert kankam',this.advert);
+    }
+  }
 
   rating=0;
   hoverRating=0;

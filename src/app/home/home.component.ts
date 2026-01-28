@@ -30,7 +30,6 @@ export class HomeComponent {
   ngOnInit() {
     this.slides=this.loadSlides();
     this.loadSliders();
-    console.log(this.sliders)
   }
 
   sliders:HomeSection[]=[];
@@ -38,8 +37,11 @@ export class HomeComponent {
   loadSliders(){
     this.sliderService.getSlider('home').subscribe({
       next:(res:any)=>{
+      console.log('normal')
       this.sliders = res.data.map((s: any) => this.mapSection(s));
-      console.log(this.sliders);
+      console.log('sliders',this.sliders);
+      console.log('sliderler knak',this.sliders)
+
       },
       error:(err)=>{
         console.log(err);

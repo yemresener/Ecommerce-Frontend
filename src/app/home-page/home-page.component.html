@@ -37,8 +37,14 @@
   <input type="text" placeholder="category_id" [(ngModel)]="category_id">
   <input type="text" placeholder="price" [(ngModel)]="price">
   <input type="text" placeholder="stock" [(ngModel)]="stock">
-
-  <button (click)="createProduct()">submit</button>
+  <label *ngFor="let f of featureList">
+    <input 
+      type="checkbox"
+      [checked]="isSelected(f)"
+      (change)="toggleFeature(f)"
+    >
+    {{ f.label }}
+  </label><button (click)="createProduct()">submit</button>
 
   <input multiple type="file" (change)="addImage($event)">
 </div>

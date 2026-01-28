@@ -1,14 +1,15 @@
-<div class="review-container">
+<div class="review-container" *ngIf="advert">
     <ng-content select="[review-title]"></ng-content>
     <div class="review-box">
         <div class="short-product">
-            <img class="short-img" src="assets/images/category11.jpg" alt="">
-            <label class="short-product-title">Whiskas Kedi maması 20kg</label>
+            <img class="short-img" [src]="advert.item_ref.image" alt="">
+            <label class="short-product-title">{{advert.title}}</label>
             <hr>
-            <div class="short-product-stars">
+
+            <div class="short-product-stars" *ngIf="advert.avg_rating">
                 
-                <div class="stars">
-                    4,2
+                <div class="stars" >
+                    {{advert.avg_rating}}
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -60,13 +61,13 @@
                     </div>
                     
                 </div>
-                <div class="action-buttons">
-                    <button *ngIf="addCart" class="add-to-cart" >  <i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
-                    <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
-                </div>
+              
 
             </div>
-
+            <div class="action-buttons">
+                <button *ngIf="addCart" class="add-to-cart" >  <i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
+                <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
+            </div>
         </div>
         
         <div class="reviews">

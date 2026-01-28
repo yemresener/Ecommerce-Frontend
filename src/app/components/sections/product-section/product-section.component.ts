@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SliderComponent } from '../../../shared/components/slider/slider.component';
 import { SliderModel } from '../../../shared/components/slider/slider.model';
 import { CardComponent } from '../../../shared/components/product/card/card.component';
+import { MiniAdvert } from '../../../interfaces/mini-advert';
 @Component({
   selector: 'app-product-section',
   imports: [SliderComponent,CardComponent,CommonModule],
@@ -12,7 +13,7 @@ import { CardComponent } from '../../../shared/components/product/card/card.comp
 })
 export class ProductSectionComponent  implements OnChanges {
   @Input() title!:string;
-  @Input() items:any[]=[];
+  @Input() items:MiniAdvert[]=[];
   @Input() sectionType!:string;
   productSlider!: SliderModel<any>;
 

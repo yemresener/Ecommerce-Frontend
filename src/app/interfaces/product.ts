@@ -1,4 +1,5 @@
 import { ProductImage } from "./product-image"
+import { Feature } from "./feature"
 export interface Product {
     id:number,
     name:string,
@@ -12,5 +13,5 @@ export interface Product {
     stock:number,
     slug:string,
     images:ProductImage[],
-    features:string[]
+    features:Feature[]
 }

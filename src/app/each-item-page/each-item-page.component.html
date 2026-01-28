@@ -95,10 +95,10 @@
                     {{ advert?.description }} Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar.
                 </p>
 
-                <div class="features" *ngFor="let item of advert?.item_ref?.features">
-                    <div class="feature-item">
+                <div class="features" >
+                    <div class="feature-item"*ngFor="let item of advert?.item_ref?.features">
                         <i class="fas fa-check-circle"></i>
-                        <span>{{item}}</span>
+                        <span>{{item.label}}</span>
                     </div>
                  
                 </div>
@@ -121,14 +121,27 @@
 
 
 
-<!--
 
-<app-product-review>
+
+<app-product-review [advert]="advert">
     <label review-title  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
         font-size: 18px;
         color: gray;">(2)</label></label>
 </app-product-review>
 
+
+<app-product-section
+[title]="'Kategorinin  Öne Çıkan Ürünleri'"
+[items]="popularAdverts"
+>
+</app-product-section>
+
+<app-product-section
+[title]="'Önerilen Ürünler'"
+[items]="recoAdverts"
+>
+</app-product-section>
+<!--
 <div class="reco-container">
   <label class="reco-label">Bu ürünleri de inceleyebilirsin</label>
 

@@ -3,6 +3,7 @@ import { Product } from "./product"
 export interface Advert {
     id:number,
     product_id:number,
+    category_id:number,
     title:string,
     slug:string,
     description:string,

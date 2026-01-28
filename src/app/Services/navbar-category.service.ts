@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Navbar } from '../interfaces/navbar';
 import { Observable } from 'rxjs';
-
-export interface ApiResponse<T> {
-  data: T;
-}
+import { ApiResponse } from '../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root'

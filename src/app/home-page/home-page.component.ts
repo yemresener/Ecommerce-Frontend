@@ -20,6 +20,8 @@ import {
 
 import { ProductServiceService } from '../Services/product-service.service';
 
+import { Feature } from '../interfaces/feature';
+
 @Component({
   selector: 'app-home-page',
   imports: [FormsModule,HttpClientModule,CommonModule],
@@ -138,6 +140,39 @@ export class HomePageComponent {
     } catch (e) { /* ignore */ }
   }
 
+  featureList: Feature[] = [
+    { key: 'tahilsiz', label: 'Tahılsız' },
+    { key: 'kisir-destegi', label: 'Kısır Desteği' },
+    { key: 'premium', label: 'Premium' },
+    { key: 'hassas-sindirim', label: 'Hassas Sindirim' },
+    { key: "kisirlestirilmis", label: "Kısırlaştırılmış Kediler İçin" },
+    { key: "ideal-kilo", label: "İdeal Kilo Kontrolü" },
+    {key:"dengeli",label:"Dengeli Beslenme"},
+    { key: "dusuk-yagli", label: "Düşük Yağ Oranı" },
+    { key: "idrar-destegi", label: "İdrar Yolu Sağlığı" },
+    { key: "yuksek-protein", label: "Yüksek Protein" },
+    { key: "parlak-tuy", label: "Parlak Tüy Desteği" },
+    { key: "bagisiklik", label: "Bağışıklık Güçlendirici" },
+    { key: "indoor", label: "Ev Kedileri İçin" },
+    { key: "tuy-topagi", label: "Tüy Yumağı Kontrolü" },
+    { key: "koku-kontrol", label: "Dışkı Koku Kontrolü" },
+    { key: "pirincli", label: "Pirinçli" },
+    { key: "ekonomik", label: "Ekonomik Paket" },
+    { key: "tavuklu", label: "Tavuklu" },
+    { key: "serbest-gezen-tavuk", label: "Serbest Gezen Tavuk" },
+    { key: "coklu-balik", "label": "6 Çeşit Balık" },
+    { key: "omega-3", label: "Omega 3 & 6" },
+    {key:"kas",label:"Kas Gelişimi"},
+    {key:"veteriner",label:"Veteriner Formülü"},
+    {key:"kalp",label:"Kalp Sağlığı"},
+    {key:"tartar",label:"Diş ve Ağız Sağlığı"},
+
+
+
+
+
+
+  ];
 
 
 
@@ -146,7 +181,19 @@ export class HomePageComponent {
   price?:number;
   stock?:number;
   image: File[] = [];
+  features:Feature[]=[];
 
+  toggleFeature(f: Feature) {
+    const index = this.features.findIndex(x => x.key === f.key);
+  
+    if (index > -1) this.features.splice(index, 1);
+    else this.features.push(f);
+    console.log(this.features)
+  }
+
+  isSelected(f: Feature): boolean {
+    return this.features.some(x => x.key === f.key);
+  }
  addImage(event:any){
   const files: FileList = event.target.files;
   this.image = Array.from(files); 
@@ -160,7 +207,7 @@ export class HomePageComponent {
     formData.append('category_id', String(this.category_id));
     formData.append('price', String(this.price));
     formData.append('stock', String(this.stock));
-
+    formData.append('features',JSON.stringify(this.features));
     this.image.forEach(file=>{
       formData.append('image[]',file);
     });
@@ -219,7 +266,7 @@ export class HomePageComponent {
     createCategory(){
       const formData = new FormData();
       formData.append('name',this.categoryName);
-      formData.append('image',this.campaignMobileImage);
+      formData.append('image',this.campaignMobileImage ?? null);
       formData.append('parent_id',this.parentId);
       const url = `http://127.0.0.1:8000/api/createCategory`;
       this.http.post(url,formData,{withCredentials:true}).subscribe({
