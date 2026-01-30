@@ -77,8 +77,8 @@ export class HomeComponent {
           id: i.ref.id,
           title: i.ref.title,
           price: i.ref.price,
-          avg: i.ref.avg_rating ?? 0,
-          commentCount: i.ref.total_comments ?? 0,
+          avg_rating: i.ref.avg_rating ?? 0,
+          total_comments: i.ref.total_comments ?? 0,
           img: i.ref.images?.[0] ?? 'assets/no-product.png',
           item_ref:i.ref.item_ref
         };

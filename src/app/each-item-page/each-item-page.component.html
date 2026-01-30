@@ -123,20 +123,20 @@
 
 
 
-<app-product-review [advert]="advert">
+<app-product-review [advert]="advert" [reviews]="reviews" [meta]="meta">
     <label review-title  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
         font-size: 18px;
         color: gray;">(2)</label></label>
 </app-product-review>
 
 
-<app-product-section
+<app-product-section *ngIf="advert"
 [title]="'Kategorinin  Öne Çıkan Ürünleri'"
 [items]="popularAdverts"
 >
 </app-product-section>
 
-<app-product-section
+<app-product-section *ngIf="advert"
 [title]="'Önerilen Ürünler'"
 [items]="recoAdverts"
 >

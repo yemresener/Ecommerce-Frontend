@@ -11,6 +11,8 @@ import { SliderModel } from '../shared/components/slider/slider.model';
 import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
 import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
+import { Review } from '../interfaces/review';
+import { PaginationMeta } from '../interfaces/pagination-meta';
 interface product{
   images:[];
   title:string;
@@ -43,10 +45,13 @@ export class EachItemPageComponent {
 
   constructor(private route:ActivatedRoute,private itemService:EachItemService){}
 
-  slug:string='' ;
+  slug!:string;
   ngOnInit(){
-    this.slug=this.route.snapshot.paramMap.get('slug') ?? '';
-    this.getAdvert();
+    this.route.paramMap.subscribe(params=>{
+      this.slug = params.get('slug') ?? '';
+      this.getAdvert();
+    })
+
   }
 
   advert!:Advert;
@@ -55,6 +60,7 @@ export class EachItemPageComponent {
   getAdvert(){
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
+
         this.advert=res.data;
         console.log(res.data);
         if(this.advert?.item_ref?.images?.length){
@@ -67,7 +73,13 @@ export class EachItemPageComponent {
         }
         console.log('porduct',this.advert?.product_id)
         this.getPopularAdverts();
-        this.getRecoAdverts();
+        setTimeout(() => {
+          this.getRecoAdverts();
+        }, 3000);
+
+        setTimeout(() => {
+          this.getReviews();
+        }, 9000);
 
       },
       error:(err)=>{
@@ -104,6 +116,22 @@ export class EachItemPageComponent {
     })
   }
 
+  reviews!:Review[];
+  meta!:PaginationMeta;
+  getReviews(){
+    this.itemService.getReviews(this.advert?.id).subscribe({
+      next:(res:ApiResponse<Review[]>)=>{
+        this.reviews=res.data;
+        this.meta=res.meta;
+        console.log('reviews',this.reviews)
+        console.log('counts',this.meta)
+
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
   
 
 

@@ -1,4 +1,10 @@
     <div class="best-item"  [class.small]="itemSize>=1">
+
+        <a class="card-link"
+        [attr.href]="'/' + item.slug">
+
+        </a>
+
         <div class="image-box"  [class.small]="itemSize>=1">
         <img [src]=item.item_ref.image alt="">
         </div>
@@ -7,10 +13,10 @@
         {{ item.title }}
         </label>
     
-        <div class="item-rating" [class.none]="item.commentCount===0" >
+        <div class="item-rating"  [class.none]="!item.total_comments" >
             <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
-            {{ item.avg | number:'1.0'  }}
-            <span>({{ item.commentCount | number:'1.0-1' }})</span>
+            {{ item.avg_rating | number:'1.0'  }}
+            <span>({{ item.total_comments | number:'1.0-1' }})</span>
         </div>
     
         <div class="item-bottom">

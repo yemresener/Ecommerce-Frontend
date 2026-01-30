@@ -8,7 +8,7 @@ export const routes: Routes = [
 
     {path:'',component:HomePageComponent,title:'Ana Sayfa'},
     {path:'home',component:HomeComponent,title:'Home'},
-    {path:'comment',component:CommentPageComponent,title:'Comment'},
+    {path:':slug/yorumlar',component:CommentPageComponent,title:'Comment'},
     {path:'cart',component:CartPageComponent,title:'Cart'},
 
     {path:':slug',component:EachItemPageComponent,title:'Each Item'},

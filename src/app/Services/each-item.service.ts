@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Advert } from '../interfaces/advert';
 import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
+import { Review } from '../interfaces/review';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,5 +25,10 @@ export class EachItemService {
   recoAdvertsByFeature(product_id:number){
     const url = `http://127.0.0.1:8000/api/recoAdverts/${product_id}`;
     return this.http.get<ApiResponse<MiniAdvert[]>>(url,{withCredentials:true});
+  }
+
+  getReviews(advert_id:number){
+    const url = `http://127.0.0.1:8000/api/getAdvertsReview/${advert_id}`;
+    return this.http.get<ApiResponse<Review[]>>(url,{withCredentials:true});
   }
 }
