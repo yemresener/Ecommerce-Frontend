@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MiniAdvert } from '../../../interfaces/mini-advert';
 import { ReviewResponse } from '../../../interfaces/review-response';
 import { ApiResponse } from '../../../interfaces/api-response';
+import { ReviewStats } from '../../../interfaces/review/review-stats';
 @Component({
   selector: 'app-product-review',
   imports: [CommonModule,FormsModule],
@@ -17,20 +18,24 @@ import { ApiResponse } from '../../../interfaces/api-response';
 })
 export class ProductReviewComponent {
   constructor(private reviewService:ReviewServiceService,private route:ActivatedRoute){}
-  commentPopUp = 0;
 
   @Input() addCart:boolean=false;
   @Input() advert!:MiniAdvert;
   @Input() reviews!:Review[];
   @Input() meta!:PaginationMeta;
+  @Input() stats!:ReviewStats;
 
-  ngOnChanges(changes: SimpleChanges): void {
+
+
+  stars = [1,2,3,4,5];
+  
+  /* ngOnChanges(changes: SimpleChanges): void {
 
     if(changes['advert']){
       console.log('advert kankam',this.advert);
     }
-  }
-
+  } */
+/*
   slug!:string;
   ngOnInit(): void {
     this.route.paramMap.subscribe(params=>{
@@ -44,6 +49,7 @@ export class ProductReviewComponent {
       next:(res: ApiResponse<ReviewResponse>)=>{
         this.advert=res.data.advert;
         this.reviews=res.data.reviews;
+        console.log('review ha',res);
       },
       error:(err)=>{
         console.log(err)
@@ -51,6 +57,7 @@ export class ProductReviewComponent {
     })
   }
 
+  */
 
 
 
@@ -58,6 +65,7 @@ export class ProductReviewComponent {
 
 
 
+  commentPopUp = 0;
   rating=0;
   hoverRating=0;
 

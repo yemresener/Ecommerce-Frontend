@@ -2,7 +2,6 @@
     font-size: 20px;
     font-weight: 600;
     color: #222;
-
 }
 .review-box{
     display: flex;
@@ -11,6 +10,7 @@
 }
 .product-detail{
     color:#3b82f6; cursor: pointer;
+    align-self: center;
 }
 .product-detail:hover{
     color: #1854b4;

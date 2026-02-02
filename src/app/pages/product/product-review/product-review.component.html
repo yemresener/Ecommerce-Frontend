@@ -1,3 +1,4 @@
+
 <div class="review-container" *ngIf="advert">
     <ng-content select="[review-title]"></ng-content>
     <div class="review-box">
@@ -6,76 +7,99 @@
             <label class="short-product-title">{{advert.title}}</label>
             <hr>
 
-            <div class="short-product-stars" *ngIf="advert.avg_rating">
+            <div class="short-product-stars" *ngIf="stats?.total">
                 
                 <div class="stars" >
-                    {{advert.avg_rating}}
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                     <label class="stars-avg-label"> {{stats.avg}}</label>
+                    
+                    <div class="rating-stars">
+                        <div class="stars-background">
+                          <ng-container *ngFor="let s of stars">
+                            <svg viewBox="0 0 24 24" class="star-icon">
+                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
+                                    stroke-linejoin="round" stroke-linecap="round"/>
+                            </svg>
+                          </ng-container>
+                        </div>
+                        
+                        <div class="stars-filled" [style.width.%]="(stats.avg / 5) * 100">
+                          <ng-container *ngFor="let s of stars">
+                            <svg viewBox="0 0 24 24" class="star-icon">
+                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
+                                    stroke-linejoin="round" stroke-linecap="round"/>
+                            </svg>
+                          </ng-container>
+                        </div>
+                    </div>
+                        
                 </div>
-                <label class="review-count">28 Kullanıcı Değerlendirmesi</label>
+                
+                <label class="review-count">{{stats.total}} Kullanıcı Değerlendirmesi</label>
+
 
 
                 <div class="rating-chart">
                     <div class="rating-row">
                         <span class="star-label">5 <i class="fas fa-star"></i></span>
                         <div class="bar">
-                            <div class="bar-fill" style="width: 76%;"></div>
+                            <div class="bar-fill" [style.width.%]="stats.five_avg"></div>
                         </div>
-                        <span class="count">13</span>
+                        <span class="count">{{stats.five}}</span>
                     </div>
                 
                     <div class="rating-row">
                         <span class="star-label">4 <i class="fas fa-star"></i></span>
                         <div class="bar">
-                            <div class="bar-fill" style="width: 18%;"></div>
+                            <div class="bar-fill" [style.width.%]="stats.four_avg"></div>
                         </div>
-                        <span class="count">3</span>
+                        <span class="count">{{stats.four}}</span>
                     </div>
                 
                     <div class="rating-row">
                         <span class="star-label">3 <i class="fas fa-star"></i></span>
                         <div class="bar">
-                            <div class="bar-fill" style="width: 0%;"></div>
+                            <div class="bar-fill" [style.width.%]="stats.three_avg"></div>
                         </div>
-                        <span class="count">0</span>
+                        <span class="count">{{stats.three}}</span>
                     </div>
                 
                     <div class="rating-row">
                         <span class="star-label">2 <i class="fas fa-star"></i></span>
                         <div class="bar">
-                            <div class="bar-fill" style="width: 0%;"></div>
+                            <div class="bar-fill" [style.width.%]="stats.two_avg"></div>
                         </div>
-                        <span class="count">0</span>
+                        <span class="count">{{stats.two}}</span>
                     </div>
                 
                     <div class="rating-row">
                         <span class="star-label">1 <i class="fas fa-star"></i></span>
                         <div class="bar">
-                            <div class="bar-fill" style="width: 6%;"></div>
+                            <div class="bar-fill" [style.width.%]="stats.one_avg"></div>
                         </div>
-                        <span class="count">1</span>
+                        <span class="count">{{stats.one}}</span>
                     </div>
                     
                 </div>
               
 
             </div>
+
+
             <div class="action-buttons">
                 <button *ngIf="addCart" class="add-to-cart" >  <i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
-                <button class="comment-create" (click)="commentPopUp=1">Yorum Yaz</button>
+                <button *ngIf="reviews?.length" class="comment-create"  (click)="commentPopUp = 1;">Yorum Yaz</button>
             </div>
         </div>
         
-        <div class="reviews" *ngIf="reviews">
-            <label class="comments-title">Yorumlar</label>
-            <div class="each-comment"  *ngFor="let item of reviews">
+        <div class="reviews" *ngIf="reviews?.length">
+            <label  class="comments-title">Yorumlar</label>
+            <div class="each-comment" *ngFor="let item of reviews">
                 <div class="comment-user-info">
                     <img src="assets/images/noneProfileForReview.jpg" alt="">
-                    {{item?.user?.name}}  {{item?.user?.surname}}
+                    <label class="user-info-label">
+                        {{item?.user?.name}}  {{item?.user?.surname}}
+                    </label>
+                   
                    
                     <div class="stars-comment">
                         <ng-container *ngFor="let star of [1,2,3,4,5]">                 
@@ -102,9 +126,14 @@
 
 
           
-            <div *ngIf="!addCart && meta" class="more-box">
-               <a *ngIf="meta.total >1" href="/comment"> <button class="more-comment">Tüm Yorumları Gör ({{meta.total}})</button></a>
+            <div class="more-box">
             </div>
+        </div>
+        <div *ngIf="!reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
+            <div class="empty-icon"><i class="fa-regular fa-comment-dots"></i></div>
+            <h3>Henüz yorum yok</h3>
+            <p>İlk yorumu yapan sen ol! Deneyimini paylaş.</p>
+            <button class="comment-create-empty" style="width: 50%;">Yorum Yap</button>
         </div>
     </div>
 

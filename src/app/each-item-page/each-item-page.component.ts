@@ -13,6 +13,8 @@ import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
 import { Review } from '../interfaces/review';
 import { PaginationMeta } from '../interfaces/pagination-meta';
+import { ReviewResponse } from '../interfaces/review-response';
+import { ReviewStats } from '../interfaces/review/review-stats';
 interface product{
   images:[];
   title:string;
@@ -79,7 +81,7 @@ export class EachItemPageComponent {
 
         setTimeout(() => {
           this.getReviews();
-        }, 9000);
+        }, 900);
 
       },
       error:(err)=>{
@@ -118,13 +120,17 @@ export class EachItemPageComponent {
 
   reviews!:Review[];
   meta!:PaginationMeta;
+  stats!:ReviewStats;
   getReviews(){
-    this.itemService.getReviews(this.advert?.id).subscribe({
-      next:(res:ApiResponse<Review[]>)=>{
-        this.reviews=res.data;
+    this.itemService.getReviews(this.advert?.slug).subscribe({
+      next:(res:ApiResponse<ReviewResponse>)=>{
+        console.log('RESSS',res)
+        this.reviews=res.data.reviews;
         this.meta=res.meta;
+        this.stats=res.data.stats;
         console.log('reviews',this.reviews)
         console.log('counts',this.meta)
+        console.log('STATS',this.stats);
 
       },
       error:(err)=>{

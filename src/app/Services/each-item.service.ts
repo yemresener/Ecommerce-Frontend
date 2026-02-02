@@ -4,6 +4,8 @@ import { Advert } from '../interfaces/advert';
 import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
 import { Review } from '../interfaces/review';
+import { ReviewResponse } from '../interfaces/review-response';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,8 +29,8 @@ export class EachItemService {
     return this.http.get<ApiResponse<MiniAdvert[]>>(url,{withCredentials:true});
   }
 
-  getReviews(advert_id:number){
-    const url = `http://127.0.0.1:8000/api/getAdvertsReview/${advert_id}`;
-    return this.http.get<ApiResponse<Review[]>>(url,{withCredentials:true});
+  getReviews(slug:string){
+    const url = `http://127.0.0.1:8000/api/getReviewBySlug/${slug}`;
+    return this.http.get<ApiResponse<ReviewResponse>>(url,{withCredentials:true});
   }
 }

@@ -11,7 +11,7 @@ export class ReviewServiceService {
   constructor(private http:HttpClient) { }
 
   getReview(slug:string){
-    const url = `http://127.0.0.1:8000/api/getAdvertBySlug/${slug}`;
+    const url = `http://127.0.0.1:8000/api/getReviewBySlug/${slug}`;
     return this.http.get<ApiResponse<ReviewResponse>>(url,{withCredentials:true});
   }
 
