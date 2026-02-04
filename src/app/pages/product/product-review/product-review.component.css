@@ -70,6 +70,13 @@
 
 }
 
+
+
+
+
+
+
+
 .each-comment {
     border-bottom: 1px solid #eee;
     padding: 20px 0;
@@ -133,7 +140,9 @@
 
 }
 
-
+.user-info-label{
+    font-size: 14px;
+}
 
 /* empty review */
 
@@ -441,7 +450,7 @@ gap: 10px;
     align-items: center;
     gap: 8px;
     margin-bottom: 12px;
-  }
+}
   
   /* avg label */
   .stars-avg-label {

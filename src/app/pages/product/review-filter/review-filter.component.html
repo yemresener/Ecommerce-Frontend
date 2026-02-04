@@ -1,0 +1,26 @@
+<div class="filter-box">
+
+    <label>Filtrele</label>
+    <div class="custom-select"  data-name="rating">
+        <button class="select-btn" (click)="custom=!custom">{{filterLabel}}</button>
+        <ul class="select-menu" [class.open]="custom">
+            <li (click)="targetValue(5)" data-value="5">⭐ Çok iyi (5)</li>
+            <li (click)="targetValue(4)" data-value="4">👍 İyi (4)</li>
+            <li (click)="targetValue(3)" data-value="3">😐 Ortalama (3)</li>
+            <li (click)="targetValue(2)" data-value="2">👎 Kötü (2)</li>
+            <li (click)="targetValue(1)" data-value="1">💀 Çok kötü (1)</li>
+        </ul>
+    </div>
+
+    <label>Sırala</label>
+    <div class="custom-select" data-name="sort">
+        <button class="select-btn">Sıralama seç</button>
+        <ul class="select-menu">
+            <li data-value="new">En yeni</li>
+            <li data-value="old">En eski</li>
+            <li data-value="asc">Puana göre artan</li>
+            <li data-value="desc">Puana göre azalan</li>
+        </ul>
+    </div>
+
+</div>

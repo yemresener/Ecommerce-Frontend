@@ -6,31 +6,12 @@
             <img class="short-img" [src]="advert.item_ref.image" alt="">
             <label class="short-product-title">{{advert.title}}</label>
             <hr>
-
             <div class="short-product-stars" *ngIf="stats?.total">
                 
                 <div class="stars" >
                      <label class="stars-avg-label"> {{stats.avg}}</label>
                     
-                    <div class="rating-stars">
-                        <div class="stars-background">
-                          <ng-container *ngFor="let s of stars">
-                            <svg viewBox="0 0 24 24" class="star-icon">
-                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
-                                    stroke-linejoin="round" stroke-linecap="round"/>
-                            </svg>
-                          </ng-container>
-                        </div>
-                        
-                        <div class="stars-filled" [style.width.%]="(stats.avg / 5) * 100">
-                          <ng-container *ngFor="let s of stars">
-                            <svg viewBox="0 0 24 24" class="star-icon">
-                              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
-                                    stroke-linejoin="round" stroke-linecap="round"/>
-                            </svg>
-                          </ng-container>
-                        </div>
-                    </div>
+                     <app-rating-stars [rating]="stats.avg"></app-rating-stars>
                         
                 </div>
                 
@@ -92,12 +73,14 @@
         </div>
         
         <div class="reviews" *ngIf="reviews?.length">
+        
             <label  class="comments-title">Yorumlar</label>
+            
             <div class="each-comment" *ngFor="let item of reviews">
                 <div class="comment-user-info">
                     <img src="assets/images/noneProfileForReview.jpg" alt="">
                     <label class="user-info-label">
-                        {{item?.user?.name}}  {{item?.user?.surname}}
+                        {{item?.user?.name | titlecase}}  {{item?.user?.surname | titlecase}}
                     </label>
                    
                    
@@ -126,7 +109,10 @@
 
 
           
-            <div class="more-box">
+            <div  class="more-box" *ngIf="stats.total>6">
+                <a *ngIf="!addCart" [attr.href]="'/' + advert.slug +'/yorumlar'"> <button class="more-comment">Tüm Yorumları Gör ({{stats.total}})</button></a>
+                <a *ngIf="addCart"> <button class="more-comment">Daha Fazla Yükle</button></a>
+
             </div>
         </div>
         <div *ngIf="!reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">

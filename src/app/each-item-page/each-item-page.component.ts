@@ -15,6 +15,7 @@ import { Review } from '../interfaces/review';
 import { PaginationMeta } from '../interfaces/pagination-meta';
 import { ReviewResponse } from '../interfaces/review-response';
 import { ReviewStats } from '../interfaces/review/review-stats';
+import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars.component';
 interface product{
   images:[];
   title:string;
@@ -38,7 +39,7 @@ interface sliderState{
 
 @Component({
   selector: 'app-each-item-page',
-  imports: [ProductSectionComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent],
+  imports: [ProductSectionComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
@@ -92,7 +93,7 @@ export class EachItemPageComponent {
 
   popularAdverts: MiniAdvert[] = [];
   getPopularAdverts(){
-    this.itemService.popularAdvertsByCategory(this.advert?.category_id,this.advert?.product_id).subscribe({
+    this.itemService.popularAdvertsByCategory(this.advert?.id).subscribe({
       next:(res: ApiResponse<MiniAdvert[]>)=>{
         this.popularAdverts=res.data;
         console.log('POPRES',res);

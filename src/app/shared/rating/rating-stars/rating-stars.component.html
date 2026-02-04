@@ -1,0 +1,19 @@
+<div class="rating-stars" >
+    <div class="stars-background">
+      <ng-container *ngFor="let s of [1,2,3,4,5]">
+        <svg viewBox="0 0 24 24" class="star-icon">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </ng-container>
+    </div>
+    
+    <div class="stars-filled" [style.width.%]="(rating / 5) * 100">
+      <ng-container *ngFor="let s of [1,2,3,4,5]">
+        <svg viewBox="0 0 24 24" class="star-icon">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" 
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </ng-container>
+    </div>
+</div>

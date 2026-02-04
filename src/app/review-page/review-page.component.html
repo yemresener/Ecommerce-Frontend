@@ -1,4 +1,12 @@
+
+
+<app-review-filter (filterChange)="onFilterChange($event)">
+
+</app-review-filter>
+
+
 <app-product-review *ngIf="advert && reviews" [addCart]="true" [advert]="advert" [reviews]="reviews" [stats]="stats">
+    
     <div review-title  class="review-box" >
     <label  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
         font-size: 18px;

@@ -144,7 +144,6 @@
 .product-details {
     display: flex;
     flex-direction: column;
-    gap: 24px;
 }
 
 .product-title {
@@ -157,23 +156,19 @@
 .rating-section {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 5px;
 }
 
-.stars {
-    display: flex;
-    gap: 4px;
-}
 
-.stars i {
-    color: #fbbf24;
-    font-size: 18px;
-}
 
 .rating-text {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     color: #1e293b;
+    background-color: #fff9e5;
+    padding: 5px;
+    border-radius: 8px;
 }
 
 .review-count {
@@ -194,6 +189,8 @@
     color: #0c4a6e;
     display: flex;
     align-items: baseline;
+    margin-top: 24px;
+
 }
 
 .currency {
@@ -223,6 +220,8 @@
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
     transition: all 0.3s ease;
     width: 50%;
+    margin-top: 24px;
+
 }
 
 .add-to-cart:hover {
@@ -244,6 +243,8 @@
     gap: 12px;
     font-weight: 600;
     box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    margin-top: 10px;
+    justify-content: center;
 }
 
 .delivery-badge i {
@@ -252,6 +253,8 @@
 
 .description-section {
     margin-top: 12px;
+    margin-top: 36px;
+
 }
 
 .description-title {
@@ -381,6 +384,13 @@
     font-weight: 600;
     color: #222;
 }
+
+
+
+
+
+  
+
 
 /* =========================
    TABLET (1024px ve altı)

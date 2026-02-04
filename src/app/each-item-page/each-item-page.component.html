@@ -9,7 +9,6 @@
 
     <div class="product-content">
         <div class="product-image-section" *ngIf="itemSlider">
-
             <div class="product-image">
                 <button *ngIf="itemSlider.items.length>1" (click)="prev()" class="image-button left">&#10094;</button>
 
@@ -54,16 +53,15 @@
         <div class="product-details">
             <label class="product-title">{{advert?.title}}</label>
             
-            <div class="rating-section" *ngIf="advert?.avg_rating">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <span class="rating-text">{{advert?.avg_rating}}</span>
-                <span class="review-count">{{advert?.total_comments}}</span>
+            <div class="rating-section" *ngIf="advert.avg_rating">
+                <span class="rating-text">{{advert?.avg_rating | number:'1.0-1'}}</span>
+                
+                
+                <app-rating-stars *ngIf="advert.avg_rating" [rating]="advert.avg_rating"></app-rating-stars>
+
+
+                
+                <span class="review-count">{{advert?.total_comments}} Değerlendirme</span>
             </div>
 
             <div class="price-section">
