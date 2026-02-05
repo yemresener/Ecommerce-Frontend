@@ -1,83 +1,163 @@
-
-/* filter */
-.custom-select {
-    position: relative;
-    min-width: 200px;
+/* Ana Kutu Konteynırı */
+.filter-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    font-family: 'Inter', sans-serif; /* Daha modern bir font tercih edebilirsin */
 }
 
-/* button */
+.filter-box label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-select {
+    position: relative;
+    min-width: 220px;
+}
+
+/* Buton Stili */
 .select-btn {
     width: 100%;
-    padding: 9px 14px;
-
-    border-radius: 10px;
-    border: 1px solid #e3e3e3;
-
-    background: #fafafa;
+    padding: 11px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
     font-size: 14px;
     font-weight: 500;
-
+    color: #1e293b;
     cursor: pointer;
-    text-align: left;
-
-    transition: 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .select-btn:hover {
-    background: #f1f1f1;
+    border-color: #cbd5e1;
+    background: #f8fafc;
 }
 
-.select-btn.active {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+/* Dropdown Açıkken Buton Hali */
+.select-btn.selected, .select-btn:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background: #fff;
 }
 
-/* dropdown */
+/* Dropdown Menü */
 .select-menu {
     position: absolute;
-    top: 110%;
+    top: calc(100% + 8px);
     left: 0;
     width: 100%;
-
     background: white;
-    border-radius: 12px;
-
-    box-shadow: 0 8px 22px rgba(0,0,0,.08);
-
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 6px;
     margin: 0;
-
     opacity: 0;
-    pointer-events: none;
-    transform: translateY(-5px);
-
-    transition: .18s ease;
-    z-index: 20;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 50;
 }
 
-.custom-select .select-menu.open {
+.select-menu.open {
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
     transform: translateY(0);
 }
 
-/* items */
+/* Liste Öğeleri */
 .select-menu li {
-    padding: 8px 10px;
-    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
+    color: #475569;
+    margin-bottom: 2px;
+    transition: all 0.15s ease;
+}
 
-    transition: .15s;
+.select-menu li:last-child {
+    margin-bottom: 0;
 }
 
 .select-menu li:hover {
-    background: #f3f4ff;
+    background: #f1f5f9;
+    color: #1e293b;
 }
 
+/* Seçili Öğe */
 .select-menu li.selected {
-    background: #4f46e5;
-    color: white;
+    background: #6366f1;
+    color: #ffffff;
+    font-weight: 600;
 }
 
+/* Sol Grup (Radio ve Label) */
+.select-menu .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Modern Radio Bullet */
+.radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.select-menu li.selected .radio {
+    border-color: #fff;
+    background: #fff;
+}
+
+/* Seçili İç Nokta (Opsiyonel) */
+.select-menu li.selected .radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+}
+
+/* Yıldız İkonu */
+.select-menu .right {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.select-menu .right i {
+    color: #fbbf24;
+    margin-right: 5px;
+}
+
+.select-menu li.selected .right i {
+    color: #fff;
+}
+
+/* Sağdaki stats (sayı) kısmını gri yapalım */
+.select-menu .left {
+    color: inherit;
+}

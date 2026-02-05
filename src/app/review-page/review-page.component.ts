@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
 import { FilterParams } from '../interfaces/filter-params';
 import { ReviewFilterComponent } from '../pages/product/review-filter/review-filter.component';
+import { Links } from '../interfaces/links';
 @Component({
   selector: 'app-review-page',
   imports: [CommonModule,ProductReviewComponent,ReviewFilterComponent],
@@ -28,7 +29,14 @@ export class ReviewPageComponent {
       this.getPage()
     })
     this.route.queryParams.subscribe(params => {
-      this.loadReviews(params);
+      const filters: FilterParams = {};
+
+      if (params['rating']) filters.rating = +params['rating'];
+      if (params['sort_by']) filters.sort_by = params['sort_by'];
+      if (params['order']) filters.order = params['order'];
+
+      this.currentFilters = filters;
+      this.fetchReviews(true); 
     });
    
   }
@@ -38,7 +46,8 @@ export class ReviewPageComponent {
   reviews!:Review[]
   stats!:ReviewStats
   meta!:PaginationMeta
-
+  links!:Links;
+  currentFilters!:FilterParams;
   
   getPage(){
     this.reviewService.getReview(this.slug).subscribe({
@@ -54,35 +63,44 @@ export class ReviewPageComponent {
     slug:this.slug,
     
   }
-  onFilterChange(params:FilterParams){
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: params,
-      queryParamsHandling: 'merge'
-    });
-    
+
+  loading=false;
+  fetchReviews(reset=false){
+    if(this.loading) return;
+    if(!reset && this.meta && this.meta.current_page >= this.meta.last_page) return;
+
+    this.loading=true;
+
+    const page =reset ? 1: (this.meta?.current_page ?? 0) +1;
     this.reviewService.filterReview({
-      slug:this.advert.slug,
-      ...params
+      slug:this.slug,
+      page,
+      ...this.currentFilters
     })
     .subscribe(res=>{
-      console.log('donus',res)
-      this.reviews=res.data;
-      console.log('ADVERT KANKAM',this.advert)
+      this.reviews=reset ? res.data : [...this.reviews, ...res.data];
+
+      this.meta =res.meta;
+      this.links=res.links;
+      this.loading=false;
     })
   }
-  count:boolean=false;
-  loadReviews(params:any){
-    if(this.count) return
-    this.reviewService
-      .filterReview({
-        slug: this.slug,
-        ...params
-      })
-      .subscribe(res => {
-        this.reviews = res.data;
-        this.count=true;
-      });
+
+  
+  onFilterChange(params: FilterParams){
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        rating: params.rating ?? undefined,
+        sort_by: params.sort_by ?? undefined,
+        order: params.order ?? undefined
+      }
+    });
+  }
+
+
+  loadMore(){
+    this.fetchReviews(false);
   }
 
 

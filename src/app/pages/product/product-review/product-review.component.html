@@ -74,8 +74,13 @@
         
         <div class="reviews" *ngIf="reviews?.length">
         
-            <label  class="comments-title">Yorumlar</label>
-            
+            <div class="filter-boxs" style="display: grid; justify-content: space-between; gap: 20px; ">
+                <label  class="comments-title">Tüm Değerlendirmeler</label>
+                
+                <!--     -->
+                <ng-content select="[review-filter]"></ng-content>
+            </div>
+
             <div class="each-comment" *ngFor="let item of reviews">
                 <div class="comment-user-info">
                     <img src="assets/images/noneProfileForReview.jpg" alt="">
@@ -110,8 +115,8 @@
 
           
             <div  class="more-box" *ngIf="stats.total>6">
-                <a *ngIf="!addCart" [attr.href]="'/' + advert.slug +'/yorumlar'"> <button class="more-comment">Tüm Yorumları Gör ({{stats.total}})</button></a>
-                <a *ngIf="addCart"> <button class="more-comment">Daha Fazla Yükle</button></a>
+                <a *ngIf="links?.next" > <button (click)="loadMorePaginate()" class="more-comment">Daha Fazla Yükle</button></a>
+                <a *ngIf="!addCart" [attr.href]="'/' + advert.slug +'/yorumlar'"> <button class="more-comment" >Tüm Yorumları Gör ({{stats.total}})</button></a>
 
             </div>
         </div>

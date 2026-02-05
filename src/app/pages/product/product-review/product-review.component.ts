@@ -12,6 +12,7 @@ import { ApiResponse } from '../../../interfaces/api-response';
 import { ReviewStats } from '../../../interfaces/review/review-stats';
 import { RatingStarsComponent } from '../../../shared/rating/rating-stars/rating-stars.component';
 import { FilterParams } from '../../../interfaces/filter-params';
+import { Links } from '../../../interfaces/links';
 @Component({
   selector: 'app-product-review',
   imports: [CommonModule,FormsModule,RatingStarsComponent],
@@ -20,18 +21,23 @@ import { FilterParams } from '../../../interfaces/filter-params';
 })
 export class ProductReviewComponent {
   constructor(private reviewService:ReviewServiceService,private route:ActivatedRoute){}
+  @Output() loadMore = new EventEmitter<FilterParams>();
 
   @Input() addCart:boolean=false;
   @Input() advert!:MiniAdvert;
   @Input() reviews!:Review[];
   @Input() meta!:PaginationMeta;
   @Input() stats!:ReviewStats;
+  @Input() links!:Links;
 
 
   stars = [1,2,3,4,5];
 
 
   
+  loadMorePaginate(){
+    this.loadMore.emit();
+  }
   
   /* ngOnChanges(changes: SimpleChanges): void {
 

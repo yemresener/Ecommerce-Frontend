@@ -1,6 +1,7 @@
 export interface FilterParams {
-    slug?: string;
-    rating?: number;
-    sort_by?: 'rating' | 'created_at';
-    order?: 'asc' | 'desc';
-  }
+  slug?: string;
+  rating?: number | null;
+  sort_by?: string | null;
+  order?: 'asc' | 'desc' | null;
+  page?:number
+}
