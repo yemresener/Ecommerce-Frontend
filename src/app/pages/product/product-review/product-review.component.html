@@ -1,67 +1,101 @@
 
-<div class="review-container" *ngIf="advert">
+<div class="review-container" >
     <ng-content select="[review-title]"></ng-content>
     <div class="review-box">
         <div class="short-product">
-            <img class="short-img" [src]="advert.item_ref.image" alt="">
-            <label class="short-product-title">{{advert.title}}</label>
+            <div class="img-wrapper">
+                <div class="img-skeleton shimmer" *ngIf="skeleton"></div>
+                <img class="short-img"
+                [src]="advert?.item_ref?.image"
+                (load)="imgLoading=false"
+                loading="lazy"
+                alt="">
+            </div>
+
+            <label class="short-product-title">
+                <span [class.hide]="skeleton">
+                    {{ advert?.title }}
+                  </span>
+                
+                  <div class="title-skeleton shimmer"
+                       [class.hide]="!skeleton">
+                  </div>
+
+            </label>
             <hr>
-            <div class="short-product-stars" *ngIf="stats?.total">
+            
+
+            <div class="short-product-stars" >
                 
-                <div class="stars" >
-                     <label class="stars-avg-label"> {{stats.avg}}</label>
-                    
-                     <app-rating-stars [rating]="stats.avg"></app-rating-stars>
-                        
+                <div class="stars-wrapper">
+
+                    <!-- ⭐ gerçek içerik -->
+                    <div class="stars-content" [class.hide]="skeleton">
+
+                        <label class="stars-avg-label">
+                            {{ stats?.avg || 0 }}
+                        </label>
+
+                        <app-rating-stars
+                            [rating]="stats?.avg || 0">
+                        </app-rating-stars>
+
+                    </div>
+
+                    <!-- ✨ skeleton -->
+                    <div class="stars-skeleton shimmer"
+                        [class.hide]="!skeleton">
+                    </div>
+
                 </div>
-                
-                <label class="review-count">{{stats.total}} Kullanıcı Değerlendirmesi</label>
+
+
+                <!-- review count -->
+                <span class="review-count-wrapper">
+
+                    <span class="review-count" [class.hide]="skeleton">
+                    {{ stats?.total || 0 }} Kullanıcı Değerlendirmesi
+                    </span>
+
+                    <span class="count-skeleton shimmer"
+                        [class.hide]="!skeleton">
+                    </span>
+
+                </span>
 
 
 
                 <div class="rating-chart">
-                    <div class="rating-row">
-                        <span class="star-label">5 <i class="fas fa-star"></i></span>
-                        <div class="bar">
-                            <div class="bar-fill" [style.width.%]="stats.five_avg"></div>
+                    <ng-container *ngIf="skeleton">
+                        <div class="rating-row" *ngFor="let i of [1,2,3,4,5]">
+                          <div class="bar-skeleton shimmer">
+                            <div class="star-skeleton"></div>
+                            <div class="bar-fill-skeleton"></div>
+                            <div class="count-skeleton"></div>
+                          </div>
                         </div>
-                        <span class="count">{{stats.five}}</span>
+                      </ng-container>
+                    <div class="rating-row" *ngFor="let row of ratingRows">
+                      
+                      <!-- Normal rating content -->
+                      <div class="rating-content" [class.hide]="skeleton">
+                        <span class="star-label">
+                          {{ row.star }} <i class="fas fa-star"></i>
+                        </span>
+                        <div class="bar">
+                          <div class="bar-fill" [style.width.%]="row.avg"></div>
+                        </div>
+                        <span class="chart-count">{{ row.count }}</span>
+                      </div>
+                  
+                      <!-- Skeleton bar -->
+                                     
                     </div>
                 
-                    <div class="rating-row">
-                        <span class="star-label">4 <i class="fas fa-star"></i></span>
-                        <div class="bar">
-                            <div class="bar-fill" [style.width.%]="stats.four_avg"></div>
-                        </div>
-                        <span class="count">{{stats.four}}</span>
-                    </div>
-                
-                    <div class="rating-row">
-                        <span class="star-label">3 <i class="fas fa-star"></i></span>
-                        <div class="bar">
-                            <div class="bar-fill" [style.width.%]="stats.three_avg"></div>
-                        </div>
-                        <span class="count">{{stats.three}}</span>
-                    </div>
-                
-                    <div class="rating-row">
-                        <span class="star-label">2 <i class="fas fa-star"></i></span>
-                        <div class="bar">
-                            <div class="bar-fill" [style.width.%]="stats.two_avg"></div>
-                        </div>
-                        <span class="count">{{stats.two}}</span>
-                    </div>
-                
-                    <div class="rating-row">
-                        <span class="star-label">1 <i class="fas fa-star"></i></span>
-                        <div class="bar">
-                            <div class="bar-fill" [style.width.%]="stats.one_avg"></div>
-                        </div>
-                        <span class="count">{{stats.one}}</span>
-                    </div>
-                    
                 </div>
-              
+
+
+
 
             </div>
 
@@ -72,7 +106,7 @@
             </div>
         </div>
         
-        <div class="reviews" *ngIf="reviews?.length">
+        <div class="reviews" >
         
             <div class="filter-boxs" style="display: grid; justify-content: space-between; gap: 20px; ">
                 <label  class="comments-title">Tüm Değerlendirmeler</label>
@@ -81,51 +115,63 @@
                 <ng-content select="[review-filter]"></ng-content>
             </div>
 
-            <div class="each-comment" *ngFor="let item of reviews">
-                <div class="comment-user-info">
-                    <img src="assets/images/noneProfileForReview.jpg" alt="">
-                    <label class="user-info-label">
-                        {{item?.user?.name | titlecase}}  {{item?.user?.surname | titlecase}}
-                    </label>
-                   
-                   
-                    <div class="stars-comment">
-                        <ng-container *ngFor="let star of [1,2,3,4,5]">                 
-           
-                        <i class="fa-star" [ngClass]="star<=item.rating ? 'fas' :'fa-regular'"></i>
+            <ng-container *ngIf="skeleton">
 
-                    </ng-container>
+                <div class="comment-skeleton" *ngFor="let i of [1,2,3]">
+                  <div class="avatar shimmer"></div>
+            
+                  <div class="content">
+                    <div class="line short shimmer"></div>
+                    <div class="line shimmer"></div>
+                    <div class="line shimmer"></div>
+                  </div>
+                </div>
+            
+            </ng-container>
+
+            <ng-container *ngIf="!skeleton">
+                <div class="each-comment" *ngFor="let item of reviews">
+                    <div class="comment-user-info">
+                        <img src="assets/images/noneProfileForReview.jpg" alt="">
+                        <label class="user-info-label">
+                            {{item?.user?.name | titlecase}}  {{item?.user?.surname | titlecase}}
+                        </label>
+                    
+                    
+                        <div class="stars-comment">
+                            <ng-container *ngFor="let star of [1,2,3,4,5]">                 
+            
+                            <i class="fa-star" [ngClass]="star<=item.rating ? 'fas' :'fa-regular'"></i>
+
+                        </ng-container>
+                        </div>
+
+                        <span class="rating-text">{{item?.rating}}</span>
+                        <label class="comment-date">{{item?.comment_date}}</label>
                     </div>
-
-                    <span class="rating-text">{{item?.rating}}</span>
-                    <label class="comment-date">{{item?.comment_date}}</label>
+                    <div class="comment-content">
+                        {{item?.comment}}
+                    </div>
                 </div>
-                <div class="comment-content">
-                    {{item?.comment}}
-                </div>
-            </div>
-
-
-
-
-
-
+            </ng-container>
 
 
 
           
-            <div  class="more-box" *ngIf="stats.total>6">
+            <div class="more-box" *ngIf="(stats?.total ?? 0) > 6">
                 <a *ngIf="links?.next" > <button (click)="loadMorePaginate()" class="more-comment">Daha Fazla Yükle</button></a>
                 <a *ngIf="!addCart" [attr.href]="'/' + advert.slug +'/yorumlar'"> <button class="more-comment" >Tüm Yorumları Gör ({{stats.total}})</button></a>
 
             </div>
         </div>
-        <div *ngIf="!reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
+
+        <div *ngIf="!skeleton && !reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
             <div class="empty-icon"><i class="fa-regular fa-comment-dots"></i></div>
             <h3>Henüz yorum yok</h3>
             <p>İlk yorumu yapan sen ol! Deneyimini paylaş.</p>
             <button class="comment-create-empty" style="width: 50%;">Yorum Yap</button>
         </div>
+        
     </div>
 
 </div>

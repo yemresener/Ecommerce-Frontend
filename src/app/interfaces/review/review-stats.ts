@@ -1,8 +1,10 @@
 export interface ReviewStats {
     total:number,
     avg:number,
+
     five:number | null,
     five_avg:number | null,
+    
     four:number | null,
     four_avg:number | null,
 

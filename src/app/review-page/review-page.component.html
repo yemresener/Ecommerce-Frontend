@@ -1,11 +1,11 @@
 
 
-
-<app-product-review *ngIf="advert && reviews" [addCart]="true" [advert]="advert" [reviews]="reviews" [stats]="stats" [links]="links"
+<app-product-review  [addCart]="true" [advert]="advert" [reviews]="reviews" [stats]="stats" [links]="links"
 (loadMore)=loadMore()
 >
     
-    <div review-title  class="review-box" >
+
+    <div review-title  class="review-box" *ngIf="advert">
     <label  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
         font-size: 18px;
         color: gray;">(2)</label></label>

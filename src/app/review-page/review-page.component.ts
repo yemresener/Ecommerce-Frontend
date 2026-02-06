@@ -13,9 +13,10 @@ import { ProductReviewComponent } from '../pages/product/product-review/product-
 import { FilterParams } from '../interfaces/filter-params';
 import { ReviewFilterComponent } from '../pages/product/review-filter/review-filter.component';
 import { Links } from '../interfaces/links';
+import { ProductReviewSkeletonComponent } from '../shared/skeleton/product-review-skeleton/product-review-skeleton.component';
 @Component({
   selector: 'app-review-page',
-  imports: [CommonModule,ProductReviewComponent,ReviewFilterComponent],
+  imports: [CommonModule,ProductReviewComponent,ReviewFilterComponent,ProductReviewSkeletonComponent],
   templateUrl: './review-page.component.html',
   styleUrl: './review-page.component.css'
 })
@@ -64,12 +65,14 @@ export class ReviewPageComponent {
     
   }
 
+  skeleton=true;
   loading=false;
   fetchReviews(reset=false){
     if(this.loading) return;
     if(!reset && this.meta && this.meta.current_page >= this.meta.last_page) return;
 
     this.loading=true;
+
 
     const page =reset ? 1: (this.meta?.current_page ?? 0) +1;
     this.reviewService.filterReview({
@@ -83,6 +86,7 @@ export class ReviewPageComponent {
       this.meta =res.meta;
       this.links=res.links;
       this.loading=false;
+      this.skeleton = false;
     })
   }
 

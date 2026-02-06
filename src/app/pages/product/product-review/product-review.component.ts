@@ -29,50 +29,31 @@ export class ProductReviewComponent {
   @Input() meta!:PaginationMeta;
   @Input() stats!:ReviewStats;
   @Input() links!:Links;
-
+  //@Input() skeleton=true;
+ 
+  skeleton=true;
 
   stars = [1,2,3,4,5];
-
-
+  imgLoading = true;
   
   loadMorePaginate(){
     this.loadMore.emit();
   }
   
-  /* ngOnChanges(changes: SimpleChanges): void {
 
-    if(changes['advert']){
-      console.log('advert kankam',this.advert);
-    }
-  } */
-/*
-  slug!:string;
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params=>{
-      this.slug= params.get('slug') ?? '';
-      this.getPage();
-    })
-    
+  get ratingRows() {
+    const s = this.stats;
+  
+    if (!s) return [];
+  
+    return [
+      { star: 5, avg: s.five_avg || 0, count: s.five || 0 },
+      { star: 4, avg: s.four_avg || 0, count: s.four || 0 },
+      { star: 3, avg: s.three_avg || 0, count: s.three || 0 },
+      { star: 2, avg: s.two_avg || 0, count: s.two || 0 },
+      { star: 1, avg: s.one_avg || 0, count: s.one || 0 }
+    ];
   }
-  getPage(){
-    return this.reviewService.getReview(this.slug).subscribe({
-      next:(res: ApiResponse<ReviewResponse>)=>{
-        this.advert=res.data.advert;
-        this.reviews=res.data.reviews;
-        console.log('review ha',res);
-      },
-      error:(err)=>{
-        console.log(err)
-      }
-    })
-  }
-
-  */
-
-
-
-
-
 
 
   commentPopUp = 0;
