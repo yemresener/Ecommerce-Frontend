@@ -1,4 +1,4 @@
-import { Component,SimpleChanges } from '@angular/core';
+import { Component,ViewChild,ElementRef } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
@@ -16,6 +16,7 @@ import { PaginationMeta } from '../interfaces/pagination-meta';
 import { ReviewResponse } from '../interfaces/review-response';
 import { ReviewStats } from '../interfaces/review/review-stats';
 import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars.component';
+import { BreadCrumb } from '../interfaces/bread-crumb';
 interface product{
   images:[];
   title:string;
@@ -45,6 +46,7 @@ interface sliderState{
 })
 
 export class EachItemPageComponent {
+  @ViewChild('categoryAdverts') categoryAdverts!: ElementRef;
 
   constructor(private route:ActivatedRoute,private itemService:EachItemService){}
 
@@ -59,13 +61,15 @@ export class EachItemPageComponent {
 
   advert!:Advert;
   itemSlider!:SliderModel<any>
-
+  breadcrumb!: BreadCrumb[];
   getAdvert(){
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
 
-        this.advert=res.data;
-        console.log(res.data);
+        this.advert=res.data.advert;
+        this.breadcrumb=res.data.bread_crumb;
+        console.log(this.breadcrumb,'RES KANKA');
+        
         if(this.advert?.item_ref?.images?.length){
           this.itemSlider={
             items:this.advert.item_ref.images,
@@ -75,14 +79,7 @@ export class EachItemPageComponent {
           console.log('slider',this.itemSlider);
         }
         console.log('porduct',this.advert?.product_id)
-        this.getPopularAdverts();
-        setTimeout(() => {
-          this.getRecoAdverts();
-        }, 3000);
-
-        setTimeout(() => {
-          this.getReviews();
-        }, 900);
+       this.getReviews();
 
       },
       error:(err)=>{
@@ -122,6 +119,8 @@ export class EachItemPageComponent {
   reviews!:Review[];
   meta!:PaginationMeta;
   stats!:ReviewStats;
+  skeleton=true;
+
   getReviews(){
     this.itemService.getReviews(this.advert?.slug).subscribe({
       next:(res:ApiResponse<ReviewResponse>)=>{
@@ -129,9 +128,10 @@ export class EachItemPageComponent {
         this.reviews=res.data.reviews;
         this.meta=res.meta;
         this.stats=res.data.stats;
-        console.log('reviews',this.reviews)
+          console.log('reviews',this.reviews)
         console.log('counts',this.meta)
         console.log('STATS',this.stats);
+        this.skeleton=false;
 
       },
       error:(err)=>{
@@ -141,7 +141,22 @@ export class EachItemPageComponent {
   }
   
 
+  ngAfterViewInit(): void {
 
+      const observer = new IntersectionObserver(enter=>{
+        if(enter[0].isIntersecting){
+          this.getPopularAdverts();
+          this.getRecoAdverts();
+          observer.disconnect();
+        }
+      },{ threshold: 0.2 });
+
+      observer.observe(this.categoryAdverts.nativeElement);
+
+  }
+
+
+  
 
 
 

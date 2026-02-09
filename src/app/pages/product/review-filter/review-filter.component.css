@@ -5,6 +5,8 @@
     gap: 15px;
     padding: 10px;
     font-family: 'Inter', sans-serif; /* Daha modern bir font tercih edebilirsin */
+    flex-wrap: wrap;
+    justify-content: flex-start
 }
 
 .filter-box label {
@@ -17,7 +19,10 @@
 
 .custom-select {
     position: relative;
-    min-width: 220px;
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+    gap: 10px;
 }
 
 /* Buton Stili */
@@ -161,3 +166,16 @@
 .select-menu .left {
     color: inherit;
 }
+.filter-title{
+    min-width: 75px;
+}
+
+@media (max-width: 768px) {
+    .filter-box {
+      gap: 10px;
+    }
+  
+    .custom-select {
+      min-width: 100%; /* mobilde full-width */
+    }
+  }

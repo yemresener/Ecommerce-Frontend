@@ -5,6 +5,7 @@ import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
 import { Review } from '../interfaces/review';
 import { ReviewResponse } from '../interfaces/review-response';
+import { AdvertResponse } from '../interfaces/advert-response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class EachItemService {
 
   getAdvert(slug:string){
     const url = `http://127.0.0.1:8000/api/advert/${slug}`;
-    return this.http.get<{ data: Advert }>(url,{withCredentials:true});
+    return this.http.get<ApiResponse<AdvertResponse>>(url,{withCredentials:true});
   }
 
   popularAdvertsByCategory(advert_id:number){

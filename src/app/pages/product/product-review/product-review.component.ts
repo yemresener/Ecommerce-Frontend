@@ -13,9 +13,10 @@ import { ReviewStats } from '../../../interfaces/review/review-stats';
 import { RatingStarsComponent } from '../../../shared/rating/rating-stars/rating-stars.component';
 import { FilterParams } from '../../../interfaces/filter-params';
 import { Links } from '../../../interfaces/links';
+import { FullpageLoaderComponent } from '../../../shared/fullpage-loader/fullpage-loader.component';
 @Component({
   selector: 'app-product-review',
-  imports: [CommonModule,FormsModule,RatingStarsComponent],
+  imports: [CommonModule,FormsModule,RatingStarsComponent,FullpageLoaderComponent],
   templateUrl: './product-review.component.html',
   styleUrl: './product-review.component.css'
 })
@@ -29,13 +30,13 @@ export class ProductReviewComponent {
   @Input() meta!:PaginationMeta;
   @Input() stats!:ReviewStats;
   @Input() links!:Links;
-  //@Input() skeleton=true;
- 
-  skeleton=true;
+  @Input() skeleton=true;
+  @Input() isLoading=false;
 
   stars = [1,2,3,4,5];
   imgLoading = true;
   
+
   loadMorePaginate(){
     this.loadMore.emit();
   }

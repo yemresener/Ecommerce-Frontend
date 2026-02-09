@@ -1,6 +1,15 @@
 
 <div class="review-container" >
-    <ng-content select="[review-title]"></ng-content>
+    <ng-container *ngIf="!skeleton; else titleSkeleton">
+        <ng-content select="[review-title]"></ng-content>
+      </ng-container>
+      
+      <ng-template #titleSkeleton>
+        <div class="review-box">
+          <div class="title-skeleton shimmer"></div>
+          <div class="link-skeleton shimmer"></div>
+        </div>
+      </ng-template>
     <div class="review-box">
         <div class="short-product">
             <div class="img-wrapper">
@@ -101,15 +110,34 @@
 
 
             <div class="action-buttons">
-                <button *ngIf="addCart" class="add-to-cart" >  <i class="fas fa-shopping-cart"></i> Sepete Ekle</button>
-                <button *ngIf="reviews?.length" class="comment-create"  (click)="commentPopUp = 1;">Yorum Yaz</button>
-            </div>
+
+                <!-- Skeleton -->
+                <ng-container *ngIf="skeleton">
+                  <div class="btn-skeleton shimmer"></div>
+                  <div class="btn-skeleton shimmer"></div>
+                </ng-container>
+              
+                <!-- Normal -->
+                <ng-container *ngIf="!skeleton">
+                  <button *ngIf="addCart" class="add-to-cart">
+                    <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                  </button>
+              
+                  <button *ngIf="reviews?.length" class="comment-create"
+                          (click)="commentPopUp = 1;">
+                    Yorum Yaz
+                  </button>
+                </ng-container>
+              
+              </div>
+
+
         </div>
         
         <div class="reviews" >
         
-            <div class="filter-boxs" style="display: grid; justify-content: space-between; gap: 20px; ">
-                <label  class="comments-title">Tüm Değerlendirmeler</label>
+            <div *ngIf="stats" class="filter-boxs" style="display: grid; justify-content: space-between; gap: 20px; ">
+                <label *ngIf="stats.total"  class="comments-title">Tüm Değerlendirmeler</label>
                 
                 <!--     -->
                 <ng-content select="[review-filter]"></ng-content>
@@ -117,7 +145,7 @@
 
             <ng-container *ngIf="skeleton">
 
-                <div class="comment-skeleton" *ngFor="let i of [1,2,3]">
+                <div class="comment-skeleton" *ngFor="let i of [1,2,3,4,5,6]">
                   <div class="avatar shimmer"></div>
             
                   <div class="content">
@@ -163,19 +191,27 @@
                 <a *ngIf="!addCart" [attr.href]="'/' + advert.slug +'/yorumlar'"> <button class="more-comment" >Tüm Yorumları Gör ({{stats.total}})</button></a>
 
             </div>
-        </div>
 
-        <div *ngIf="!skeleton && !reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
-            <div class="empty-icon"><i class="fa-regular fa-comment-dots"></i></div>
-            <h3>Henüz yorum yok</h3>
-            <p>İlk yorumu yapan sen ol! Deneyimini paylaş.</p>
-            <button class="comment-create-empty" style="width: 50%;">Yorum Yap</button>
+
+            <div *ngIf="!skeleton && !reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
+              <div class="empty-icon"><i class="fa-regular fa-comment-dots"></i></div>
+              <h3>Henüz yorum yok</h3>
+              <p>İlk yorumu yapan sen ol! Deneyimini paylaş.</p>
+              <button class="comment-create-empty" style="width: 50%;">Yorum Yap</button>
+            </div>
+
+
+
         </div>
         
     </div>
 
 </div>
 
+
+
+
+<app-fullpage-loader *ngIf="isLoading"></app-fullpage-loader>
 
 <!-- Comment Create Layout -->
 <div class="modal-overlay" *ngIf="commentPopUp" (click)="commentPopUp=0">

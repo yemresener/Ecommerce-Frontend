@@ -53,7 +53,7 @@ export class ReviewPageComponent {
   getPage(){
     this.reviewService.getReview(this.slug).subscribe({
       next:(res:ApiResponse<ReviewResponse>)=>{
-        console.log('harhar',res);
+        console.log('review page response',res);
         this.advert=res.data.advert;
         this.stats=res.data.stats;
       }
@@ -67,6 +67,7 @@ export class ReviewPageComponent {
 
   skeleton=true;
   loading=false;
+  isLoading=false;
   fetchReviews(reset=false){
     if(this.loading) return;
     if(!reset && this.meta && this.meta.current_page >= this.meta.last_page) return;
@@ -86,6 +87,7 @@ export class ReviewPageComponent {
       this.meta =res.meta;
       this.links=res.links;
       this.loading=false;
+      this.isLoading=false;
       this.skeleton = false;
     })
   }
@@ -102,8 +104,8 @@ export class ReviewPageComponent {
     });
   }
 
-
   loadMore(){
+    this.isLoading=true;
     this.fetchReviews(false);
   }
 
