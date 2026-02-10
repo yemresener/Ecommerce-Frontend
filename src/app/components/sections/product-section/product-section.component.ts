@@ -15,8 +15,14 @@ export class ProductSectionComponent  implements OnChanges {
   @Input() title!:string;
   @Input() items:MiniAdvert[]=[];
   @Input() sectionType!:string;
+  @Input() skeleton:boolean=true;
   productSlider!: SliderModel<any>;
-
+  skeletonItems = Array(5).fill(null);
+  skeletonSlider: SliderModel<any> = {
+    items: this.skeletonItems,
+    index: 0,
+    visible: 5
+  };
   ngOnChanges(changes: SimpleChanges) {
     if (changes['items'] && this.items?.length) {
       this.productSlider = {

@@ -2,15 +2,15 @@
     <label class="best-label">{{title}}</label>
   
     <app-slider
-      *ngIf="productSlider"
-      [slider]="productSlider"
-      [itemWidth]="245">
-  
-      <app-card
-        *ngFor="let item of productSlider.items"
-        [item]="item">
-      </app-card>
-  
-    </app-slider>
+  [slider]="productSlider || skeletonSlider"
+  [itemWidth]="245">
+
+  <app-card
+    *ngFor="let item of (productSlider?.items || skeletonItems)"
+    [item]="item"
+    [skeleton]="!productSlider">
+  </app-card>
+
+</app-slider>
   </div>
   

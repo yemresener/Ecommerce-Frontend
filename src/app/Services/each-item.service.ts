@@ -20,13 +20,13 @@ export class EachItemService {
     return this.http.get<ApiResponse<AdvertResponse>>(url,{withCredentials:true});
   }
 
-  popularAdvertsByCategory(advert_id:number){
-    const url = `http://127.0.0.1:8000/api/popularAdverts/${advert_id}`;
+  popularAdvertsByCategory(slug:string){
+    const url = `http://127.0.0.1:8000/api/popularAdverts/${slug}`;
     return this.http.get<ApiResponse<MiniAdvert[]>>(url,{withCredentials:true});
   }
 
-  recoAdvertsByFeature(product_id:number){
-    const url = `http://127.0.0.1:8000/api/recoAdverts/${product_id}`;
+  recoAdvertsByFeature(slug:string){
+    const url = `http://127.0.0.1:8000/api/recoAdverts/${slug}`;
     return this.http.get<ApiResponse<MiniAdvert[]>>(url,{withCredentials:true});
   }
 

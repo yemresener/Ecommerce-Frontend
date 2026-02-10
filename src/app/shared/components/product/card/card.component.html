@@ -1,33 +1,50 @@
-    <div class="best-item"  [class.small]="itemSize>=1">
+<div class="best-item" [class.small]="itemSize>=1">
 
-        <a class="card-link"
-        [attr.href]="'/' + item.slug">
-
-        </a>
-
-        <div class="image-box"  [class.small]="itemSize>=1">
-        <img [src]=item.item_ref.image alt="">
-        </div>
-    
-        <label class="item-title">
+    <!-- REAL -->
+    <ng-container *ngIf="!skeleton; else skeletonTpl">
+  
+      <a class="card-link" [attr.href]="'/' + item.slug"></a>
+  
+      <div class="image-box" [class.small]="itemSize>=1">
+        <img [src]="item.item_ref.image" alt="">
+      </div>
+  
+      <label class="item-title">
         {{ item.title }}
-        </label>
-    
-        <div class="item-rating"  [class.none]="!item.total_comments" >
+      </label>
+  
+      <div class="item-rating"  [class.none]="!item.total_comments" >
             <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
             {{ item.avg_rating | number:'1.0'  }}
             <span>({{ item.total_comments | number:'1.0-1' }})</span>
         </div>
-    
-        <div class="item-bottom">
+  
+      <div class="item-bottom">
         <span class="item-price">
-            {{ item.item_ref.price  }}
-            <small>TL</small>
+          {{ item.item_ref.price }} <small>TL</small>
         </span>
-    
+  
         <button class="add-cart">
-            <i class="fa-solid fa-cart-plus"></i>
+          <i class="fa-solid fa-cart-plus"></i>
         </button>
-        </div>
-    </div>
+      </div>
+  
+    </ng-container>
+  
+  
+    <!-- SKELETON -->
+    <ng-template #skeletonTpl>
+      <div class="image-box skeleton shimmer"></div>
+  
+      <div class="sk sk-title shimmer"></div>
+  
+      <div class="sk sk-rating shimmer"></div>
+  
+      <div class="item-bottom">
+        <div class="sk sk-price shimmer"></div>
+        <div class="sk sk-btn shimmer"></div>
+      </div>
+    </ng-template>
+  
+  </div>
   

@@ -11,4 +11,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class CardComponent {
   @Input() item:any;
   @Input() itemSize:number=0;
+  @Input() skeleton:boolean=false;
+
 }

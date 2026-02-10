@@ -104,31 +104,33 @@
   <!-- CATEGORY -->
 
   <app-category-slider
-    *ngIf="s.itemType === 'category' && s.sectionType!='banner_campaign'"
+    *ngIf="s.ref_type === 'category' && s.type!='banner_campaign'"
     [title]="s.title"
-    [items]="s.items">
+    [items]="s.items"
+    [skeleton]="skeleton"
+    >
   </app-category-slider>
 
 
   <!-- BANNER -->
   <app-banner-section
-    *ngIf="s.sectionType === 'banner_campaign'"
+    *ngIf="s.type === 'banner_campaign'"
     [title]="s.title"
     [items]="s.items">
 
   </app-banner-section>
 
   <app-main-slider
-    *ngIf="s.sectionType=== 'main_slider'"
+    *ngIf="s.type=== 'main_slider'"
     [items]="s.items"
   ></app-main-slider>
 
   <!-- PRODUCT / ADVERT -->
   <app-product-section
-    *ngIf="s.itemType === 'product'"
+    *ngIf="s.ref_type === 'product'"
     [title]="s.title"
     [items]="s.items"
-    [sectionType]="s.sectionType">
+    [sectionType]="s.type">
   </app-product-section>
 
 </ng-container>

@@ -109,6 +109,50 @@
     transition: 0.2s;
     background-color: #f5f5f5;
   }
+
+
+  .skeleton,
+  .sk {
+    border-radius: 6px;
+  }
+  
+  
+  /* shapes */
+  .sk-title {
+    height: 14px;
+    margin: 8px 0;
+    width: 90%;
+  }
+  
+  .sk-rating {
+    height: 12px;
+    width: 60%;
+    margin-bottom: 70px;
+  }
+  
+  .sk-price {
+    height: 18px;
+    width: 60px;
+  }
+  
+  .sk-btn {
+    height: 30px;
+    width: 40px;
+    border-radius: 6px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media (max-width: 768px) {
 
     .best-item {

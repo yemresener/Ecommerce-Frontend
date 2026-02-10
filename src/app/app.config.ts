@@ -6,11 +6,11 @@ import {  withXsrfConfiguration } from '@angular/common/http';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(),
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }),provideHttpClient(),
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top',
+        scrollPositionRestoration: 'disabled', 
         anchorScrolling: 'enabled',
       })
     ),

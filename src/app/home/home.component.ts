@@ -34,11 +34,14 @@ export class HomeComponent {
 
   sliders:HomeSection[]=[];
 
+  skeleton:boolean=true;
   loadSliders(){
     this.sliderService.getSlider('home').subscribe({
       next:(res:any)=>{
-      console.log('normal')
-      this.sliders = res.data.map((s: any) => this.mapSection(s));
+      console.log('normal',res.data);
+      this.sliders = res.data;
+      this.skeleton=false;
+
       console.log('sliders',this.sliders);
       console.log('sliderler knak',this.sliders)
 
@@ -48,6 +51,7 @@ export class HomeComponent {
       }
     });
   }
+  /*
   mapSection(s: any): HomeSection {
     return {
       id: s.id,
@@ -87,7 +91,7 @@ export class HomeComponent {
       return i;
     });
   }
-
+ */
 /* PROTOTYPE */
 
   loadSlides():Slide[]{

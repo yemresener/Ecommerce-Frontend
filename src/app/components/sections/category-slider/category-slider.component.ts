@@ -11,11 +11,14 @@ import { SliderComponent } from '../../../shared/components/slider/slider.compon
 export class CategorySliderComponent  {
   @Input() title!: string;
   @Input() items: any[] = [];
-
+  @Input() skeleton:boolean=false;
   categorySlider!: SliderModel<any>;
+
+  sliderItems: any[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['items'] && this.items?.length){
+
       this.categorySlider={
         items:this.items,
         index:0,

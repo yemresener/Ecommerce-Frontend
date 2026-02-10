@@ -248,17 +248,19 @@
 </app-product-review>
 
 <div #categoryAdverts>
-        <app-product-section *ngIf="advert"
+        <app-product-section
         [title]="'Kategorinin  Öne Çıkan Ürünleri'"
         [items]="popularAdverts"
+        [skeleton]="sliderSkeleton"
         >
         </app-product-section>  
 </div>
 
 
-<app-product-section *ngIf="advert"
+<app-product-section
 [title]="'Önerilen Ürünler'"
 [items]="recoAdverts"
+[skeleton]="sliderSkeleton"
 >
 </app-product-section>
 <!--

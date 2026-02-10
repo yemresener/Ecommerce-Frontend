@@ -11,8 +11,8 @@
             <div class="slider-track">
                 <div *ngFor="let slide of items" class="slide" >
                     <picture>
-                        <source media="(max-width: 600px)" [attr.srcset]="slide.ref.mobile_image">
-                        <img [src]="slide.ref.image" [alt]="slide.ref.title">
+                        <source media="(max-width: 600px)" [attr.srcset]="slide.mobile_image">
+                        <img [src]="slide.image" [alt]="slide.title">
                     </picture>
                 </div>
             </div>

@@ -90,7 +90,7 @@ export class EachItemPageComponent {
 
   popularAdverts: MiniAdvert[] = [];
   getPopularAdverts(){
-    this.itemService.popularAdvertsByCategory(this.advert?.id).subscribe({
+    this.itemService.popularAdvertsByCategory(this.slug).subscribe({
       next:(res: ApiResponse<MiniAdvert[]>)=>{
         this.popularAdverts=res.data;
         console.log('POPRES',res);
@@ -105,7 +105,7 @@ export class EachItemPageComponent {
 
   recoAdverts!:MiniAdvert[];
   getRecoAdverts(){
-    this.itemService.recoAdvertsByFeature(this.advert?.product_id).subscribe({
+    this.itemService.recoAdvertsByFeature(this.slug).subscribe({
       next:(res:ApiResponse<MiniAdvert[]>)=>{
         this.recoAdverts=res.data;
         console.log('RECOLAR',this.recoAdverts);
@@ -140,7 +140,7 @@ export class EachItemPageComponent {
     })
   }
   
-
+  sliderSkeleton:boolean=true;
   ngAfterViewInit(): void {
 
       const observer = new IntersectionObserver(enter=>{
@@ -148,6 +148,7 @@ export class EachItemPageComponent {
           this.getPopularAdverts();
           this.getRecoAdverts();
           observer.disconnect();
+          this.sliderSkeleton=false;
         }
       },{ threshold: 0.2 });
 
