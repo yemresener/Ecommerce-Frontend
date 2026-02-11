@@ -12,10 +12,13 @@ export class CategorySliderComponent  {
   @Input() title!: string;
   @Input() items: any[] = [];
   @Input() skeleton:boolean=false;
-  categorySlider!: SliderModel<any>;
 
   sliderItems: any[] = [];
-
+  categorySlider: SliderModel<any> = {
+    items: [],
+    index: 0,
+    visible: 5
+  };
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['items'] && this.items?.length){
 
@@ -26,6 +29,13 @@ export class CategorySliderComponent  {
       }
       console.log('Category oluşturuldu',this.categorySlider);
     }
+  }
+
+
+  loadedImages = new Set<string>();
+
+  onImgLoad(src: string) {
+    this.loadedImages.add(src);
   }
 
 }

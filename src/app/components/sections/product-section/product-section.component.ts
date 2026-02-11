@@ -1,37 +1,64 @@
-import { Component,Input,OnChanges, SimpleChanges } from '@angular/core';
+import { Component,Input,ViewChild,ElementRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductSliderComponent } from '../product-slider/product-slider.component';
+import { SliderServiceService } from '../../../Services/slider-service.service';
 
-import { SliderComponent } from '../../../shared/components/slider/slider.component';
-import { SliderModel } from '../../../shared/components/slider/slider.model';
-import { CardComponent } from '../../../shared/components/product/card/card.component';
-import { MiniAdvert } from '../../../interfaces/mini-advert';
 @Component({
   selector: 'app-product-section',
-  imports: [SliderComponent,CardComponent,CommonModule],
+  imports: [CommonModule,ProductSliderComponent],
   templateUrl: './product-section.component.html',
   styleUrl: './product-section.component.css'
 })
-export class ProductSectionComponent  implements OnChanges {
-  @Input() title!:string;
-  @Input() items:MiniAdvert[]=[];
-  @Input() sectionType!:string;
-  @Input() skeleton:boolean=true;
-  productSlider!: SliderModel<any>;
-  skeletonItems = Array(5).fill(null);
-  skeletonSlider: SliderModel<any> = {
-    items: this.skeletonItems,
-    index: 0,
-    visible: 5
-  };
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['items'] && this.items?.length) {
-      this.productSlider = {
-        items: this.items,
-        index: 0,
-        visible: 5
-      };
+export class ProductSectionComponent {
+    constructor(private service:SliderServiceService){}
+  
+  @Input() lazy:boolean=true;
+  @Input() type!:string;
+  @Input() id!:number;
+  @ViewChild('sectionProduct') sectionRef!: ElementRef;
 
-      console.log('PRODUCT SLIDER OLUŞTU:', this.productSlider);
+
+
+  slider:any =[];
+  loading = true;
+
+
+
+
+  ngAfterViewInit(): void {
+    if (this.lazy) {
+      this.observe();
+    } else {
+      this.getItems();
     }
+    
   }
+
+  observe(){
+    const observer= new IntersectionObserver(enter=>{
+      if(enter[0].isIntersecting){
+        this.getItems();
+        observer.disconnect();
+
+      }
+    })
+    observer.observe(this.sectionRef.nativeElement);
+
+  }
+
+  getItems(){
+    this.service.getSlider(this.id).subscribe({
+      next:(res)=>{
+
+        console.log('response product',res);
+        this.slider=res.data;
+        console.log(this.slider)
+        this.loading=false;
+      },
+      error:(err)=>{
+        console.log('error kanki',err)
+      }
+    })
+  }
+
 }

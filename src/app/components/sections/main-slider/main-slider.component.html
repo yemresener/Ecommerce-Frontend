@@ -1,25 +1,30 @@
 <div class="container">
-        <div class="slider main-slider">
-
-            <app-slider
-            [slider]="mainSlider"
-            [itemWidth]="1200"
-            [type]="'main'"
-            >
-
-
-            <div class="slider-track">
-                <div *ngFor="let slide of items" class="slide" >
-                    <picture>
-                        <source media="(max-width: 600px)" [attr.srcset]="slide.mobile_image">
-                        <img [src]="slide.image" [alt]="slide.title">
-                    </picture>
-                </div>
+    <div class="slider main-slider">
+  
+      <!-- SKELETON -->
+      <ng-container *ngIf="skeleton; else realSlider">
+        <div class="slider-skeleton shimmer"></div>
+      </ng-container>
+  
+      <!-- GERÇEK -->
+      <ng-template #realSlider>
+        <app-slider
+          [slider]="mainSlider"
+          [itemWidth]="1200"
+          [type]="'main'"
+        >
+          <div class="slider-track">
+            <div *ngFor="let slide of items" class="slide">
+              <picture>
+                <source media="(max-width: 600px)" [attr.srcset]="slide.mobile_image">
+                <img [src]="slide.image" width="1200"
+                height="325" [alt]="slide.title">
+              </picture>
             </div>
-
-
+          </div>
         </app-slider>
-
-        </div>
-</div>
+      </ng-template>
+  
+    </div>
+  </div>
   

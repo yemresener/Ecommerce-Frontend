@@ -9,33 +9,30 @@ import { BannerSectionComponent } from '../components/sections/banner-section/ba
 import { CategorySliderComponent } from '../components/sections/category-slider/category-slider.component';
 import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
 import { MainSliderComponent } from '../components/sections/main-slider/main-slider.component';
-interface Slide{
-  img:string;
-  title?:string;
-}
+import { CategorySectionComponent } from '../components/sections/category-section/category-section.component';
+import { MainSectionComponent } from '../components/sections/main-section/main-section.component';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,SliderComponent,CardComponent,CategorySliderComponent,MainSliderComponent,ProductSectionComponent,BannerSectionComponent],
+  imports: [CommonModule,SliderComponent,CardComponent,CategorySliderComponent,CategorySectionComponent,MainSectionComponent,ProductSectionComponent,BannerSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
  
   constructor(public sliderService:SliderServiceService){}
-  slides:Slide[]=[];
   currentIndex=0;
   ngOnInit() {
-    this.slides=this.loadSlides();
-    this.loadSliders();
+    //this.loadSliders();
+    this.loadLayouts();
   }
 
   sliders:HomeSection[]=[];
 
   skeleton:boolean=true;
-  loadSliders(){
+ /* loadSliders(){
     this.sliderService.getSlider('home').subscribe({
       next:(res:any)=>{
       console.log('normal',res.data);
@@ -51,6 +48,28 @@ export class HomeComponent {
       }
     });
   }
+    */
+  layout: any = [
+    { type: 'main_slider', skeleton: true },
+    { type: 'banner', skeleton: true },
+    { type: 'banner_campaign', skeleton: true },
+  ];
+
+  loadLayouts(){
+    this.sliderService.getLayout('home').subscribe({
+      next:(res)=>{
+        this.layout=res;
+        console.log('layouts',res);
+
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
+
+
   /*
   mapSection(s: any): HomeSection {
     return {
@@ -93,7 +112,7 @@ export class HomeComponent {
   }
  */
 /* PROTOTYPE */
-
+ /*
   loadSlides():Slide[]{
     const images = ['bannerRoyal.jpg', 'bannerHill.jpg','bannerNd.jpg']; 
     return images.map(img=>({img:`assets/images/${img}`}));
@@ -159,6 +178,6 @@ export class HomeComponent {
   };
 
 
-
+*/
 
 }

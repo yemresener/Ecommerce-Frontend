@@ -1,16 +1,10 @@
-<div class="best-container">
-    <label class="best-label">{{title}}</label>
-  
-    <app-slider
-  [slider]="productSlider || skeletonSlider"
-  [itemWidth]="245">
+<div #sectionProduct>
+    
+    <app-product-slider
+     [items]="slider.items"
+     [title]="slider.title">
+    </app-product-slider>
 
-  <app-card
-    *ngFor="let item of (productSlider?.items || skeletonItems)"
-    [item]="item"
-    [skeleton]="!productSlider">
-  </app-card>
+</div>
 
-</app-slider>
-  </div>
-  
+

@@ -1,0 +1,34 @@
+<div class="category-features">
+
+  <!-- LABEL -->
+  <ng-container *ngIf="!skeleton; else labelSk">
+    <label class="best-label" style="margin-top: 20px;">{{title}}</label>
+  </ng-container>
+
+  <ng-template #labelSk>
+    <div class="best-label sk-label shimmer" style="margin-top:20px;"></div>
+  </ng-template>
+
+
+  <div class="category-images-box">
+
+    <!-- REAL -->
+    <ng-container *ngIf="!skeleton; else imagesSk">
+      <img
+        class="category-image"
+        *ngFor="let b of items"
+        [src]="b.image"
+      >
+    </ng-container>
+
+    <!-- SKELETON -->
+    <ng-template #imagesSk>
+      <div
+        class="category-image shimmer"
+        *ngFor="let s of [1,2,3]"
+      ></div>
+    </ng-template>
+
+  </div>
+
+</div>

@@ -8,9 +8,9 @@ import { SliderComponent } from '../../../shared/components/slider/slider.compon
   templateUrl: './main-slider.component.html',
   styleUrl: './main-slider.component.css'
 })
-export class MainSliderComponent {
-  @Input() items:any[]=[];
-
+export class MainSliderComponent  {
+  @Input() items:any=[];
+  @Input() skeleton!:boolean;
   mainSlider!: SliderModel<any>;
 
   ngOnChanges(changes:SimpleChanges):void {
@@ -20,7 +20,7 @@ export class MainSliderComponent {
         index:0,
         visible:1
       }
-      console.log('main',this.items)
+      console.log('maine çevirdik kankam',this.items)
     }
   }
 

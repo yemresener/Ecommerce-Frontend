@@ -1,35 +1,32 @@
 import { Component, Input,ViewChild,ElementRef } from '@angular/core';
 import { SliderServiceService } from '../../../Services/slider-service.service';
-import { BannerSliderComponent } from '../banner-slider/banner-slider.component';
 import { CommonModule } from '@angular/common';
-
+import { CategorySliderComponent } from '../category-slider/category-slider.component';
 @Component({
-  selector: 'app-banner-section',
-  imports: [CommonModule,BannerSliderComponent],
-  templateUrl: './banner-section.component.html',
-  styleUrl: './banner-section.component.css'
+  selector: 'app-category-section',
+  imports: [CommonModule,CategorySliderComponent],
+  templateUrl: './category-section.component.html',
+  styleUrl: './category-section.component.css'
 })
-export class BannerSectionComponent {
+export class CategorySectionComponent {
   constructor(private service:SliderServiceService){}
   
   @Input() lazy:boolean=false;
   @Input() type!:string;
   @Input() id!:number;
+  @ViewChild('categorySection') sectionRef!: ElementRef;
 
-  @ViewChild('bannerSection') sectionRef!: ElementRef;
-
-
-
-  banner:any =[];
+  slider:any =[];
   loading = true;
 
-
-
-
   ngAfterViewInit(): void {
-    if (!this.id) return;
-    this.lazy ? this.observe() : this.getItems();
+    if(!this.id){return console.log('Salamlar')}
 
+    if (this.lazy) {
+      this.observe();
+    } else {
+      this.getItems();
+    }
     
   }
   
@@ -37,8 +34,8 @@ export class BannerSectionComponent {
     this.service.getSlider(this.id).subscribe({
       next:(res)=>{
         console.log('response kanki',res);
-        this.banner=res.data;
-        console.log(this.banner)
+        this.slider=res.data;
+        console.log(this.slider)
         this.loading=false;
       },
       error:(err)=>{
@@ -58,4 +55,5 @@ export class BannerSectionComponent {
     observer.observe(this.sectionRef.nativeElement);
 
   }
+
 }

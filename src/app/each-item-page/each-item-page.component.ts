@@ -17,6 +17,8 @@ import { ReviewResponse } from '../interfaces/review-response';
 import { ReviewStats } from '../interfaces/review/review-stats';
 import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars.component';
 import { BreadCrumb } from '../interfaces/bread-crumb';
+
+import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
 interface product{
   images:[];
   title:string;
@@ -40,7 +42,7 @@ interface sliderState{
 
 @Component({
   selector: 'app-each-item-page',
-  imports: [ProductSectionComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent],
+  imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })

@@ -1,6 +1,5 @@
-<div class="category-features">
-  <label class="best-label" style="margin-top: 20px;">{{title}}</label>
-    <div class="category-images-box">
-      <img class="category-image" *ngFor="let b of items" [src]="b.image">
-    </div>
-  </div>
+
+<div #bannerSection>
+    <app-banner-slider [skeleton]="loading" [title]="banner.title" [items]="banner.items"></app-banner-slider>
+    
+</div>

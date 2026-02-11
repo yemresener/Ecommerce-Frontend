@@ -99,41 +99,34 @@
 </div>
 -->
 
-<ng-container *ngFor="let s of sliders">
+<ng-container *ngFor="let section of layout">
 
-  <!-- CATEGORY -->
+  <app-category-section
+    *ngIf="section.type === 'banner'"
+    [lazy]="true"
+    [id]="section.id">
+  </app-category-section>
 
-  <app-category-slider
-    *ngIf="s.ref_type === 'category' && s.type!='banner_campaign'"
-    [title]="s.title"
-    [items]="s.items"
-    [skeleton]="skeleton"
-    >
-  </app-category-slider>
-
-
-  <!-- BANNER -->
   <app-banner-section
-    *ngIf="s.type === 'banner_campaign'"
-    [title]="s.title"
-    [items]="s.items">
-
+    *ngIf="section.type === 'banner_campaign'"
+    [lazy]="true"
+    [id]="section.id">
   </app-banner-section>
 
-  <app-main-slider
-    *ngIf="s.type=== 'main_slider'"
-    [items]="s.items"
-  ></app-main-slider>
+  <app-main-section
+    *ngIf="section.type === 'main_slider'"
+    [lazy]="true"
+    [id]="section.id">
+  </app-main-section>
 
-  <!-- PRODUCT / ADVERT -->
   <app-product-section
-    *ngIf="s.ref_type === 'product'"
-    [title]="s.title"
-    [items]="s.items"
-    [sectionType]="s.type">
+    *ngIf="section.type === 'hero'"
+    [lazy]="true"
+    [id]="section.id">
   </app-product-section>
 
 </ng-container>
+
 
 
 
@@ -172,8 +165,6 @@
 
 
 </div>
-
-
 
 
 
