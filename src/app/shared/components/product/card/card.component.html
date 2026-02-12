@@ -3,7 +3,7 @@
     <!-- REAL -->
     <ng-container *ngIf="!skeleton; else skeletonTpl">
   
-      <a class="card-link" [attr.href]="'/' + item.slug"></a>
+      <a class="card-link" [attr.href]="'/urun/' + item.slug"></a>
   
       <div class="image-box" [class.small]="itemSize>=1">
         <img [src]="item.item_ref.image" alt="">

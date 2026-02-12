@@ -1,0 +1,144 @@
+<div class="container">
+
+    <div class="box">
+      
+      <!-- Filtre Alanı -->
+      <aside class="filter">
+        <div class="filter-category">
+            <label class="filter-title">Kategoriler</label>
+            <div class="category-parent" (click)="categoryOpen=!categoryOpen">
+                {{category_tree?.name}}
+                <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !categoryOpen, 'fa-caret-up': categoryOpen}"></i>
+            </div>
+        
+            <!-- Children -->
+            <div class="category-child-wrapper" [class.open]="categoryOpen">
+                <div *ngFor="let item of category_tree?.children" class="category-child">{{ item.name }}</div>
+            </div>
+        </div>
+
+        <div class="filter-brand">
+            <label class="filter-title" (click)="brandOpen=!brandOpen">Popüler Markalar
+                <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !brandOpen, 'fa-caret-up': brandOpen}"></i>
+
+            </label>
+
+            <div class="category-child-wrapper" [class.open]="brandOpen">
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+                <div class="brand">Hill's</div>
+                <div class="brand">Purina One</div>
+                <div class="brand">Perfect Fit</div>
+            </div>
+
+        </div>
+
+  
+
+  
+        <div class="filter-price">
+            <label class="filter-title" (click)="priceOpen=!priceOpen">Fiyat Aralığı
+                <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !priceOpen, 'fa-caret-up': priceOpen}"></i>
+            </label>
+
+            <div class="category-child-wrapper" [class.open]="priceOpen">
+
+                <div class="price-section">
+                    <input placeholder="En az">
+                    <input placeholder="En fazla">
+                    <button class="apply-price"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+        </div>
+ 
+  
+      </aside>
+  
+      <!-- Ürün Alanı -->
+      <section class="adverts">
+        <div class="breadcrumb">Home &gt; Kedi Maması</div>
+  
+        <div class="total-count">
+            <div class="total-label">Kedi Maması <span style="font-weight: 200;font-size: 18px; ">123 ürün</span></div>
+            <div class="custom-select" (click)="sortOption = !sortOption">
+          
+                <button
+                  type="button"
+                  class="select-btn">
+            
+                 Sıralama Seç
+                 <i class="fa-solid fa-up-down" style="color: gray;"></i>
+                </button>
+            
+            
+                <ul
+                  class="select-menu"
+                  [class.open]="sortOption">
+            
+                  <li>
+                    <span class="left">
+                      <span class="radio"></span>
+                        En Düşük Fiyat
+                    </span>
+                  </li>
+                  <li>
+            
+                    <span class="left">
+                      <span class="radio"></span>
+                        En Yüksek Fiyat
+                    </span>
+                   
+            
+                  </li>
+                  <li>
+            
+                    <span class="left">
+                      <span class="radio"></span>
+                        Çok Değerlendirilenler
+                    </span>
+                   
+            
+                  </li>
+            
+                </ul>
+            
+            </div>
+        </div>
+  
+        <div class="products">
+          <app-card *ngFor="let item of adverts" [item]="item"></app-card>
+        </div>
+      </section>
+  
+    </div>
+  
+  </div>
+  
