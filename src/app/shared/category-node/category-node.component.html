@@ -1,0 +1,38 @@
+<div class="category-item">
+
+    <!-- LABEL -->
+    <div
+      class="category-label"
+      (click)="open = !open"
+    >
+      {{ node?.name }}
+  
+      <i
+        *ngIf="node?.children?.length"
+        class="fa-solid"
+        style="font-size:12px"
+        [ngClass]="{
+          'fa-caret-down': !open,
+          'fa-caret-up': open
+        }">
+      </i>
+    </div>
+  
+  
+    <!-- CHILDREN -->
+    <div
+      class="category-children"
+      [class.open]="open && node?.children?.length"
+    >
+      <div class="children-inner">
+  
+        <app-category-node
+          *ngFor="let child of node?.children"
+          [node]="child">
+        </app-category-node>
+  
+      </div>
+    </div>
+  
+  </div>
+  

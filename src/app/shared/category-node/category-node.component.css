@@ -1,0 +1,74 @@
+/* ===== CATEGORY TREE ===== */
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  /* LABEL */
+  .category-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #444;
+  
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+  
+    transition: all 0.18s ease;
+  }
+  
+  /* hover */
+  .category-label:hover {
+    background: #f6f8ff;
+    color: rgb(100, 100, 255);
+  }
+  
+  /* arrow */
+  .category-label i {
+    transition: transform 0.2s ease;
+  }
+  
+  
+  
+  /* ===== CHILDREN (ANIMATION MAGIC 🔥) ===== */
+  
+    .category-children {
+      display: grid;
+      grid-template-rows: 0fr; /* kapalı */
+    
+      opacity: 0;
+    
+      margin-left: 10px;
+      border-left: 1px solid #ececec;
+    
+      transition:
+        grid-template-rows 0.25s ease,
+        opacity 0.2s ease;
+    }
+    
+  /* iç wrapper */
+  .children-inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* açık */
+  .category-children.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  
+  
+  /* link style */
+  .slug-label {
+    text-decoration: none;
+  }
+  

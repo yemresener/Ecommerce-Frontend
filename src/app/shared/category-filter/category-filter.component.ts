@@ -1,0 +1,74 @@
+import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SortOption } from '../../interfaces/sort-option';
+import { FilterParams } from '../../interfaces/filter-params';
+
+@Component({
+  selector: 'app-category-filter',
+  imports: [CommonModule],
+  templateUrl: './category-filter.component.html',
+  styleUrl: './category-filter.component.css'
+})
+export class CategoryFilterComponent {
+
+  @Output() filterChange = new EventEmitter<FilterParams>();
+  @Input() filters!: FilterParams;
+
+
+  private filterParams: FilterParams = {};
+
+
+  ngOnChanges(): void {
+    if(!this.filters) return;
+    
+    if(this.filters.sort_by && this.filters.order){
+      const found = this.sortOptions.find(
+        s=> s.value.sort_by===this.filters.sort_by && 
+          s.value.order === this.filters.order
+      );
+      this.sortLabel = found?.label ?? 'Sıralama Seç';
+    }else{
+      this.sortLabel = 'Sıralama Seç'
+    }
+
+    this.filterParams= {...this.filters};
+    
+  }
+
+
+  selectSort(option:SortOption){
+    const same = this.sortLabel===option.label;
+    if(same){
+      this.sortLabel= 'Sıralama Seç';
+      delete this.filterParams.sort_by;
+      delete this.filterParams.order;
+      console.log(this.filterParams,'PARAMS');
+    }else{
+      this.sortLabel=option.label;
+      this.filterParams.sort_by=option.value.sort_by;
+      this.filterParams.order=option.value.order;
+      console.log(this.filterParams,'PARAMS');
+
+    }
+    this.sortOption=false;
+    console.log(this.sortOption,'option')
+    this.emit();
+
+  }
+
+  sortOption=false;
+  sortLabel='Sıralama Seç';
+
+  sortOptions:SortOption[] = [
+    { label: 'En düşük fiyat', value: { sort_by: 'price', order: 'asc' } },
+    { label: 'En yüksek fiyat', value: { sort_by: 'price', order: 'desc' } },
+    { label: 'Yüksek puanlılar', value: { sort_by: 'avg_rating', order: 'desc' } }
+  ];
+
+  private emit(){
+    this.filterChange.emit({...this.filterParams})
+  }
+
+
+
+}
