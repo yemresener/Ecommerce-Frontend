@@ -180,7 +180,7 @@
         <div class="breadcrumb">Home &gt; Kedi Maması</div>
   
         <div class="total-count">
-            <div class="total-label">Kedi Maması 
+            <div class="total-label" >{{activeCategory?.name}}
               <span style="font-weight: 200;font-size: 17px; ">{{meta?.total}} ürün</span>
             </div>
 
@@ -190,10 +190,15 @@
               >
             </app-category-filter>
         </div>
-  
-        <div class="products">
-          <app-card *ngFor="let item of adverts" [item]="item"></app-card>
+        
+        <div *ngIf="minPageLoaded>1" class="loadPrevious" style="display: flex; justify-content: center;">
+          <button (click)="loadPrevious()">Daha fazla yükle</button>
         </div>
+        <div class="products">
+          <app-card *ngFor="let item of (adverts || skeletonItems)" [item]="item" [skeleton]="isLoading"></app-card>
+        </div>
+        <div style="height: 1px;" #scrollAnchor></div>
+
       </section>
   
     </div>

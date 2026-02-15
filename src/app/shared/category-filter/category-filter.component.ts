@@ -2,7 +2,7 @@ import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortOption } from '../../interfaces/sort-option';
 import { FilterParams } from '../../interfaces/filter-params';
-
+import { FilterLabelServiceService } from '../../Services/filter-label-service.service';
 @Component({
   selector: 'app-category-filter',
   imports: [CommonModule],
@@ -10,6 +10,8 @@ import { FilterParams } from '../../interfaces/filter-params';
   styleUrl: './category-filter.component.css'
 })
 export class CategoryFilterComponent {
+  constructor (private labelService:FilterLabelServiceService){}
+
 
   @Output() filterChange = new EventEmitter<FilterParams>();
   @Input() filters!: FilterParams;
@@ -19,18 +21,8 @@ export class CategoryFilterComponent {
 
 
   ngOnChanges(): void {
-    if(!this.filters) return;
-    
-    if(this.filters.sort_by && this.filters.order){
-      const found = this.sortOptions.find(
-        s=> s.value.sort_by===this.filters.sort_by && 
-          s.value.order === this.filters.order
-      );
-      this.sortLabel = found?.label ?? 'Sıralama Seç';
-    }else{
-      this.sortLabel = 'Sıralama Seç'
-    }
-
+   
+    this.sortLabel = this.labelService.labelOnChanges(this.filters,this.sortOptions);
     this.filterParams= {...this.filters};
     
   }

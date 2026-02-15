@@ -17,6 +17,7 @@ export class ProductSliderComponent  implements OnChanges{
   @Input() items:MiniAdvert[]=[];
   @Input() sectionType!:string;
   @Input() skeleton:boolean=true;
+  
   productSlider!: SliderModel<any>;
   skeletonItems = Array(5).fill(null);
   skeletonSlider: SliderModel<any> = {
