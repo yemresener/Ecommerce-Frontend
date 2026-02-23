@@ -5,7 +5,10 @@
       class="category-label"
       (click)="open = !open"
     >
-      {{ node?.name }}
+    <a class="category-label"  [class.active]="node?.slug === activeSlug" [routerLink]="['/', node?.slug]">
+      {{ node?.name }} 
+    </a>
+     
   
       <i
         *ngIf="node?.children?.length"
@@ -28,7 +31,9 @@
   
         <app-category-node
           *ngFor="let child of node?.children"
-          [node]="child">
+          [node]="child"
+          [activeSlug]="activeSlug"
+          >
         </app-category-node>
   
       </div>

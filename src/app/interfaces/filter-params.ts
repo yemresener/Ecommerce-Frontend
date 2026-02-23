@@ -3,5 +3,7 @@ export interface FilterParams {
   rating?: number | null;
   sort_by?: string | null;
   order?: 'asc' | 'desc' | null;
-  page?:number
+  page?:number;
+  min_price?:number | null;
+  max_price?:number | null;
 }
