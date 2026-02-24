@@ -13,7 +13,9 @@
         
             <!-- Children -->
             <div class="category-child-wrapper" [class.open]="categoryOpen">
-              <div >
+              <div *ngIf="activeCategory?.slug">
+                <app-category-node [node]="category_tree" [activeSlug]="activeCategory.slug"
+                [defaultOpen]="true"></app-category-node>
               </div>
             </div>
         </div>
@@ -31,9 +33,24 @@
             <div class="category-child-wrapper" [class.open]="priceOpen">
 
                 <div class="price-section">
-                    <input placeholder="En az" [(ngModel)]="min_price">
-                    <input placeholder="En fazla" [(ngModel)]="max_price">
-                    <button (click)="applyPrices()" class="apply-price"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <div class="apply-price-box" *ngIf="active_min == null && active_max == null">
+          
+                      <input  placeholder="En az" [(ngModel)]="min_price">
+                      <input  placeholder="En fazla" [(ngModel)]="max_price">
+                      <button (click)="applyPrices()" class="apply-price"
+                      [disabled]="min_price == null && max_price == null"
+                      ><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                    <div class="applied-price" *ngIf="active_min || active_max">
+                      <div class="applied-box">
+                        <span class="price-range">
+                          <span *ngIf="active_min">{{ active_min }} ₺</span>
+                          <span *ngIf="active_min && active_max"> - </span>
+                          <span *ngIf="active_max">{{ active_max }} ₺ </span>
+                        </span>
+                        <button class="remove-price" (click)="removePrice()">×</button>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +89,7 @@
             <!-- Gerçek içerik -->
             <div class="label-content" [class.hide]="isLoading">
               {{activeCategory?.name}}
-              <span class="product-count">
+              <span class="product-count" *ngIf="meta?.total">
                 {{meta?.total}} ürün
               </span>
             </div>
@@ -111,6 +128,23 @@
         </div>
         <div style="height: 1px;" #scrollAnchor></div>
 
+        
+        <div class="empty-state" *ngIf="!isLoading && adverts?.length === 0">
+          <div class="empty-icon">
+            🐾
+          </div>
+        
+          <h3>Ürün Bulunamadı</h3>
+        
+          <p>
+            Seçtiğiniz filtrelere uygun ürün bulunamadı.
+            Filtreleri temizleyerek tekrar deneyebilirsiniz.
+          </p>
+        
+          <button (click)="removePrice()" class="reset-btn">
+            Filtreleri Temizle
+          </button>
+        </div>
       </section>
   
     </div>

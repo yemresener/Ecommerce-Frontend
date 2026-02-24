@@ -14,6 +14,8 @@ import { CategoryFilterComponent } from '../shared/category-filter/category-filt
 import { FilterParams } from '../interfaces/filter-params';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { combineLatest } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-items',
@@ -93,38 +95,49 @@ export class ListItemsComponent {
         items: this.skeletonItems,
       }
     ];
-    this.route.paramMap.subscribe(params=>{
-      this.slug=params.get('slug')??'';
-      this.resetState();
-      this.getCategoryTree();
-      this.fetchAdverts(true);
-    })
-    this.route.queryParams.subscribe(params => {
-
-      const filters: FilterParams = {};
-      const page = Number(params['page'] ?? 1);
+    combineLatest([
+      this.route.paramMap,
+      this.route.queryParams
+    ]).pipe(debounceTime(0))
     
-      if (params['sort_by']) filters.sort_by = params['sort_by'];
-      if (params['order']) filters.order = params['order'];
-      filters.min_price = params['min_price'] ? Number(params['min_price']) : undefined;
-      filters.max_price = params['max_price'] ? Number(params['max_price']) : undefined;
-      console.log('SALAMLAR', filters)
-      this.min_price = filters.min_price;
-      this.max_price = filters.max_price;
-
+    
+    .subscribe(([params, query]) => {
+    
+      const slug = params.get('slug') ?? '';
+      const page = Number(query['page'] ?? 1);
+    
+      const filters: FilterParams = {};
+    
+      if (query['sort_by']) filters.sort_by = query['sort_by'];
+      if (query['order']) filters.order = query['order'];
+    
+      if (query['min_price'] != null && query['min_price'] !== '') {
+        filters.min_price = Number(query['min_price']);
+        this.min_price = filters.min_price;
+        this.active_min = filters.min_price;
+      }
+    
+      if (query['max_price'] != null && query['max_price'] !== '') {
+        filters.max_price = Number(query['max_price']);
+        this.max_price = filters.max_price;
+        this.active_max = filters.max_price;
+      }
+    
+      const slugChanged = this.slug !== slug;
       const filtersChanged =
         JSON.stringify(filters) !== JSON.stringify(this.currentFilters);
     
-      if (filtersChanged) {
-        // Gerçek reset
-        this.currentFilters = filters;
-        this.fetchAdverts(true, page);
-        return;
-      }
+
+      if (slugChanged || filtersChanged || !this.meta) {
     
+        this.slug = slug;
+        this.currentFilters = filters;
+    
+        this.resetState();
+        this.getCategoryTree();
+        this.fetchAdverts(true, page);
+      }
     });
-    console.log(this.slug);
-    console.log(this.currentFilters,'CURRENT FILTER')
   }
 
   ngOnDestroy(): void {
@@ -149,7 +162,7 @@ export class ListItemsComponent {
 
   category_tree!:Category;
   breadcrumb!:BreadCrumb[];
-  activeCategory?:Category;
+  activeCategory!:Category;
   adverts!: MiniAdvert[];
   meta!:PaginationMeta;
 
@@ -159,7 +172,7 @@ export class ListItemsComponent {
         this.category_tree=res.filters.category_tree;
         this.breadcrumb=res.filters.breadcrumb;
         this.activeCategory=res.filters.active_category;
-        console.log(this.activeCategory,'ACTİVE')
+        //console.log(this.activeCategory,'ACTİVE')
         console.log(res);
         
       },
@@ -170,8 +183,7 @@ export class ListItemsComponent {
     })
   }
 
-  currentFilters!:FilterParams;
-
+  currentFilters: FilterParams = {};
   skeletonItems = Array(12).fill(null);
 
   
@@ -195,13 +207,14 @@ export class ListItemsComponent {
     if(forcedPage && forcedPage > 1){
       this.minPageLoaded=forcedPage;
     }
-
+    //console.log(this.currentFilters,'CURRENT FILTERS FETCH')
     this.service.adverts({
       slug:this.slug,
       ...this.currentFilters,
       page
 
-    }).subscribe(res=>{
+    }).subscribe({
+      next:res=>{
       this.adverts = reset ? res.data : [...this.adverts,...res.data];
       if(reset){
         this.pages=[{
@@ -219,8 +232,11 @@ export class ListItemsComponent {
       this.loading=false;
       this.isLoading=false;
       console.log('RESPONSE',res);
+      
+    },error:(err)=>{
+      console.log(err,'ERROR')
+    }})
     
-    })
   }
 
   loadPrevious(){
@@ -275,27 +291,56 @@ export class ListItemsComponent {
 
   min_price?:number;
   max_price?:number;
+  active_min?:number | null;
+  active_max?:number |null;
   applyPrices() {
+    if (
+      this.min_price != null &&
+      this.max_price != null &&
+      this.min_price > this.max_price
+    ) {
+      [this.min_price, this.max_price] = [this.max_price, this.min_price];
+    }
     // currentFilters'i kopyala ve min/max ekle
     const newFilters: FilterParams = {
       ...this.currentFilters,
-      min_price: this.min_price,
-      max_price: this.max_price,
+      min_price: this.min_price ?? null,
+      max_price: this.max_price ?? null,
     };
-  
-    this.currentFilters = newFilters;
-      console.log(this.currentFilters,'BUTON')
+    
+    
+
+    console.log(this.currentFilters,'BUTON')
     // URL'i güncelle
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: newFilters,
       queryParamsHandling: 'merge',
     });
-  
+    console.log(this.active_max,'ACTİVE MAX')
     // Verileri tekrar çek
-    this.fetchAdverts(true, 1);
+    this.active_min=this.min_price;
+    this.active_max=this.max_price;
+    console.log(this.active_max,this.active_min,'AFTERTT')
   }
 
+  removePrice(){
+
+    this.active_max=undefined;
+    this.active_min=undefined;
+    this.min_price=undefined;
+    this.max_price=undefined;
+    console.log(this.active_max,this.active_min)
+    this.currentFilters.max_price=null;
+    this.currentFilters.min_price=null;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: this.currentFilters,
+      queryParamsHandling: 'merge'
+    });
+
+    
+  }
 
   private updateUrlPage(page: number | null){
     
@@ -308,7 +353,16 @@ export class ListItemsComponent {
   }
 
 
+  private isSameFilters(a: FilterParams, b: FilterParams): boolean {
+    return (
+      a.sort_by === b.sort_by &&
+      a.order === b.order &&
+      a.min_price === b.min_price &&
+      a.max_price === b.max_price
+    );
+  }
 
+  
     loadMore(){
       this.fetchAdverts(false);
 

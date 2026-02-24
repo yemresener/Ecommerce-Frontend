@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortOption } from '../../interfaces/sort-option';
 import { FilterParams } from '../../interfaces/filter-params';
@@ -18,7 +18,10 @@ export class CategoryFilterComponent {
 
 
   private filterParams: FilterParams = {};
-
+  @HostListener('document:click')
+  closeAll() {
+    this.sortOption = false;
+}
 
   ngOnChanges(): void {
    
