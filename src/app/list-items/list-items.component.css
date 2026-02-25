@@ -6,7 +6,7 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px;
+    /*  : 15px;  */
     margin-top: 20px;
 }
 
@@ -240,11 +240,38 @@
 }
 .products{
     display: grid;
-       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: clamp(12px, 2.5vw, 27px);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 27px;
 }
+
+
+
+.loadPrevious {
+  display: flex;
+  justify-content: center;
+}
+
+.load-btn {
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  border: 1px solid   rgba(79, 70, 229, 0.35) ;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover efekti */
+.load-btn:hover {
+  border: 1px solid rgb(100, 100, 255);
+}
+
 
 
 /* NONE */
@@ -348,3 +375,66 @@
   .hide {
     display: none;
   }
+
+
+  @media (max-width: 1254px) {
+
+    .products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 960px) {
+    .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+  }
+  
+
+    
+  @media (max-width: 768px) {
+    .container{
+      width: 90%;
+    }
+    .filter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 85%;
+      max-width: 320px;
+      height: 100%;
+      background: #fff;
+      z-index: 2000;
+      overflow-y: auto;
+      box-shadow: 0 0 30px rgba(0,0,0,0.25);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+  
+    .filter.open {
+      transform: translateX(0);
+    }
+  
+    .filter-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1500;
+    }
+  
+  
+    .products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+  
+    .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  
+
+  

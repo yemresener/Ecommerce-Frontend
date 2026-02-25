@@ -3,7 +3,7 @@
     <div class="box">
       
       <!-- Filtre Alanı -->
-      <aside class="filter">
+      <aside class="filter" [class.open]="mobileFilter" >
         <div class="filter-category">
             <label class="filter-title" (click)="categoryOpen=!categoryOpen">Kategoriler
               <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !categoryOpen, 'fa-caret-up': categoryOpen}"></i>
@@ -57,12 +57,26 @@
  
   
       </aside>
-  
+
+
+      <div 
+      class="filter-overlay"
+      *ngIf="mobileFilter"
+      (click)="mobileFilter = !mobileFilter">
+      </div>
+
+
+      
       <!-- Ürün Alanı -->
       <section class="adverts">
-
+        <button 
+        class="mobile-filter-btn"
+        (click)="mobileFilter = !mobileFilter">
+        Filtrele
+      </button>
           <div class="breadcrumb">
-            <div class="bread-skeleton-wrapper" [class.hide]="!isLoading">
+            <div class="bread-skeleton-wrapper"
+             [class.hide]="!breadSkeleton">
 
               <div class="bread-skeleton shimmer"></div>
               <div class="bread-separator shimmer"></div>
@@ -74,7 +88,7 @@
           
             </div>
 
-            <div class="bread-box"  [class.hide]="isLoading" *ngFor="let item of breadcrumb; let last = last">
+            <div class="bread-box"  [class.hide]="breadSkeleton" *ngFor="let item of breadcrumb; let last = last">
               <span>{{ item?.name }}</span>
               <i class="fas fa-chevron-right" *ngIf="!last"></i>
             </div>
@@ -84,13 +98,13 @@
           <div class="total-label">
 
             <!-- Skeleton -->
-            <div class="label-skeleton shimmer" [class.hide]="!isLoading"></div>
+            <div class="label-skeleton shimmer" [class.hide]="!breadSkeleton"></div>
           
             <!-- Gerçek içerik -->
-            <div class="label-content" [class.hide]="isLoading">
+            <div class="label-content" [class.hide]="breadSkeleton">
               {{activeCategory?.name}}
-              <span class="product-count" *ngIf="meta?.total">
-                {{meta?.total}} ürün
+              <span class="product-count">
+                {{meta?.total ?? oldMeta?.total}} ürün
               </span>
             </div>
           
@@ -104,8 +118,10 @@
             </app-category-filter>
         </div>
         
-        <div *ngIf="minPageLoaded>1" class="loadPrevious" style="display: flex; justify-content: center;">
-          <button (click)="loadPrevious()">Daha fazla yükle</button>
+        <div *ngIf="minPageLoaded>1" class="loadPrevious">
+          <button (click)="loadPrevious()" class="load-btn">
+            Daha fazla yükle
+          </button>
         </div>
 
 

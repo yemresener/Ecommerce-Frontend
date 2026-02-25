@@ -40,6 +40,7 @@ export class ListItemsComponent {
   sortOption=false;
   slug!:string;
 
+  mobileFilter:boolean=false;
 
 
   private observer!: IntersectionObserver;
@@ -132,14 +133,14 @@ export class ListItemsComponent {
     
         this.slug = slug;
         this.currentFilters = filters;
-    
+        if(slugChanged) this.breadSkeleton=true
         this.resetState();
         this.getCategoryTree();
         this.fetchAdverts(true, page);
       }
     });
   }
-
+  breadSkeleton:boolean=false;
   ngOnDestroy(): void {
     this.observer?.disconnect();
     this.pageObserver?.disconnect();
@@ -149,7 +150,7 @@ export class ListItemsComponent {
       page: 0,
       items: this.skeletonItems
     }];
-  
+    this.oldMeta=this.meta;
     this.meta = undefined!;
     this.minPageLoaded = 1;
     this.maxPageLoaded = 1;
@@ -165,7 +166,7 @@ export class ListItemsComponent {
   activeCategory!:Category;
   adverts!: MiniAdvert[];
   meta!:PaginationMeta;
-
+  oldMeta!:PaginationMeta;
   getCategoryTree(){
     this.service.category(this.slug).subscribe({
       next:(res)=>{
@@ -231,6 +232,7 @@ export class ListItemsComponent {
       this.meta = res.meta;
       this.loading=false;
       this.isLoading=false;
+      this.breadSkeleton=false;
       console.log('RESPONSE',res);
       
     },error:(err)=>{
@@ -309,7 +311,7 @@ export class ListItemsComponent {
     };
     
     
-
+    this.breadSkeleton=true;
     console.log(this.currentFilters,'BUTON')
     // URL'i güncelle
     this.router.navigate([], {
@@ -323,7 +325,6 @@ export class ListItemsComponent {
     this.active_max=this.max_price;
     console.log(this.active_max,this.active_min,'AFTERTT')
   }
-
   removePrice(){
 
     this.active_max=undefined;
