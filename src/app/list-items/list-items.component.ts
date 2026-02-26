@@ -16,10 +16,10 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { combineLatest } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
+import { FilterComponent } from '../shared/filter/filter.component';
 @Component({
   selector: 'app-list-items',
-  imports: [CommonModule,FormsModule,RouterModule,CardComponent,CategoryNodeComponent,CategoryFilterComponent],
+  imports: [CommonModule,FormsModule,RouterModule,CardComponent,FilterComponent,CategoryNodeComponent,CategoryFilterComponent],
   templateUrl: './list-items.component.html',
   styleUrl: './list-items.component.css'
 })
@@ -295,21 +295,29 @@ export class ListItemsComponent {
   max_price?:number;
   active_min?:number | null;
   active_max?:number |null;
-  applyPrices() {
-    if (
+
+
+  onPriceChange(event: { min?: number; max?: number }) {
+    this.applyPrices(event.min, event.max);
+  }
+  applyPrices(min?: number, max?: number ) {
+    /* if (
       this.min_price != null &&
       this.max_price != null &&
       this.min_price > this.max_price
     ) {
       [this.min_price, this.max_price] = [this.max_price, this.min_price];
-    }
+    } */
     // currentFilters'i kopyala ve min/max ekle
+    console.log(min,max,'BUNLAR GELENLER')
     const newFilters: FilterParams = {
       ...this.currentFilters,
-      min_price: this.min_price ?? null,
-      max_price: this.max_price ?? null,
+      min_price: min ?? null,
+      max_price: max ?? null,
     };
-    
+    this.min_price=min;
+    this.max_price=max;
+    this.mobileFilter=false;
     
     this.breadSkeleton=true;
     console.log(this.currentFilters,'BUTON')
@@ -319,13 +327,8 @@ export class ListItemsComponent {
       queryParams: newFilters,
       queryParamsHandling: 'merge',
     });
-    console.log(this.active_max,'ACTİVE MAX')
-    // Verileri tekrar çek
-    this.active_min=this.min_price;
-    this.active_max=this.max_price;
-    console.log(this.active_max,this.active_min,'AFTERTT')
   }
-  removePrice(){
+  removePrice(event:any){
 
     this.active_max=undefined;
     this.active_min=undefined;

@@ -1,0 +1,237 @@
+.filter {
+    flex: 0 0 220px; /* sabit genişlik */
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    position: sticky;
+    top: 5px;
+    align-self: flex-start;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.filter-title {
+    
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+    cursor: pointer;
+}
+
+.filter-category{
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.category-parent {
+  font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+    cursor: pointer;
+}
+
+.category-child {
+    margin-left: 10px;
+
+    transition: all 0.3s;
+
+}
+
+.filter-brand,.filter-category,.filter-price{
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    
+
+}
+
+
+.category-child-wrapper {
+    max-height: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    overflow-y: auto;
+}
+
+.category-child-wrapper.open {
+    max-height: 300px; /* yeterince büyük bir değer */
+    opacity: 1;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.category-child-wrapper::-webkit-scrollbar {
+    width: 8px; /* scroll bar kalınlığı */
+}
+
+
+
+.category-child-wrapper::-webkit-scrollbar-thumb {
+    background-color: #999; /* kaydırıcı rengi */
+    border-radius: 8px;
+    border: 2px solid #f0f0f0; /* track ile uyumlu boşluk efekti */
+}
+
+
+
+
+.category-child:hover {
+    color: rgb(100,100,255);
+}
+
+
+.category-child,.brand{
+    font-size: 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    color: #555;
+    transition: color 0.2s;
+
+
+}
+.category-child:hover,
+.brand:hover {
+    color: rgb(100, 100, 255);
+    font-weight: 600;
+}
+.brand{
+    margin-left: 10px;
+}
+.price-section{
+    display: grid;
+    gap: 5px;
+}
+
+.price-section input{
+    border: 1px solid #e5e5e5;
+    width: 50%;
+    text-align: left;
+    border-radius: 8px;
+    padding: 8px;
+}
+.price-section input:focus {
+    border:1px solid  rgb(150, 150, 255);
+    outline: none;  
+  }
+
+.apply-price-box{
+    display: flex;
+    gap: 5px;
+}
+
+
+
+.apply-price{
+    background: none;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.apply-price:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+.applied-price {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.applied-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    background-color: #f9fafb;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.applied-box:hover {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.price-range {
+    font-weight: 500;
+    color: #111827;
+}
+
+.remove-price {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+.remove-price:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@media (max-width: 768px) {
+
+
+    /* İçerik yüksekliğine göre otomatik boyut (isteğe bağlı ekstra yumuşaklık) */
+    .filter .filter-content {  /* iç wrapper varsa */
+        min-height: 200px;       /* minimum yükseklik istersen */
+        padding: 20px;
+        min-height: 500px;
+      }
+    
+      /* Kategori & Price Wrapper */
+      .category-child-wrapper {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+    
+      .category-child-wrapper.open {
+        max-height: 500px; /* yeterince büyük yap */
+      }
+    
+      .filter-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px 15px;
+        font-weight: bold;
+      }
+    
+      .price-section input {
+        text-align: center;
+        height: 25px;
+        margin-left: 10px;
+    }
+    
+      .apply-price {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    
+      .applied-box {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px;
+      }
+    }
+
+
+    

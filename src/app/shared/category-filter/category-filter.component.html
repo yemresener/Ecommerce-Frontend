@@ -6,7 +6,7 @@
       [class.selected]="sortLabel !== 'Sıralama Seç'"
       >
 
-     {{sortLabel}}
+     <span>{{sortLabel}}</span>
      <i class="fa-solid fa-up-down" style="color: gray;"></i>
     </button>
 
@@ -16,6 +16,10 @@
       [class.open]="sortOption"
       (click)="$event.stopPropagation()"
       >
+      <div class="menu-header">
+        <span class="menu-title">SIRALA</span>
+        <button class="menu-close" (click)="sortOption=false">&times;</button>
+      </div>
 
       <li *ngFor="let item of sortOptions" 
       (click)="selectSort(item)"

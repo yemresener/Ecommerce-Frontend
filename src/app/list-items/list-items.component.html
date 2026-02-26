@@ -4,56 +4,13 @@
       
       <!-- Filtre Alanı -->
       <aside class="filter" [class.open]="mobileFilter" >
-        <div class="filter-category">
-            <label class="filter-title" (click)="categoryOpen=!categoryOpen">Kategoriler
-              <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !categoryOpen, 'fa-caret-up': categoryOpen}"></i>
 
-            </label>
-   
-        
-            <!-- Children -->
-            <div class="category-child-wrapper" [class.open]="categoryOpen">
-              <div *ngIf="activeCategory?.slug">
-                <app-category-node [node]="category_tree" [activeSlug]="activeCategory.slug"
-                [defaultOpen]="true"></app-category-node>
-              </div>
-            </div>
-        </div>
+        <app-filter [activeCategory]="activeCategory" 
+        [category_tree]="category_tree"
+        (applyPrice)="onPriceChange($event)"
+        [priceFilter]="{ min: min_price, max: max_price }"
 
-
-
-  
-
-  
-        <div class="filter-price">
-            <label class="filter-title" (click)="priceOpen=!priceOpen">Fiyat Aralığı
-                <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !priceOpen, 'fa-caret-up': priceOpen}"></i>
-            </label>
-
-            <div class="category-child-wrapper" [class.open]="priceOpen">
-
-                <div class="price-section">
-                    <div class="apply-price-box" *ngIf="active_min == null && active_max == null">
-          
-                      <input  placeholder="En az" [(ngModel)]="min_price">
-                      <input  placeholder="En fazla" [(ngModel)]="max_price">
-                      <button (click)="applyPrices()" class="apply-price"
-                      [disabled]="min_price == null && max_price == null"
-                      ><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                    <div class="applied-price" *ngIf="active_min || active_max">
-                      <div class="applied-box">
-                        <span class="price-range">
-                          <span *ngIf="active_min">{{ active_min }} ₺</span>
-                          <span *ngIf="active_min && active_max"> - </span>
-                          <span *ngIf="active_max">{{ active_max }} ₺ </span>
-                        </span>
-                        <button class="remove-price" (click)="removePrice()">×</button>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        ></app-filter>
  
   
       </aside>
@@ -69,11 +26,7 @@
       
       <!-- Ürün Alanı -->
       <section class="adverts">
-        <button 
-        class="mobile-filter-btn"
-        (click)="mobileFilter = !mobileFilter">
-        Filtrele
-      </button>
+        
           <div class="breadcrumb">
             <div class="bread-skeleton-wrapper"
              [class.hide]="!breadSkeleton">
@@ -107,15 +60,33 @@
                 {{meta?.total ?? oldMeta?.total}} ürün
               </span>
             </div>
+         <label class="mobile-count"  [class.hide]="breadSkeleton">
+
+          {{meta?.total ?? oldMeta?.total}} 
+          <span style="font-weight: 300;">ürün gösteriliyor</span>
           
-          </div>
+        </label>
+          </div>  
+        
+ 
+
+          <div class="" style="display: flex; align-items: center; gap: 2px;">
+
+            <button class="mobile-filter-btn" 
+            [class.active]="min_price || max_price"
+              (click)="mobileFilter = !mobileFilter">
+              <i class="fa-solid fa-filter"  ></i>
+            </button>
 
             <app-category-filter 
-            
-              (filterChange)="onFilterChange($event)"
-              [filters]="currentFilters"
-              >
-            </app-category-filter>
+            (filterChange)="onFilterChange($event)"
+            [filters]="currentFilters"
+            >
+          </app-category-filter>
+
+          </div>
+
+
         </div>
         
         <div *ngIf="minPageLoaded>1" class="loadPrevious">
@@ -157,7 +128,7 @@
             Filtreleri temizleyerek tekrar deneyebilirsiniz.
           </p>
         
-          <button (click)="removePrice()" class="reset-btn">
+          <button (click)="removePrice($event)" class="reset-btn">
             Filtreleri Temizle
           </button>
         </div>
