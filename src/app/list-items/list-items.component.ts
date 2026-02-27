@@ -328,6 +328,8 @@ export class ListItemsComponent {
       queryParamsHandling: 'merge',
     });
   }
+
+  
   removePrice(event:any){
 
     this.active_max=undefined;
@@ -356,7 +358,7 @@ export class ListItemsComponent {
     });
   }
 
-
+/*
   private isSameFilters(a: FilterParams, b: FilterParams): boolean {
     return (
       a.sort_by === b.sort_by &&
@@ -365,6 +367,8 @@ export class ListItemsComponent {
       a.max_price === b.max_price
     );
   }
+    */
+
 
   
     loadMore(){
@@ -372,7 +376,7 @@ export class ListItemsComponent {
 
     }
 
-  
+
   
   
 }

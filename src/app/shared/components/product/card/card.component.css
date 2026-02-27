@@ -62,11 +62,11 @@
   /* ITEM TITLE */
   .item-title {
     font-size: 15px;
-    font-weight: 400;
     margin-bottom: 6px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
   }
-  
+
   /* ITEM RATING */
   .item-rating {
     font-size: 14px;
@@ -96,6 +96,8 @@
     font-size: 18px;
     font-weight: bold;
     color: #06772D;
+    /*     color: #00571e;
+ */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   
@@ -166,16 +168,22 @@
 
   .item-title {
     font-size: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;     /* kaç satır */
+    -webkit-box-orient: vertical;
+  
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .item-rating {
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
   }
 
   .item-price {
     font-size: 15px;
-  }
+    }
 
   .add-cart {
     padding: 5px 8px;
@@ -184,7 +192,7 @@
   }
   @media (max-width: 480px) {
     .image-box {
-        height: 120px;
+        height: 190px;
       }
     
       .item-title {
@@ -193,7 +201,6 @@
     
       .item-rating {
         font-size: 13px;
-        margin-bottom: 15px;
       }
     
       .item-price {
@@ -204,5 +211,11 @@
         padding: 4px 6px;
         font-size: 13px;
       }
+    .sk-rating {
+      height: 12px;
+      width: 60%;
+      margin-bottom: 20px;
+    }
+
     
   }

@@ -18,8 +18,8 @@
 
       <div 
       class="filter-overlay"
-      *ngIf="mobileFilter"
-      (click)="mobileFilter = !mobileFilter">
+      [class.open]="mobileFilter"
+      (click)="mobileFilter = false">
       </div>
 
 
@@ -79,8 +79,8 @@
             </button>
 
             <app-category-filter 
-            (filterChange)="onFilterChange($event)"
-            [filters]="currentFilters"
+              (filterChange)="onFilterChange($event)"
+              [filters]="currentFilters"
             >
           </app-category-filter>
 
