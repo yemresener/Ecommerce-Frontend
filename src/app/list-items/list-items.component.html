@@ -60,12 +60,7 @@
                 {{meta?.total ?? oldMeta?.total}} ürün
               </span>
             </div>
-         <label class="mobile-count"  [class.hide]="breadSkeleton">
-
-          {{meta?.total ?? oldMeta?.total}} 
-          <span style="font-weight: 300;">ürün gösteriliyor</span>
-          
-        </label>
+        
           </div>  
         
  
@@ -128,7 +123,7 @@
             Filtreleri temizleyerek tekrar deneyebilirsiniz.
           </p>
         
-          <button (click)="removePrice($event)" class="reset-btn">
+          <button (click)="applyPrices()" class="reset-btn">
             Filtreleri Temizle
           </button>
         </div>

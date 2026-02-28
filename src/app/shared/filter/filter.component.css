@@ -141,7 +141,7 @@
     align-items: center;
     gap: 12px;
     padding: 8px 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid rgb(100, 100, 255);
     border-radius: 999px;
     background-color: #f9fafb;
     font-size: 14px;
@@ -150,7 +150,6 @@
 
 .applied-box:hover {
     background-color: #f3f4f6;
-    border-color: #d1d5db;
 }
 
 .price-range {

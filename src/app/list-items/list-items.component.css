@@ -39,10 +39,10 @@ margin-bottom: 15px;
 }
 
 .total-label {
+
   position: relative;
   font-weight: 600;
   font-size: 20px;
-  min-height: 28px; /* height sabitle */
 }
 
 
@@ -348,10 +348,15 @@ border: 1px solid rgb(100, 100, 255);
 
 
 @media (max-width: 455px) {
-  .label-content{
-    visibility: hidden;
-    opacity: none;
-    display: none;
+  .label-content {
+    font-size: 16px;
+    font-weight: 600;
+    gap: 6px;
+  }
+
+  .product-count {
+    font-size: 13px;
+    font-weight: 400;
   }
   .mobile-count{
     display:contents;
@@ -359,7 +364,12 @@ border: 1px solid rgb(100, 100, 255);
     gap: 5px;
   }
 }
+@media (max-width: 389px) {
 
+  .products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
 .hide {
   display: none;

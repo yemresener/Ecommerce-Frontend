@@ -74,7 +74,8 @@ export class ListItemsComponent {
         }
       })
     },{
-      threshold: 0.7
+      threshold: 0,
+      rootMargin: '-30% 0px -30% 0px' 
     });
     this.pageBlocks.changes.subscribe(() => {
       this.observePages();
@@ -84,6 +85,8 @@ export class ListItemsComponent {
 
   private observePages() {
     this.pageBlocks.forEach(block => {
+      const page = Number(block.nativeElement.getAttribute('data-page'));
+      if (page < 1) return; 
       this.pageObserver.observe(block.nativeElement);
     });
   }
@@ -106,7 +109,7 @@ export class ListItemsComponent {
     
       const slug = params.get('slug') ?? '';
       const page = Number(query['page'] ?? 1);
-    
+
       const filters: FilterParams = {};
     
       if (query['sort_by']) filters.sort_by = query['sort_by'];
@@ -200,6 +203,7 @@ export class ListItemsComponent {
       return;
     }
     this.loading=true;
+    this.mobileFilter=false;
 
     const page = forcedPage 
     ?? (reset ? 1 : (this.meta?.current_page ?? 0) + 1);
@@ -208,6 +212,7 @@ export class ListItemsComponent {
     if(forcedPage && forcedPage > 1){
       this.minPageLoaded=forcedPage;
     }
+
     //console.log(this.currentFilters,'CURRENT FILTERS FETCH')
     this.service.adverts({
       slug:this.slug,
@@ -228,8 +233,9 @@ export class ListItemsComponent {
           items:res.data
         })
       }
-      
       this.meta = res.meta;
+  
+  
       this.loading=false;
       this.isLoading=false;
       this.breadSkeleton=false;
