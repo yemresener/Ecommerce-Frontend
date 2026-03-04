@@ -7,5 +7,7 @@ export interface MiniAdvert {
     slug:string,
     avg_rating:number | null,
     total_comments:number | null,
-    item_ref:MiniProduct
+    image:string | null,
+    original_price:number,
+    discount_price:number
 }

@@ -1,378 +1,41 @@
-.container {
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 24px;
-  animation: fadeIn 0.6s ease-out;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  /*  padding: 15px;  */
-  margin-top: 20px;
-}
-
-
-.box {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap; /* mobilde alt alta geçmesi için */
-}
-
-/* Filtre Bölümü */
-.filter {
-flex: 0 0 220px; /* sabit genişlik */
-border-radius: 12px;
-border: 1px solid #e5e5e5;
-background-color: #fff;
-position: sticky;
-top: 5px;
-align-self: flex-start;
-box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-transition: all 0.3s ease;
-margin-bottom: 15px;
-}
-
-/* sıralama seç */
-.total-count {
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-}
-
-.total-label {
-
-  position: relative;
-  font-weight: 600;
-  font-size: 20px;
-}
-
-
-
-/* Ürün Bölümü */
-.adverts {
-  flex: 1; /* kalan alanı kaplasın */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-  box-sizing: border-box;
-  padding-bottom: 2px; 
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #888;
-  margin-top: 5px;
-}
-
-
-.sort-filter {
-  margin: 10px 0;
-  font-weight: 500;
-  cursor: pointer;
-}
 .products{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: clamp(12px, 2.5vw, 20px);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-bottom: 27px;
-}
-
-
-
-.loadPrevious {
-display: flex;
-justify-content: center;
-}
-
-.load-btn {
-padding: 12px 28px;
-font-size: 15px;
-font-weight: 600;
-border-radius: 9px;
-border: none;
-cursor: pointer;
-background: none;
-border: 1px solid   rgba(79, 70, 229, 0.35) ;
-transition: all 0.3s ease;
-position: relative;
-overflow: hidden;
-}
-
-/* Hover efekti */
-.load-btn:hover {
-border: 1px solid rgb(100, 100, 255);
-}
-
-
-
-/* NONE */
-.empty-state {
-  margin: 80px auto;
-  margin-top: 10px;
-  padding: 40px 30px;
-  max-width: 500px;
-  text-align: center;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0;
-  animation: fadeIn 0.3s ease;
-}
-
-.empty-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.empty-state h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #222;
-}
-
-.empty-state p {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.reset-btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  background: #111;
-  color: #fff;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.reset-btn:hover {
-  background: #333;
-  transform: translateY(-2px);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: clamp(12px, 2.5vw, 20px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 27px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-
-/* MOBILE FILTER */
-
-.mobile-filter-btn{
-  border: 2px solid #e5e5e5;
-  border-radius: 9px;
-  padding: 5px;
-  width: 100%;
-  padding: 11px 16px;
-  border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.2s ease;
-  background: none;
-}
-.mobile-filter-btn i{
-  color: rgb(100, 100, 255);
-
-}
-.mobile-filter-btn.active{
-  border: 1px solid rgb(100, 100, 255);
+   
+  @media (max-width: 1254px) {
   
-}
-
-
-/* SKELETON */
-.label-skeleton {
-  height: 24px;
-  width: 200px;
-  border-radius: 8px;
-}
-
-
-
-.bread-skeleton-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.bread-skeleton {
-  height: 18px;
-  width: 40px;
-  border-radius: 6px;
-}
-
-.bread-skeleton.small {
-  width: 70px;
-}
-
-.bread-skeleton.smaller {
-  width: 50px;
-}
-
-.bread-separator {
-  width: 12px;
-  height: 12px;
-  border-radius: 4px;
-}
-
-
-
-@media (max-width: 1254px) {
-
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 960px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr);
+    .products {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
   
-}
+  @media (max-width: 960px) {
+    .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+  }
+  @media (max-width: 768px) { 
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+     }
+  }
 
-.mobile-filter-btn{
-  visibility: hidden;
-}
+  @media (max-width: 600px) {
   
-@media (max-width: 768px) {
-  .container{
-    width: 95%;
+    .products {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  .breadcrumb{
-    display: none;
-  }
-
-
-  .mobile-filter-btn {
-    visibility: visible;
-
-  }
-
+  @media (max-width: 389px) {
   
-
-  /* Overlay */
-  .filter-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+    .products {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
   
-  .filter-overlay.open {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.45s ease, visibility 0s linear 0s;
-  }
-  
-  /* Bottom Sheet – EN ÖNEMLİ DEĞİŞİKLİKLER BURADA */
-  .filter {
-    position: fixed;
-    inset: auto 0 0 0;               /* bottom:0, left:0, right:0 – top otomatik */
-    width: 100%;
-    max-height: 90vh;                /* taşmayı önle, scroll başlasın */
-    background: #fff;
-    z-index: 3100;
-    box-shadow: 0 -12px 40px rgba(0,0,0,0.3);
-    border-radius: 20px 20px 0 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
-  
-    /* Başlangıçta tamamen gizli ve yer kaplamasın */
-    transform: translateY(100%);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;            /* ekstra: tıklanmasın bile */
-  
-    transition: 
-      transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
-      opacity 0.4s ease,
-      visibility 0s linear 0.45s;    /* kapanırken visibility en son */
-    will-change: transform, opacity;
-    min-height: 500px;
-    margin-bottom: 0;
-  }
-  
-  .filter.open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transition: 
-      transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
-      opacity 0.4s ease,
-      visibility 0s linear 0s;
-  }
-
-
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-
-
-}
-@media (max-width: 600px) {
-
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.mobile-count{
-  display: none;
-}
-
-
-
-@media (max-width: 455px) {
-  .label-content {
-    font-size: 16px;
-    font-weight: 600;
-    gap: 6px;
-  }
-
-  .product-count {
-    font-size: 13px;
-    font-weight: 400;
-  }
-  .mobile-count{
-    display:contents;
-    font-size: 15px;
-    gap: 5px;
-  }
-}
-@media (max-width: 389px) {
-
-  .products {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.hide {
-  display: none;
-}
-
-

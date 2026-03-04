@@ -1,0 +1,56 @@
+
+<section class="campaign-details">
+
+    <!-- FULL WIDTH IMAGE -->
+    <div class="campaign-banner">
+      <img [src]="campaign.image" alt="Campaign Image">
+    </div>
+
+  </section>
+
+
+
+
+<div class="container">
+    <div class="title-box">
+        <label class="title">Kampanyalı Ürünler</label>
+        <app-category-filter></app-category-filter>
+
+    </div>
+    <section class="adverts">
+        <div class="">
+            <ng-container *ngFor="let page of pages">
+              <div class="products"
+                  [attr.data-page]="page.page"
+                  #pageBlock>
+
+                <app-card 
+                  *ngFor="let item of page.items"
+                  [skeleton]="isLoading"
+                  [item]="item">
+                </app-card>
+
+              </div>
+            </ng-container>
+        </div>
+        <div style="height: 1px;" #scrollAnchor></div>
+
+
+    </section>
+
+
+</div>
+
+
+ <!-- ORTALI CONTENT -->
+ <div class="detail-box">
+    <div class="campaign-texts">
+      <h1 class="campaign-title">{{ campaign.title }}</h1>
+      <p class="campaign-description">{{ campaign.description }}</p>
+      <div class="campaign-dates">
+        <span>Başlangıç: {{ campaign.start_date | date:'dd MMM yyyy' }}</span>
+        <span> Bitiş: {{ campaign.end_date | date:'dd MMM yyyy' }}</span>
+      </div>
+    </div>
+
+</div>

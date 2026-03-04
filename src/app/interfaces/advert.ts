@@ -10,6 +10,9 @@ export interface Advert {
     avg_rating:number | null,
     total_comments:number | null,
     images:string | null,
+    image:string | null,
+    discount_price:number,
+    original_price:number,
     views:number,
     item_ref:Product;
 }

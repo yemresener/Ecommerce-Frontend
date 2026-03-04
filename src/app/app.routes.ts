@@ -5,6 +5,8 @@ import { EachItemPageComponent } from './each-item-page/each-item-page.component
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { ReviewPageComponent } from './review-page/review-page.component';
 import { ListItemsComponent } from './list-items/list-items.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
+import { CampaignPageComponent } from './campaign-page/campaign-page.component';
 export const routes: Routes = [
 
     {path:'',component:HomePageComponent,title:'Ana Sayfa'},
@@ -13,7 +15,9 @@ export const routes: Routes = [
     {path:'cart',component:CartPageComponent,title:'Cart'},
 
     {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
+    
+    {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
 
-    {path:':slug',component:ListItemsComponent,title:'list'},
+    {path:':slug',component:CategoryPageComponent,title:'list'},
 
 ];

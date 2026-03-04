@@ -13,20 +13,20 @@ export class CartPageComponent {
   checked=true;
   mPrice=false;
 
-
+/*
   recommendationProducts ={
     items:[
-      { img: 'assets/images/category11.jpg', title: 'Kedi Kumu',avg:4.2,commentCount:20,price:'200' },
-      { img: 'assets/images/category2.jpg', title: 'Kedi Konserve',avg:4.2,commentCount:20, price:'25' },
-      { img: 'assets/images/category3.jpg', title: 'Kuş Yemi', price:'100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category4.jpg', title: 'Köpek Maması', price:'300' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category6.jpg', title: 'Oyuncak', price:'200' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'2300',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, }
+      { image: 'assets/images/category11.jpg', title: 'Kedi Kumu',avg:4.2,total_comments:20,original_price:'200' },
+      { image: 'assets/images/category2.jpg', title: 'Kedi Konserve',avg:4.2,total_comments:20, original_price:'25' },
+      { image: 'assets/images/category3.jpg', title: 'Kuş Yemi', original_price:'100',avg:4.2,total_comments:20, },
+      { image: 'assets/images/category4.jpg', title: 'Köpek Maması', original_price:'300' ,avg:4.2,total_comments:20,},
+      { image: 'assets/images/category5.jpg', title: 'Köpek Konserve', original_price:'2100',avg:4.2,total_comments:20, },
+      { image: 'assets/images/category6.jpg', title: 'Oyuncak', original_price:'200' ,avg:4.2,commentCount:20,},
+      { image: 'assets/images/category3.jpg', title: 'Oyuncak', original_price:'2300',avg:4.2,commentCount:20, },
+      { image: 'assets/images/category3.jpg', title: 'Oyuncak', original_price:'200',avg:4.2,commentCount:20, },
+      { image: 'assets/images/category3.jpg', title: 'Oyuncak', original_price:'200',avg:4.2,commentCount:20, },
+      { image: 'assets/images/category5.jpg', title: 'Köpek Konserve', original_price:'2100',avg:4.2,commentCount:20, },
+      { image: 'assets/images/category3.jpg', title: 'Oyuncak', original_price:'200',avg:4.2,commentCount:20, }
     ],
     index:0,
     visible:4,
@@ -51,4 +51,6 @@ export class CartPageComponent {
     visible:4,
   }
 
+
+  */
 }

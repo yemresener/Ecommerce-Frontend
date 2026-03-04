@@ -1,13 +1,13 @@
 <div class="best-item" [class.small]="itemSize>=1">
 
     <!-- REAL -->
-    <ng-container *ngIf="!skeleton; else skeletonTpl">
+    <ng-container *ngIf="item && !skeleton; else skeletonTpl">
   
       <a class="card-link" [attr.href]="'/urun/' + item.slug"></a>
   
     
     <div class="image-box" style="background: #fafafa;" [class.small]="itemSize>=1">
-        <img [src]="item.item_ref.image" alt="">
+        <img [src]="item.image" alt="">
       </div>
   
       <label class="item-title">
@@ -22,7 +22,7 @@
   
       <div class="item-bottom">
         <span class="item-price">
-          {{ item.item_ref.price }} <small>TL</small>
+          {{ item.original_price }} <small>TL</small>
         </span>
   
         <button class="add-cart">

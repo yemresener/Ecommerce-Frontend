@@ -13,13 +13,15 @@
           [itemWidth]="1200"
           [type]="'main'"
         >
-          <div class="slider-track">
+          <div class="slider-track" >
             <div *ngFor="let slide of items" class="slide">
+              <a href="/kampanya/{{slide.slug}}">
               <picture>
                 <source media="(max-width: 600px)" [attr.srcset]="slide.mobile_image">
                 <img [src]="slide.image" width="1200"
                 height="325" [alt]="slide.title">
               </picture>
+            </a>
             </div>
           </div>
         </app-slider>
