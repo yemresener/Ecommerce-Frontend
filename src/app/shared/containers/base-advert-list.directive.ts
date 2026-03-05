@@ -36,13 +36,12 @@
       activePage!: number;
     
       private observer!: IntersectionObserver;
-      private pageObserver!: IntersectionObserver;
 
       // INIT
 
       ngOnInit(): void {
         this.pages = [{ page: 0, items: this.skeletonItems }];
-    
+        history.scrollRestoration = 'manual';
         combineLatest([
           this.route.paramMap,
           this.route.queryParams
@@ -82,12 +81,15 @@
 
     ngAfterViewInit(): void {
       this.initInfiniteScroll();
-      this.initPageObserver();
+      window.addEventListener('scroll', this.updateActivePageByScroll, { passive: true });
+
+
     }
 
     ngOnDestroy(): void {
       this.observer?.disconnect();
-      this.pageObserver?.disconnect();
+      window.removeEventListener('scroll', this.updateActivePageByScroll);
+
     }
 
     // FETCH
@@ -174,10 +176,13 @@
       this.maxPageLoaded = 1;
       this.loading = false;
       this.isLoading = true;
+
       window.scrollTo({ top: 0 });
     }
 
     // SCROLL
+
+
 
     private initInfiniteScroll() {
       this.observer = new IntersectionObserver(entries => {
@@ -195,35 +200,24 @@
       this.observer.observe(this.anchor.nativeElement);
     }
 
-    private initPageObserver() {
-      this.pageObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
 
-            const page = Number(entry.target.getAttribute('data-page'));
-
-            if (this.activePage !== page) {
-              this.activePage = page;
-            if(page===1){
-              this.updateUrlPage(null);
-              return
-            }
-              this.updateUrlPage(page)
-            }
-          }
-        });
-      }, {
-        threshold: 0,
-        rootMargin: '-30% 0px -30% 0px'
-      });
-
-      this.pageBlocks.changes.subscribe(() => {
-        this.pageBlocks.forEach(block => {
-          const page = Number(block.nativeElement.getAttribute('data-page'));
-          if (page < 1) return; 
-          this.pageObserver.observe(block.nativeElement);
-        });
-      });
+    private updateActivePageByScroll = () => {
+      const blocks = this.pageBlocks.toArray();
+      if (!blocks.length) return;
+    
+      const viewportMid = window.innerHeight / 2;
+    
+      let activePage = 1;
+      for (const block of blocks) {
+        const rect = block.nativeElement.getBoundingClientRect();
+        if (rect.top <= viewportMid) {
+          activePage = Number(block.nativeElement.getAttribute('data-page'));
+        }
+      }
+    
+      if (this.activePage === activePage) return;
+      this.activePage = activePage;
+      this.updateUrlPage(activePage === 1 ? null : activePage);
     }
 
     private updateUrlPage(page: number | null) {

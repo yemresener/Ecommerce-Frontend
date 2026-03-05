@@ -7,6 +7,21 @@
   
     
     <div class="image-box" style="background: #fafafa;" [class.small]="itemSize>=1">
+      <span 
+      class="discount-badge"
+      *ngIf="item.discount_type && item.discount_value">
+  
+      <ng-container [ngSwitch]="item.discount_type">
+        <span *ngSwitchCase="'percent'">
+          %{{ item.discount_value | number:'1.0' }}
+        </span>
+  
+        <span *ngSwitchCase="'fixed'">
+          -{{ item.discount_value | number:'1.0' }} TL
+        </span>
+      </ng-container>
+  
+    </span>
         <img [src]="item.image" alt="">
       </div>
   
@@ -21,10 +36,17 @@
         </div>
   
       <div class="item-bottom">
-        <span class="item-price">
-          {{ item.original_price }} <small>TL</small>
-        </span>
-  
+        
+        <div class="price-box">
+          <span class="old-price" *ngIf="item.discount_price">
+            {{ item.original_price }} 
+          </span>
+        
+          <span class="new-price">
+            {{ item.discount_price || item.original_price }} <small>TL</small>
+          </span>
+        </div>
+        
         <button class="add-cart">
           <i class="fa-solid fa-cart-plus"></i>
         </button>

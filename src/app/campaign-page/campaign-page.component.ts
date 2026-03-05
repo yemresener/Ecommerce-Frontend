@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CardComponent } from '../shared/components/product/card/card.component';
 import { Campaign } from '../interfaces/campaign';
 import { CategoryFilterComponent } from '../shared/category-filter/category-filter.component';
+import { FilterParams } from '../interfaces/filter-params';
 @Component({
   selector: 'app-campaign-page',
   imports: [CommonModule,CardComponent,CategoryFilterComponent],
@@ -23,10 +24,15 @@ export class CampaignPageComponent extends BaseAdvertListDirective {
     super(router, route);
   }
 
+  
 
   protected fetchData(page:number):void{
     if(!this.slug) return;
-    this.service.getAdverts(this.slug).subscribe(res=>{
+    const params: FilterParams = {
+      ...this.currentFilters,
+      page: page
+    };
+    this.service.getAdverts(params,this.slug).subscribe(res=>{
       console.log(res)
       this.handleSuccess(res, page);
 

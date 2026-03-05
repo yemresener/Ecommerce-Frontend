@@ -9,5 +9,8 @@ export interface MiniAdvert {
     total_comments:number | null,
     image:string | null,
     original_price:number,
-    discount_price:number
+    discount_price:number | null,
+    discount_type:string | null,
+    discount_value:number | null,
+
 }
