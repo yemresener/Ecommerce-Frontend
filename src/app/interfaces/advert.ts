@@ -1,18 +1,22 @@
+import { Feature } from "./feature";
 import { Product } from "./product"
+import { ProductImage } from "./product-image";
 
 export interface Advert {
     id:number,
-    product_id:number,
     category_id:number,
     title:string,
     slug:string,
     description:string,
     avg_rating:number | null,
     total_comments:number | null,
-    images:string | null,
-    image:string | null,
-    discount_price:number,
+    
     original_price:number,
-    views:number,
-    item_ref:Product;
+    discount_price:number,
+    discount_type:string | null,
+    discount_value:number | null,
+
+    features:Feature[] | null,
+
+    images:ProductImage[] | null,
 }

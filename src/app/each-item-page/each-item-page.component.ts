@@ -17,7 +17,7 @@ import { ReviewResponse } from '../interfaces/review-response';
 import { ReviewStats } from '../interfaces/review/review-stats';
 import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars.component';
 import { BreadCrumb } from '../interfaces/bread-crumb';
-
+import { RouterModule } from '@angular/router';
 import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
 interface product{
   images:[];
@@ -42,7 +42,7 @@ interface sliderState{
 
 @Component({
   selector: 'app-each-item-page',
-  imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent],
+  imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent,RouterModule],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
@@ -69,18 +69,18 @@ export class EachItemPageComponent {
       next:(res)=>{
 
         this.advert=res.data.advert;
+        console.log(this.advert,'ADVERT')
         this.breadcrumb=res.data.bread_crumb;
         console.log(this.breadcrumb,'RES KANKA');
         
-        if(this.advert?.item_ref?.images?.length){
+        if(this.advert.images){
           this.itemSlider={
-            items:this.advert.item_ref.images,
+            items:this.advert.images,
             index:0,
             visible:1
           }
           console.log('slider',this.itemSlider);
         }
-        console.log('porduct',this.advert?.product_id)
        this.getReviews();
 
       },

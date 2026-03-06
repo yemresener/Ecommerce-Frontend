@@ -1,4 +1,5 @@
 import { MiniProduct } from "./mini-product"
+import { ProductImage } from "./product-image";
 
 export interface MiniAdvert {
     id:number,
@@ -7,7 +8,8 @@ export interface MiniAdvert {
     slug:string,
     avg_rating:number | null,
     total_comments:number | null,
-    image:string | null,
+    image?:ProductImage |null,
+    images:ProductImage[] | null,
     original_price:number,
     discount_price:number | null,
     discount_type:string | null,

@@ -15,7 +15,7 @@
             <div class="img-wrapper">
                 <div class="img-skeleton shimmer" *ngIf="skeleton"></div>
                 <img class="short-img"
-                [src]="advert?.image"
+                [src]="advert?.image ?? advert?.images?.[0]?.path"
                 (load)="imgLoading=false"
                 loading="lazy"
                 alt="">

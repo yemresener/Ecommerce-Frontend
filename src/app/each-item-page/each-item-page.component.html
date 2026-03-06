@@ -131,14 +131,44 @@
             <div class="price-section">
 
                 <!-- skeleton -->
-                <div class="price price-skeleton" [class.hide]="advert?.item_ref?.price">
+                <div class="price price-skeleton" [class.hide]="advert?.original_price">
                   <span class="sk sk-price shimmer"></span>
                 </div>
               
                 <!-- gerçek -->
-                <div class="price" [class.hide]="!advert?.item_ref?.price">
-                  {{ advert?.item_ref?.price }}
-                  <label class="currency">TL</label>
+
+                <div class="price-box" *ngIf="advert as item">
+
+
+                    <span class="new-price">
+                        {{ item.discount_price ?? item.original_price }}
+                        <small class="currency"> TL</small>
+                      </span>
+
+                    <div class="old-box">
+                        <span class="old-price" *ngIf="item.discount_price">
+                            {{ item.original_price }} 
+                        </span>
+                            <span class="discount-badge" *ngIf="item.discount_type">
+                              <ng-container [ngSwitch]="item.discount_type">
+                          
+                                <span *ngSwitchCase="'percent'">
+                                  %{{ item.discount_value | number:'1.0-0' }}
+                                </span>
+                          
+                                <span *ngSwitchCase="'fixed'">
+                                  -{{ item.discount_value | number:'1.0-0' }} TL
+                                </span>
+                          
+                              </ng-container>
+                            </span>
+                         
+                    </div>
+                    
+                  
+                  
+                   
+                  
                 </div>
               
             </div>
@@ -191,7 +221,7 @@
                     <ng-container *ngIf="advert; else featureSkeleton">
                     <div
                         class="feature-item"
-                        *ngFor="let item of advert.item_ref?.features"
+                        *ngFor="let item of advert.features"
                     >
                         <i class="fas fa-check-circle"></i>
                         <span>{{ item.label }}</span>
@@ -217,11 +247,36 @@
     </div>
 </div>
 
-<div class="price-section-mobile">
-    <div class="price-mobile">
-        {{advert?.item_ref?.price}} <label style="font-size: 10px;">TL</label>
-    </div>
-    <button style="width: 75%;" class="add-to-cart">
+<div class="price-section-mobile" *ngIf="advert">
+
+    
+    <div class="price-mobile-box">
+        <div class="old-mobile-box">
+            <span class="old-price-mobile"  *ngIf="advert.discount_price"> {{ advert.original_price }}
+            </span>
+            <span class="discount-badge-mobile" *ngIf="advert.discount_type">
+                <ng-container [ngSwitch]="advert.discount_type">
+            
+                <span *ngSwitchCase="'percent'">
+                    %{{ advert.discount_value | number:'1.0-0' }}
+                </span>
+            
+                <span *ngSwitchCase="'fixed'">
+                    -{{ advert.discount_value | number:'1.0-0' }} TL
+                </span>
+            
+                </ng-container>
+            </span>  
+        </div>
+        <div class="price-row">
+          <span class="new-price-mobile">{{ advert.discount_price || advert.original_price }}<span class="currency">TL</span></span>
+
+        </div>
+      </div>
+
+    
+
+    <button style="width: 75%;" class="add-to-cart-mobile">
         <i class="fas fa-shopping-cart"></i>
         Sepete Ekle
     </button>
