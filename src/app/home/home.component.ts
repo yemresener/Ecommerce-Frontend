@@ -32,34 +32,16 @@ export class HomeComponent {
   sliders:HomeSection[]=[];
 
   skeleton:boolean=true;
- /* loadSliders(){
-    this.sliderService.getSlider('home').subscribe({
-      next:(res:any)=>{
-      console.log('normal',res.data);
-      this.sliders = res.data;
-      this.skeleton=false;
 
-      console.log('sliders',this.sliders);
-      console.log('sliderler knak',this.sliders)
-
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    });
-  }
-    */
   layout: any = [
-    { type: 'main_slider', skeleton: true },
-    { type: 'banner', skeleton: true },
-    { type: 'banner_campaign', skeleton: true },
+
   ];
 
   loadLayouts(){
     this.sliderService.getLayout('home').subscribe({
       next:(res)=>{
         this.layout=res;
-        console.log('layouts',res);
+        console.log('layouts',this.layout);
 
       },
       error:(err)=>{

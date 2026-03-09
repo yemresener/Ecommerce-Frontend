@@ -2,15 +2,15 @@ import { Component,Input,ViewChild,ElementRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductSliderComponent } from '../product-slider/product-slider.component';
 import { SliderServiceService } from '../../../Services/slider-service.service';
-
+import { BrowserAware } from '../../../shared/base/browser-aware';
 @Component({
   selector: 'app-product-section',
   imports: [CommonModule,ProductSliderComponent],
   templateUrl: './product-section.component.html',
   styleUrl: './product-section.component.css'
 })
-export class ProductSectionComponent {
-    constructor(private service:SliderServiceService){}
+export class ProductSectionComponent extends BrowserAware{
+    constructor(private service:SliderServiceService){super()}
   
   @Input() lazy:boolean=true;
   @Input() type!:string;
@@ -26,6 +26,8 @@ export class ProductSectionComponent {
 
 
   ngAfterViewInit(): void {
+    if(!this.isBrowser()) return;
+
     if (this.lazy) {
       this.observe();
     } else {

@@ -5,12 +5,19 @@
   import { PaginationMeta } from '../../interfaces/pagination-meta';
   import { MiniAdvert } from '../../interfaces/mini-advert';
   import { FilterParams } from '../../interfaces/filter-params';
+
+  import { isPlatformBrowser } from '@angular/common';
+  import { PLATFORM_ID, inject } from '@angular/core';
+
   @Directive()
 
   export abstract class BaseAdvertListDirective 
     implements OnInit, AfterViewInit, OnDestroy{
       @ViewChild('scrollAnchor') anchor!: ElementRef;
       @ViewChildren('pageBlock') pageBlocks!: QueryList<ElementRef>;
+
+      private platformId = inject(PLATFORM_ID);
+      private isBrowser() { return isPlatformBrowser(this.platformId); }
 
       protected abstract fetchData(page: number): void;
       protected abstract onSlugChange(): void;
@@ -41,8 +48,9 @@
 
       ngOnInit(): void {
         this.pages = [{ page: 0, items: this.skeletonItems }];
-        history.scrollRestoration = 'manual';
-        combineLatest([
+        if (this.isBrowser()) {
+          history.scrollRestoration = 'manual'; //  ssr
+        }combineLatest([
           this.route.paramMap,
           this.route.queryParams
         ])
@@ -80,6 +88,8 @@
 
 
     ngAfterViewInit(): void {
+      if (!this.isBrowser()) return; // ssr
+
       this.initInfiniteScroll();
       window.addEventListener('scroll', this.updateActivePageByScroll, { passive: true });
 
@@ -88,8 +98,9 @@
 
     ngOnDestroy(): void {
       this.observer?.disconnect();
-      window.removeEventListener('scroll', this.updateActivePageByScroll);
-
+      if (this.isBrowser()) { // ssr
+        window.removeEventListener('scroll', this.updateActivePageByScroll);
+      }
     }
 
     // FETCH
@@ -158,6 +169,7 @@
 
       if (isPrev) {
         setTimeout(() => {
+          if (!this.isBrowser()) return; // ✅ ekle
           const newHeight = document.documentElement.scrollHeight;
           window.scrollTo({ top: this.previousScroll + (newHeight - this.previousHeight) });
         });
@@ -167,6 +179,7 @@
     // STATE
 
     private resetState() {
+      
       this.pages = [{ page: 0, items: this.skeletonItems }];
       this.adverts = [];
       this.oldMeta = this.meta;
@@ -177,7 +190,9 @@
       this.loading = false;
       this.isLoading = true;
 
-      window.scrollTo({ top: 0 });
+      if (this.isBrowser()) {
+        window.scrollTo({ top: 0 }); // ssr
+      }
     }
 
     // SCROLL
@@ -202,10 +217,12 @@
 
 
     private updateActivePageByScroll = () => {
+      if (!this.isBrowser()) return; // ssr
+      const viewportMid = window.innerHeight / 2; //ssr
+
       const blocks = this.pageBlocks.toArray();
       if (!blocks.length) return;
     
-      const viewportMid = window.innerHeight / 2;
     
       let activePage = 1;
       for (const block of blocks) {
@@ -241,6 +258,8 @@
     previousHeight:any;
     previousScroll:any;
     loadPrevious() {
+      
+      if (!this.isBrowser()) return
       if (this.loading || this.minPageLoaded <= 1) return;
 
       this.previousHeight = document.documentElement.scrollHeight;

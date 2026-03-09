@@ -16,7 +16,8 @@ body {
     top: 0;
     z-index: 100;
     border-bottom: 2px solid #f0f9ff;
-    
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
 }
 
 .nav-container {

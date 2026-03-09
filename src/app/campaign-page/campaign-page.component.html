@@ -2,7 +2,7 @@
 <section class="campaign-details">
 
     <!-- FULL WIDTH IMAGE -->
-    <ng-container *ngIf="loading; else imageLoad">
+    <ng-container *ngIf="!campaign; else imageLoad">
       <div class="campaign-banner img-skeleton shimmer"></div>
     </ng-container>
 

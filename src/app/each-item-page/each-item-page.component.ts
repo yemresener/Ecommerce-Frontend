@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+import { Component,ViewChild,ElementRef,PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
@@ -19,26 +19,7 @@ import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars
 import { BreadCrumb } from '../interfaces/bread-crumb';
 import { RouterModule } from '@angular/router';
 import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
-interface product{
-  images:[];
-  title:string;
-  avg_ratings:number;
-  total_comments:number;
-  views:number;
-  product:[];
-  
-}
-interface SliderModelws<T> {
-  items: T[];
-}
-interface productImage{
-  img:string;
-}
-interface sliderState{
-  visible:number;
-  index:number;
-}
-
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-each-item-page',
@@ -49,6 +30,8 @@ interface sliderState{
 
 export class EachItemPageComponent {
   @ViewChild('categoryAdverts') categoryAdverts!: ElementRef;
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser() { return isPlatformBrowser(this.platformId); }
 
   constructor(private route:ActivatedRoute,private itemService:EachItemService){}
 
@@ -144,7 +127,9 @@ export class EachItemPageComponent {
   
   sliderSkeleton:boolean=true;
   ngAfterViewInit(): void {
+      if (!this.isBrowser()) return; 
 
+      
       const observer = new IntersectionObserver(enter=>{
         if(enter[0].isIntersecting){
           this.getPopularAdverts();
@@ -220,72 +205,5 @@ export class EachItemPageComponent {
 }
 
 
-/*
-
-  
-  itemSlider: SliderModelws<productImage> = {
-    items:[
-      { img: 'assets/images/category11.jpg', },
-      { img: 'assets/images/category2.jpg' },
-      { img: 'assets/images/category3.jpg' },
-      { img: 'assets/images/category4.jpg' },
-      
-
-
-    ]
-  };
-  sliderState:sliderState={
-    visible:1,
-    index:0,
-  }
-  
-
-
-
-  recommendationProducts ={
-    items:[
-      { img: 'assets/images/category11.jpg', title: 'Kedi Kumu',avg:4.2,commentCount:20,price:'200' },
-      { img: 'assets/images/category2.jpg', title: 'Kedi Konserve',avg:4.2,commentCount:20, price:'25' },
-      { img: 'assets/images/category3.jpg', title: 'Kuş Yemi', price:'100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category4.jpg', title: 'Köpek Maması', price:'300' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category6.jpg', title: 'Oyuncak', price:'200' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'2300',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, }
-    ],
-    index:0,
-    visible:5,
-  }
-
-  
-  categoryBests ={
-    items:[
-      { img: 'assets/images/category6.jpg', title: 'Oyuncak', price:'200' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'2300',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category3.jpg', title: 'Oyuncak', price:'200',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category11.jpg', title: 'Kedi Kumu',avg:4.2,commentCount:20,price:'200' },
-      { img: 'assets/images/category2.jpg', title: 'Kedi Konserve',avg:4.2,commentCount:20, price:'25' },
-      { img: 'assets/images/category3.jpg', title: 'Kuş Yemi', price:'100',avg:4.2,commentCount:20, },
-      { img: 'assets/images/category4.jpg', title: 'Köpek Maması', price:'300' ,avg:4.2,commentCount:20,},
-      { img: 'assets/images/category5.jpg', title: 'Köpek Konserve', price:'2100',avg:4.2,commentCount:20, },
-   
-    ],
-    index:0,
-    visible:5,
-  }
-  
-  
-
-
-
-  }
-
-*/
 
 

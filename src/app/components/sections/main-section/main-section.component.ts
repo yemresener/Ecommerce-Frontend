@@ -1,7 +1,9 @@
-import { Component, Input,ViewChild,ElementRef } from '@angular/core';
+import { Component, Input,ViewChild,ElementRef,PLATFORM_ID, inject,TransferState, makeStateKey  } from '@angular/core';
 import { SliderServiceService } from '../../../Services/slider-service.service';
 import { MainSliderComponent } from '../main-slider/main-slider.component';
 import { CommonModule } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-main-section',
   imports: [MainSliderComponent,CommonModule],
@@ -9,12 +11,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main-section.component.css'
 })
 export class MainSectionComponent {
-  constructor(private service:SliderServiceService){}
-
+  constructor(private service:SliderServiceService,
+    private transferState: TransferState){}
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser() { return isPlatformBrowser(this.platformId); }
 
   @Input() lazy:boolean=true;
   @Input() type!:string;
   @Input() id!:number;
+  @Input() sort!:number;
+
   @ViewChild('sectionMain') sectionRef!: ElementRef;
 
 
@@ -22,10 +28,19 @@ export class MainSectionComponent {
   slider:any =[];
   loading = true;
 
+  private getKey() {
+    return makeStateKey<any>('slider-' + this.id);
+  }
 
-
+  ngOnInit(): void {
+    
+    if (!this.isBrowser() && this.sort <3) {
+      this.getItems(); // ✅ SSR'da direkt çek
+    }
+  }
 
   ngAfterViewInit(): void {
+    if (!this.isBrowser()) return
     if(!this.id){return console.log('Salamlar main')}
 
     if (this.lazy) {
@@ -37,11 +52,28 @@ export class MainSectionComponent {
   }
 
   getItems(){
+    const KEY = this.getKey();
+    if (this.isBrowser()) {
+
+      const saved = this.transferState.get(KEY, null);
+
+      if (saved) {
+        console.log("TransferState kullanıldı");
+        this.slider = saved;
+        this.loading = false;
+        this.transferState.remove(KEY);
+        return;
+      }
+
+    }
     this.service.getSlider(this.id).subscribe({
       next:(res)=>{
         console.log('response kanki',res);
         this.slider=res.data;
         console.log(this.slider)
+        if (!this.isBrowser()) {
+          this.transferState.set(KEY, res.data);
+        }
         this.loading=false;
       },
       error:(err)=>{

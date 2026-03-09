@@ -104,19 +104,25 @@
   <app-category-section
     *ngIf="section.type === 'banner'"
     [lazy]="true"
-    [id]="section.id">
+    [id]="section.id"
+    [sort]="section.sort"
+    >
   </app-category-section>
 
   <app-banner-section
     *ngIf="section.type === 'banner_campaign'"
     [lazy]="true"
-    [id]="section.id">
+    [id]="section.id"
+    [sort]="section.sort"
+    >
   </app-banner-section>
 
   <app-main-section
     *ngIf="section.type === 'main_slider'"
     [lazy]="true"
-    [id]="section.id">
+    [id]="section.id"
+    [sort]="section.sort"
+    >
   </app-main-section>
 
   <app-product-section
