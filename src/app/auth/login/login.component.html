@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="logo-box">
+        <img src="assets/images/favLast.png" alt="Logo">
+      </div>
+  
+    <div class="form-btn-container">
+        <div class="switch-buttons">
+            <a [routerLink]="[ '/login',  ]" class="active">Giriş Yap</a>
+            <a [routerLink]="[ '/register', ]">Kayıt Ol</a>
+        </div>
+    
+        <div class="form-box">
+          <app-error-box [message]="message" [title]="title"></app-error-box>
+
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form active">
+            <input [class.empty]="email?.invalid && email?.touched"
+             type="email" formControlName="email" placeholder="E-posta adresi" >
+
+            <span class="error" *ngIf="email?.invalid && email?.touched">
+                <span *ngIf="email?.errors?.['required']">E-posta zorunludur</span>
+                <span *ngIf="email?.errors?.['email']">Geçerli bir e-posta girin</span>
+            </span>
+            
+            <div class="pass-box">
+                <input [class.empty]="password?.invalid && password?.touched"
+                 [type]="open_password ? 'text' : 'password'" formControlName="password" placeholder="Şifre" />
+                <i class="fa-solid toggle-pass"
+                   (click)="open_password = !open_password"
+                   [ngClass]="{
+                      'fa-eye': open_password,
+                      'fa-eye-slash': !open_password
+                   }"></i>
+
+                <span class="error" *ngIf="password?.invalid && password?.touched">
+                    <span *ngIf="password?.errors?.['required']">Şifre zorunludur</span>
+                    <span *ngIf="password?.errors?.['minlength']">En az 6 karakter olmalı</span>
+                </span>
+              </div>
+              
+            <label type="button" class="forgot">Şifremi unuttum</label>
+
+            
+            <button type="submit">Giriş Yap</button>
+        </form>
+    </div>
+    
+      
+  
+    <div class="social-box">
+      <!-- Social api bağlanacak -->
+    </div>
+  </div>

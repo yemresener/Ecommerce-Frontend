@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+}
+
+
 :root {
     --primary: #2563eb;
     --primary-dark: #1e40af;

@@ -1,0 +1,46 @@
+@import '../register-shared.css';
+
+  .form-btn-container{
+
+    padding-top: 30px;
+
+
+  }
+  
+  .create-label{
+    margin-top: 30px;
+
+    font-size: 25px;
+    font-weight: 600;
+    color: #535252;
+    margin-bottom: 40px;
+  }
+
+
+  .form-box input {
+    box-sizing: border-box; 
+
+    height: 50px;
+    
+  }
+
+
+
+
+  .user-info {
+    display: flex;
+    gap: 16px
+  }
+  
+  .user-info .input-wrapper {
+    display: flex;
+    flex-direction: column; /* input ve error alt alta */
+    flex: 1; /* eşit genişlik */
+  }
+  .input-wrapper{
+
+}
+  
+  .user-info .input-wrapper input {
+    width: 100%;
+  }

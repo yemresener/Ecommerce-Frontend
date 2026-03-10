@@ -12,7 +12,6 @@ body {
 /* Main Navigation Bar */
 .navbar {
     background: white;
-    position: sticky;
     top: 0;
     z-index: 100;
     border-bottom: 2px solid #f0f9ff;
@@ -45,6 +44,10 @@ body {
 }
 .logo:hover {
     color: #4C9EFF;
+}
+.logo-img{
+    width: 100px;
+    height: auto;
 }
 
 /* Search Bar */

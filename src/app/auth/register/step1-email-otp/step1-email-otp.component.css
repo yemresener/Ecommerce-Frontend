@@ -1,0 +1,31 @@
+@import '../register-shared.css';
+
+
+.form-btn-container{
+  padding-top: 100px;
+}
+.switch-buttons {
+  display: flex;
+  background: #f9fafb;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+
+.switch-buttons a {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--text-gray);
+  transition: all 0.3s ease;
+}
+
+.switch-buttons a.active {
+  background: #fff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}

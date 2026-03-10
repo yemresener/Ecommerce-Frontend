@@ -1,0 +1,12 @@
+<app-step1-email-otp (submitEmail)="onOtpVerify($event)" *ngIf="step==='emailOtp'"></app-step1-email-otp>
+<app-step2-verify-otp 
+[email]="userMail"
+
+*ngIf="step==='verifyOtp'"
+(submitOtp)="submitOtp($event)"
+></app-step2-verify-otp>
+
+<app-step3-create-acc
+*ngIf="step==='createAcc'"
+  (createAcc)="createAcc($event)"
+></app-step3-create-acc>

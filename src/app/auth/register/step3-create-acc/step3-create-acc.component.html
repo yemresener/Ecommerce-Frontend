@@ -1,0 +1,58 @@
+
+<div class="container">
+    <div class="logo-box">
+        <img src="assets/images/favLast.png" alt="Logo">
+      </div>
+  
+    <div class="form-btn-container">
+        <label class="create-label">Son bir adım kaldı</label>
+        <div class="otp-box">
+            <span class="user-email">Üyeliğinizi tamamlamak için bilgileri doldurunuz.</span>
+        </div>
+
+        <div class="form-box">
+        <!-- Login Form -->
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form active">
+
+            <div class="user-info">
+                <div class="input-wrapper">
+                  <input [class.empty]="name?.invalid && name?.touched" formControlName="name" type="text" placeholder="Ad">
+                  <span class="error" *ngIf="name?.invalid && name?.touched">
+                    <span *ngIf="name?.errors?.['required']">Ad alanı zorunlu.</span>
+                    <span *ngIf="name?.errors?.['minlength']">En az 2 hane giriniz.</span>
+                  </span>
+                </div>
+              
+                <div class="input-wrapper">
+                  <input [class.empty]="surname?.invalid && surname?.touched" formControlName="surname" type="text" placeholder="Soyad">
+                  <span class="error" *ngIf="surname?.invalid && surname?.touched">
+                    <span *ngIf="surname?.errors?.['required']">Soyad alanı zorunlu.</span>
+                    <span *ngIf="surname?.errors?.['minlength']">En az 2 hane giriniz.</span>
+                  </span>
+                </div>
+              </div>
+
+            <input [class.empty]="password?.invalid && password?.touched" 
+            formControlName="password"  
+            type="password" placeholder="Kodu gir">
+            <span class="error" *ngIf="password?.invalid && password?.touched">
+              <span *ngIf="password?.errors?.['required']">Şifre zorunlu</span>
+              <span *ngIf="password?.errors?.['minlength']">Şifre en az 6 haneli olmalı.</span>
+            </span>
+
+
+
+
+            <button type="submit">Üye ol</button>
+        </form>
+        
+        <label type="button" class="forgot">Üyelik şartlarını kabul etmis sayılırsınız</label>
+
+    </div>
+    
+      
+  
+    <div class="social-box">
+      <!-- Social api bağlanacak -->
+    </div>
+  </div>

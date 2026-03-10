@@ -1,0 +1,10 @@
+<div class="error-box" *ngIf="message">
+    <div class="error-icon">
+      <i class="fa-solid fa-circle-exclamation"></i>
+    </div>
+    <div class="error-content">
+      <span class="error-title">{{ title }}</span>
+      <span class="error-desc">{{ message }}</span>
+    </div>
+    <i class="fa-solid fa-xmark error-close" (click)="close()"></i>
+  </div>

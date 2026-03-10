@@ -1,0 +1,35 @@
+
+<div class="container">
+    <div class="logo-box">
+        <img src="assets/images/favLast.png" alt="Logo">
+      </div>
+  
+    <div class="form-btn-container">
+        <label class="create-label">Hesabınızı oluşturun</label>
+        <div class="otp-box">
+            <span class="user-email">{{email}} adresine gönderilen doğrulama kodunu girin.</span>
+        </div>
+
+        <div class="form-box">
+        <!-- Login Form -->
+        <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="form active">
+            <input [class.empty]="otp?.invalid && otp?.touched" 
+            formControlName="otp"  
+            type="text" placeholder="Kodu gir">
+            <span class="error" *ngIf="otp?.invalid && otp?.touched">
+              <span *ngIf="otp?.errors?.['required']">Kod alanı zorunlu</span>
+              <span *ngIf="otp?.errors?.['minlength']">Kod 6 haneli</span>
+            </span>
+            <button type="submit">E-posta adresini doğrula</button>
+        </form>
+        
+        <label type="button" class="forgot">Kodu tekrar gönder</label>
+
+    </div>
+    
+      
+  
+    <div class="social-box">
+      <!-- Social api bağlanacak -->
+    </div>
+  </div>
