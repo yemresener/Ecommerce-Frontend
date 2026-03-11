@@ -11,6 +11,8 @@
         </div>
 
         <div class="form-box">
+          <app-error-box (closed)="closed.emit()" [message]="message" [title]="title"></app-error-box>
+
         <!-- Login Form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form active">
 
@@ -34,16 +36,28 @@
 
             <input [class.empty]="password?.invalid && password?.touched" 
             formControlName="password"  
-            type="password" placeholder="Kodu gir">
+            type="password" placeholder="Şifre">
             <span class="error" *ngIf="password?.invalid && password?.touched">
               <span *ngIf="password?.errors?.['required']">Şifre zorunlu</span>
               <span *ngIf="password?.errors?.['minlength']">Şifre en az 6 haneli olmalı.</span>
             </span>
 
+            <input [class.empty]="phone_number?.invalid && phone_number?.touched" 
+            formControlName="phone_number"  
+            inputmode="numeric" type="text" placeholder="Telefon numarası">
+            <span class="error" *ngIf="phone_number?.invalid && phone_number?.touched">
+              <span *ngIf="phone_number?.errors?.['pattern']">Telefon numarası geçerli değil.</span>
+            </span>
 
 
 
-            <button type="submit">Üye ol</button>
+
+            <button type="submit" [disabled]="loading">
+              <ng-container *ngIf="!loading">Üye ol</ng-container>
+              <ng-container *ngIf="loading">
+                <span class="spinner"></span>
+              </ng-container>
+            </button>
         </form>
         
         <label type="button" class="forgot">Üyelik şartlarını kabul etmis sayılırsınız</label>

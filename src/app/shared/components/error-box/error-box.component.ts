@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-error-box',
@@ -10,7 +10,9 @@ export class ErrorBoxComponent {
   @Input() message: string = '';
   @Input() title:string = 'Bir hata oluştu';
 
+  @Output() closed = new EventEmitter<void>();
+
   close() {
-    this.message = '';
+    this.closed.emit();
   }
 }

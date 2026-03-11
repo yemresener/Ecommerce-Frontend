@@ -11,6 +11,9 @@
         </div>
 
         <div class="form-box">
+          <app-error-box (closed)="closed.emit()" [message]="message" [title]="title"></app-error-box>
+
+
         <!-- Login Form -->
         <form [formGroup]="otpForm" (ngSubmit)="onSubmit()" class="form active">
             <input [class.empty]="otp?.invalid && otp?.touched" 
@@ -20,10 +23,19 @@
               <span *ngIf="otp?.errors?.['required']">Kod alanı zorunlu</span>
               <span *ngIf="otp?.errors?.['minlength']">Kod 6 haneli</span>
             </span>
-            <button type="submit">E-posta adresini doğrula</button>
+            <button type="submit" [disabled]="loading">
+              <ng-container *ngIf="!loading">Devam et</ng-container>
+              <ng-container *ngIf="loading">
+                <span class="spinner"></span>
+              </ng-container>
+            </button>
         </form>
         
-        <label type="button" class="forgot">Kodu tekrar gönder</label>
+        <label class="forgot" (click)="resendOtp()"
+        [class.disabled]="resendTimer>0"
+        >  {{ resendTimer > 0 ? 'Tekrar gönder (' + resendTimer + 's)' : 'Kodu tekrar gönder' }}
+      </label>
+
 
     </div>
     

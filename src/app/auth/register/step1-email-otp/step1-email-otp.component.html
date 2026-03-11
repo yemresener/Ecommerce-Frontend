@@ -10,6 +10,9 @@
         </div>
     
         <div class="form-box">
+          <app-error-box (closed)="closed.emit()" [message]="message" [title]="title"></app-error-box>
+
+
         <!-- Login Form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form active">
             <input [class.empty]="email?.invalid && email?.touched" 
@@ -22,7 +25,12 @@
                 <span *ngIf="email?.errors?.['email']">Geçerli bir e-posta girin</span>
             </span>
             
-            <button type="submit">Devam et</button>
+            <button type="submit" [disabled]="loading">
+              <ng-container *ngIf="!loading">Devam et</ng-container>
+              <ng-container *ngIf="loading">
+                <span class="spinner"></span>
+              </ng-container>
+            </button>
         </form>
     </div>
     
