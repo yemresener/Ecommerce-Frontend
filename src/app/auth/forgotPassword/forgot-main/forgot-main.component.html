@@ -1,33 +1,35 @@
-
 <app-step1-email
-[loading]="loadingStep1" [message]="errorMessage"
+[componentTitle]="'Şifre yenileme'"
+[passwordReset]="true"
+[loading]="loading" [message]="errorMessage"
 (closed)="errorMessage = ''"
-(submitEmail)="onOtpVerify($event)" 
-[switchButtons]="true"
+(submitEmail)="sendOtp($event)" 
 *ngIf="step==='emailOtp'"
 ></app-step1-email>
 
 
 <app-step2-verify-code
-[email]="userMail"
-[loading]="loadingStep2"
+[email]="email"
+[loading]="loading"
 (resentOtpEvent)="resendOtp()"
 [message]="errorMessage"
 [componentTitle]="'Hesabınızı oluşturun'"
 (closed)="errorMessage = ''"
 
 *ngIf="step==='verifyOtp'"
-(submitOtp)="submitOtp($event)">
+(submitOtp)="verifyOtp($event)">
 
 </app-step2-verify-code>
 
 
-
-<app-step3-create-acc
-[loading]="loadingStep3"
-
+<app-step3-reset-pass
+[loading]="loading"
 [message]="errorMessage"
 (closed)="errorMessage = ''"
-*ngIf="step==='createAcc'"
-  (createAcc)="createAcc($event)"
-></app-step3-create-acc>
+*ngIf="step==='createNewPass'"
+
+(resetPass)="createNewPass($event)"
+
+>
+
+</app-step3-reset-pass>

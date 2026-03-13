@@ -1,4 +1,4 @@
-@import '../register-shared.css';
+@import '../../../../auth/register/register-shared.css';
 
 
 .form-btn-container{
@@ -28,4 +28,26 @@
 .switch-buttons a.active {
   background: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+
+.passwordResetBox{
+
+}
+.password-info{
+    font-size: 15px;
+  margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.back-btn{
+  position: absolute;
+  top: 15px;   /* container üstünden boşluk */
+  left: 15px;  /* container solundan boşluk */
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 99px;
+  background-color: rgb(219, 219, 219);
 }

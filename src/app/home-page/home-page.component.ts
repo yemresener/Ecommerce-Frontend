@@ -293,7 +293,7 @@ export class HomePageComponent {
 
 
 
-  login:string = "";
+    email:string = "";
   password:string="";
 
 
@@ -321,7 +321,7 @@ export class HomePageComponent {
   tryToLogin(){
     console.log('sa');
     const body={
-      login:this.login,
+      email:this.email,
       password:this.password
     }
     this.http.post('http://localhost:8000/api/login',body,{ withCredentials: true,headers: {

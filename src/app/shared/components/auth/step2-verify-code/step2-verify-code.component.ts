@@ -2,21 +2,24 @@ import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ErrorBoxComponent } from '../../../shared/components/error-box/error-box.component';
-import { ErrorBase } from '../../../shared/base/error-base';
+import { ErrorBoxComponent } from '../../error-box/error-box.component';
+import { ErrorBase } from '../../../base/error-base';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID, inject } from '@angular/core';
 @Component({
-  selector: 'app-step2-verify-otp',
+  selector: 'app-step2-verify-code',
   imports: [CommonModule,ReactiveFormsModule,ErrorBoxComponent],
-  templateUrl: './step2-verify-otp.component.html',
-  styleUrl: './step2-verify-otp.component.css'
+  templateUrl: './step2-verify-code.component.html',
+  styleUrl: './step2-verify-code.component.css'
 })
-export class Step2VerifyOtpComponent extends ErrorBase {
+export class Step2VerifyCodeComponent extends ErrorBase {
+
+
   private platformId = inject(PLATFORM_ID);
 
   @Input() email!:string;
   @Input() loading:boolean=false;
+  @Input() componentTitle!:string;
 
   @Output() submitOtp = new EventEmitter<number>();
   @Output() resentOtpEvent = new EventEmitter<any>();
@@ -66,6 +69,4 @@ export class Step2VerifyOtpComponent extends ErrorBase {
   ngOnInit() {
     this.startTimer(); 
   }
-  
-
 }

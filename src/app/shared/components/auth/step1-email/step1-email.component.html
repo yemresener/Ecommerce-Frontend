@@ -4,7 +4,17 @@
       </div>
   
     <div class="form-btn-container">
-        <div class="switch-buttons">
+
+
+      <a [routerLink]="['/login']" *ngIf="passwordReset" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+      <div class="passwordResetBox" *ngIf="passwordReset">
+        <label class="create-label">{{componentTitle}}</label>
+        <div class="otp-box">
+            <span class="password-info">Şifre yenileme bağlantısını gönderebilmemiz için e-posta adresinize ihtiyacımız var.</span>
+        </div>
+      </div>
+  
+        <div class="switch-buttons" *ngIf="switchButtons">
             <a [routerLink]="[ '/login',  ]">Giriş Yap</a>
             <a [routerLink]="[ '/register', ]"  class="active">Kayıt Ol</a>
         </div>
@@ -14,7 +24,7 @@
 
 
         <!-- Login Form -->
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form active">
+        <form [formGroup]="Form" (ngSubmit)="onSubmit()" class="form active">
             <input [class.empty]="email?.invalid && email?.touched" 
             type="email"
             formControlName="email"

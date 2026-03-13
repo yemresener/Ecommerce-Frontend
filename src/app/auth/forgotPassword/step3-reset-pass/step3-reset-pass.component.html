@@ -1,0 +1,57 @@
+
+<div class="container">
+    <div class="logo-box">
+        <img src="assets/images/favLast.png" alt="Logo">
+      </div>
+  
+    <div class="form-btn-container">
+        <label class="create-label">Şifre yenileme</label>
+        <div class="otp-box">
+            <span class="user-email">Yeni şifrenizi giriniz.</span>
+        </div>
+
+        <div class="form-box">
+          <app-error-box (closed)="closed.emit()" [message]="message" [title]="title"></app-error-box>
+
+        <!-- Login Form -->
+        <form [formGroup]="resetForm" (ngSubmit)="onSubmit()" class="form active">
+
+            <input [class.empty]="passwordFirst?.invalid && passwordFirst?.touched" 
+            formControlName="passwordFirst"  
+            type="password" placeholder="Şifre">
+
+            <span class="error" *ngIf="passwordFirst?.invalid && passwordFirst?.touched">
+              <span *ngIf="passwordFirst?.errors?.['required']">Şifre zorunlu</span>
+              <span *ngIf="passwordFirst?.errors?.['minlength']">Şifre en az 6 haneli olmalı.</span>
+            </span>
+
+            
+            <input [class.empty]="passwordSecond?.invalid && passwordSecond?.touched" 
+            formControlName="passwordSecond"  
+            type="password" placeholder="Şifre tekrarı">
+            <span class="error" *ngIf="resetForm.errors?.['passwordMismatch'] && !passwordSecond?.invalid ">
+                Şifreler eşleşmiyor
+              </span>
+            <span class="error" *ngIf="passwordSecond?.invalid && passwordSecond?.touched">
+              <span *ngIf="passwordSecond?.errors?.['required']">Şifre tekrarı zorunlu</span>
+              <span *ngIf="passwordSecond?.errors?.['minlength']">Şifre tekrarı en az 6 haneli olmalı.</span>
+            </span>
+
+
+            <button type="submit" [disabled]="loading">
+              <ng-container *ngIf="!loading">Şifreyi onayla</ng-container>
+              <ng-container *ngIf="loading">
+                <span class="spinner"></span>
+              </ng-container>
+            </button>
+        </form>
+        
+
+    </div>
+    
+      
+  
+    <div class="social-box">
+      <!-- Social api bağlanacak -->
+    </div>
+  </div>

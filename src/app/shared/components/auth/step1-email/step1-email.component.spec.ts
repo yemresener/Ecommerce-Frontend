@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Step1EmailOtpComponent } from './step1-email-otp.component';
+import { Step1EmailComponent } from './step1-email.component';
 
-describe('Step1EmailOtpComponent', () => {
-  let component: Step1EmailOtpComponent;
-  let fixture: ComponentFixture<Step1EmailOtpComponent>;
+describe('Step1EmailComponent', () => {
+  let component: Step1EmailComponent;
+  let fixture: ComponentFixture<Step1EmailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Step1EmailOtpComponent]
+      imports: [Step1EmailComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Step1EmailOtpComponent);
+    fixture = TestBed.createComponent(Step1EmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

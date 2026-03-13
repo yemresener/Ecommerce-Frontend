@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Step2VerifyOtpComponent } from './step2-verify-otp.component';
+import { Step2VerifyCodeComponent } from './step2-verify-code.component';
 
-describe('Step2VerifyOtpComponent', () => {
-  let component: Step2VerifyOtpComponent;
-  let fixture: ComponentFixture<Step2VerifyOtpComponent>;
+describe('Step2VerifyCodeComponent', () => {
+  let component: Step2VerifyCodeComponent;
+  let fixture: ComponentFixture<Step2VerifyCodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Step2VerifyOtpComponent]
+      imports: [Step2VerifyCodeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Step2VerifyOtpComponent);
+    fixture = TestBed.createComponent(Step2VerifyCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

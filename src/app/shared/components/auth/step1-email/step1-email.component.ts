@@ -3,35 +3,42 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ErrorBoxComponent } from '../../../shared/components/error-box/error-box.component';
-import { ErrorBase } from '../../../shared/base/error-base';
+import { ErrorBoxComponent } from '../../error-box/error-box.component';
+import { ErrorBase } from '../../../base/error-base';
+
 @Component({
-  selector: 'app-step1-email-otp',
+  selector: 'app-step1-email',
   imports: [CommonModule,RouterLink,ReactiveFormsModule,ErrorBoxComponent],
-  templateUrl: './step1-email-otp.component.html',
-  styleUrl: './step1-email-otp.component.css'
+  templateUrl: './step1-email.component.html',
+  styleUrl: './step1-email.component.css'
 })
-export class Step1EmailOtpComponent extends ErrorBase {
-  registerForm:FormGroup;
+export class Step1EmailComponent extends ErrorBase{
+
+  Form:FormGroup;
 
   @Output() submitEmail = new EventEmitter<string>();
   @Input() loading:boolean=false;
+  @Input() switchButtons?:boolean;
+  @Input() componentTitle?:string;
+  @Input() passwordReset?:boolean;
+
 
 
   constructor(private fb:FormBuilder){
     super();
-    this.registerForm=this.fb.group({
+    this.Form=this.fb.group({
       email:['',[Validators.required, Validators.email]],
     });
   }
-  get email() {return this.registerForm.get('email')};
+  get email() {return this.Form.get('email')};
   
   onSubmit(){
-    if(this.registerForm.invalid){
-      this.registerForm.markAllAsTouched();
+    if(this.Form.invalid){
+      this.Form.markAllAsTouched();
       return;
     }
     
     this.submitEmail.emit(this.email?.value);
   }
+
 }

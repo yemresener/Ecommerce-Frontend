@@ -10,7 +10,7 @@
         </div>
     
         <div class="form-box">
-          <app-error-box [message]="message" [title]="title"></app-error-box>
+          <app-error-box (closed)="message=''" [message]="message" [title]="title"></app-error-box>
 
         <!-- Login Form -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form active">
@@ -34,14 +34,21 @@
 
                 <span class="error" *ngIf="password?.invalid && password?.touched">
                     <span *ngIf="password?.errors?.['required']">Şifre zorunludur</span>
-                    <span *ngIf="password?.errors?.['minlength']">En az 6 karakter olmalı</span>
+                    <span *ngIf="password?.errors?.['minlength']">En az 3 karakter olmalı</span>
                 </span>
               </div>
               
-            <label type="button" class="forgot">Şifremi unuttum</label>
+            <label type="button" class="forgot">
+              <a [routerLink]="[ '/sifremi-unuttum', ]">Şifremi unuttum</a>
+            </label>
 
             
-            <button type="submit">Giriş Yap</button>
+            <button type="submit" [disabled]="loading">
+              <ng-container *ngIf="!loading">Giriş yap</ng-container>
+              <ng-container *ngIf="loading">
+                <span class="spinner"></span>
+              </ng-container>
+            </button>
         </form>
     </div>
     

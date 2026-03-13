@@ -11,20 +11,21 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { ForgotMainComponent } from './auth/forgotPassword/forgot-main/forgot-main.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
         children:[
             {path:'login',component:LoginComponent,title:'LoginComponent'},
             {path:'register',component:RegisterComponent,title:'RegisterComponent'},
-        
+            {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
         ]
     },
     {
         path:'',
         component:MainLayoutComponent,
         children:[
-            {path:'',component:HomePageComponent,title:'Ana Sayfa'},
+            {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
             {path:'home',component:HomeComponent,title:'Home'},
             {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
             {path:'cart',component:CartPageComponent,title:'Cart'},

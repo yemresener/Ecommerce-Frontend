@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Step1EmailOtpComponent } from './step1-email-otp/step1-email-otp.component';
-import { Step2VerifyOtpComponent } from './step2-verify-otp/step2-verify-otp.component';
+
 import { Step3CreateAccComponent } from './step3-create-acc/step3-create-acc.component';
 import { RegisterService } from '../../Services/auth/register.service';
 import { OtpApiResponse } from '../../interfaces/otp-api-response';
 import { CreateAcc } from '../../interfaces/register/create-acc';
+import { Step1EmailComponent } from '../../shared/components/auth/step1-email/step1-email.component';
+import { Step2VerifyCodeComponent } from '../../shared/components/auth/step2-verify-code/step2-verify-code.component';
 @Component({
   selector: 'app-register',
-  imports: [CommonModule,RouterLink,Step1EmailOtpComponent,Step2VerifyOtpComponent,Step3CreateAccComponent],
+  imports: [CommonModule,RouterLink,Step3CreateAccComponent,Step1EmailComponent,Step2VerifyCodeComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
