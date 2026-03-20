@@ -1,0 +1,15 @@
+export interface Cart {
+    price:number,
+    quantity:number,
+    total:number,
+    is_selected:boolean,
+    title:string,
+    slug:string,
+    avg_rating:number | null,
+    total_comments:number | null,
+    image:string | null,
+    original_price:number,
+    discount_price:number | null,
+    discount_type:string | null,
+    discount_value:number | null,
+}

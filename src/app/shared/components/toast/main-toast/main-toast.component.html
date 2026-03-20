@@ -1,0 +1,9 @@
+<div class="toast" [class.hide]="hiding" *ngIf="visible" [ngClass]="type">
+  <div class="toast-icon">{{ icon }}</div>
+  <div class="toast-body">
+    <p class="toast-title">{{ title }}</p>
+    <p class="toast-msg">{{ message }}</p>
+  </div>
+  <button class="toast-close" (click)="close()" >&#x2715;</button>
+  <div class="toast-progress"><div class="toast-progress-bar"></div></div>
+</div>

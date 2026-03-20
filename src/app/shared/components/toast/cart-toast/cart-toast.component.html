@@ -1,0 +1,20 @@
+<div class="cart-toast"  [class.hide]="hiding" *ngIf="visible">
+  <img [src]="item?.images?.[0]?.path" />
+
+  <div class="cart-toast-info">
+    <span class="title">{{ item.title }}</span>
+
+    <div class="price-box">
+        <span class="price-old" *ngIf="item.discount_price">{{ item.original_price }}</span>
+        <span class="price">{{ item.discount_price ?? item.original_price }}</span>
+    </div>
+
+
+    <span class="cart-toast-message">{{message}}</span>
+  </div>
+
+  <div class="button-box">
+    <button class="go-cart">Sepete git</button>
+    <button class="continue" (click)="close()">Devam et</button>
+  </div>
+</div>

@@ -336,7 +336,7 @@ export class HomePageComponent {
   }
 
   tryToGetInfo(){
-    this.http.get('http://localhost:8000/api/getProducts',{withCredentials:true}).subscribe({
+    this.http.get('http://e-commerce.test/api/getProducts',{withCredentials:true}).subscribe({
       next:(res)=>{
         console.log(res);
 

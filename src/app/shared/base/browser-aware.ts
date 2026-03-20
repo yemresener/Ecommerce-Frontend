@@ -4,6 +4,6 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Directive()
 export class BrowserAware {
-  private platformId = inject(PLATFORM_ID);
+  protected platformId = inject(PLATFORM_ID);
   protected isBrowser() { return isPlatformBrowser(this.platformId); }
 }

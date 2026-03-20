@@ -47,7 +47,11 @@ export class LoginComponent {
       next:(res)=>{
         console.log(res);
         this.loading=false;
-
+        /*
+        if(isPlatformBrowser(this.platformId)){
+          this.router.navigate(['/home']);
+        }
+          */
       },
       error:(err)=>{
         console.log(err);

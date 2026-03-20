@@ -8,7 +8,6 @@ import { EachItemService } from '../Services/each-item.service';
 import { ActivatedRoute } from '@angular/router';
 import { Advert } from '../interfaces/advert';
 import { SliderModel } from '../shared/components/slider/slider.model';
-import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
 import { MiniAdvert } from '../interfaces/mini-advert';
 import { ApiResponse } from '../interfaces/api-response';
 import { Review } from '../interfaces/review';
@@ -20,10 +19,15 @@ import { BreadCrumb } from '../interfaces/bread-crumb';
 import { RouterModule } from '@angular/router';
 import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
 import { isPlatformBrowser } from '@angular/common';
-
+import { CartService } from '../Services/cart.service';
+import { CartToastComponent } from '../shared/components/toast/cart-toast/cart-toast.component';
+import { ToastrService } from 'ngx-toastr';
+import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
 @Component({
   selector: 'app-each-item-page',
-  imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,SliderComponent,CardComponent,RatingStarsComponent,RouterModule],
+  imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,
+    SliderComponent,CardComponent,RatingStarsComponent,RouterModule,CartToastComponent,
+  MainToastComponent,],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
@@ -33,7 +37,11 @@ export class EachItemPageComponent {
   private platformId = inject(PLATFORM_ID);
   private isBrowser() { return isPlatformBrowser(this.platformId); }
 
-  constructor(private route:ActivatedRoute,private itemService:EachItemService){}
+  constructor(private route:ActivatedRoute,
+    private itemService:EachItemService, 
+    private cartService:CartService,
+    private toast:ToastrService,
+  ){}
 
   slug!:string;
   ngOnInit(){
@@ -143,6 +151,31 @@ export class EachItemPageComponent {
 
   }
 
+  cartLoading = false;
+  cartItemAdded=false;
+  cartMessage?:string;
+  cartErrorMessage:string='';
+  addToCart(slug:string,quantity:number=1){
+    this.cartLoading=true;
+    this.cartService.addCart(slug,quantity).subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.cartLoading=false;
+        this.cartItemAdded=false;
+        this.cartMessage=res.message
+        
+        setTimeout(() => {
+          this.cartItemAdded = true;  
+        }, 50);
+      },
+      error:(err)=>{
+        console.log(err)
+        this.cartLoading=false;
+        this.cartErrorMessage=err.error.message;
+      }
+    })      
+
+  }
 
   
 

@@ -5,6 +5,7 @@ import { MiniAdvert } from '../interfaces/mini-advert';
 import { FilterParams } from '../interfaces/filter-params';
 import { ApiResponse } from '../interfaces/api-response';
 import { CategoryFilters } from '../interfaces/category-filters';
+import { environment } from '../../environments/environment';
 
 
 
@@ -16,7 +17,7 @@ export class ListService {
   constructor(private http:HttpClient) { }
 
   adverts(params:FilterParams){
-    const url = `http://127.0.0.1:8000/api/searchByCategory`;
+    const url = `${environment.apiUrl}searchByCategory`;
     return this.http.get<ApiResponse<MiniAdvert[]>>(url,{
       params:params as any,
       withCredentials:true
@@ -24,7 +25,7 @@ export class ListService {
   }
 
   category(slug:string){
-    const url = `http://127.0.0.1:8000/api/getCategoryTree/${slug}`;
+    const url = `${environment.apiUrl}getCategoryTree/${slug}`;
     return this.http.get<{filters:CategoryFilters}>(url);
 
   }

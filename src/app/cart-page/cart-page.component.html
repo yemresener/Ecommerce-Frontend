@@ -1,84 +1,50 @@
 
-<body >
     
 
     <div class="container">
-        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">(2)</span></label>
+        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">({{summary.count}} ürün)</span></label>
         <div class="container-box">
 
-            <div class="cart-box">
+            <div class="cart-box" >
 
 
 
                 <div class="cart-left">
 
-                    <div class="each-item">
-                        <button class="selected-btn" [class.active]="checked" (click)="checked=!checked">
-                            <i *ngIf="checked" class="fa-regular fa-circle-check"></i>
+
+                    <div class="each-item" *ngFor="let item of carts">
+                        <button class="selected-btn"  [disabled]="loading" [class.active]="item.is_selected" (click)="changeSelected(item.slug)">
+                            <i *ngIf="item.is_selected" class="fa-regular fa-circle-check"></i>
                         </button>
-                        <img class="item-image" src="assets/images/category5.jpg" alt="">
+                        <img class="item-image" src="{{item.image}}" alt="">
                         <div class="grid-box">
-                            <label class="item-title">Royal Canin Köpek Yaş Maması 45gr</label>
+                            <label class="item-title">{{item.title}}</label>
 
                             <div class="product-price-box">
                                 <div class="product-quantity-box">
                                     
                                     <div class="product-quantities">
-                                        <button class="qty-btn delete">
+                                        <button class="qty-btn delete" (click)="deleteCart(item.slug)">
                                             <i class="fa-solid fa-minus"></i>
                                         </button>
                                     
-                                        <label class="item-quantity">2</label>
+                                        <label class="item-quantity">{{item.quantity}}</label>
                                     
-                                        <button class="qty-btn add">
+                                        <button class="qty-btn add" (click)="addCart(item.slug)">
                                             <i class="fa-solid fa-plus"></i>
                                         </button>
                                     </div>
-                                    <button class="qty-btn delete trashcan">
+                                    <button class="qty-btn delete trashcan" (click)="deleteCart(item.slug,true)">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
 
                                 </div>
-                                <label class="item-price">1299,59 TL</label>
+                                <label class="item-price">{{item.total}} TL</label>
 
                             </div>
                         </div>
                     </div>
                     
-                    
-
-                    <div class="each-item">
-                        <button class="selected-btn" [class.active]="checked" (click)="checked=!checked">
-                            <i *ngIf="checked" class="fa-regular fa-circle-check"></i>
-                        </button>
-                        <img class="item-image" src="assets/images/category5.jpg" alt="">
-                        <div class="grid-box">
-                            <label class="item-title">Royal Canin Köpek Yaş Maması 45gr</label>
-
-                            <div class="product-price-box">
-                                <div class="product-quantity-box">
-                                    
-                                    <div class="product-quantities">
-                                        <button class="qty-btn delete">
-                                            <i class="fa-solid fa-minus"></i>
-                                        </button>
-                                    
-                                        <label class="item-quantity">2</label>
-                                    
-                                        <button class="qty-btn add">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <button class="qty-btn delete trashcan">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-
-                                </div>
-                                <label class="item-price">1299,59 TL</label>
-
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -136,20 +102,25 @@
                     <div class="cart-detail">
                         <label class="cart-detail-title">Sipariş Özeti</label>
                         <div class="each-detail">
-                            <label class="cart-items-title">2 Adet Ürün</label>
-                            <label class="cart-items-sum">1.250,00 TL</label>
+                            <label class="cart-items-title">Ürünler</label>
+                            <label class="cart-items-sum">{{summary.subTotal}} TL</label>
                         </div>
     
                         <div class="each-detail">
                             <label class="cart-items-title">Kargo Ücreti</label>
-                            <label class="cart-items-cargo"><label class="cargo-fee">60,90</label> BEDAVA</label>
+                            
+                            <label class="cart-items-cargo">
+                            <label class="cargo-fee" [class.hiddenFee]="summary.cargoCartFee>0 || !summary.count">{{summary.cargoFee}}</label> 
+
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
+
                         </div>
     
                         <hr>
     
                         <div class="each-detail">
                             <label class="final-price-title">Toplam Tutar</label>
-                            <label class="final-price">1250,00 TL</label>
+                            <label class="final-price">{{summary.total}} TL</label>
                         </div>
                         
                         <button class="cart-approve-button">Sepeti Onayla</button>
@@ -188,11 +159,12 @@
             <div class="m-show-box">
                 <div class="m-each-detail">
                     <label class="m-product-title">Ürünler</label>
-                    <label class="m-product-price">1250,00 TL</label>
+                    <label class="m-product-price">{{summary.subTotal}} TL</label>
                 </div>
                 <div class="m-each-detail">
                     <label class="m-product-title">Kargo</label>
-                    <label class="m-product-price" style="color: rgb(6, 119, 45);">Kargo Bedava <label class="cargo-fee">60,90</label></label>
+                    <label class="cart-items-cargo"><label class="cargo-fee">{{summary.cargoFee}}</label> 
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
                 </div>
             </div>
         </div>
@@ -200,11 +172,20 @@
 
         <div class="m-detail">
             <div class="m-detail-box">
-                <label class="m-cart-count">SEÇİLEN ÜRÜNLER (2)</label>
-                <label (click)="mPrice=!mPrice"  class="m-price">1299,99 TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
+                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary.count}})</label>
+                <label (click)="mPrice=!mPrice"  class="m-price">{{summary.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
             </div>
             <button class="m-approve-btn">Sepeti Onayla</button>  
         </div>
     </div>
 
-</body>
+
+
+
+    <app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
+
+    <app-main-toast *ngIf="message"
+     [type]="status"
+    [message]="message"
+    (closed)="message=''"
+    ></app-main-toast>

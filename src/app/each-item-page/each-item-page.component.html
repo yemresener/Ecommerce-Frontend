@@ -175,14 +175,22 @@
 
             <div class="actions">
 
-                <button
-                class="add-to-cart"
-                [class.loading]="!advert"
-                [disabled]="!advert"
-                >
+            <button
+              (click)="addToCart(advert.slug)"
+              class="add-to-cart"
+              [class.skeleton]="!advert"
+              [class.loading]="cartLoading"
+              [disabled]="!advert || cartLoading"
+              >
+              <ng-container *ngIf="!cartLoading; else loadingTpl">
                 <i *ngIf="advert" class="fas fa-shopping-cart"></i>
                 <span *ngIf="advert">Sepete Ekle</span>
-                </button>
+              </ng-container>
+
+              <ng-template #loadingTpl>
+                <div class="spinner"></div>
+              </ng-template>
+            </button>
               
             </div>
 
@@ -276,10 +284,22 @@
 
     
 
-    <button style="width: 75%;" class="add-to-cart-mobile">
-        <i class="fas fa-shopping-cart"></i>
-        Sepete Ekle
-    </button>
+       <button
+              (click)="addToCart(advert.slug)"
+              class="add-to-cart-mobile"
+              [class.skeleton]="!advert"
+              [class.loading]="cartLoading"
+              [disabled]="!advert || cartLoading"
+              >
+              <ng-container *ngIf="!cartLoading; else loadingTpl">
+                <i *ngIf="advert" class="fas fa-shopping-cart"></i>
+                <span *ngIf="advert">Sepete Ekle</span>
+              </ng-container>
+
+              <ng-template #loadingTpl>
+                <div class="spinner"></div>
+              </ng-template>
+            </button>
 </div>
 
 
@@ -317,34 +337,11 @@
 [skeleton]="sliderSkeleton"
 >
 </app-product-slider>
-<!--
-<div class="reco-container">
-  <label class="reco-label">Bu ürünleri de inceleyebilirsin</label>
-
-  <app-slider [slider]="recommendationProducts" [itemWidth]="245">
-
-    <app-card
-      *ngFor="let item of recommendationProducts.items"
-      [item]="item">
-    </app-card>
-
-  </app-slider>
-</div>
 
 
-<div class="reco-container">
-    <label class="reco-label">Kategorinin sevilen ürünleri</label>
-  
-    <app-slider [slider]="categoryBests" [itemWidth]="245">
-  
-      <app-card
-        *ngFor="let item of categoryBests.items"
-        [item]="item">
-      </app-card>
-  
-    </app-slider>
-  </div>
-  
-  
--->
 
+<app-cart-toast *ngIf="cartItemAdded" [item]="advert" [message]="cartMessage"></app-cart-toast>
+
+<app-main-toast *ngIf="cartErrorMessage" [type]="'error'" [message]="cartErrorMessage"
+  (closed)="cartErrorMessage = ''"
+></app-main-toast>

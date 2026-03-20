@@ -1,0 +1,134 @@
+.cart-toast {
+    position: fixed;
+    top: 40px;
+    right: 24px;
+    width: 420px; /* büyüttük */
+
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    animation: slideIn 0.35s ease;
+    z-index: 9999;
+}
+
+/* ürün görseli büyüdü */
+.cart-toast img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* info */
+.cart-toast-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* başlık büyüdü */
+.cart-toast-info .title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* fiyat alanı */
+.price-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* eski fiyat */
+.price-old {
+    font-size: 13px;
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+/* yeni fiyat */
+.price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* mesaj */
+.cart-toast-message {
+    font-size: 14px;
+    color: #16a34a;
+    font-weight: 600;
+}
+
+/* butonlar */
+.button-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.button-box button {
+    border: none;
+    padding: 10px 14px; /* büyüttük */
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: 500;
+}
+
+/* primary */
+.go-cart {
+    background: #2563eb;
+    color: white;
+}
+
+.go-cart:hover {
+    background: #1d4ed8;
+}
+
+/* secondary */
+.continue {
+    background: #f3f4f6;
+}
+
+.continue:hover {
+    background: #e5e7eb;
+}
+
+/* animasyon */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* çıkış */
+.cart-toast.hide {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+}
