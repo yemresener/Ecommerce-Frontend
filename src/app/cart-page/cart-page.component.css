@@ -41,8 +41,9 @@ body{
     font-size: 22px;
     font-weight: 600;
     color: #222;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     display: block;
+    margin-top: 20px;
 }
 
 .cart-box{
@@ -99,7 +100,7 @@ body{
 .item-image{
     width: 90px;
     height: 90px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 12px;
     border: 1px solid rgb(238, 238, 238);
 }
@@ -116,6 +117,9 @@ body{
     font-weight: 500;
     font-size: 15px;
     line-height: 1.4;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 /* item quantity */
@@ -156,11 +160,30 @@ body{
     text-align: center;
     font-weight: 500;
 }
-.item-price{
-    font-weight: 700;
-    white-space: nowrap;
-    color: rgb(6, 119, 45);
+.price-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
 }
+
+.before-discount-price {
+    font-size: 13px;
+    color: #9ca3af; 
+    text-decoration: line-through;
+}
+
+.hiddenFee {
+    display: none;
+}
+
+.item-price {
+    font-weight: 700;
+    font-size: 18px;
+    color: rgb(6, 119, 45);
+    white-space: nowrap;
+}
+
 .qty-btn{
     width: 32px;
     height: 32px;
@@ -230,6 +253,7 @@ body{
 
 }
 .cargo-fee{
+    
     position: relative;
     color: #9ca3af; /* silik */
     margin-right: 6px;
@@ -474,6 +498,43 @@ body{
 }
 
 
+.empty-box{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+
+.empty-icon-wrapper {
+    position: relative;
+    display: inline-block;
+    font-size: 80px;
+    color: #dfe6e9;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+.empty-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.empty-text {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+
 @media (max-width: 480px){
 
 .qty-btn.trashcan{
@@ -557,3 +618,22 @@ body{
 }
 
 
+
+/* SKELETON */
+
+.sk-title { height: 26px; width: 180px; margin-bottom: 24px; margin-top: 20px; }
+.sk-check { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+.sk-img { width: 90px; height: 90px; border-radius: 12px; flex-shrink: 0; }
+.sk-info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.sk-name { height: 16px; width: 70%; }
+.sk-name-2 { height: 16px; width: 45%; }
+.sk-row { display: flex; justify-content: space-between; align-items: center; }
+.sk-qty { height: 32px; width: 105px; border-radius: 20px; margin-top: 10px;}
+.sk-price { height: 20px; width: 80px; }
+.sk-detail-title { height: 20px; width: 120px; margin-bottom: 6px; }
+.sk-detail-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.sk-detail-label { height: 14px; width: 80px; }
+.sk-detail-val { height: 14px; width: 60px; }
+.sk-hr { height: 1px; background: #eee; margin: 8px 0; }
+.sk-btn { height: 44px; width: 100%; border-radius: 5px; margin-top: 4px; }
+.sk-info-text { height: 12px; width: 90%; }

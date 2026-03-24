@@ -26,7 +26,7 @@ export class CartService {
 
   deleteCart(slug:string, delete_all:boolean=false){
     const url = `${environment.apiUrl}deleteCart`;
-    return this.http.post(url,{advert_slug:slug,delete_all:delete_all},{withCredentials:true});
+    return this.http.post<{message:string}>(url,{advert_slug:slug,delete_all:delete_all},{withCredentials:true});
   }
 
 

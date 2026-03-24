@@ -1,0 +1,69 @@
+                <div class="cart-detail-box"  *ngIf=" summary && summary.cartCount>=1">
+                    <div class="cart-detail">
+                        <label class="cart-detail-title">Sipariş Özeti</label>
+                        <div class="each-detail">
+                            <label class="cart-items-title">Ürünler</label>
+
+                            <label class="cart-items-sum">{{summary.originalTotal}} TL</label>
+                        </div>
+                   
+                        <div class="each-detail">
+                            <label class="cart-items-title">Kargo Ücreti</label>
+                            
+                            <label class="cart-items-cargo">
+                            <label class="cargo-fee" [class.hiddenFee]="summary.cargoCartFee>0 || !summary.count">{{summary.cargoFee}}</label> 
+
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
+
+                        </div>
+                        
+                        <div class="each-detail" *ngIf="summary.discountTotal>0">
+                            <label class="cart-items-title" style="    color: rgb(6, 119, 45);">Kazancın</label>
+                            <label class="cart-items-sum" style="    color: rgb(6, 119, 45);">{{summary.discountTotal}} TL</label>
+                        </div>
+    
+
+    
+                        <hr>
+    
+                        <div class="each-detail">
+                            <label class="final-price-title">Toplam Tutar</label>
+                            <label class="final-price">{{summary.total}} TL</label>
+                        </div>
+                        
+                        <button class="cart-approve-button">Sepeti Onayla</button>
+                        <label class="cart-info">Bir sonraki sayfada bu siparişi inceleyip ödemeyi onaylayana kadar ücret tahsil edilmez.</label>
+    
+                        
+                    </div>
+    
+            </div>
+
+                    
+    
+
+
+    <div class="m-detail-container" [class.open]="mPrice" *ngIf=" summary && summary.cartCount>=1">
+        <div class="m-show-detail">
+            <div class="m-show-box">
+                <div class="m-each-detail">
+                    <label class="m-product-title">Ürünler</label>
+                    <label class="m-product-price">{{summary.subTotal}} TL</label>
+                </div>
+                <div class="m-each-detail">
+                    <label class="m-product-title">Kargo</label>
+                    <label class="cart-items-cargo"><label class="cargo-fee">{{summary.cargoFee}}</label> 
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="m-detail">
+            <div class="m-detail-box">
+                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.count}})</label>
+                <label (click)="mPrice=!mPrice"  class="m-price">{{summary?.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
+            </div>
+            <button class="m-approve-btn">Sepeti Onayla</button>  
+        </div>
+    </div>

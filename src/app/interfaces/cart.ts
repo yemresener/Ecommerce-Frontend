@@ -2,6 +2,7 @@ export interface Cart {
     price:number,
     quantity:number,
     total:number,
+    beforeDiscountTotal:number,
     is_selected:boolean,
     title:string,
     slug:string,

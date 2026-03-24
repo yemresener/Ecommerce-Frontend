@@ -1,12 +1,10 @@
 
-    
-
-    <div class="container">
-        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">({{summary.count}} ürün)</span></label>
+    <ng-template #cartLoaded>
+        <div class="container" *ngIf="summary.cartCount>=1">
+        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">({{summary?.count}} ürün)</span></label>
         <div class="container-box">
-
+        
             <div class="cart-box" >
-
 
 
                 <div class="cart-left">
@@ -18,7 +16,11 @@
                         </button>
                         <img class="item-image" src="{{item.image}}" alt="">
                         <div class="grid-box">
-                            <label class="item-title">{{item.title}}</label>
+                            <a class="item-title" [attr.href]="'/urun/' + item.slug">   
+                                     <span>{{item.title}}</span>
+                            </a>
+
+                        
 
                             <div class="product-price-box">
                                 <div class="product-quantity-box">
@@ -39,7 +41,17 @@
                                     </button>
 
                                 </div>
-                                <label class="item-price">{{item.total}} TL</label>
+                             <div class="price-section">
+                                    <label 
+                                    class="before-discount-price" 
+                                    [class.hiddenFee]="item.beforeDiscountTotal <= 0">
+                                        {{ item.beforeDiscountTotal }} TL
+                                    </label> 
+
+                                    <label class="item-price">
+                                        {{ item.total }} TL
+                                    </label>
+                                </div>
 
                             </div>
                         </div>
@@ -48,7 +60,7 @@
 
                 </div>
 
-<!-- 
+                <!-- 
                 <div class="reco-container">
                     <div class="reco-box">
                         <label class="reco-label">Son gezdiğin ürünler</label>
@@ -95,26 +107,36 @@
                     </div>
                 </div>
 
- -->
+                -->
             </div> 
-           
-                <div class="cart-detail-box">
+
+            
+
+            <div class="cart-detail-box"  *ngIf=" summary && summary.cartCount>=1">
                     <div class="cart-detail">
                         <label class="cart-detail-title">Sipariş Özeti</label>
                         <div class="each-detail">
                             <label class="cart-items-title">Ürünler</label>
-                            <label class="cart-items-sum">{{summary.subTotal}} TL</label>
+
+                            <label class="cart-items-sum">{{summary.originalTotal}} TL</label>
                         </div>
-    
+                   
                         <div class="each-detail">
                             <label class="cart-items-title">Kargo Ücreti</label>
                             
                             <label class="cart-items-cargo">
                             <label class="cargo-fee" [class.hiddenFee]="summary.cargoCartFee>0 || !summary.count">{{summary.cargoFee}}</label> 
 
-                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Bedava'}}</label>
 
                         </div>
+                        
+                        <div class="each-detail" *ngIf="summary.discountTotal>0">
+                            <label class="cart-items-title" style="    color: rgb(6, 119, 45);">Kazancın</label>
+                            <label class="cart-items-sum" style="    color: rgb(6, 119, 45);">{{summary.discountTotal}} TL</label>
+                        </div>
+    
+
     
                         <hr>
     
@@ -132,7 +154,10 @@
                     <div (click)="couponInput=1" class="coupon-box"  [class.hidden]="couponInput">
                         <div class="label-angle" [class.open]="couponInput" >
                             <label class="coupon-label" >İndirim Kodu Ekle</label>
-                            <i class="coupon-angle" *ngIf="!couponInput" [class]="couponInput ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down '" ></i>
+
+                            <i class="coupon-angle" *ngIf="!couponInput" 
+                            [class]="couponInput ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down '" ></i>
+
                         </div>
                         
     
@@ -143,28 +168,35 @@
                         </div>
                     </div>
     
-                </div>
+            </div>
     
             
           
-          
+         
             
         </div>
 
        
     </div>
 
-   <div class="m-detail-container" [class.open]="mPrice">
+   <div class="m-detail-container" [class.open]="mPrice" *ngIf=" summary && summary.cartCount>=1">
         <div class="m-show-detail">
             <div class="m-show-box">
+
                 <div class="m-each-detail">
                     <label class="m-product-title">Ürünler</label>
-                    <label class="m-product-price">{{summary.subTotal}} TL</label>
+                    <label class="m-product-price">{{summary.originalTotal}} TL</label>
                 </div>
+
                 <div class="m-each-detail">
                     <label class="m-product-title">Kargo</label>
                     <label class="cart-items-cargo"><label class="cargo-fee">{{summary.cargoFee}}</label> 
-                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'BEDAVA'}}</label>
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Bedava'}}</label>
+                </div>
+
+                 <div class="m-each-detail" *ngIf="summary.discountTotal>0">
+                            <label class="m-product-title" style="    color: rgb(6, 119, 45);">Kazancın</label>
+                            <label class="m-product-price" style="    color: rgb(6, 119, 45);">{{summary.discountTotal}} TL</label>
                 </div>
             </div>
         </div>
@@ -172,8 +204,8 @@
 
         <div class="m-detail">
             <div class="m-detail-box">
-                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary.count}})</label>
-                <label (click)="mPrice=!mPrice"  class="m-price">{{summary.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
+                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.count}})</label>
+                <label (click)="mPrice=!mPrice"  class="m-price">{{summary?.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
             </div>
             <button class="m-approve-btn">Sepeti Onayla</button>  
         </div>
@@ -189,3 +221,64 @@
     [message]="message"
     (closed)="message=''"
     ></app-main-toast>
+
+    </ng-template>
+    
+
+
+
+
+    <div class="container" *ngIf="carts && summary.cartCount<=0">
+       <div class="empty-box">
+        <div class="empty-icon-wrapper">
+         <i style="font-size: 40px;" class="fa-solid fa-cart-plus"></i>
+        </div>
+        <label class="empty-title">Sepetin şu an boş</label>
+        <label class="empty-text">Sepetini fırsatlarla dolu YunusPet ürünleriyle doldurabilirsin.</label>
+       </div>
+    </div>
+
+
+<div class="container" *ngIf="!carts; else cartLoaded">
+  <div class="sk shimmer sk-title"></div>
+  <div class="container-box">
+
+    <div class="cart-box">
+      <div class="cart-left">
+        <div class="each-item" *ngFor="let i of [1,2]">
+          <div class="sk shimmer sk-check"></div>
+          <div class="sk shimmer sk-img"></div>
+          <div class="sk-info">
+            <div class="sk shimmer sk-name"></div>
+            <div class="sk-row">
+              <div class="sk shimmer sk-qty"></div>
+              <div class="sk shimmer sk-price"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-detail-box">
+      <div class="cart-detail">
+        <div class="sk shimmer sk-detail-title"></div>
+        <div class="sk-detail-row">
+          <div class="sk shimmer sk-detail-label"></div>
+          <div class="sk shimmer sk-detail-val"></div>
+        </div>
+        <div class="sk-detail-row">
+          <div class="sk shimmer sk-detail-label"></div>
+          <div class="sk shimmer sk-detail-val"></div>
+        </div>
+        <div class="sk-hr"></div>
+        <div class="sk-detail-row">
+          <div class="sk shimmer sk-detail-label"></div>
+          <div class="sk shimmer sk-detail-val"></div>
+        </div>
+        <div class="sk shimmer sk-btn"></div>
+        <div class="sk shimmer sk-info-text"></div>
+      </div>
+    </div>
+
+  </div>
+</div>

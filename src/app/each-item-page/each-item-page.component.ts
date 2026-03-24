@@ -155,6 +155,7 @@ export class EachItemPageComponent {
   cartItemAdded=false;
   cartMessage?:string;
   cartErrorMessage:string='';
+
   addToCart(slug:string,quantity:number=1){
     this.cartLoading=true;
     this.cartService.addCart(slug,quantity).subscribe({

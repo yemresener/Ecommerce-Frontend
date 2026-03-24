@@ -149,6 +149,11 @@ body {
     font-size: 1rem;
 }
 
+.cart-label{
+    text-decoration: none;
+    color: white;
+}
+
 /* Category Bar */
 .category-bar {
     border-top: 2px solid #f0f9ff;

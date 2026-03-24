@@ -12,6 +12,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ForgotMainComponent } from './auth/forgotPassword/forgot-main/forgot-main.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -19,6 +20,7 @@ export const routes: Routes = [
             {path:'login',component:LoginComponent,title:'LoginComponent'},
             {path:'register',component:RegisterComponent,title:'RegisterComponent'},
             {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
+            {path:'checkout',component:CheckoutComponent,title:'Checkout'}
         ]
     },
     {
@@ -32,7 +34,7 @@ export const routes: Routes = [
             {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
     
             {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
-        
+            
             {path:':slug',component:CategoryPageComponent,title:'list'},
         ]
     }
