@@ -58,10 +58,11 @@
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             Ev
           </div>
-          <div class="address-name">Yunus Demir</div>
-          <div class="address-text">Orman 1. Sk. No:44, Daire 3<br>Bornova / İzmir, 35040</div>
+          <div class="address-name">{{address.full_name}}</div>
+          <div class="address-text">{{address.address_line}}<br>{{address.state}} / {{address.city}}, {{address.postal_code}}</div>
         </div>
       </div>
+
  
       <div class="card">
         <div class="card-header">
@@ -122,57 +123,40 @@
       <div class="order-card">
         <div class="order-header">
           <div class="order-title">Sipariş özeti</div>
-          <div class="order-sub">2 ürün</div>
+          <div class="order-sub">{{summary.cartCount}} ürün</div>
         </div>
  
-        <div class="product-row">
+        <div class="product-row" *ngFor="let item of carts">
           <div class="product-img">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <img src="{{item.image}}" alt="">
           </div>
           <div class="product-info">
-            <div class="product-name">Royal Canin Kısırlaştırılmış Kedi Maması 4kg</div>
-            <div class="product-qty">Adet: 1</div>
-            <div class="delivery-badge">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Ücretsiz kargo
-            </div>
+            <div class="product-name">{{item.title}}</div>
+            <div class="product-qty">Adet: {{item.quantity}}</div>
+            
             <div class="delivery-date">Tahmini teslimat: 26 Mart</div>
           </div>
-          <div class="product-price">649,90 TL</div>
+          <div class="product-price">{{ item.total }} TL</div>
         </div>
  
-        <div class="product-row">
-          <div class="product-img">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
-          </div>
-          <div class="product-info">
-            <div class="product-name">Trixie Kedi Oyun Çubukları Seti</div>
-            <div class="product-qty">Adet: 2</div>
-            <div class="delivery-badge">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Ücretsiz kargo
-            </div>
-            <div class="delivery-date">Tahmini teslimat: 26 Mart</div>
-          </div>
-          <div class="product-price">200,00 TL</div>
-        </div>
+        
  
         <div class="price-breakdown">
           <div class="price-row">
-            <div class="price-label">Ara toplam</div>
-            <div class="price-val">849,90 TL</div>
+            <div class="price-label">Ürünler</div>
+            <div class="price-val">{{summary.originalTotal}} TL</div>
           </div>
           <div class="price-row">
             <div class="price-label">Kargo</div>
-            <div class="price-val green">Ücretsiz</div>
+            <div class="price-val green">{{summary.cargoCartFee>0 ? summary.cargoFee : 'Ücretsiz'}}</div>
           </div>
           <div class="price-row">
-            <div class="price-label">İndirim</div>
-            <div class="price-val green">-50,00 TL</div>
+            <div class="price-label">Kazancın</div>
+            <div class="price-val green">-{{summary.discountTotal}} TL</div>
           </div>
           <div class="price-total-row">
-            <div class="price-total-label">Toplam</div>
-            <div class="price-total-val">799,90 TL</div>
+            <div class="price-total-label">Toplam </div>
+            <div class="price-total-val">{{summary.total}} TL</div>
           </div>
         </div>
  
@@ -190,3 +174,6 @@
     
   </div>
 </div>
+
+  
+</body>

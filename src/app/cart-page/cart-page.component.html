@@ -127,12 +127,12 @@
                             <label class="cart-items-cargo">
                             <label class="cargo-fee" [class.hiddenFee]="summary.cargoCartFee>0 || !summary.count">{{summary.cargoFee}}</label> 
 
-                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Bedava'}}</label>
+                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Ücretsiz'}}</label>
 
                         </div>
                         
                         <div class="each-detail" *ngIf="summary.discountTotal>0">
-                            <label class="cart-items-title" style="    color: rgb(6, 119, 45);">Kazancın</label>
+                            <label class="cart-items-title" >Kazancın</label>
                             <label class="cart-items-sum" style="    color: rgb(6, 119, 45);">{{summary.discountTotal}} TL</label>
                         </div>
     
@@ -141,7 +141,7 @@
                         <hr>
     
                         <div class="each-detail">
-                            <label class="final-price-title">Toplam Tutar</label>
+                            <label class="final-price-title">Toplam </label>
                             <label class="final-price">{{summary.total}} TL</label>
                         </div>
                         
