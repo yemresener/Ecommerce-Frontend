@@ -5,16 +5,19 @@ import { BrowserAware } from '../shared/base/browser-aware';
 import { Cart } from '../interfaces/cart';
 import { CartSummary } from '../interfaces/cart-summary';
 import { AddressInterface } from '../interfaces/address-interface';
+import { Router } from '@angular/router';
+import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
+import { ErrorMessageService } from '../Services/error-message.service';
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule],
+  imports: [CommonModule,MainToastComponent],
   templateUrl: './checkout.component.html',
     host: { ngSkipHydration: 'true' }, // ssr kapalı
 
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent extends BrowserAware{
-  constructor(private service:CheckoutService){super()}
+  constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService){super()}
 
   ngOnInit(): void {
     this.checkout();
@@ -22,7 +25,7 @@ export class CheckoutComponent extends BrowserAware{
   carts!:Cart[];
   summary!:CartSummary;
   address!:AddressInterface;
-
+  message?:{};
   checkout(){
     this.service.checkout().subscribe({
       next:(res)=>{
@@ -30,8 +33,19 @@ export class CheckoutComponent extends BrowserAware{
         this.carts=res.data;
         this.summary=res.summary;
         this.address=res.address;
-
+        this.message=res.message;
+        console.log(this.message);
+      },
+      error:(err)=>{
+        console.log(err);
+        const errorData = err.error;
+        const key = errorData.key;
+        if(errorData.action === 'redirect'){
+        this.errorService.set(Object.values(errorData.errors), 'warning');
+        this.router.navigate(['/' + errorData.key]);
+        }
       }
+
     })
   }
 

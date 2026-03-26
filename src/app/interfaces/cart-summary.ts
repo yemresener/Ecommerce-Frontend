@@ -1,9 +1,9 @@
 export interface CartSummary {
-    count:number,
     cartCount:number,
+    productCount:number,
     subTotal:number,
     cargoFee:number,
-    cargoCartFee:number,
+    cartCargoFee:number,
     originalTotal:number,
     discountTotal:number,
     total:number

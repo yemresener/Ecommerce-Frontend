@@ -9,16 +9,18 @@ import { FullpageLoaderComponent } from '../shared/fullpage-loader/fullpage-load
 import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
 import { BrowserAware } from '../shared/base/browser-aware';
 import { CartDetailComponent } from '../shared/components/cart/cart-detail/cart-detail.component';
-
+import { ErrorMessageService } from '../Services/error-message.service';
+import { CartMessageComponent } from '../shared/components/toast/cart-message/cart-message.component';
 @Component({
   selector: 'app-cart-page',
-  imports: [CommonModule,SliderComponent,CardComponent,FullpageLoaderComponent,MainToastComponent,CartDetailComponent],
+  imports: [CommonModule,SliderComponent,CardComponent,FullpageLoaderComponent,MainToastComponent,CartDetailComponent,CartMessageComponent],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.css',
 })
 export class CartPageComponent extends BrowserAware{
 
-  constructor(private service:CartService){super()}
+  constructor(private service:CartService,private errorService:ErrorMessageService){
+    super()}
 
 
   couponInput=0;
@@ -27,12 +29,25 @@ export class CartPageComponent extends BrowserAware{
   message!:string;
   status:'success' | 'error' | 'warning' | 'info' = 'success';
 
+  showPopup = false;
+  popupErrors: string[] = [];
+
 
   ngOnInit(): void {
-     if(this.isBrowser()){
+     const notif = this.errorService.get();
+    if(notif){
+        this.popupErrors = notif.errors;
+        this.showPopup = true;
+        console.log(this.popupErrors);
+        this.errorService.clear();
+    }
+        if(this.isBrowser()){
         this.getCart(); 
     } 
   }
+
+  
+  
   carts!:Cart[];
   summary!:CartSummary;
   skeleton=true;

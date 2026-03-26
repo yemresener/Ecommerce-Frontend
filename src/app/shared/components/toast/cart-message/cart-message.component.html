@@ -1,0 +1,23 @@
+<div class="cart-popup-overlay" *ngIf="message">
+  <div class="cart-popup-card">
+    <div class="icon-section warning">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+
+    <div class="content-section">
+      <h3>Sepetiniz Güncellendi!</h3>
+      <p>{{ message }}</p>
+      
+      <ul class="error-list" *ngIf="errors && errors.length > 0">
+        <li *ngFor="let err of errors">{{ err }}</li>
+      </ul>
+    </div>
+
+    <div class="action-section">
+      <button class="btn-primary" (click)="onConfirm()">
+        Anladım, Devam Et
+      </button>
+    </div>
+  </div>
+</div>
+

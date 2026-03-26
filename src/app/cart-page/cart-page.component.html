@@ -1,7 +1,7 @@
 
     <ng-template #cartLoaded>
         <div class="container" *ngIf="summary.cartCount>=1">
-        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">({{summary?.count}} ürün)</span></label>
+        <label class="cart-title">Sepetim <span style="font-size: 15px;color: gray;">({{summary?.productCount}} ürün)</span></label>
         <div class="container-box">
         
             <div class="cart-box" >
@@ -125,9 +125,9 @@
                             <label class="cart-items-title">Kargo Ücreti</label>
                             
                             <label class="cart-items-cargo">
-                            <label class="cargo-fee" [class.hiddenFee]="summary.cargoCartFee>0 || !summary.count">{{summary.cargoFee}}</label> 
+                            <label class="cargo-fee" [class.hiddenFee]="summary.cartCargoFee>0 || !summary.productCount">{{summary.cargoFee}}</label> 
 
-                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Ücretsiz'}}</label>
+                            {{summary.cartCargoFee>0 ? summary.cartCargoFee : 'Ücretsiz'}}</label>
 
                         </div>
                         
@@ -191,7 +191,7 @@
                 <div class="m-each-detail">
                     <label class="m-product-title">Kargo</label>
                     <label class="cart-items-cargo"><label class="cargo-fee">{{summary.cargoFee}}</label> 
-                            {{summary.cargoCartFee>0 ? summary.cargoCartFee : 'Bedava'}}</label>
+                            {{summary.cartCargoFee>0 ? summary.cartCargoFee : 'Bedava'}}</label>
                 </div>
 
                  <div class="m-each-detail" *ngIf="summary.discountTotal>0">
@@ -204,7 +204,7 @@
 
         <div class="m-detail">
             <div class="m-detail-box">
-                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.count}})</label>
+                <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.productCount}})</label>
                 <label (click)="mPrice=!mPrice"  class="m-price">{{summary?.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
             </div>
             <button class="m-approve-btn">Sepeti Onayla</button>  
@@ -224,8 +224,7 @@
 
     </ng-template>
     
-
-
+    <app-cart-message *ngIf="showPopup" (confirm)="showPopup=false" [errors]="popupErrors" [message]="'SALAMLAR'"></app-cart-message>
 
 
     <div class="container" *ngIf="carts && summary.cartCount<=0">
