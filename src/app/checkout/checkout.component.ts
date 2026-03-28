@@ -26,7 +26,9 @@ export class CheckoutComponent extends BrowserAware{
   summary!:CartSummary;
   address!:AddressInterface;
   message?:{};
+  loading=false;
   checkout(){
+    this.loading=true;
     this.service.checkout().subscribe({
       next:(res)=>{
         console.log(res);
@@ -35,13 +37,14 @@ export class CheckoutComponent extends BrowserAware{
         this.address=res.address;
         this.message=res.message;
         console.log(this.message);
+        this.loading=false;
+
       },
       error:(err)=>{
         console.log(err);
         const errorData = err.error;
-        const key = errorData.key;
         if(errorData.action === 'redirect'){
-        this.errorService.set(Object.values(errorData.errors), 'warning');
+        this.errorService.set(errorData.errors, 'warning');
         this.router.navigate(['/' + errorData.key]);
         }
       }

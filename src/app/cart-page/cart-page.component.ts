@@ -11,6 +11,7 @@ import { BrowserAware } from '../shared/base/browser-aware';
 import { CartDetailComponent } from '../shared/components/cart/cart-detail/cart-detail.component';
 import { ErrorMessageService } from '../Services/error-message.service';
 import { CartMessageComponent } from '../shared/components/toast/cart-message/cart-message.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cart-page',
   imports: [CommonModule,SliderComponent,CardComponent,FullpageLoaderComponent,MainToastComponent,CartDetailComponent,CartMessageComponent],
@@ -19,7 +20,7 @@ import { CartMessageComponent } from '../shared/components/toast/cart-message/ca
 })
 export class CartPageComponent extends BrowserAware{
 
-  constructor(private service:CartService,private errorService:ErrorMessageService){
+  constructor(private service:CartService,private errorService:ErrorMessageService,private router:Router){
     super()}
 
 
@@ -127,6 +128,11 @@ export class CartPageComponent extends BrowserAware{
         this.loading=false;
       }
     })
+  }
+
+
+  navigateCheckout(){
+    this.router.navigate(['/checkout']);
   }
 
 

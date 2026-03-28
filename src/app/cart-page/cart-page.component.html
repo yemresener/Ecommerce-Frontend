@@ -145,7 +145,9 @@
                             <label class="final-price">{{summary.total}} TL</label>
                         </div>
                         
-                        <button class="cart-approve-button">Sepeti Onayla</button>
+                        <button class="cart-approve-button" [disabled]="summary.productCount<=0" [class.disabled]="summary.productCount<=0"
+                        (click)="navigateCheckout()">Sepeti Onayla</button>
+
                         <label class="cart-info">Bir sonraki sayfada bu siparişi inceleyip ödemeyi onaylayana kadar ücret tahsil edilmez.</label>
     
                         
@@ -224,7 +226,7 @@
 
     </ng-template>
     
-    <app-cart-message *ngIf="showPopup" (confirm)="showPopup=false" [errors]="popupErrors" [message]="'SALAMLAR'"></app-cart-message>
+    <app-cart-message *ngIf="showPopup" (closed)="showPopup=false" [errors]="popupErrors" ></app-cart-message>
 
 
     <div class="container" *ngIf="carts && summary.cartCount<=0">
@@ -269,6 +271,7 @@
           <div class="sk shimmer sk-detail-label"></div>
           <div class="sk shimmer sk-detail-val"></div>
         </div>
+        
         <div class="sk-hr"></div>
         <div class="sk-detail-row">
           <div class="sk shimmer sk-detail-label"></div>
@@ -276,6 +279,7 @@
         </div>
         <div class="sk shimmer sk-btn"></div>
         <div class="sk shimmer sk-info-text"></div>
+
       </div>
     </div>
 

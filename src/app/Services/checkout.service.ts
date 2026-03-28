@@ -11,7 +11,7 @@ export class CheckoutService {
 
   checkout(){
     const url = `${environment.apiUrl}prepareOrder`;
-    return this.http.get<Checkout>(url,{withCredentials:true});
+    return this.http.post<Checkout>(url,null,{withCredentials:true});
   }
 
 }

@@ -293,6 +293,10 @@ body{
     cursor: pointer;
     transition: all 0.3s ease;
 }
+.cart-approve-button.disabled{
+    background:gray ;
+    cursor:auto;
+}
 .cart-info{
     font-size: 12px;
     color: rgb(124, 124, 124);

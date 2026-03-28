@@ -1,6 +1,6 @@
 
 <body>
-<div class="page">
+<div class="page" *ngIf="carts">
     
   <div class="navbar">
     <div class="nav-brand">           
@@ -176,6 +176,114 @@
 </div>
 
   
+<div class="page skeleton-page" *ngIf="loading">
+  <div class="navbar">
+    <div class="sk" style="width:100px;height:28px;"></div>
+    <div style="display:flex;gap:16px;">
+      <div class="sk" style="width:120px;height:14px;"></div>
+      <div class="sk" style="width:80px;height:14px;"></div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step done">
+      <div class="step-num">
+        <svg viewBox="0 0 24 24" width="11" height="11" stroke="#fff" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      Sepet
+    </div>
+    <div class="step-line"></div>
+    <div class="step active">
+      <div class="step-num">2</div>
+      Ödeme
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-num">3</div>
+      Onay
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="left">
+
+      <!-- adres skeleton -->
+      <div class="card">
+        <div class="card-header">
+          <div class="sk" style="width:130px;height:16px;"></div>
+          <div class="sk" style="width:60px;height:14px;"></div>
+        </div>
+        <div class="address-content" style="display:flex;flex-direction:column;gap:10px;">
+          <div class="sk" style="width:70px;height:22px;border-radius:6px;"></div>
+          <div class="sk" style="width:140px;height:14px;"></div>
+          <div class="sk" style="width:200px;height:12px;"></div>
+          <div class="sk" style="width:160px;height:12px;"></div>
+        </div>
+      </div>
+
+      <!-- ödeme skeleton -->
+      <div class="card">
+        <div class="card-header">
+          <div class="sk" style="width:140px;height:16px;"></div>
+        </div>
+        <div class="payment-content">
+          <div class="sk" style="width:100%;height:44px;border-radius:8px;"></div>
+          <div class="sk" style="width:100%;height:38px;border-radius:8px;"></div>
+          <div class="input-row">
+            <div class="sk" style="height:38px;border-radius:8px;"></div>
+            <div class="sk" style="height:38px;border-radius:8px;"></div>
+          </div>
+          <div class="sk" style="width:100%;height:38px;border-radius:8px;"></div>
+          <div class="installment-grid">
+            <div class="sk" style="height:52px;border-radius:8px;"></div>
+            <div class="sk" style="height:52px;border-radius:8px;"></div>
+            <div class="sk" style="height:52px;border-radius:8px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right">
+      <div class="order-card">
+        <div class="order-header">
+          <div class="sk" style="width:110px;height:15px;margin-bottom:6px;"></div>
+          <div class="sk" style="width:60px;height:11px;"></div>
+        </div>
+
+        <div class="product-row" *ngFor="let i of [1]">
+          <div class="sk" style="width:72px;height:72px;border-radius:8px;flex-shrink:0;"></div>
+          <div class="product-info">
+            <div class="sk" style="width:90%;height:12px;margin-bottom:6px;"></div>
+            <div class="sk" style="width:50%;height:12px;margin-bottom:6px;"></div>
+            
+            <div class="sk" style="width:65%;height:11px;"></div>
+          </div>
+          <div class="sk" style="width:50px;height:13px;"></div>
+        </div>
+
+        <div class="price-breakdown">
+          <div class="price-row" *ngFor="let i of [1,2,3]">
+            <div class="sk" style="width:50px;height:13px;"></div>
+            <div class="sk" style="width:50px;height:13px;"></div>
+          </div>
+          <div class="price-total-row">
+            <div class="sk" style="width:55px;height:14px;"></div>
+            <div class="sk" style="width:90px;height:20px;"></div>
+          </div>
+        </div>
+
+        <div style="margin:0 18px 16px;">
+          <div class="sk" style="width:100%;height:46px;border-radius:10px;"></div>
+        </div>
+        <div style="display:flex;justify-content:center;padding:0 18px 14px;">
+          <div class="sk" style="width:180px;height:11px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 

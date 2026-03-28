@@ -1,23 +1,33 @@
-<div class="cart-popup-overlay" *ngIf="message">
-  <div class="cart-popup-card">
-    <div class="icon-section warning">
-      <i class="fas fa-exclamation-triangle"></i>
+<!-- popup.component.html -->
+<div class="overlay" *ngIf="errors?.length" (click)="onConfirm()">
+  <div class="card" (click)="$event.stopPropagation()">
+
+    <div class="card-top">
+      <span class="badge">
+        <span class="dot"></span>
+        SEPET GÜNCELLENDİ
+      </span>
+      <h3>Bazı ürünlerde değişiklik var</h3>
+      <p>Devam etmeden önce sepetinizdeki güncellemeleri inceleyin.</p>
     </div>
 
-    <div class="content-section">
-      <h3>Sepetiniz Güncellendi!</h3>
-      <p>{{ message }}</p>
-      
-      <ul class="error-list" *ngIf="errors && errors.length > 0">
-        <li *ngFor="let err of errors">{{ err }}</li>
+    <div class="card-body">
+      <ul class="error-list">
+        <li *ngFor="let err of errors">
+          <span class="item-icon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M5 2v3M5 7.5v.5" stroke="#D97706" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          {{ err }}
+        </li>
       </ul>
     </div>
 
-    <div class="action-section">
-      <button class="btn-primary" (click)="onConfirm()">
-        Anladım, Devam Et
-      </button>
+    <div class="card-footer">
+      <button (click)="onConfirm()">Devam et</button>
+      <p class="hint">Sepetinizi gözden geçirip tekrar deneyebilirsiniz.</p>
     </div>
+
   </div>
 </div>
-
