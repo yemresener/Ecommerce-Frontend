@@ -13,6 +13,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ForgotMainComponent } from './auth/forgotPassword/forgot-main/forgot-main.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AddressComponent } from './shared/address/address/address.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -20,7 +21,9 @@ export const routes: Routes = [
             {path:'login',component:LoginComponent,title:'LoginComponent'},
             {path:'register',component:RegisterComponent,title:'RegisterComponent'},
             {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
-            {path:'checkout',component:CheckoutComponent,title:'Checkout'}
+            {path:'checkout',component:CheckoutComponent,title:'Checkout'},
+            {path:'address',component:AddressComponent,title:'AddressComponent'},
+            
         ]
     },
     {

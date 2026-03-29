@@ -1,0 +1,160 @@
+
+
+<div class="overlay" *ngIf="open" >
+  <div class="modal" (click)="$event.stopPropagation()">
+
+    <ng-container *ngIf="!formMode">
+
+    <div class="modal-header">
+      <span class="modal-title">Adreslerim</span>
+      <div class="modal-actions">
+        <button class="add-btn" (click)="openCreate()">+ Yeni adres</button>
+        <button class="close-btn" (click)="open=false">✕</button>
+      </div>
+    </div>
+ 
+    <div class="modal-body">
+
+      <div class="card default">
+        <div class="address-content">
+          <div class="card-top">
+            <div class="address-badge">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Ev
+            </div>
+            <span class="default-badge" >Varsayılan</span>
+            <div class="spacer"></div>
+            <div class="action-btns">
+              <button class="icon-btn" (click)="openEdit('address')">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+              <button class="icon-btn delete" >
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+          <div class="address-name">Yunus Emre Sener</div>
+          <div class="address-text">Kcasinan merkez mah<br>Bahcelievler 
+              / Istanbul, 34100</div>
+        </div>
+        <div class="card-footer">
+          <button class="set-default-btn"  >
+            Varsayılan yap
+          </button>
+          <span class="phone-text">553 831 61 22</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="address-content">
+          <div class="card-top">
+            <div class="address-badge">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Ev
+            </div>
+            <div class="spacer"></div>
+            <div class="action-btns">
+              <button class="icon-btn" >
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+              <button class="icon-btn delete" >
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+          <div class="address-name">Yunus Emre Sener</div>
+          <div class="address-text">Kcasinan merkez mah<br>Bahcelievler 
+              / Istanbul, 34100</div>
+        </div>
+        <div class="card-footer">
+          <button class="set-default-btn"  >
+            Varsayılan yap
+          </button>
+          <span class="phone-text">553 831 61 22</span>
+        </div>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+
+  <ng-container *ngIf="formMode">
+    <div class="modal-header">
+      <button class="back-btn" (click)="formMode=null">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <span class="modal-title">
+        {{ formMode === 'create' ? 'Yeni adres ekle' : 'Adresi düzenle' }}
+      </span>
+      <button class="close-btn" (click)="open=false">✕</button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Ad soyad</label>
+          <input type="text" placeholder="Ad soyad"
+            [(ngModel)]="form.full_name" name="full_name">
+        </div>
+        
+        <div class="form-group">
+          <label>Telefon</label>
+          <input 
+          type="text" 
+          mask="(000) 000 00 00"
+          placeholder="(___) ___ __ __"
+          [(ngModel)]="form.phone" 
+          name="phone">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>İl</label>
+            <ng-select
+              [items]="provinces"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="İl seçin"
+              [(ngModel)]="form.province_id"
+              (change)="onProvinceSelect($event)"
+              name="province_id"
+              appendTo="div">
+            </ng-select>
+          </div>
+        
+          <div class="form-group">
+            <label>İlçe</label>
+            <ng-select
+              [items]="districts"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="İlçe seçin"
+              [(ngModel)]="form.district_id"
+              name="district_id"
+              [disabled]="!districts.length"
+              appendTo="div">
+            </ng-select>
+          </div>
+        </div>
+
+      
+
+        
+        <div class="form-group">
+          <label>Açık adres</label>
+          <textarea  placeholder="Mahalle, sokak, no..."
+            [(ngModel)]="form.address_line" name="address_line" rows="3"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          {{ formMode === 'create' ? 'Kaydet' : 'Güncelle' }}
+          
+        </button>
+      </form>
+    </div>
+  </ng-container>
+
+
+
+  </div>
+</div>
+
