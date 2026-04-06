@@ -1,5 +1,12 @@
-<app-address-card [provinces]="provinces" [districts]="districts"
+<app-address-card [open]="showModal" [formMode]="formMode" [address]="address" [provinces]="provinces" [districts]="districts"
 (provinceChanged)="onProvinceChange($event)"
 (formSubmit)="onSubmit($event)"
+(closeModal)="toggleModal()"
+(updateToDefault)="updateToDefault($event)"
+(updateAddress)="updateAddress($event)"
+(formModeChange)="formMode = $event"
 ()
 ></app-address-card>
+
+
+<app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
