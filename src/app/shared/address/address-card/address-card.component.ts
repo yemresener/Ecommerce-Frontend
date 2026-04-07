@@ -1,13 +1,15 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AddressInterface } from '../../../interfaces/address-interface';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-address-card',
-  imports: [CommonModule,FormsModule,NgSelectModule,NgxMaskDirective,],
+  imports: [CommonModule,FormsModule,NgSelectModule,NgxMaskDirective,ReactiveFormsModule],
   templateUrl: './address-card.component.html',
 
   styleUrl: './address-card.component.css',
@@ -15,28 +17,53 @@ import { AddressInterface } from '../../../interfaces/address-interface';
 })
 
 export class AddressCardComponent {
-  @Input() open:boolean = true;
+  form:FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      full_name: ['', [Validators.required, Validators.minLength(4)]],
+      phone_number: ['', [Validators.required, Validators.pattern(/^(\+90|0)?5[0-9]{9}$/)]],
+      address_type: [{value:'home'}],
+      address_line: ['', [Validators.required, Validators.minLength(10)]],
+      city_id: [null, [Validators.required, Validators.min(1)]],
+      city: [''],
+      state_id: [{value:null,disabled:true}, [Validators.required, Validators.min(1)]],
+      state: [''],
+      neighbourhood: [''],
+      postal_code: [''],
+      is_default: [true],
+    });
+  }
+  get full_name() { return this.form.get('full_name'); }
+  get phone_number() { return this.form.get('phone_number'); }
+  get address_line() { return this.form.get('address_line'); }
+  get city_id() { return this.form.get('city_id'); }
+  get state_id() { return this.form.get('state_id'); }
+
+  @Input() open:boolean = false;
   @Input() showForm:boolean = false;
   @Input() formMode:null | 'create' | 'edit'=null;
 
 
   @Input() provinces: any[] = [];
   @Input() districts: any[] = [];
-  @Input() address?:AddressInterface[];
+  @Input() address!:Signal<AddressInterface[]>;
 
   @Output() provinceChanged = new EventEmitter<number>();
   @Output() formSubmit = new EventEmitter<any>();
   @Output() closeModal = new EventEmitter<any>();
   @Output() updateToDefault = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<number>();
+
   @Output() updateAddress = new EventEmitter<AddressInterface>();
   @Output() formModeChange = new EventEmitter<null | 'create' | 'edit'>();
+  @Output() createAddress = new EventEmitter<AddressInterface>();
 
 
   ngOnInit(): void {
-    console.log('sa',this.address);
   }
   selectedAddress:any = null;
-
+  
+  /*
   form: AddressInterface = {
     full_name: '',
     phone_number: '',
@@ -50,29 +77,22 @@ export class AddressCardComponent {
     postal_code: '',
     is_default: true,
   }
+  */
 
   openCreate(){
-    this.form = {    full_name: '',
-      phone_number: '',
-      address_type: '',
-      address_line: '',
-      city_id: 0,
-      city: '',
-      state_id: 0,
-      state: '',
-      neighbourhood: '',
-      postal_code: '',
-      is_default: true,
-    };
+    this.formReset();
+    this.form.get('state_id')?.disable();
+    
 
     this.formModeChange.emit('create');
   }
 
   openEdit(address:AddressInterface){
     this.selectedAddress=address;
-    this.form=address;
+    this.form.patchValue(address);
     this.districts = [];
-    console.log(this.form);
+    console.log(this.form.value);
+    this.state_id?.disable();
     this.provinceChanged.emit(address.city_id);
 
     this.formModeChange.emit('edit');
@@ -80,22 +100,36 @@ export class AddressCardComponent {
 
 
   onProvinceSelect(selected: any) {
-    const id = selected?.id;
-    this.form.city_id = id;
-    this.form.city = selected?.name;
-    this.form.state_id = 0;
-    this.form.state = '';
-    this.provinceChanged.emit(id);
+
+    this.form.patchValue({ city_id: selected?.id, city: selected?.name, state_id: null, state: '' });
+    this.state_id?.enable();
+    this.provinceChanged.emit(selected?.id);
   }
+
   onDistrictSelect(selected: any) {
-    this.form.state_id = selected?.id;
-    this.form.state = selected?.name;
+    this.form.patchValue({ state_id: selected?.id, state: selected?.name });
   }
+
   onSubmit() {
+    console.log('SALAMLAR')
+    console.log(this.form.value,'VALUE');
+    if(this.form.invalid){
+      console.log('invalid geliyor')
+
+      this.form.markAllAsTouched();
+      if(this.state_id?.disable){
+      console.log('disable  geliyor')
+
+        this.state_id.enable();
+        this.state_id.markAsTouched();
+      }
+      return;
+    }
+    console.log('SALAMLAR')
     if (this.formMode === 'create') {
-      this.formSubmit.emit({ mode: 'create', data: this.form });
+      this.createAddress.emit(this.form.value );
     } else {
-      this.formSubmit.emit({ mode: 'edit', data: this.form, id: this.selectedAddress.id });
+      this.updateAddress.emit({ ...this.form.value, id: this.selectedAddress.id });
     }
   }
 
@@ -104,12 +138,24 @@ export class AddressCardComponent {
     this.updateToDefault.emit(address.id);
   }
 
+  deleteAddress(address:AddressInterface){
+    this.delete.emit(address.id);
+  }
+
+
   update(address:AddressInterface){
     this.updateAddress.emit(address);
 
   }
 
-
+  formReset(){
+    this.form.reset({
+      full_name: '', phone_number: '', address_type: 'Ev',
+      address_line: '', city_id: null, city: '', state_id: null,
+      state: '', neighbourhood: '', postal_code: '', is_default: true,
+    });
+    
+  }
   
 
 }

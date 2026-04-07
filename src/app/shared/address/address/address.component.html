@@ -2,11 +2,22 @@
 (provinceChanged)="onProvinceChange($event)"
 (formSubmit)="onSubmit($event)"
 (closeModal)="toggleModal()"
-(updateToDefault)="updateToDefault($event)"
 (updateAddress)="updateAddress($event)"
+(createAddress)="createAddress($event)"
+(updateToDefault)="updateToDefault($event)"
+(delete)="deleteAddress($event)"
 (formModeChange)="formMode = $event"
 ()
 ></app-address-card>
 
 
 <app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
+
+<app-main-toast *ngIf="message"
+[type]="status"
+[message]="message"
+(closed)="message=''"
+></app-main-toast>
+
+<!--
+-->

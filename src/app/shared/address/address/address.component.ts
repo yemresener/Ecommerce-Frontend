@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import { Component,Output,EventEmitter,Signal,inject  } from '@angular/core';
 import { AddressDataService } from '../../../Services/address-data.service';
 import { CommonModule } from '@angular/common';
 import { AddressCardComponent } from '../address-card/address-card.component';
@@ -6,20 +6,26 @@ import { UserAddressService } from '../../../Services/user-address.service';
 import { AddressInterface } from '../../../interfaces/address-interface';
 import { BrowserAware } from '../../base/browser-aware';
 import { FullpageLoaderComponent } from '../../fullpage-loader/fullpage-loader.component';
+import { MainToastComponent } from '../../components/toast/main-toast/main-toast.component';
 @Component({
   selector: 'app-address',
-  imports: [CommonModule,AddressCardComponent,FullpageLoaderComponent],
+  imports: [CommonModule,AddressCardComponent,FullpageLoaderComponent,
+    MainToastComponent
+  ],
   templateUrl: './address.component.html',
   host: { ngSkipHydration: 'true' }, // ssr 
 
   styleUrl: './address.component.css'
 })
 export class AddressComponent extends BrowserAware{
-  constructor(private service:UserAddressService
-    ,private addressDataService:AddressDataService){super()}
+  private service = inject(UserAddressService);
+  address = this.service.getAddresses();
+
+  constructor(private addressDataService:AddressDataService){
+      super()}
     @Output() addressSelected = new EventEmitter<AddressInterface>();
 
-
+  
 
   provinces: any[] = [];
   districts: any[] = [];
@@ -29,13 +35,12 @@ export class AddressComponent extends BrowserAware{
     this.addressDataService.getProvinces().subscribe(data => {
       this.provinces = data;
     });
-    
-    if(this.isBrowser()){
-      this.getAllAddress();
 
-    }
   }
   
+  message:string='';
+  status:'success' | 'error' | 'warning' | 'info' = 'success';
+
   onProvinceChange(provinceId: number) {
     this.districts = [];
     this.addressDataService.getDistricts(provinceId).subscribe(data => {
@@ -45,83 +50,111 @@ export class AddressComponent extends BrowserAware{
 
   onSubmit(event:any){
     console.log(event);
-    if(event.mode === 'edit')this.updateAddress(event.data);
+  //  if(event.mode === 'edit')this.updateAddress(event.data);
+    
   }
 
-  address!:AddressInterface[];
+  updateAddress(body:AddressInterface){
+    this.loading=true;
+    this.message='';
 
-  getAllAddress(){
-    this.service.getAllAddress().subscribe({
+    this.service.updateAddress(body).subscribe({
       next:(res)=>{
-        console.log('salamlar',res);
-        this.address=res.data;
+        console.log(res);
+
+        this.addressSelected.emit({ ...body,is_default: true });
+        this.loading=false;
+        this.toggleModal();
+        this.message='Adres güncelleme başarılı';
+        this.status='success';
       },
       error:(err)=>{
         console.log(err)
+        this.message=err.error.message;
+        this.status='error';
+        this.loading=false;
+      }
+    })
+  }
+
+  createAddress(body:AddressInterface){
+    this.loading = true;
+    this.message='';
+    //return;
+    this.service.createAddress(body).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.addressSelected.emit({ ...body });
+
+        this.loading = false;
+        this.toggleModal();
+        this.message='Yeni adres eklendi.';
+        this.status='success';
+      },
+      error:(err)=>{
+        this.loading = false;
+        console.log(err);
+        this.message=err.error.message;
+        this.status='error';
       }
     })
   }
 
   updateToDefault(address_id:number){
     this.loading=true;
-    const previous = this.address;
-    this.address = this.address?.map(a=>({
-      ...a,
-      is_default:a.id === address_id
-    }))
-    this.toggleModal();
+
 
     this.service.updateToDefault(address_id).subscribe({
       next:(res)=>{
         console.log(res,'RESPONSE');
-        const selected = this.address?.find(a => a.id === address_id);
+        const selected = this.address()?.find(a => a.id === address_id);
         if(selected) this.addressSelected.emit(selected);
+        this.toggleModal();
+
         this.loading=false;
+        this.message='Adres güncelleme başarılı';
+        this.status='success';
       },
       error:(err)=> {
         console.log(err);
-        this.address=previous;
         this.loading=false;
-
+        this.message=err.error.message;
+        this.status='error';
       },
     })
   }
-  
 
-  updateAddress(body:AddressInterface){
-    console.log(body, 'GELEN')
+  deleteAddress(address_id:number){
     this.loading=true;
-    const previous = this.address;
-  
-    this.address = this.address?.map(a => 
-      a.id === body.id ? { ...body, is_default: true } : { ...a, is_default: false }
-    );
     
-    this.service.updateAddress(body).subscribe({
+    this.service.deleteAddress(address_id).subscribe({
       next:(res)=>{
         console.log(res);
-
-        this.addressSelected.emit({ ...body });
-        this.loading=false;
-        this.toggleModal();
-
+        
+        const newDefault = this.address()?.find(a => a.is_default);
+        if (newDefault) this.addressSelected.emit(newDefault);
+        this.loading = false;
+        this.message='Adres silindi.';
+        this.status='success';
       },
-      error:(err)=>{
-        console.log(err)
-        this.address=previous;
+      error:(err)=> {
+        console.log(err);
+        this.loading=false;
+        this.status='error';
         this.loading=false;
       }
     })
   }
 
-
   showModal:boolean=false;
   formMode:null | 'create' | 'edit'=null
   toggleModal(){
     this.showModal=!this.showModal;
+    if (this.showModal && !this.address()?.length) {
+      this.service.loadAddresses();
+    }
     this.formMode=null;
-    console.log('ça',this.showModal)
-    console.log(this.formMode,'FORM MODE')
+ 
 
   }
 

@@ -55,8 +55,10 @@
         </div>
         <div class="address-content">
           <div class="address-badge">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Ev
+            <svg *ngIf="address.address_type === 'Ev'" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <svg *ngIf="address.address_type === 'Diğer'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-6-8-8a8 8 0 018-8z"/></svg>
+            <svg *ngIf="address.address_type === 'İş yeri'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+            {{address.address_type}}
           </div>
           <div class="address-name">{{address.full_name}}</div>
           <div class="address-text">{{address.address_line}}<br>{{address.state}} / {{address.city}}, {{address.postal_code}}</div>
