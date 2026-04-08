@@ -56,13 +56,13 @@
                   <button class="icon-btn" (click)="openEdit(item)">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
-                  <button class="icon-btn delete" (click)="deleteAddress(item)">
+                  <button class="icon-btn delete" (click)="confirmDelete(item.id)">
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </div>
               </div>
               <div class="address-name">{{item.full_name}}</div>
-              <div class="address-text">{{item.address_line}}<br>{{item.state}} / {{item.city}}, {{item.postal_code}}</div>
+              <div class="address-text">{{item.address_line}}<br>{{item.state}} / {{item.city}} {{item.postal_code}}</div>
             </div>
             <div class="card-footer">
               <span class="default-badge" *ngIf="item.is_default">Varsayılan</span>
@@ -213,3 +213,4 @@
   </div>
 </div>
 
+<app-delete-confirm [isOpen]="showDeleteConfirm" [message]="confirmMessage" (confirm)="onDeleteConfirm()" (cancel)="onDeleteCancel()"></app-delete-confirm>

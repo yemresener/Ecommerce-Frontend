@@ -45,7 +45,7 @@
   <div class="container">
     <div class="left">
  
-      <div class="card">
+      <div class="card" *ngIf="address">
         <div class="card-header">
           <div class="card-title">
             <svg  viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -62,6 +62,24 @@
           </div>
           <div class="address-name">{{address.full_name}}</div>
           <div class="address-text">{{address.address_line}}<br>{{address.state}} / {{address.city}}, {{address.postal_code}}</div>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="!address">
+        <div class="card-header">
+          <div class="card-title">
+            <svg  viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Teslimat adresi
+          </div>
+          <button class="change-btn" (click)="addressComp.toggleModal(true)">Adres Ekle</button>
+
+        </div>
+        <div class="address-content">
+          <div class="address-name" style="display: flex;
+          justify-content: center;">
+          Henüz bir adresin yok !
+          <span></span>
+          </div>
         </div>
       </div>
 
@@ -85,21 +103,22 @@
           <div class="divider-or">veya yeni kart ekle</div>
           <div class="input-group full">
             <div class="input-label">Kart numarası</div>
-            <input class="inp card-num" placeholder="0000 0000 0000 0000">
+            <input [(ngModel)]="cartNumber" class="inp card-num" mask="0000 0000 0000 0000" placeholder="0000 0000 0000 0000">
           </div>
           <div class="input-row">
             <div class="input-group">
               <div class="input-label">Son kullanma</div>
-              <input class="inp" placeholder="AA/YY">
+              <input [(ngModel)]="expMonth" class="inp" mask="00/00" placeholder="AA/YY">
             </div>
+
             <div class="input-group">
               <div class="input-label">CVV</div>
-              <input class="inp" placeholder="•••">
+              <input [(ngModel)]="cvv" class="inp" mask="000" placeholder="•••">
             </div>
           </div>
           <div class="input-group full">
             <div class="input-label">Kart üzerindeki isim</div>
-            <input class="inp" placeholder="Ad Soyad">
+            <input class="inp" [(ngModel)]="cardName" placeholder="Ad Soyad">
           </div>
           <div class="input-label" style="margin-top:4px">Taksit seçeneği</div>
           <div class="installment-grid">
@@ -162,7 +181,7 @@
           </div>
         </div>
  
-        <button class="pay-btn">
+        <button class="pay-btn" (click)="payment()">
           <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           Ödemeyi tamamla
         </button>

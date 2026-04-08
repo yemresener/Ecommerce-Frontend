@@ -148,10 +148,18 @@ export class AddressComponent extends BrowserAware{
 
   showModal:boolean=false;
   formMode:null | 'create' | 'edit'=null
-  toggleModal(){
+  toggleModal(emptyAddress?:boolean){
     this.showModal=!this.showModal;
+    if(emptyAddress){
+      if(!this.service.getAddresses()?.length){
+        this.formMode='create';
+        return
+      }
+    }
     if (this.showModal && !this.address()?.length) {
       this.service.loadAddresses();
+      console.log('SALAMLAR BURADAYIz')
+      
     }
     this.formMode=null;
  

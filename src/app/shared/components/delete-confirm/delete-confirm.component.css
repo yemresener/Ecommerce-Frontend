@@ -1,0 +1,91 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 99999;
+  }
+
+  .dialog {
+    width: 100%;
+    max-width: 300px;
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    animation: popup .18s ease;
+  }
+
+  .header {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7f7;
+    font-size: 24px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  .content {
+    margin-top: 24px;
+    color: #4b5563;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  button {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s ease;
+  }
+
+  .cancel-btn {
+    background: #f3f4f6;
+    color: #374151;
+  }
+
+  .delete-btn {
+    background: #dc2626;
+    color: white;
+  }
+
+  .delete-btn:hover {
+    background: #b91c1c;
+  }
+
+  @keyframes popup {
+    from { transform: scale(.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }

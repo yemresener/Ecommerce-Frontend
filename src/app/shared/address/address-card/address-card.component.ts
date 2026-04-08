@@ -6,10 +6,12 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AddressInterface } from '../../../interfaces/address-interface';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
+import { DeleteConfirmComponent } from '../../components/delete-confirm/delete-confirm.component';
 @Component({
   selector: 'app-address-card',
-  imports: [CommonModule,FormsModule,NgSelectModule,NgxMaskDirective,ReactiveFormsModule],
+  imports: [CommonModule,FormsModule,NgSelectModule,NgxMaskDirective,ReactiveFormsModule
+    ,DeleteConfirmComponent
+  ],
   templateUrl: './address-card.component.html',
 
   styleUrl: './address-card.component.css',
@@ -92,7 +94,7 @@ export class AddressCardComponent {
     this.form.patchValue(address);
     this.districts = [];
     console.log(this.form.value);
-    this.state_id?.disable();
+    this.state_id?.enable();
     this.provinceChanged.emit(address.city_id);
 
     this.formModeChange.emit('edit');
@@ -138,8 +140,29 @@ export class AddressCardComponent {
     this.updateToDefault.emit(address.id);
   }
 
-  deleteAddress(address:AddressInterface){
-    this.delete.emit(address.id);
+  showDeleteConfirm=false;
+  pendingDeleteId?:number;
+  confirmMessage='';
+  confirmDelete(address_id?:number){
+    this.showDeleteConfirm=true;
+    this.confirmMessage='Bu adresi silmek istediğine emin misin?';
+    this.pendingDeleteId=address_id;
+  }
+  onDeleteConfirm(){
+    if(this.pendingDeleteId){
+      this.deleteAddress(this.pendingDeleteId);
+    }
+    this.showDeleteConfirm=false;
+
+  }
+  onDeleteCancel(){
+    this.pendingDeleteId=undefined;
+    this.showDeleteConfirm=false;
+  }
+
+
+  deleteAddress(address_id:number){
+    this.delete.emit(address_id);
   }
 
 

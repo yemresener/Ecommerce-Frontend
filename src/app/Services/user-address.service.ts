@@ -16,6 +16,7 @@ export class UserAddressService {
   loadAddresses(){
     this.http.get<{ data: AddressInterface[] }>(`${environment.apiUrl}addresses`,{withCredentials:true}).subscribe(res => {
       this.addresses.set(res.data);
+      
     });
   }
   createAddress(body:AddressInterface){

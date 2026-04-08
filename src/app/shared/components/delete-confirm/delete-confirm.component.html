@@ -1,0 +1,20 @@
+<div class="overlay" *ngIf="isOpen" (click)="onCancel()">
+    <div class="dialog" (click)="$event.stopPropagation()">
+      <div class="header">
+        <div class="icon"><i class="fa-regular fa-trash-can"></i></div>
+        <div>
+          <h2>Silme işlemini onayla</h2>
+          <p>Bu işlem geri alınamaz.</p>
+        </div>
+      </div>
+
+      <div class="content">
+        {{ message || 'Bu adresi silmek istediğine emin misin? Silindikten sonra tekrar geri getirilemez.' }}
+      </div>
+
+      <div class="actions">
+        <button class="cancel-btn" (click)="onCancel()">Vazgeç</button>
+        <button class="delete-btn" (click)="onConfirm()">Evet, sil</button>
+      </div>
+    </div>
+  </div>
