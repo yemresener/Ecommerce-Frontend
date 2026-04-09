@@ -8,15 +8,19 @@ import { tap,catchError  } from 'rxjs/operators';
 })
 export class UserAddressService {
   private addresses = signal<AddressInterface[]>([]);
+  private loading = signal<boolean>(false);
 
   getAddresses() { return this.addresses.asReadonly(); }
+  getLoading() { return this.loading.asReadonly(); }
 
   constructor(private http:HttpClient) { }
 
   loadAddresses(){
+    this.loading.set(true);
     this.http.get<{ data: AddressInterface[] }>(`${environment.apiUrl}addresses`,{withCredentials:true}).subscribe(res => {
       this.addresses.set(res.data);
-      
+      console.log(res.data,'RES DATA');
+      this.loading.set(false);
     });
   }
   createAddress(body:AddressInterface){

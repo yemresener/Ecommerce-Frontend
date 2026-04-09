@@ -14,9 +14,12 @@
       </div>
     
       <div class="modal-body">
+        <ng-container *ngIf="address().length === 0 && !loading">
+          <div class="none-address-message" >Sipariş oluşturmak için adres ekleyiniz.</div>
+        </ng-container>
         
         <!-- Eğer adresler yükleniyorsa skeleton göster -->
-        <ng-container *ngIf="!address() || address().length === 0; else addressList">
+        <ng-container *ngIf="loading; else addressList">
           <div *ngFor="let skeleton of [1,2]" class="card">
             <div class="address-content">
               <div class="card-top">

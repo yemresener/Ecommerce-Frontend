@@ -8,7 +8,6 @@ import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
-import { AuthService } from './Services/auth/auth.service';
 export const appConfig: ApplicationConfig = {
   providers: [ provideAnimations(),provideToastr({
     positionClass: 'toast-top-right',
@@ -23,12 +22,7 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       })
     ), provideClientHydration(withEventReplay()),
-    {
-      provide:APP_INITIALIZER,
-      useFactory:(authService:AuthService) => () => authService.checkAuth(),
-      deps:[AuthService],
-      multi:true
-    }
+ 
    ]
 };
 

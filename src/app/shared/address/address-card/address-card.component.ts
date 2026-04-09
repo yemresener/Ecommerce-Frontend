@@ -24,7 +24,7 @@ export class AddressCardComponent {
     this.form = this.fb.group({
       full_name: ['', [Validators.required, Validators.minLength(4)]],
       phone_number: ['', [Validators.required, Validators.pattern(/^(\+90|0)?5[0-9]{9}$/)]],
-      address_type: [{value:'home'}],
+      address_type: ['Ev'],
       address_line: ['', [Validators.required, Validators.minLength(10)]],
       city_id: [null, [Validators.required, Validators.min(1)]],
       city: [''],
@@ -33,7 +33,10 @@ export class AddressCardComponent {
       neighbourhood: [''],
       postal_code: [''],
       is_default: [true],
-    });
+    }
+    
+    
+  );
   }
   get full_name() { return this.form.get('full_name'); }
   get phone_number() { return this.form.get('phone_number'); }
@@ -44,7 +47,7 @@ export class AddressCardComponent {
   @Input() open:boolean = false;
   @Input() showForm:boolean = false;
   @Input() formMode:null | 'create' | 'edit'=null;
-
+  @Input() loading:boolean=false;
 
   @Input() provinces: any[] = [];
   @Input() districts: any[] = [];

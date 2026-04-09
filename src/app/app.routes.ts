@@ -14,6 +14,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { ForgotMainComponent } from './auth/forgotPassword/forgot-main/forgot-main.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AddressComponent } from './shared/address/address/address.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -34,11 +35,16 @@ export const routes: Routes = [
             {path:'home',component:HomeComponent,title:'Home'},
             {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
             {path:'cart',component:CartPageComponent,title:'Cart'},
+            
             {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
     
             {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
             
+            {path:'hesabim',component:DashboardComponent,title:'hesabım'},
+
+
             {path:':slug',component:CategoryPageComponent,title:'list'},
+            
         ]
     }
    

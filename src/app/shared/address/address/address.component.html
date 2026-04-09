@@ -1,4 +1,4 @@
-<app-address-card [open]="showModal" [formMode]="formMode" [address]="address" [provinces]="provinces" [districts]="districts"
+<app-address-card [open]="showModal" [formMode]="formMode" [address]="address" [provinces]="provinces" [districts]="districts" [loading]="getAddressesLoading()"
 (provinceChanged)="onProvinceChange($event)"
 (formSubmit)="onSubmit($event)"
 (closeModal)="toggleModal()"

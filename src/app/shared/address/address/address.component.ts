@@ -20,7 +20,7 @@ import { MainToastComponent } from '../../components/toast/main-toast/main-toast
 export class AddressComponent extends BrowserAware{
   private service = inject(UserAddressService);
   address = this.service.getAddresses();
-
+  
   constructor(private addressDataService:AddressDataService){
       super()}
     @Output() addressSelected = new EventEmitter<AddressInterface>();
@@ -30,11 +30,13 @@ export class AddressComponent extends BrowserAware{
   provinces: any[] = [];
   districts: any[] = [];
   loading:boolean =false;
+  protected readonly getAddressesLoading = this.service.getLoading();
 
   ngOnInit() {
     this.addressDataService.getProvinces().subscribe(data => {
       this.provinces = data;
     });
+    
 
   }
   
@@ -133,6 +135,7 @@ export class AddressComponent extends BrowserAware{
         
         const newDefault = this.address()?.find(a => a.is_default);
         if (newDefault) this.addressSelected.emit(newDefault);
+        this.addressSelected.emit(undefined);
         this.loading = false;
         this.message='Adres silindi.';
         this.status='success';

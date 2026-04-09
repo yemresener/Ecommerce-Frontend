@@ -124,6 +124,7 @@
     font-size: 12px;
     color: #6b7280;
     line-height: 1.6;
+    word-wrap: break-word;
   }
   
   .card-footer {
@@ -406,6 +407,16 @@
     background-color: rgb(255, 233, 233);
 
     border-radius: 5px;
+  }
+
+
+  .none-address-message{
+    text-align:center;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 18px;
+
+
   }
 
 
