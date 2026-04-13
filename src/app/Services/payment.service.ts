@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { Order } from '../interfaces/order/order';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,11 +11,15 @@ export class PaymentService {
 
   constructor(private http:HttpClient) { }
 
-  preparePayment(address_id:number){
+  preparePayment(cardData:any) : Observable<any> {
     const url = `${environment.apiUrl}preparePayment`;
-    return this.http.post<{order_id:number,client_secret:string,total:number}>(url,{address_id:address_id},{withCredentials:true});
+    return this.http.post(url,cardData,{withCredentials:true});
   }
 
+  getResult(token:string){
+    const url = `${environment.apiUrl}payment/result/${token}`;
+    return this.http.get<{data:Order}>(url,{withCredentials:true});
+  }
   
 
 }

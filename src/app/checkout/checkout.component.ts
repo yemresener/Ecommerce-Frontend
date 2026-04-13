@@ -13,10 +13,15 @@ import { FullpageLoaderComponent } from '../shared/fullpage-loader/fullpage-load
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PaymentService } from '../Services/payment.service';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormValidatorService } from '../Services/Validator/form-validator.service';
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,FullpageLoaderComponent,NgxMaskDirective],
+  imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,
+    FullpageLoaderComponent,NgxMaskDirective,ReactiveFormsModule],
   templateUrl: './checkout.component.html',
     host: { ngSkipHydration: 'true' }, // ssr 
     providers: [provideNgxMask()],
@@ -24,12 +29,50 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent extends BrowserAware{
-  constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService,private paymentService:PaymentService){super()}
+  safeHtml: SafeHtml | null = null;
+  cardForm:FormGroup;
+
+  constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService,
+    private fb:FormBuilder,
+    private validatorService:FormValidatorService,
+    private paymentService:PaymentService
+  ){super()
+
+    this.cardForm = this.fb.group({
+      cardNumber: [
+        '',
+        [Validators.required,Validators.minLength(16),Validators.maxLength(19),
+          this.validatorService.luhnValidator
+        ]
+      ],
+      expiry:['',[Validators.required,this.validatorService.dateValidator]],
+
+      cardName: ['',[Validators.required,Validators.minLength(3)]],
+  
+      cvv: ['',[Validators.required,Validators.pattern(/^\d{3}$/)]],
+      saveCard: [0]
+    });
+
+  }
+
+  get cardNumber() {return this.cardForm.get('cardNumber')};
+  get expiry() {return this.cardForm.get('expiry')};
+  get cardName() {return this.cardForm.get('cardName')};
+  get cvv() {return this.cardForm.get('cvv')};
+  get saveCard() {return this.cardForm.get('saveCard')};
+
+
+
   @ViewChild(AddressComponent) addressComp!: AddressComponent;
 
   async ngOnInit() {
     this.checkout();
   }
+
+  toastMessage = '';
+  status:'success' | 'error' | 'warning' | 'info' = 'success';
+
+
 
 
   carts!:Cart[];
@@ -39,10 +82,6 @@ export class CheckoutComponent extends BrowserAware{
   loading=false;
   
   cartNumber!:string;
-  cvv?:number;
-  expMonth!:string;
-  expYear!:string;
-  cardName!:string;
 
   checkout(){
     this.loading=true;
@@ -76,9 +115,55 @@ export class CheckoutComponent extends BrowserAware{
   }
 
   payment(){
+    if(this.cardForm.invalid){
+      this.cardForm.markAllAsTouched();
+      return;
+    }
+    this.toastMessage='';
+    const { cardName, cardNumber, cvv, saveCard, expiry } = this.cardForm.value;
 
+    const cleanExpiry = (expiry || '').replace(/\D/g, '');
+    const expire_month = Number(cleanExpiry.slice(0, 2));
+    const expire_year = Number(cleanExpiry.slice(2, 4));
+
+    const payload = {
+        save_card:saveCard,
+        card_holder_name: cardName,
+        card_number:cardNumber,
+        expire_month:expire_month,
+        expire_year:expire_year,
+        cvc:cvv
+    }
+    console.log(payload)
+    this.paymentService.preparePayment(payload).subscribe({
+      next:(res)=>{
+        if(this.isBrowser()){
+          const newWin = window.open('', '_self');
+          newWin?.document.open();
+          newWin?.document.write(res.html_content);
+          newWin?.document.close();
+        }
+       
+
+      },
+      error: (err) =>{
+
+        console.error(err)
+        const errorData = err.error;
+        if(errorData.action === 'redirect'){
+          this.errorService.set(errorData.errors,'warning');
+          this.router.navigate(['/' + errorData.key]);
+        }
+        this.toastMessage = errorData.message;
+        this.status = 'error';
+        console.log(this.toastMessage,this.status);
+        
+      }
+
+    })
 
   }
+
 
 
   onAddressSelected(address: AddressInterface) {

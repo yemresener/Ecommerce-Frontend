@@ -1,0 +1,49 @@
+<div class="result-page" *ngIf="order">
+    <div class="result-card">
+      <div class="success-icon">✓</div>
+      <h1>Ödeme Başarılı</h1>
+      <p class="subtitle">Siparişiniz başarıyla oluşturuldu.</p>
+
+      <div class="summary-box">
+        <div class="row">
+          <span>Sipariş Tarihi</span>
+          <strong>{{ order.ordered_at }}</strong>
+        </div>
+        <div class="row">
+          <span>Ödeme Durumu</span>
+          <strong class="completed">{{ order.payment_status }}</strong>
+        </div>
+        <div class="row">
+          <span>Sipariş Durumu</span>
+          <strong>{{ order.status }}</strong>
+        </div>
+        <div class="row">
+          <span>Ürün Fiyatı</span>
+          <strong>{{(order.total) - (order.cargo_fee ?? 0)}}</strong>
+        </div>
+        <div class="row">
+          <span>Kargo Fiyatı</span>
+          <strong [class.completed]="order.cargo_fee<1">{{order.cargo_fee ?? 'Ücretsiz' }}</strong>
+        </div>
+        <div class="row total">
+          <span>Toplam</span>
+          <strong>{{ order.total }} ₺</strong>
+        </div>
+      </div>
+
+      <div class="items-section">
+        <h2>Ürünler</h2>
+        <div class="item-card" *ngFor="let item of orderItems">
+          <img [src]="item.image" [alt]="item.name" />
+          <div class="item-info">
+            <h3>{{ item.name }}</h3>
+            <p>Adet: {{ item.quantity }}</p>
+            <p>Birim: {{ item.price }} ₺</p>
+            <strong>{{ item.total }} ₺</strong>
+          </div>
+        </div>
+      </div>
+
+      <button class="home-btn">Ana Sayfaya Dön</button>
+    </div>
+  </div>

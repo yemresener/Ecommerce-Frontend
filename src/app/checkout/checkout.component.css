@@ -257,11 +257,15 @@ body {
 }
 
 /* ── PAYMENT ── */
-.payment-content {
-  padding: 16px 20px;
+.payment-content, .form-box {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.payment-content{
+  padding: 16px 20px;
+
 }
 
 .input-row {
@@ -645,4 +649,70 @@ body {
   animation: shimmer 1.4s infinite linear;
   border-radius: 6px;
   display: block;
+}
+
+
+/* FORM EMPTY */
+
+.empty{
+  border: 1px solid red;
+}
+
+    
+.error {
+  font-size: 12px;
+  color: #ef4444;
+  padding-left: 4px;
+  display: block;
+}
+
+
+.save-card-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 12px;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fff;
+
+  user-select: none;
+}
+
+.save-card-option:hover {
+  border-color: #3b82f6;
+  background: #f9fafb;
+}
+
+.save-card-option input {
+  margin-top: 2px;
+  accent-color: #3b82f6;
+}
+
+.save-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.save-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.save-card-info {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* selected state */
+.save-card-option:has(input:checked) {
+  border-color: #3b82f6;
+  background: #eff6ff;
 }
