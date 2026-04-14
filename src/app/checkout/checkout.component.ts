@@ -18,6 +18,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormValidatorService } from '../Services/Validator/form-validator.service';
+import { Installment } from '../interfaces/payment/installment';
+import { debounce, debounceTime, first } from 'rxjs';
+import { CreditCardInterface } from '../interfaces/payment/creditCard/credit-card-interface';
 @Component({
   selector: 'app-checkout',
   imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,
@@ -67,6 +70,7 @@ export class CheckoutComponent extends BrowserAware{
 
   async ngOnInit() {
     this.checkout();
+    this.listenInstallments();
   }
 
   toastMessage = '';
@@ -80,9 +84,9 @@ export class CheckoutComponent extends BrowserAware{
   address!:AddressInterface;
   message?:{};
   loading=false;
-  
+  savedCards?:CreditCardInterface[];
   cartNumber!:string;
-
+  
   checkout(){
     this.loading=true;
     this.service.checkout().subscribe({
@@ -90,7 +94,10 @@ export class CheckoutComponent extends BrowserAware{
         console.log(res);
         this.carts=res.data;
         this.summary=res.summary;
+        this.firstSum=res.summary.total;
         this.address=res.address;
+        this.savedCards= res.savedCards
+        this.installments=res.installments;
         console.log(this.address,'ADRES KANKA');
         console.log(res.address,'RES ADDREWSS')
         if(!this.address){
@@ -100,7 +107,8 @@ export class CheckoutComponent extends BrowserAware{
         this.message=res.message;
         console.log(this.message);
         this.loading=false;
-
+        const defaultCard = this.savedCards.find(card =>card.is_default);
+        this.selectedSavedCard=defaultCard!.id;
       },
       error:(err)=>{
         console.log(err);
@@ -114,12 +122,14 @@ export class CheckoutComponent extends BrowserAware{
     })
   }
 
-  payment(){
+  paymentWithCard(){
+    if(!this.isNewCard) return;
     if(this.cardForm.invalid){
       this.cardForm.markAllAsTouched();
       return;
     }
     this.toastMessage='';
+
     const { cardName, cardNumber, cvv, saveCard, expiry } = this.cardForm.value;
 
     const cleanExpiry = (expiry || '').replace(/\D/g, '');
@@ -134,8 +144,7 @@ export class CheckoutComponent extends BrowserAware{
         expire_year:expire_year,
         cvc:cvv
     }
-    console.log(payload)
-    this.paymentService.preparePayment(payload).subscribe({
+    this.paymentService.paymentCard(payload).subscribe({
       next:(res)=>{
         if(this.isBrowser()){
           const newWin = window.open('', '_self');
@@ -162,8 +171,132 @@ export class CheckoutComponent extends BrowserAware{
 
     })
 
+
   }
 
+  payWithSaved(){
+    if(!this.selectedSavedCard || this.isNewCard) return;
+
+    this.paymentService.paymentSavedCard(this.selectedSavedCard).subscribe({
+      next:(res)=>{
+        if(this.isBrowser()){
+          const newWin = window.open('', '_self');
+          newWin?.document.open();
+          newWin?.document.write(res.html_content);
+          newWin?.document.close();
+        }
+       
+
+      },
+      error: (err) =>{
+
+        console.error(err)
+        const errorData = err.error;
+        if(errorData.action === 'redirect'){
+          this.errorService.set(errorData.errors,'warning');
+          this.router.navigate(['/' + errorData.key]);
+        }
+        this.toastMessage = errorData.message;
+        this.status = 'error';
+        console.log(this.toastMessage,this.status);
+        
+      }
+    })
+  }
+
+
+  payment(){
+    if(this.isNewCard){
+      this.paymentWithCard();
+      return;
+    }
+    this.payWithSaved();
+    return;
+
+   
+
+  }
+
+  selectedSavedCard: number | null = null;
+  isNewCard: boolean = false;
+  showCardForm: boolean = false;
+
+  selectSavedCard(item:CreditCardInterface){
+    if(this.selectedSavedCard === item.id) return;
+    this.selectedSavedCard = item.id;
+    this.isNewCard = false;
+    this.showCardForm = false;
+
+    console.log(this.selectedSavedCard,'SAVED');
+    this.cardForm.reset();
+    
+
+  }
+
+  selectNewCard() {
+    this.selectedSavedCard = null;
+    this.isNewCard = true;
+    this.showCardForm = true;
+  }
+
+
+
+
+
+
+
+
+  
+  installments!:Installment[];
+  card_type?:string;
+  card_family?:string;
+  selectedInstallment:number=1;
+  firstSum?:number;
+  changeInstallment(item:Installment){
+    this.selectedInstallment=item.installment;
+    console.log(item);
+    console.log(this.firstSum,'First one')
+    const base = this.firstSum ?? 0;
+    const diff = item.installment_diff ?? 0;
+
+    this.summary.installment_diff = diff;
+    this.summary.total = Number((base + diff).toFixed(2));
+      
+  }
+  listenInstallments(){
+    let sixDigits:string='';
+    this.cardNumber?.valueChanges.subscribe((value:string)=>{
+        console.log(value,'VALUE');
+        if(!this.isNewCard) return;
+        if(value.length===16){
+          if(this.cardNumber?.invalid) return;
+
+          const current = value.slice(0,6);
+          if(sixDigits === current) return ;
+          sixDigits=current;
+          this.paymentService.getInstallment(current).subscribe({
+            next:(res)=>{
+              console.log(res);
+              this.installments=res.installments;
+              this.card_type=res.card_type;
+              this.card_family=res.card_family;
+              console.log(res.installments,'ISNTALL');
+            },
+            error:(err)=>{
+              console.log(err);
+            }
+          })
+        }
+        if (value.length < 16) {
+          this.installments = [];
+          sixDigits = ''; 
+          this.selectedInstallment = 1; // 🔥 EKLE
+           sixDigits = '';
+        }
+      })
+
+    
+  }
 
 
   onAddressSelected(address: AddressInterface) {

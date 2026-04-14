@@ -6,5 +6,6 @@ export interface CartSummary {
     cartCargoFee:number,
     originalTotal:number,
     discountTotal:number,
+    installment_diff:number,
     total:number
 }

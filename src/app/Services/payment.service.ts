@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Order } from '../interfaces/order/order';
+import { Installment } from '../interfaces/payment/installment';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,10 +17,27 @@ export class PaymentService {
     return this.http.post(url,cardData,{withCredentials:true});
   }
 
+  paymentCard(cardData:any) : Observable<any> {
+    const url = `${environment.apiUrl}payment/charge`;
+    return this.http.post(url,cardData,{withCredentials:true});
+  }
+
+  paymentSavedCard(card_id:number) : Observable<any> {
+    const url = `${environment.apiUrl}payment/charge/savedCard`;
+    return this.http.post(url,{saved_card_id:card_id},{withCredentials:true});
+  }
+
   getResult(token:string){
     const url = `${environment.apiUrl}payment/result/${token}`;
     return this.http.get<{data:Order}>(url,{withCredentials:true});
   }
   
+
+  getInstallment(card_number:string){
+    const url = `${environment.apiUrl}payment/installment`;
+    return this.http.post<{installments:Installment[],card_type:string,
+      card_family:string
+    }>(url,{card_number},{withCredentials:true});
+  }
 
 }

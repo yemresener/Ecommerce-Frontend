@@ -716,3 +716,24 @@ body {
   border-color: #3b82f6;
   background: #eff6ff;
 }
+
+.add-card-button{
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.add-card-icon{
+  font-size: 20px;
+
+}
+.card-form-wrapper {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
