@@ -22,10 +22,12 @@ export class PaymentService {
     return this.http.post(url,cardData,{withCredentials:true});
   }
 
-  paymentSavedCard(card_id:number) : Observable<any> {
+  paymentSavedCard(payload:{ saved_card_id:number,installment:number | 1}) : Observable<any> {
     const url = `${environment.apiUrl}payment/charge/savedCard`;
-    return this.http.post(url,{saved_card_id:card_id},{withCredentials:true});
+    return this.http.post(url,payload,{withCredentials:true});
   }
+
+
 
   getResult(token:string){
     const url = `${environment.apiUrl}payment/result/${token}`;

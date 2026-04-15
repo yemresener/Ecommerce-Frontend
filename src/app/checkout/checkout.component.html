@@ -98,7 +98,11 @@
               <div class="saved-card-num">•••• •••• •••• {{item.last_four}}</div>
               <div class="saved-card-exp">{{item.card_alias}}</div>
             </div>
-            <div class="card-chip">VISA</div>
+            <div class="card-chip">
+              <img [src]="getCardLogo(item.card_bank)" alt="card logo" />
+              
+            </div>
+
           </div>
 
           <div class="divider-or">veya yeni kart ekle</div>
@@ -236,8 +240,11 @@
 
           <div class="input-label" style="margin-top:4px" *ngIf="installments">Taksit seçeneği</div>
           <div class="installment-grid">
-            <div class="inst-opt " *ngFor="let item of installments"
-                [class.selected]="selectedInstallment === item.installment"
+            <div class="inst-opt " *ngFor="let item of (isNewCard ? newCardInstallments : installments)"
+            [class.selected]="
+              isNewCard ?
+              selectedNewCardInstallment === item.installment
+              : selectedInstallment === item.installment "
                 (click)="changeInstallment(item)"
                   >
               <div class="inst-count">{{item.installment===1? 'Tek çekim' : item.installment + ' aylık taksit'}} </div>

@@ -76,7 +76,21 @@ export class CheckoutComponent extends BrowserAware{
   toastMessage = '';
   status:'success' | 'error' | 'warning' | 'info' = 'success';
 
+  private installmentCache = new Map<string, Installment[]>();
 
+  getInstallmentForCard(binNumber:string){
+    if(this.installmentCache.has(binNumber)){
+      this.installments = this.installmentCache.get(binNumber)!;
+      return
+    }
+    this.paymentService.getInstallment(binNumber).subscribe({
+      next:(res)=>{
+        this.installmentCache.set(binNumber,res.installments);
+        this.installments = res.installments;
+        this.card_type = res.card_type;
+      }
+    })
+  }
 
 
   carts!:Cart[];
@@ -97,7 +111,6 @@ export class CheckoutComponent extends BrowserAware{
         this.firstSum=res.summary.total;
         this.address=res.address;
         this.savedCards= res.savedCards
-        this.installments=res.installments;
         console.log(this.address,'ADRES KANKA');
         console.log(res.address,'RES ADDREWSS')
         if(!this.address){
@@ -109,6 +122,10 @@ export class CheckoutComponent extends BrowserAware{
         this.loading=false;
         const defaultCard = this.savedCards.find(card =>card.is_default);
         this.selectedSavedCard=defaultCard!.id;
+
+        this.installments=res.installments;
+        this.installmentCache.set(defaultCard!.bin_number,res.installments);
+
       },
       error:(err)=>{
         console.log(err);
@@ -142,7 +159,8 @@ export class CheckoutComponent extends BrowserAware{
         card_number:cardNumber,
         expire_month:expire_month,
         expire_year:expire_year,
-        cvc:cvv
+        cvc:cvv,
+        installment:this.selectedNewCardInstallment
     }
     this.paymentService.paymentCard(payload).subscribe({
       next:(res)=>{
@@ -176,8 +194,11 @@ export class CheckoutComponent extends BrowserAware{
 
   payWithSaved(){
     if(!this.selectedSavedCard || this.isNewCard) return;
-
-    this.paymentService.paymentSavedCard(this.selectedSavedCard).subscribe({
+    const payload = {
+      saved_card_id:this.selectedSavedCard,
+      installment:this.selectedInstallment
+    }
+    this.paymentService.paymentSavedCard(payload).subscribe({
       next:(res)=>{
         if(this.isBrowser()){
           const newWin = window.open('', '_self');
@@ -211,9 +232,6 @@ export class CheckoutComponent extends BrowserAware{
       return;
     }
     this.payWithSaved();
-    return;
-
-   
 
   }
 
@@ -225,11 +243,16 @@ export class CheckoutComponent extends BrowserAware{
     if(this.selectedSavedCard === item.id) return;
     this.selectedSavedCard = item.id;
     this.isNewCard = false;
+    this.selectedInstallment =1;
+    this.newCardInstallments=[];
     this.showCardForm = false;
 
     console.log(this.selectedSavedCard,'SAVED');
     this.cardForm.reset();
     
+    this.summary.installment_diff=0;
+    this.summary.total = this.firstSum
+    this.getInstallmentForCard(item.bin_number);
 
   }
 
@@ -237,23 +260,50 @@ export class CheckoutComponent extends BrowserAware{
     this.selectedSavedCard = null;
     this.isNewCard = true;
     this.showCardForm = true;
+    this.selectedInstallment=1;
+
+    this.summary.installment_diff=0;
+    this.summary.total = this.firstSum
+  }
+
+
+  getCardLogo(bank: string): string {
+    switch ((bank || '').toUpperCase()) {
+      case 'VISA':
+        return 'assets/cards/visa.svg';
+  
+      case 'MASTER_CARD':
+      case 'MASTERCARD':
+        return 'assets/cards/mastercard.svg';
+  
+      case 'TROY':
+        return 'assets/cards/troy.svg';
+  
+      default:
+        return 'assets/cards/default-card.svg';
+    }
   }
 
 
 
 
 
-
-
-
-  
+  newCardInstallments!:Installment[];
   installments!:Installment[];
   card_type?:string;
   card_family?:string;
+
   selectedInstallment:number=1;
-  firstSum?:number;
+  selectedNewCardInstallment:number=1;
+
+  firstSum:number=0;
+
   changeInstallment(item:Installment){
-    this.selectedInstallment=item.installment;
+    if(this.isNewCard){
+      this.selectedNewCardInstallment = item.installment;
+    }else{
+      this.selectedInstallment=item.installment;
+    }
     console.log(item);
     console.log(this.firstSum,'First one')
     const base = this.firstSum ?? 0;
@@ -274,10 +324,11 @@ export class CheckoutComponent extends BrowserAware{
           const current = value.slice(0,6);
           if(sixDigits === current) return ;
           sixDigits=current;
+          
           this.paymentService.getInstallment(current).subscribe({
             next:(res)=>{
               console.log(res);
-              this.installments=res.installments;
+              this.newCardInstallments=res.installments;
               this.card_type=res.card_type;
               this.card_family=res.card_family;
               console.log(res.installments,'ISNTALL');
@@ -288,10 +339,10 @@ export class CheckoutComponent extends BrowserAware{
           })
         }
         if (value.length < 16) {
-          this.installments = [];
+          this.newCardInstallments = [];
           sixDigits = ''; 
           this.selectedInstallment = 1; // 🔥 EKLE
-           sixDigits = '';
+   
         }
       })
 
