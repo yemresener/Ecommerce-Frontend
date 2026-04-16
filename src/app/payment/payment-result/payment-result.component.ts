@@ -31,6 +31,7 @@ export class PaymentResultComponent {
   order!:Order;
   orderItems!:OrderItems[];
   result(){
+    if(!this.token) return;
       this.service.getResult(this.token).subscribe({
         next:(res)=>{
           console.log(res)
@@ -40,10 +41,14 @@ export class PaymentResultComponent {
         },
         error:(err)=>{
           console.log(err)
-          this.router.navigate(['/cart']);
-
+            this.router.navigate(['/cart']);
         }
       })
+  }
+
+
+  home(){
+    this.router.navigate(['/cart']);
   }
 
 }

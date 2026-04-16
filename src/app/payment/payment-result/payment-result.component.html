@@ -1,49 +1,82 @@
 <div class="result-page" *ngIf="order">
-    <div class="result-card">
-      <div class="success-icon">✓</div>
-      <h1>Ödeme Başarılı</h1>
-      <p class="subtitle">Siparişiniz başarıyla oluşturuldu.</p>
-
-      <div class="summary-box">
-        <div class="row">
-          <span>Sipariş Tarihi</span>
-          <strong>{{ order.ordered_at }}</strong>
-        </div>
-        <div class="row">
-          <span>Ödeme Durumu</span>
-          <strong class="completed">{{ order.payment_status }}</strong>
-        </div>
-        <div class="row">
-          <span>Sipariş Durumu</span>
-          <strong>{{ order.status }}</strong>
-        </div>
-        <div class="row">
-          <span>Ürün Fiyatı</span>
-          <strong>{{(order.total) - (order.cargo_fee ?? 0)}}</strong>
-        </div>
-        <div class="row">
-          <span>Kargo Fiyatı</span>
-          <strong [class.completed]="order.cargo_fee<1">{{order.cargo_fee ?? 'Ücretsiz' }}</strong>
-        </div>
-        <div class="row total">
-          <span>Toplam</span>
-          <strong>{{ order.total }} ₺</strong>
-        </div>
+  <div class="result-card fade-in-up">
+    
+    <div class="success-icon-wrapper">
+      <div class="success-icon scale-in-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
       </div>
+    </div>
 
-      <div class="items-section">
-        <h2>Ürünler</h2>
+    <div *ngIf="order">
+      <h1>Ödeme Başarılı!</h1>
+      <p class="subtitle">Siparişiniz başarıyla alındı ve onaylandı.</p>
+    </div>
+    
+    <div *ngIf="status=='failed'">
+      salamlar
+    </div>
+  
+
+    <div class="summary-box">
+      <div class="row">
+        <span>Sipariş Tarihi</span>
+        <strong>{{ order.ordered_at }}</strong>
+      </div>
+      <div class="row">
+        <span>Ödeme Durumu</span>
+        <span class="badge success">{{ order.payment_status }}</span>
+      </div>
+      <div class="row">
+        <span>Sipariş Durumu</span>
+        <strong>{{ order.status }}</strong>
+      </div>
+      
+      <div class="divider"></div>
+
+      <div class="row">
+        <span>Ürün Fiyatı</span>
+        <strong>{{ order.subTotal }} ₺</strong>
+      </div>
+      <div class="row" *ngIf="order.installment>1">
+        <span>Taksit Farkı ({{order.installment}} Taksit)</span>
+        <strong>{{ order.installment_fee }} ₺</strong>
+      </div>
+      <div class="row">
+        <span>Kargo Fiyatı</span>
+        <strong [ngClass]="{'text-success': order.cargo_fee < 1}">
+          {{ (order.cargo_fee===0) ? order.cargo_fee + ' ₺' : 'Ücretsiz' }}
+        </strong>
+      </div>
+      
+      <div class="row total">
+        <span>Toplam Tutar</span>
+        <strong class="total-price">{{ order.total }} ₺</strong>
+      </div>
+    </div>
+
+    <div class="items-section">
+      <h2>Sipariş Detayı</h2>
+      <div class="items-list">
         <div class="item-card" *ngFor="let item of orderItems">
-          <img [src]="item.image" [alt]="item.name" />
+          <div class="item-img-wrapper">
+            <img [src]="item.image" [alt]="item.name" />
+            <span class="item-quantity-badge">{{ item.quantity }}</span>
+          </div>
           <div class="item-info">
             <h3>{{ item.name }}</h3>
-            <p>Adet: {{ item.quantity }}</p>
-            <p>Birim: {{ item.price }} ₺</p>
+            <p>{{ item.price }} ₺</p>
+          </div>
+          <div class="item-total">
             <strong>{{ item.total }} ₺</strong>
           </div>
         </div>
       </div>
-
-      <button class="home-btn">Ana Sayfaya Dön</button>
     </div>
+
+    <button class="home-btn" (click)="home()">Alışverişe Devam Et</button>
   </div>
+</div>
+
+

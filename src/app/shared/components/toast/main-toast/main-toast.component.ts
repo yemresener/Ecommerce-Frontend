@@ -29,7 +29,7 @@ export class MainToastComponent extends BrowserAware{
       setTimeout(() => {
         this.visible = false;
         this.closed.emit(); 
-      }, 300);
+      }, 500);
     }
 
 get icon(){

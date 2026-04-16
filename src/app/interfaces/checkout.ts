@@ -5,5 +5,6 @@ import { Installment } from "./payment/installment";
 export interface Checkout extends CartApiResponse{
     address:AddressInterface,
     savedCards:CreditCardInterface[],
+    default_card:CreditCardInterface,
     installments:Installment[]
 }

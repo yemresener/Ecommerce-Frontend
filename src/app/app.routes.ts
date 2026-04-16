@@ -25,6 +25,7 @@ export const routes: Routes = [
             {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
             {path:'checkout',component:CheckoutComponent,title:'Checkout'},
             {path:'address',component:AddressComponent,title:'AddressComponent'},
+            { path: 'payment/result', component: PaymentResultComponent },
             
         ]
     },
@@ -42,7 +43,6 @@ export const routes: Routes = [
             {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
             
             {path:'hesabim',component:DashboardComponent,title:'hesabım'},
-            { path: 'payment/result', component: PaymentResultComponent },
 
 
             {path:':slug',component:CategoryPageComponent,title:'list'},

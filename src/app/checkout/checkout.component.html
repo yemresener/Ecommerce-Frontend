@@ -107,7 +107,7 @@
 
           <div class="divider-or">veya yeni kart ekle</div>
           <div class="saved-card new-card" (click)="selectNewCard()">
-            <input type="radio" name="card" [checked]="isNewCard">
+            <input type="radio" name="card" [checked]="activeCardContext==='new'">
             <div class="add-card-button">
               <span class="material-symbols-outlined add-card-icon" >
                 add_card
@@ -238,19 +238,26 @@
           </div>
 
 
-          <div class="input-label" style="margin-top:4px" *ngIf="installments">Taksit seçeneği</div>
+          <div class="input-label" style="margin-top:4px"*ngIf="installments?.length || installmentSkeleton">Taksit seçeneği</div>
           <div class="installment-grid">
-            <div class="inst-opt " *ngFor="let item of (isNewCard ? newCardInstallments : installments)"
-            [class.selected]="
-              isNewCard ?
-              selectedNewCardInstallment === item.installment
-              : selectedInstallment === item.installment "
+            
+            <div class="inst-opt "  *ngFor="let item of installments"
+            [class.selected]="selectedInstallment === item.installment"
+
                 (click)="changeInstallment(item)"
                   >
+                
               <div class="inst-count">{{item.installment===1? 'Tek çekim' : item.installment + ' aylık taksit'}} </div>
               <div class="inst-amount">Aylık Taksit Tutarı: {{item.installment_price}} TL</div>
               <div class="inst-amount">Toplam Tutar: {{item.total_price}} TL</div>
+
             </div>
+
+              <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+              <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+              <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+
+
            
           </div>
         </div>
@@ -438,4 +445,6 @@
 [message]="toastMessage"
 (closed)="toastMessage=''"
 ></app-main-toast>
+
+<app-fullpage-loader *ngIf="redirectToPayment"></app-fullpage-loader>
 
