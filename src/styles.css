@@ -8,6 +8,11 @@
 
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+/* CHECKOUT IICN EKLENDİ GEREKİRSE SİL */
+
 
 :root {
     --primary: #2563eb;

@@ -23,6 +23,7 @@ import { CartService } from '../Services/cart.service';
 import { CartToastComponent } from '../shared/components/toast/cart-toast/cart-toast.component';
 import { ToastrService } from 'ngx-toastr';
 import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
+import { DeliveryMessageService } from '../NoApiServices/delivery-message.service';
 @Component({
   selector: 'app-each-item-page',
   imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,
@@ -41,6 +42,7 @@ export class EachItemPageComponent {
     private itemService:EachItemService, 
     private cartService:CartService,
     private toast:ToastrService,
+    private deliveryService:DeliveryMessageService
   ){}
 
   slug!:string;
@@ -48,22 +50,23 @@ export class EachItemPageComponent {
     this.route.paramMap.subscribe(params=>{
       this.slug = params.get('slug') ?? '';
       this.getAdvert();
+      this.deliveryMessage=this.deliveryService.deliveryMessage;
+
     })
 
   }
-
   advert!:Advert;
   itemSlider!:SliderModel<any>
   breadcrumb!: BreadCrumb[];
+  isActive?:boolean;
+  deliveryMessage?:string;
+
   getAdvert(){
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
-
         this.advert=res.data.advert;
-        console.log(this.advert,'ADVERT')
         this.breadcrumb=res.data.bread_crumb;
-        console.log(this.breadcrumb,'RES KANKA');
-        
+        this.isActive=res.data.active_stock;        
         if(this.advert.images){
           this.itemSlider={
             items:this.advert.images,
@@ -72,6 +75,7 @@ export class EachItemPageComponent {
           }
           console.log('slider',this.itemSlider);
         }
+
        this.getReviews();
 
       },
@@ -179,7 +183,6 @@ export class EachItemPageComponent {
   }
 
   
-
 
 
   next() {

@@ -4,11 +4,21 @@
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
+:host {
+  display: block; /* Angular etiketini blok seviyesine çeker */
+  width: 100%;
+  overflow-x: hidden; /* Component bazında taşmayı engeller */
+}
 
 body {
   background: #f5f5f5;
 }
-
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh; 
+  background: #f5f5f5;
+}
 .page {
   background: #f5f5f5;
   padding-bottom: 40px;
@@ -77,10 +87,17 @@ body {
   background: #f3f4f6;
   border: 0.5px solid #e5e7eb;
   border-radius: 4px;
-  padding: 3px 7px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #374151;
+  padding: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-logo img{
+  max-height: 9px;
+  width: 30px;  
+
 }
 
 .card-logo.visa  { color: #1a1f71; }
@@ -418,6 +435,9 @@ body {
   padding: 14px 18px;
   border-bottom: 0.5px solid #f3f4f6;
 }
+.order-header-box{
+  display: flex; align-items: center; justify-content: space-between;
+}
 
 .order-title {
   font-size: 15px;
@@ -437,7 +457,51 @@ body {
   gap: 10px;
   padding: 12px 18px;
   border-bottom: 0.5px solid #f9fafb;
+  
 }
+
+.products-container {
+  max-height: 320px; /* ~3-4 ürün */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb transparent;
+}
+
+.products-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.products-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.products-container::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 99px;
+}
+
+.products-container::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+.products-wrapper {
+  position: relative;
+}
+
+.products-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.95));
+  pointer-events: none;
+}
+
 
 .product-img {
   width: 72px;

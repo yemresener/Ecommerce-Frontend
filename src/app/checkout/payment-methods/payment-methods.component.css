@@ -1,0 +1,297 @@
+
+/* ── PAYMENT ── */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+.payment-content, .form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+  }
+  
+  .payment-content{
+    padding: 16px 20px;
+    
+  }
+  
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .input-group.full {
+    grid-column: 1 / -1;
+  }
+  
+  .input-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  
+  .inp {
+    height: 38px;
+    border: 0.5px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    color: #1f2937;
+    outline: none;
+    transition: border-color 0.15s;
+    background: #fff;
+    width: 100%;
+  }
+  
+  .inp:focus {
+    border-color: #3b82f6;
+  }
+  
+  .inp.card-num {
+    letter-spacing: 1px;
+  }
+  
+  .saved-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 0.5px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  
+  .saved-card:hover {
+    border-color: #3b82f6;
+  }
+  
+  .saved-card input[type="radio"] {
+    accent-color: #3b82f6;
+  }
+  
+  .saved-card-info {
+    flex: 1;
+  }
+  
+  .saved-card-num {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .saved-card-exp {
+    font-size: 11px;
+    color: #9ca3af;
+  }
+  
+  .card-chip {
+    background: #f3f4f6;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #1a1f71;
+  }
+  
+  .divider-or {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: #9ca3af;
+  }
+  
+  .divider-or::before,
+  .divider-or::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: #e5e7eb;
+  }
+  
+  .installment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .inst-opt {
+    border: 0.5px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  
+  .inst-opt:hover,
+  .inst-opt.selected {
+    border-color: #3b82f6;
+  }
+  
+  .inst-opt.selected {
+    background: #eff6ff;
+  }
+  
+  .inst-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .inst-amount {
+    font-size: 11px;
+    color: #6b7280;
+  }
+
+  
+  .empty{
+    border: 1px solid red;
+  }
+  
+      
+  .error {
+    font-size: 12px;
+    color: #ef4444;
+    padding-left: 4px;
+    display: block;
+  }
+  
+  
+.save-card-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  
+    padding: 12px;
+    border: 0.5px solid #e5e7eb;
+    border-radius: 10px;
+  
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #fff;
+  
+    user-select: none;
+  }
+  
+  .save-card-option:hover {
+    border-color: #3b82f6;
+    background: #f9fafb;
+  }
+  
+  .save-card-option input {
+    margin-top: 2px;
+    accent-color: #3b82f6;
+  }
+  
+  .save-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  
+  .save-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .save-card-info {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+  
+  /* selected state */
+  .save-card-option:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+  }
+  
+  .add-card-button{
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .add-card-icon{
+    font-size: 20px;
+  
+  }
+  .card-form-wrapper {
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.2s ease;
+  }
+  .card-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Logoların rahat nefes alması için sabit veya minimum genişlik/yükseklik */
+    width: 50px;
+    max-width: 50px; 
+    height: 30px; 
+    padding: 0 12px;
+    
+    /* Temiz ve modern görünüm */
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    
+    /* Kullanıcı deneyimini artıran yumuşak geçişler */
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  
+  /* Kullanıcı kartın üzerine geldiğinde hafif bir etkileşim hissi */
+  .card-chip:hover {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
+  
+  .card-chip img {
+    /* SVG'lerin veya resimlerin kutuyu patlatmasını engeller */
+    max-height: 24px; 
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block; /* Alt tarafta oluşabilecek boşlukları temizler */
+  }
+
+  
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.sk {
+    background: #f0f0f0;
+    background-image: linear-gradient(
+      90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 1.4s infinite linear;
+    border-radius: 6px;
+    display: block;
+  }
+  

@@ -3,5 +3,6 @@ import { BreadCrumb } from "./bread-crumb";
 
 export interface AdvertResponse {
     advert:Advert,
-    bread_crumb:BreadCrumb[]
+    bread_crumb:BreadCrumb[],
+    active_stock:boolean
 }

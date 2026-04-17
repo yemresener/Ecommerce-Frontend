@@ -2,7 +2,7 @@
     position: fixed;
     top: 40px;
     right: 24px;
-    width: 420px; /* büyüttük */
+    width: 420px;
 
     background: #fff;
     border-radius: 16px;
@@ -16,23 +16,22 @@
     z-index: 9999;
 }
 
-/* ürün görseli büyüdü */
 .cart-toast img {
     width: 80px;
     height: 80px;
     object-fit: cover;
     border-radius: 12px;
+    flex-shrink: 0;
 }
 
-/* info */
 .cart-toast-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 6px;
+    min-width: 0; /* taşmayı engeller */
 }
 
-/* başlık büyüdü */
 .cart-toast-info .title {
     font-size: 15px;
     font-weight: 600;
@@ -45,52 +44,48 @@
     overflow: hidden;
 }
 
-/* fiyat alanı */
 .price-box {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* eski fiyat */
 .price-old {
     font-size: 13px;
     color: #9ca3af;
     text-decoration: line-through;
 }
 
-/* yeni fiyat */
 .price {
     font-size: 16px;
     font-weight: 700;
     color: #2563eb;
 }
 
-/* mesaj */
 .cart-toast-message {
     font-size: 14px;
     color: #16a34a;
     font-weight: 600;
 }
 
-/* butonlar */
 .button-box {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .button-box button {
     border: none;
-    padding: 10px 14px; /* büyüttük */
+    padding: 10px 14px;
     border-radius: 10px;
     font-size: 14px;
     cursor: pointer;
     transition: 0.2s;
     font-weight: 500;
+    white-space: nowrap;
 }
 
-/* primary */
 .go-cart {
     background: #2563eb;
     color: white;
@@ -100,7 +95,6 @@
     background: #1d4ed8;
 }
 
-/* secondary */
 .continue {
     background: #f3f4f6;
 }
@@ -109,7 +103,6 @@
     background: #e5e7eb;
 }
 
-/* animasyon */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -121,7 +114,6 @@
     }
 }
 
-/* çıkış */
 .cart-toast.hide {
     animation: slideOut 0.3s ease forwards;
 }
@@ -130,5 +122,70 @@
     to {
         opacity: 0;
         transform: translateY(30px) scale(0.95);
+    }
+}
+
+/* ─── Tablet ─── */
+@media (max-width: 480px) {
+    .cart-toast {
+        top: auto;
+        bottom: 16px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        padding: 16px;
+        gap: 12px;
+        border-radius: 14px;
+    }
+
+    .cart-toast img {
+        width: 64px;
+        height: 64px;
+        border-radius: 10px;
+    }
+
+    .cart-toast-info .title {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+
+    .button-box {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .button-box button {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ─── Küçük ekranlar (360px altı) ─── */
+@media (max-width: 360px) {
+    .cart-toast {
+        flex-wrap: wrap;
+        padding: 14px;
+    }
+
+    .cart-toast img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .cart-toast-info {
+        flex: 1;
+    }
+
+    .button-box {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .button-box button {
+        flex: 1;
+        text-align: center;
     }
 }

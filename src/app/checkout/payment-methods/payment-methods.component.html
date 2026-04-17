@@ -1,0 +1,171 @@
+
+    <div class="payment-content">
+      <div class="saved-card"   [class.selected]="selectedSavedCard === item.id" (click)="selectSavedCard(item)" *ngFor="let item of savedCards">
+        <input type="radio" name="card" [checked]="selectedSavedCard === item.id" >
+        <div class="saved-card-info">
+          <div class="saved-card-num">•••• •••• •••• {{item.last_four}}</div>
+          <div class="saved-card-exp">{{item.card_alias}}</div>
+        </div>
+        <div class="card-chip">
+          <img [src]="getCardLogo(item.card_bank)" alt="card logo" />
+          
+        </div>
+
+      </div>
+
+      <div class="divider-or">veya yeni kart ekle</div>
+      <div class="saved-card new-card" (click)="selectNewCard()">
+        <input type="radio" name="card" [checked]="activeCardContext==='new'">
+        <div class="add-card-button">
+          <span class="material-symbols-outlined add-card-icon" >
+            add_card
+            </span>
+
+             Yeni kart ekle
+        </div>
+      </div>
+
+      <div class="card-form-wrapper" *ngIf="showCardForm">
+        <form [formGroup]="cardForm" class="form-box">
+          <div class="input-group full">
+            <div class="input-label">Kart numarası</div>
+            <input
+              formControlName="cardNumber"
+              class="inp card-num"
+              mask="0000 0000 0000 0000"
+              placeholder="0000 0000 0000 0000"
+            />
+          
+          <span class="error" *ngIf="(cardNumber?.touched && cardNumber?.invalid) ">
+          
+            <span *ngIf="cardNumber?.errors?.['required']">
+              Kart numarası zorunlu.
+            </span>
+          
+            <span *ngIf="cardNumber?.errors?.['minlength']">
+              Kart numarası eksik.
+            </span>
+          
+            <span *ngIf="cardNumber?.errors?.['invalidCardNumber'] && !cardNumber?.errors?.['minlength']">
+              Kart numarası hatalı.
+            </span>
+          
+          </span>
+
+          </div>
+
+
+          
+          <div class="input-row">
+            <div class="input-group">
+              <div class="input-label">Son kullanma</div>
+              <input
+              formControlName="expiry"
+              class="inp"
+              mask="00 / 00"
+              placeholder="MM/YY"
+              />
+
+              <span class="error" *ngIf="(expiry?.touched && expiry?.invalid) ">
+
+                <span *ngIf="expiry?.errors?.['required']">
+                  Son kullanım tarihi zorunlu.
+                </span>
+
+                <span *ngIf="expiry?.errors?.['invalidDate']">
+                  Geçersiz tarih formatı.
+                </span>
+              
+                <span *ngIf="expiry?.errors?.['invalidMonth'] ">
+                  Ay 01-12 arasında olmalı.
+                </span>
+              
+                <span *ngIf="expiry?.errors?.['expired']">
+                  Kartın süresi dolmuş.
+                </span>
+              </span>
+            </div>
+
+
+            <div class="input-group">
+              <div class="input-label">CVV</div>
+              <input
+              formControlName="cvv"
+              class="inp"
+              mask="000"
+              placeholder="•••"
+              />
+
+              <span class="error" *ngIf="(cvv?.touched && cvv?.invalid) ">
+
+                <span *ngIf="cvv?.errors?.['required']">
+                  CVV zorunlu.
+                </span>
+
+                <span *ngIf="cvv?.errors?.['pattern']">
+                  CVV eksik.
+                </span>
+
+              </span>
+            </div>
+          </div>
+
+
+
+          <div class="input-group full">
+            <div class="input-label">Kart üzerindeki isim</div>
+            <input
+            class="inp"
+            formControlName="cardName"
+            placeholder="Ad Soyad"
+            />
+          
+            <span class="error" *ngIf="(cardName?.touched && cardName?.invalid) ">
+              <span *ngIf="cardName?.errors?.['required']">
+                İsim zorunlu.
+              </span>
+            
+              <span *ngIf="cardName?.errors?.['minlength']">
+                En az 3 karakter olmalı.
+              </span>
+            </span>
+
+          </div>
+          <label class="save-card-option">
+            <input type="checkbox" formControlName="saveCard" />
+          
+            <div class="save-card-content">
+              <div class="save-card-title">Kartımı kaydet</div>
+              <div class="save-card-info">
+                Kart bilgileriniz, İyzico üzerinde güvenli bir şekilde korunur.
+              </div>
+            </div>
+          </label>
+          
+        </form>
+      </div>
+
+
+      <div class="input-label" style="margin-top:4px"*ngIf="installments?.length || installmentSkeleton">Taksit seçeneği</div>
+      <div class="installment-grid">
+        
+        <div class="inst-opt "  *ngFor="let item of installments"
+        [class.selected]="selectedInstallment === item.installment"
+
+            (click)="changeInstallment(item)"
+              >
+            
+          <div class="inst-count">{{item.installment===1? 'Tek çekim' : item.installment + ' aylık taksit'}} </div>
+          <div class="inst-amount">Aylık Taksit Tutarı: {{item.installment_price}} TL</div>
+          <div class="inst-amount">Toplam Tutar: {{item.total_price}} TL</div>
+
+        </div>
+
+          <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+          <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+          <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>
+
+
+       
+      </div>
+    </div>

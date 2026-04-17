@@ -180,10 +180,12 @@
               class="add-to-cart"
               [class.skeleton]="!advert"
               [class.loading]="cartLoading"
-              [disabled]="!advert || cartLoading"
+              [disabled]="!advert || cartLoading || !isActive"
+              [class.none-stock]="!isActive"
               >
               <ng-container *ngIf="!cartLoading; else loadingTpl">
                 <i *ngIf="advert" class="fas fa-shopping-cart"></i>
+                
                 <span *ngIf="advert">Sepete Ekle</span>
               </ng-container>
 
@@ -196,10 +198,14 @@
 
             <div class="delivery-badge"
             [class.loading]="!advert"
+            [class.none-stock]="!isActive"
             >
-            <span class="delivery-span" *ngIf="advert">
+            <span class="delivery-span" *ngIf="!isActive">
+              <i class="fas fa-clock"></i> En yakın zamanda stoklarda.
+            </span>
+            <span class="delivery-span" *ngIf="advert && isActive">
               <i class="fas fa-truck-fast"></i>
-              19 Aralık'ta Kargoda!
+              {{deliveryMessage}} Kargoda!
             </span>
             </div>
     
@@ -262,7 +268,7 @@
         <div class="old-mobile-box">
             <span class="old-price-mobile"  *ngIf="advert.discount_price"> {{ advert.original_price }}
             </span>
-            <span class="discount-badge-mobile" *ngIf="advert.discount_type">
+            <span class="discount-badge-mobile" [class.none-stock]="!isActive" *ngIf="advert.discount_type">
                 <ng-container [ngSwitch]="advert.discount_type">
             
                 <span *ngSwitchCase="'percent'">
@@ -277,7 +283,7 @@
             </span>  
         </div>
         <div class="price-row">
-          <span class="new-price-mobile">{{ advert.discount_price || advert.original_price }}<span class="currency">TL</span></span>
+          <span class="new-price-mobile" >{{ advert.discount_price || advert.original_price }}<span class="currency">TL</span></span>
 
         </div>
       </div>
@@ -289,7 +295,8 @@
               class="add-to-cart-mobile"
               [class.skeleton]="!advert"
               [class.loading]="cartLoading"
-              [disabled]="!advert || cartLoading"
+              [disabled]="!advert || cartLoading || !isActive"
+              [class.none-stock]="!isActive"
               >
               <ng-container *ngIf="!cartLoading; else loadingTpl">
                 <i *ngIf="advert" class="fas fa-shopping-cart"></i>
