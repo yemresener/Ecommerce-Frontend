@@ -155,10 +155,21 @@
             (click)="changeInstallment(item)"
               >
             
-          <div class="inst-count">{{item.installment===1? 'Tek çekim' : item.installment + ' aylık taksit'}} </div>
-          <div class="inst-amount">Aylık Taksit Tutarı: {{item.installment_price}} TL</div>
-          <div class="inst-amount">Toplam Tutar: {{item.total_price}} TL</div>
 
+          <div class="inst-count">{{item.installment===1? 'Tek çekim' : item.installment + ' Taksit'}} </div>
+          <div class="amounts">
+            <div class="amounts" *ngIf="item.installment!==1">
+              <div class="inst-amount top-amount">{{item.installment}} x {{item.installment_price}} TL</div>
+            </div>
+            <div class="inst-amount">Toplam: {{item.total_price}} TL</div>
+          </div>
+
+      
+
+           <!--
+          <div class="inst-amount">Aylık Taksit Tutarı: {{item.installment_price}} TL</div>
+          <div class="inst-amount">Toplam: {{item.total_price}} TL</div>
+          --> 
         </div>
 
           <div *ngIf="installmentSkeleton" class="sk" style="height:60px;border-radius:8px;"></div>

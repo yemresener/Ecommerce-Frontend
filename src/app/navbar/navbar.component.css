@@ -16,7 +16,6 @@ body {
     z-index: 100;
     border-bottom: 2px solid #f0f9ff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
 }
 
 .nav-container {
@@ -28,9 +27,9 @@ body {
 .main-nav {
     display: flex;
     align-items: center;
-    gap: 1rem;
     padding: 1rem 0;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 /* Logo */
@@ -54,7 +53,7 @@ body {
 .search-container {
     flex: 1;
     min-width: 200px;
-    max-width: 500px;
+    max-width: 900px;
     position: relative;
 }
 .search-input {
@@ -130,8 +129,8 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
-    background: #3B82F6;
-    color: white;
+    background: #ffffff;
+    color: black;
     border: none;
     border-radius: 9999px;
     font-size: 0.875rem;
@@ -140,19 +139,23 @@ body {
     flex-shrink: 0;
     transition: all 0.3s ease;
 }
+
 .cart-button:hover {
-    background: #2563eb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(59,130,246,0.2);
+    color: #3B82F6;
+    .cart-label{
+        color: #3B82F6;
+    }
 }
+
 .cart-icon {
     font-size: 1rem;
 }
 
 .cart-label{
     text-decoration: none;
-    color: white;
+    color: black;
 }
+
 
 /* Category Bar */
 .category-bar {
@@ -339,7 +342,9 @@ body {
 
 }
 
+
+
 @media (max-width: 480px) {
     .category-link { font-size: 0.75rem; padding: 0.2rem 0.35rem; }
-    .cart-button span { display: none; }
+    .cart-label { display: none; }
 }

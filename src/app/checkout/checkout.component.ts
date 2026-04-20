@@ -99,7 +99,7 @@ export class CheckoutComponent extends BrowserAware{
         this.address=res.address;
         this.savedCards= res.savedCards
         if(!this.address){
-          this.addressComp.toggleModal(true);
+          this.addressComp.openModal('create');
         }
 
         this.message=res.message;

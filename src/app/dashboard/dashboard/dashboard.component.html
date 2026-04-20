@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&text=package_2,rate_reviews,home_pin,account_circle" />
-<div class="container dashboard-container">
+  
+<div class="container dashboard-container" [class.is-child-page]="!isMainDashboard">
     <aside class="left">
       <div class="user-info-title">
         <div class="user-meta">
@@ -18,7 +19,7 @@
                 reviews
                 </span> Değerlendirmelerim
         </a>
-        <a href="#">
+        <a routerLink="adreslerim" routerLinkActive="active">
           <span class="material-symbols-outlined">home_pin</span> Adreslerim
         </a>
         <a href="#">
@@ -28,7 +29,9 @@
     </aside>
   
     <main class="right">
-      <h2>Dashboard İçerik Alanı</h2>
-      <p>Buraya seçilen sayfanın içeriği gelecek...</p>
+      
+      <router-outlet></router-outlet>
+      
     </main>
   </div>
+

@@ -1,0 +1,102 @@
+<!-- address-form.component.html -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>Ad soyad</label>
+      <input type="text" placeholder="Ad soyad" formControlName="full_name"
+        [class.empty]="full_name?.invalid && full_name?.touched">
+      <span class="error" *ngIf="full_name?.invalid && full_name?.touched">
+        <span *ngIf="full_name?.errors?.['required']">Ad soyad zorunlu.</span>
+        <span *ngIf="full_name?.errors?.['minlength']">En az 4 karakter olmalı.</span>
+      </span>
+    </div>
+  
+    <div class="form-group">
+      <label>Telefon</label>
+      <input type="text" mask="(000) 000 00 00" placeholder="(___) ___ __ __"
+        formControlName="phone_number"
+        [class.empty]="phone_number?.invalid && phone_number?.touched">
+        <span class="error" *ngIf="phone_number?.invalid && phone_number?.touched">
+          <span *ngIf="phone_number?.errors?.['required']">Telefon numarası zorunlu.</span>
+          <span *ngIf="phone_number?.errors?.['pattern']">Telefon numarası geçerli değil.</span>
+        </span>
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group">
+        <label>İl</label>
+        <ng-select [items]="provinces" bindLabel="name" bindValue="id"
+          placeholder="İl seçin" formControlName="city_id"
+          (change)="onProvinceSelect($event)" appendTo="div"
+          [class.empty]="city_id?.invalid && city_id?.touched">
+        </ng-select>
+        <span class="select-error" *ngIf="city_id?.invalid && city_id?.touched">
+          İl seçimi zorunlu.
+        </span>
+      </div>
+  
+      <div class="form-group">
+        <label>İlçe</label>
+        <ng-select [items]="districts" bindLabel="name" bindValue="id"
+          placeholder="İlçe seçin" formControlName="state_id"
+          (change)="onDistrictSelect($event)" appendTo="div">
+        </ng-select>
+        <span class="select-error" *ngIf="state_id?.invalid && state_id?.touched">
+          İlçe seçimi zorunlu.
+        </span>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label>Adres Tipi</label>
+      <div class="addr-type-group">
+        <label class="addr-type-label">
+          <input type="radio" value="Ev" formControlName="address_type">
+          <div class="addr-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Ev</span>
+          </div>
+        </label>
+  
+        <label class="addr-type-label">
+          <input type="radio" value="İş yeri" formControlName="address_type">
+          <div class="addr-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+            </svg>
+            <span>İş Yeri</span>
+          </div>
+        </label>
+  
+        <label class="addr-type-label">
+          <input type="radio" value="Diğer" formControlName="address_type">
+          <div class="addr-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="10" r="3"/>
+              <path d="M12 2a8 8 0 010 16c-4 0-8-6-8-8a8 8 0 018-8z"/>
+            </svg>
+            <span>Diğer</span>
+          </div>
+        </label>
+      </div>
+    </div>
+  
+    <div class="form-group text-area">
+      <label>Açık adres</label>
+      <textarea placeholder="Mahalle, sokak, no..." formControlName="address_line" rows="3"
+        [class.empty]="address_line?.invalid && address_line?.touched"></textarea>
+      <span class="error" *ngIf="address_line?.invalid && address_line?.touched">
+        <span *ngIf="address_line?.errors?.['required']">Açık adres zorunlu.</span>
+        <span *ngIf="address_line?.errors?.['minlength']">En az 10 karakter giriniz.</span>
+      </span>
+    </div>
+  
+    <button type="submit" class="submit-btn" [disabled]="loading">
+      {{ mode === 'create' ? 'Kaydet' : 'Güncelle' }}
+    </button>
+  
+  </form>

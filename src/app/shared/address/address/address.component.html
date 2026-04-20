@@ -1,17 +1,36 @@
-<app-address-card [open]="showModal" [formMode]="formMode" [address]="address" [provinces]="provinces" [districts]="districts" [loading]="getAddressesLoading()"
-(provinceChanged)="onProvinceChange($event)"
-(formSubmit)="onSubmit($event)"
-(closeModal)="toggleModal()"
-(updateAddress)="updateAddress($event)"
-(createAddress)="createAddress($event)"
-(updateToDefault)="updateToDefault($event)"
+<app-address-modal
+[initialFormMode]="initialFormMode"
+[initialAddress]="initialAddress"
+[showBackButton]="mode !== 'dashboard'"
+
+[open]="showModal"
+[addresses]="addresses() ?? []"
+[provinces]="provinces"
+[districts]="districts"
+[loading]="loading()"
+(close)="showModal = false"
+(create)="createAddress($event)"
+(update)="updateAddress($event)"
 (delete)="deleteAddress($event)"
-(formModeChange)="formMode = $event"
-()
-></app-address-card>
+(makeDefault)="updateToDefault($event)"
+(provinceChanged)="onProvinceChange($event)">
+</app-address-modal>
 
 
-<app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
+<app-address-dashboard-widget
+    *ngIf="mode === 'dashboard'"
+  [addresses]="addresses() ?? []"
+  [loading]="loading()"
+  (editRequest)="onEditRequest($event)"
+  (deleteRequest)="onDeleteConfirmRequest($event)"
+  (makeDefault)="updateToDefault($event)"
+  (openModal)="openModal($event)"
+
+  >
+</app-address-dashboard-widget>
+
+
+<app-fullpage-loader *ngIf="actionLoading"></app-fullpage-loader>
 
 <app-main-toast *ngIf="message"
 [type]="status"
@@ -19,5 +38,4 @@
 (closed)="message=''"
 ></app-main-toast>
 
-<!--
--->
+<app-delete-confirm [isOpen]="showDeleteConfirm" [message]="confirmMessage" (confirm)="onDeleteRequest()" (cancel)="onDeleteCancel()"></app-delete-confirm>

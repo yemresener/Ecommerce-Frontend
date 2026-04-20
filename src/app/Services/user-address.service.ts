@@ -15,14 +15,21 @@ export class UserAddressService {
 
   constructor(private http:HttpClient) { }
 
-  loadAddresses(){
+  loadAddresses() {
     this.loading.set(true);
-    this.http.get<{ data: AddressInterface[] }>(`${environment.apiUrl}addresses`,{withCredentials:true}).subscribe(res => {
-      this.addresses.set(res.data);
-      console.log(res.data,'RES DATA');
-      this.loading.set(false);
+    this.http.get<{ data: AddressInterface[] }>(`${environment.apiUrl}addresses`, { withCredentials: true }).subscribe({
+      next: (res) => {
+        this.addresses.set(res.data);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        console.log(err);
+        this.loading.set(false);
+      }
     });
+
   }
+  
   createAddress(body:AddressInterface){
     return this.http.post<any>(`${environment.apiUrl}addresses`, body,{withCredentials:true}).pipe(
       tap(res => {

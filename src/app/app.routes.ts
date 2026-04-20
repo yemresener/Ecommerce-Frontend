@@ -16,6 +16,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { AddressComponent } from './shared/address/address/address.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { PaymentResultComponent } from './payment/payment-result/payment-result.component';
+import { DashboardAddressComponent } from './dashboard/dashboard-address/dashboard-address.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -42,7 +43,9 @@ export const routes: Routes = [
     
             {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
             
-            {path:'hesabim',component:DashboardComponent,title:'hesabım'},
+            {path:'hesabim',component:DashboardComponent,children:[
+                {path:'adreslerim',component:DashboardAddressComponent}
+            ],title:'hesabım'},
 
 
             {path:':slug',component:CategoryPageComponent,title:'list'},

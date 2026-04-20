@@ -1,0 +1,54 @@
+<!-- address-modal.component.html -->
+<div class="overlay" *ngIf="open">
+    <div class="modal" (click)="$event.stopPropagation()">
+  
+      <!-- Liste görünümü -->
+      <ng-container *ngIf="!formMode">
+        <div class="modal-header">
+          <span class="modal-title">Adreslerim</span>
+          <div class="modal-actions">
+            <button class="add-btn" (click)="openCreate()">+ Yeni adres</button>
+            <button class="close-btn" (click)="close.emit()">✕</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <app-address-list
+            [addresses]="addresses"
+            [loading]="loading"
+            (edit)="openEdit($event)"
+            (delete)="onDeleteRequest($event)"
+            (makeDefault)="makeDefault.emit($event)">
+          </app-address-list>
+        </div>
+      </ng-container>
+  
+      <!-- Form görünümü -->
+      <ng-container *ngIf="formMode">
+        <div class="modal-header">
+          <button *ngIf="showBackButton" class="back-btn" (click)="back()">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <span class="modal-title">
+            {{ formMode === 'create' ? 'Yeni adres ekle' : 'Adresi düzenle' }}
+          </span>
+          <button class="close-btn" (click)="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <app-address-form
+            [mode]="formMode"
+            [address]="selectedAddress"
+            [provinces]="provinces"
+            [districts]="districts"
+            [loading]="loading"
+            (submitted)="onSubmitted($event)"
+            (provinceChanged)="provinceChanged.emit($event)"
+            (cancelled)="back()">
+          </app-address-form>
+        </div>
+      </ng-container>
+  
+    </div>
+  </div>
+
+
+<app-delete-confirm [isOpen]="showDeleteConfirm" [message]="confirmMessage" (confirm)="onDeleteConfirm()" (cancel)="onDeleteCancel()"></app-delete-confirm>

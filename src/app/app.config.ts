@@ -7,9 +7,11 @@ import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideNgxMask } from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
-  providers: [ provideAnimations(),provideToastr({
+  providers: [provideNgxMask(),
+    provideAnimations(),provideToastr({
     positionClass: 'toast-top-right',
     timeOut: 3000,
     closeButton: true

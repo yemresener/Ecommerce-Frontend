@@ -1,0 +1,167 @@
+.dashboard-address-widget {
+  .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .widget-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid #2563eb;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: #eff6ff;
+      }
+    }
+  }
+
+  .header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* --- BACK BUTTON CSS --- */
+  .back-btn {
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: #f3f4f6; 
+    color: #111827;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+      font-size: 16px;
+    }
+
+    &:hover {
+      background: #e5e7eb;
+    }
+
+    &:active {
+      transform: scale(0.9); 
+      background: #d1d5db;
+    }
+
+    @media (max-width: 992px) {
+      display: flex; 
+    }
+  }
+
+  /* Address List - Mobile-first Grid */
+  app-address-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1024px) {
+      gap: 16px;
+    }
+
+    /* CARD STİLLERİ */
+    .card {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      margin-bottom: 0;
+      transition: all 0.2s ease;
+      overflow: hidden;
+
+      &:hover {
+        border-color: #d1d5db;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      &.default {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      .address-content {
+        padding: 14px 16px;
+      }
+
+      .card-top {
+        margin-bottom: 8px;
+      }
+
+      .address-badge {
+        font-size: 11px;
+        padding: 3px 10px;
+      }
+
+      .address-name {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .address-text {
+        font-size: 12.5px;
+        line-height: 1.5;
+      }
+
+      .card-footer {
+        padding: 10px 16px;
+        border-top: 1px solid #f3f4f6;
+      }
+
+      .phone-text {
+        font-size: 12px;
+      }
+
+      .set-default-btn {
+        font-size: 12px;
+      }
+
+      .icon-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  /* Mobil İçin Ekstra Widget Ayarları */
+  @media (max-width: 480px) {
+    .widget-header .add-btn {
+      padding: 5px 5px;
+      font-size: 12.5px;
+    }
+
+    app-address-list .card .address-content {
+      padding: 12px 14px;
+    }
+  }
+
+  
+
+
+
+}

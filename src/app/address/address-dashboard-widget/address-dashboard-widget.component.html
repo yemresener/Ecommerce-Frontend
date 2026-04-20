@@ -1,0 +1,25 @@
+
+<div class="dashboard-address-widget">
+    <div class="widget-header">
+
+      <div class="header-left-group">
+        <button class="back-btn" >
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <span class="widget-title">Adreslerim</span>
+      </div>
+
+      <button class="add-btn" (click)="openModal.emit('create')">+ Yeni adres</button>
+    </div>
+  
+    <app-address-list
+      [addresses]="addresses"
+      [loading]="loading"
+      (edit)="editRequest.emit($event)"
+      (delete)="deleteRequest.emit($event)"
+      (makeDefault)="makeDefault.emit($event)">
+      
+    </app-address-list>
+
+    
+  </div>
