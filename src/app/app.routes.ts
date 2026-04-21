@@ -17,6 +17,9 @@ import { AddressComponent } from './shared/address/address/address.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { PaymentResultComponent } from './payment/payment-result/payment-result.component';
 import { DashboardAddressComponent } from './dashboard/dashboard-address/dashboard-address.component';
+import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fotter-layout.component';
+import { DashboardOrdersComponent } from './dashboard/dashboard-orders/dashboard-orders.component';
+import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -32,6 +35,19 @@ export const routes: Routes = [
     },
     {
         path:'',
+        component:NoneFotterLayoutComponent,
+        children:[
+            {path:'hesabim',component:DashboardComponent,children:[
+                {path:'adreslerim',component:DashboardAddressComponent,title:'Adreslerim'},
+                {path:'siparislerim',component:DashboardOrdersComponent,title:'Siparişlerim'},
+                {path:'siparislerim/:id',component:OrderDetailComponent,title:'Siparişim'}
+
+            ],title:'Hesabım'},
+
+        ]
+    },
+    {
+        path:'',
         component:MainLayoutComponent,
         children:[
             {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
@@ -43,9 +59,7 @@ export const routes: Routes = [
     
             {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
             
-            {path:'hesabim',component:DashboardComponent,children:[
-                {path:'adreslerim',component:DashboardAddressComponent}
-            ],title:'hesabım'},
+ 
 
 
             {path:':slug',component:CategoryPageComponent,title:'list'},

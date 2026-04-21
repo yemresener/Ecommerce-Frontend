@@ -1,0 +1,374 @@
+h2 { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: #111827; 
+    margin-bottom: 16px; 
+}
+
+/* Filter */
+.filter-section {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.each-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.each-filter:hover { 
+    border-color: #3B82F6; 
+    color: #3B82F6; 
+    background: #f0f9ff; 
+}
+
+.each-filter.active { 
+    background: #3B82F6; 
+    color: white; 
+    border-color: #3B82F6; 
+}
+
+/* Order List */
+.order-section { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+
+.each-order {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.each-order:hover {
+    border-color: #d1e6ff;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
+    transform: translateY(-2px);
+}
+
+
+.order-info-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Badge'i görselin ortasına hizalar */
+    gap: 8px; /* Görsel ile badge arası boşluk */
+    flex-shrink: 0; /* Küçülmesini engeller */
+    min-width: 80px; /* Badge uzunsa görseli kaydırmasın */
+}
+/* Image */
+.order-img {
+    width: 64px; 
+    height: 64px;
+    border-radius: 8px;
+    background: #f9fafb;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #f3f4f6;
+}
+
+.order-img img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: contain; 
+    padding: 4px; /* Resmin kenarlara yapışmasını engeller */
+}
+
+/* Status & Typography */
+.order-status-wrapper { 
+    display: flex;
+    flex-direction: column; 
+    gap: 6px; 
+    flex: 1; 
+    min-width: 0; 
+}
+
+.order-id { 
+    font-size: 0.75rem; 
+    color: #9ca3af; 
+    font-weight: 600; 
+}
+
+.order-title { 
+    font-size: 0.875rem; /* Biraz daha okunaklı yapıldı */
+    font-weight: 500;
+    color: #111827; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.status-badge {
+    white-space: nowrap; /* Metnin kırılmasını engeller */
+    padding: 3px 8px; /* Bir tık daha kompakt yaptık */
+    font-size: 0.65rem;
+    border-radius: 5px;
+}
+
+.status-dot { 
+    width: 8px;
+    height: 8px; 
+    border-radius: 50%; 
+}
+
+/* Status Colors (Noktalar parent'a göre renk alır) */
+.status-badge.completed { background: #dcfce7; color: #16a34a; }
+.status-badge.completed .status-dot { background: #16a34a; }
+
+.status-badge.pending { background: #fef9c3; color: #ca8a04; }
+.status-badge.pending .status-dot { background: #ca8a04; }
+
+.status-badge.cancelled { background: #fee2e2; color: #dc2626; }
+.status-badge.cancelled .status-dot { background: #dc2626; }
+
+.status-badge.shipped { background: #dbeafe; color: #2563eb; }
+.status-badge.shipped .status-dot { background: #2563eb; }
+
+/* Right Section */
+.right { 
+    display: flex;
+    align-items: center; 
+    gap: 12px; 
+    margin-left: auto;
+    flex-shrink: 0; 
+}
+
+.info { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; /* Sağa yaslı olması daha profesyoneldir */
+    gap: 4px; 
+}
+
+.date { 
+    font-size: 0.75rem; 
+    color: #6b7280; 
+}
+
+.price { 
+    font-size: 1rem;
+    font-weight: 700;
+    color: #06772D; /* Fiyatı yeşil yerine koyu gri yapmak e-ticarette daha moderndir, istersen #06772D de bırakabilirsin */
+}
+.more-items {
+    font-size: 0.7rem;
+    color: #6b7280;
+    font-weight: 500;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 2px; /* Rozetle arasına hafif boşluk */
+}
+
+.chevron { 
+    color: #d1d5db; 
+    font-size: 1.25rem; 
+    transition: color 0.2s; 
+}
+
+.each-order:hover .chevron { 
+    color: #3B82F6; 
+}
+
+.more-orders{
+    border: none;
+    border:2px solid rgb(175, 175, 175);
+    background: none;
+    padding: 7px 14px 7px 14px;
+    font-size: 13px;   
+    cursor: pointer; 
+    border-radius: 5px;
+    transition: all 0.4s ease;
+    font-weight: 600;
+}
+.more-box{
+    display: flex;
+    justify-content: center;
+}
+.more-orders:hover{
+    border: 2px solid #3b82f6;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 16px;
+    border: 2px dashed #e5e7eb; /* Hafif kesikli çizgi boşluk hissini güzel verir */
+    text-align: center;
+    margin-top: 20px;
+}
+
+.empty-state-content {
+    max-width: 400px;
+}
+
+.empty-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: #f3f9ff;
+    color: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.empty-icon-wrapper span {
+    font-size: 40px;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* Alışverişe Başla Butonu */
+.primary-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+    text-decoration: none;
+}
+
+.primary-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+@media (max-width: 640px) {
+    /* Sipariş kartının iç boşluklarını ve elemanlar arası mesafeyi daraltıyoruz */
+    .each-order {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    /* Görseller mobilde çok yer kaplamasın diye bir tık küçültüyoruz */
+    .order-img {
+        width: 56px;
+        height: 56px;
+    }
+
+    /* Mobilde uzun başlıklar tek satırda hemen kesilmesin, maksimum 2 satır görünüp öyle üç nokta (...) olsun */
+    .order-title {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-size: 0.8125rem;
+        line-height: 1.3;
+    }
+
+    /* Sağ taraftaki fiyat ve tarih alanını daraltıyoruz */
+    .right {
+        gap: 3px;
+    }
+
+    .info {
+        gap: 2px;
+    }
+
+    .price {
+        font-size: 0.9rem;
+    }
+
+    .date {
+        font-size: 0.7rem;
+    }
+
+    /* Etiketleri (Badge) mobilde biraz daha zarif hale getiriyoruz */
+    .status-badge {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
+    
+    /* Filtre butonları mobilde çok büyük durmasın */
+    .each-filter {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    
+    .chevron {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width:420px){
+    .order-title {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-size: 0.7425rem;
+        font-weight: 100;
+        line-height: 1.3;
+    }
+}
+
+
+
+/* SKELETON  */
+
+.skeleton-box {
+    background: #f0f0f0; /* Shimmer altındaki temel renk */
+    border-radius: 4px;
+}
+
+.img-size { width: 64px; height: 64px; border-radius: 8px; }
+.badge-size { width: 70px; height: 18px; margin-top: 8px; border-radius: 99px; }
+
+.title-line { width: 80%; height: 14px; margin-bottom: 8px; }
+.sub-line { width: 40%; height: 12px; }
+
+.date-line { width: 80px; height: 10px; margin-bottom: 6px; }
+.price-line { width: 60px; height: 18px; }
+
+/* Skeleton kartlarının genel duruşu */
+.skeleton-card {
+    pointer-events: none;
+    border-color: #f3f4f6 !important;
+}

@@ -1,0 +1,9 @@
+<app-order-list [orders]="items" [loading]="loading" [isLoading]="isLoading"  [isLastPage]="meta?.current_page === meta?.last_page"
+ (loadMore)="loadMore()"
+ (filterChange)="changeFilter($event)"
+ (selectedOrder)="selectOrder($event)"
+></app-order-list>
+
+
+
+<app-fullpage-loader *ngIf="isLoading"></app-fullpage-loader>

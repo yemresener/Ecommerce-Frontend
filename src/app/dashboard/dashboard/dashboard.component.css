@@ -10,6 +10,7 @@
   padding-bottom: 40px;
   padding-top: 20px;
   box-sizing: border-box;
+  cursor: auto;
   @media (max-width: 576px) {
     margin-top: 10px;
     padding: 0 12px;
@@ -98,7 +99,7 @@
         text-decoration: none;
         color: #374151;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
         transition: all 0.2s ease;
         position: relative;
 
@@ -138,6 +139,14 @@
     }
   }
 
+
+  .chevron{
+    display: none;
+  }
+
+  
+
+
   /* --- SAĞ İÇERİK ALANI (ROUTER OUTLET) --- */
   .right {
     flex: 1;
@@ -164,7 +173,9 @@
 
   
 }
+@media (max-width:400px) {
 
+}
 @media (max-width: 780px) {
 
   .dashboard-container:not(.is-child-page) {
@@ -177,15 +188,43 @@
       position: relative;
       top: 0;
       border-radius: 0px;
+      box-shadow: none;
+      padding: 0px;
     }
 
+    .user-meta{
+      padding: 10px;
+    }
+    .left{
+      .user-info-title{
+        margin-bottom: 0px;
+      }
+      .left-routes {
+        gap: 0px;
+      }
+    }
+    
     .right {
       display: none;
     }
     .container{
       padding: 0;
     }
+  
+    .each-section{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+      height: 50px;
+      .chevron{
+        display: block;
+      }
+    
+    }
+ 
   }
+
  
   .dashboard-container.is-child-page {
     flex-direction: column;
@@ -202,4 +241,8 @@
       box-shadow: none;
     }
   }
+
+
+
 }
+

@@ -30,4 +30,14 @@ export class NavbarComponent {
     })
 
   }
+
+  isSearchOpen = false;
+  toggleSearch(): void {
+    this.isSearchOpen = !this.isSearchOpen;
+  }
+
+  closeSearch(): void {
+    this.isSearchOpen = false;
+  }
+
 }

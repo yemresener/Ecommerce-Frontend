@@ -1,14 +1,20 @@
+import { AddressInterface } from "../address-interface";
 import { OrderItems } from "./order-items";
 
 export interface Order {
+    id:number,
     ordered_at:string,
-    users_address_id:number,
     subTotal:number,
     total:number,
     installment_fee:number,
     installment:number,
+    discount_total:number,
     cargo_fee:number,
     payment_status:string,
-    status:number,
-    order_items:OrderItems[]
+    last_four:string,
+    card_bank:string,
+    status:string,
+    order_items_count:number,
+    order_items:OrderItems[],
+    shipping_address:AddressInterface
 }

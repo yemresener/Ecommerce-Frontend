@@ -1,0 +1,117 @@
+    <div class="page"*ngIf="order">
+    
+      <!-- Header -->
+      <div class="page-header" >
+        <button class="back-btn">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Siparişlerim
+        </button>
+        <div class="header-info">
+          <span class="order-number">#384201</span>
+          <span class="order-meta">{{order.ordered_at}} · {{order.order_items_count}} ürün</span>
+        </div>
+        <span class="status-badge shipped"><span class="status-dot"></span> {{order.status}}</span>
+      </div>
+    
+      <!-- Timeline -->
+      <div class="card">
+        <div class="card-title">Kargo Durumu</div>
+        <div class="timeline">
+          <div class="progress-line" style="width: 15%"></div>
+    
+          <div class="step active">
+            <div class="step-circle"><span class="material-symbols-outlined">check</span></div>
+            <span class="step-label">Sipariş Alındı</span>
+            <span class="step-date">18 Nis</span>
+          </div>
+         
+          <div class="step">
+            <div class="step-circle"><span class="material-symbols-outlined">local_shipping</span></div>
+            <span class="step-label">Kargoya Verildi</span>
+            <span class="step-date">20 Nis</span>
+          </div>
+          <div class="step">
+            <div class="step-circle"><span class="material-symbols-outlined">home</span></div>
+            <span class="step-label">Teslim Edildi</span>
+            <span class="step-date">—</span>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Products -->
+      <div class="card">
+        <div class="card-title">Ürünler</div>
+        <div class="product-list">
+    
+          <div class="product-row" *ngFor="let item of order.order_items">
+            <div class="product-img"><img src="{{item.image}}" alt=""></div>
+            <div class="product-info">
+              <div class="product-name">{{item.name}}</div>
+              <div class="product-variant"> Adet: {{item.quantity}}</div>
+            </div>
+            <span class="product-price">{{item.total }} TL</span>
+          </div>
+    
+
+    
+        </div>
+      </div>
+    
+      <!-- Two col -->
+      <div class="two-col">
+    
+        <div class="card">
+          <div class="card-title">Teslimat & Ödeme</div>
+    
+          <div class="info-row">
+            <div class="info-icon"><span class="material-symbols-outlined">location_on</span></div>
+            <div>
+              <div class="info-label">Teslimat Adresi</div>
+              <div class="info-value">{{address.full_name}}<br>{{address.address_line}}2<br>{{address.city}} / {{address.state}}</div>
+            </div>
+          </div>
+    
+          <div class="info-row">
+            <div class="info-icon"><span class="material-symbols-outlined">credit_card</span></div>
+            <div>
+              <div class="info-label">Ödeme Yöntemi</div>
+              <div class="info-value">{{order.card_bank}} •••• {{order.last_four}}<br> {{order.installment ?  order.installment+' Taksit' : 'Tek çekim'}} </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="card">
+          <div class="card-title">Sipariş Özeti</div>
+    
+          <div class="summary-row">
+            <span class="summary-label">Ara Toplam</span>
+            <span class="summary-value">{{order.subTotal}} TL</span>
+          </div>
+
+          <div class="summary-row" *ngIf="order.installment>1">
+            <span class="summary-label">Taksit tutarı</span>
+            <span class="summary-value">{{order.installment_fee}} TL</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-label">Kargo</span>
+            <span class="summary-value discount">{{order.cargo_fee>0 ? order.cargo_fee : 'Ücretsiz'}}</span>
+          </div>
+         
+          <div class="summary-row" *ngIf="order.discount_total>0">
+            <span class="summary-label">İndirim</span>
+            <span class="summary-value discount">-{{order.discount_total}} TL</span>
+          </div>
+          <div class="summary-row total">
+            <span class="summary-label">Toplam</span>
+            <span class="summary-value">{{order.total}} TL </span>
+          </div>
+    
+          <!-- shipped → sadece iptal butonu -->
+          <div class="btn-row">
+            <button class="btn btn-cancel">Siparişi İptal Et</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
