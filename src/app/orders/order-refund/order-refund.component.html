@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="header">
+        <div class="top-left">
+
+        </div>
+     
+      <h1>İade Talebi Oluştur</h1>
+      <p>İade etmek istediğiniz ürünleri seçin ve miktarı belirtin.</p>
+    </div>
+   
+    <div class="info-note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Talebiniz onaylandıktan sonra kargo bilgileri e-posta ile gönderilecek, ürünü teslim ettikten sonra iade işleminiz başlatılacaktır.
+    </div>
+   
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Ürünler</span>
+        <button class="select-all" onclick="toggleAll()">Tümünü Seç</button>
+      </div>
+   
+
+      <div class="item" *ngFor="let item of orderItems" [class.selected]="item.selectedForReturn">
+  
+        <div class="checkbox-wrap" (click)="selectItem(item)">
+          <div class="checkbox">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="item-img-placeholder">
+            <img [src]="item.image" alt="{{item.name}}">
+        </div>
+        
+        <div class="item-info">
+          <div class="item-name">{{ item.name }}</div>
+          <div class="item-meta">Adet: {{item.quantity}} · {{item.price}} TL / adet</div>
+          <div class="qty-control">
+            <button class="qty-btn" 
+                    (click)="decreaseQty(item)" 
+                    [disabled]="item.returnQty <= 1">−</button>
+            
+            <input class="qty-input" 
+                   type="number" 
+                   [(ngModel)]="item.returnQty" 
+                   (change)="validateQty(item)">
+            
+            <button class="qty-btn" 
+                    (click)="increaseQty(item)" 
+                    [disabled]="item.returnQty >= item.available_quantity">+</button>
+            
+            <span class="qty-label">maks. {{item.available_quantity}}</span>
+          </div>
+        </div>
+        
+        <div class="item-right">
+          <span class="item-price" *ngIf="item.selectedForReturn">{{item.total}} TL</span>
+          <span class="item-price" *ngIf="!item.selectedForReturn" style="color: #9C9189;">0 TL</span>
+        </div>
+      </div>
+   
+ 
+    </div>
+   
+    <div class="section reason-section">
+      <div class="section-header">
+        <span class="section-title">İade Sebebi</span>
+      </div>
+      <div class="reason-wrap">
+     
+        <textarea id="reasonText" [(ngModel)]="refundReason" placeholder="İade sebebini yazınız. En fazla 200 karakter kabul edilmektedir."></textarea>
+      </div>
+    </div>
+   
+    <div class="summary" id="summary" style="display:none">
+      <div id="summaryItems"></div>
+      <div class="summary-total">
+        <span>Toplam İade Tutarı</span>
+        <span id="summaryTotal">0,00 ₺</span>
+      </div>
+    </div>
+   
+    <button class="submit-btn" (click)="submitReturn()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      İade Talebi Gönder
+    </button>
+  </div>
+
+
+  <app-main-toast *ngIf="toastMessage"
+  [type]="status"
+  [message]="toastMessage"
+  (closed)="toastMessage=''"
+  ></app-main-toast>
+  

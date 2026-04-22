@@ -7,14 +7,28 @@
           Siparişlerim
         </button>
         <div class="header-info">
-          <span class="order-number">#384201</span>
+          <span class="order-number">#{{order.id}}</span>
           <span class="order-meta">{{order.ordered_at}} · {{order.order_items_count}} ürün</span>
         </div>
-        <span class="status-badge shipped"><span class="status-dot"></span> {{order.status}}</span>
-      </div>
-    
+        <span class="status-badge" [ngClass]="order.status">
+          <span class="status-dot"></span> 
+          {{ order.status === 'cancelled' ? 'İptal Edildi' : order.status }}
+        </span>
+        </div>
+        <div class="card alert-cancelled" *ngIf="order.status === 'cancelled'">
+          <div class="alert-icon">
+            <span class="material-symbols-outlined">error</span>
+          </div>
+          <div class="alert-content">
+            <div class="alert-title">Siparişiniz İptal Edilmiştir</div>
+            <div class="alert-desc">
+              Bu sipariş iptal edilmiştir ve ödeme iadeniz başlatılmıştır. 
+              Tutarın kartınıza yansıması bankanıza bağlı olarak <b>1-7 iş günü</b> sürebilir.
+            </div>
+          </div>
+        </div>
       <!-- Timeline -->
-      <div class="card">
+      <div class="card" *ngIf="order.status !== 'cancelled'">
         <div class="card-title">Kargo Durumu</div>
         <div class="timeline">
           <div class="progress-line" style="width: 15%"></div>
@@ -22,9 +36,9 @@
           <div class="step active">
             <div class="step-circle"><span class="material-symbols-outlined">check</span></div>
             <span class="step-label">Sipariş Alındı</span>
-            <span class="step-date">18 Nis</span>
+            <span class="step-date">{{order.ordered_at}}</span>
           </div>
-         
+          
           <div class="step">
             <div class="step-circle"><span class="material-symbols-outlined">local_shipping</span></div>
             <span class="step-label">Kargoya Verildi</span>
@@ -75,7 +89,7 @@
             <div class="info-icon"><span class="material-symbols-outlined">credit_card</span></div>
             <div>
               <div class="info-label">Ödeme Yöntemi</div>
-              <div class="info-value">{{order.card_bank}} •••• {{order.last_four}}<br> {{order.installment ?  order.installment+' Taksit' : 'Tek çekim'}} </div>
+              <div class="info-value"> •••• {{order.last_four}}<br> {{order.installment>1 ?  order.installment+' Taksit' : 'Tek çekim'}} </div>
             </div>
           </div>
         </div>
@@ -109,9 +123,27 @@
     
           <!-- shipped → sadece iptal butonu -->
           <div class="btn-row">
-            <button class="btn btn-cancel">Siparişi İptal Et</button>
+            <button (click)="showCancelConfirm=true" class="btn btn-cancel" *ngIf="order.status ==='pending' ">Siparişi İptal Et</button>
           </div>
         </div>
     
       </div>
     </div>
+
+
+
+
+
+    <app-main-toast *ngIf="toastMessage"
+    [type]="status"
+    [message]="toastMessage"
+    (closed)="toastMessage=''"
+    ></app-main-toast>
+    
+    <app-delete-confirm [isOpen]="showCancelConfirm" [message]="confirmMessage"
+    (confirm)="cancelOrder()" (cancel)="showCancelConfirm=false"></app-delete-confirm>
+
+    <app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
+
+
+    

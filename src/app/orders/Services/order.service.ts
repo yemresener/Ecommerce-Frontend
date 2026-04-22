@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Order } from '../../interfaces/order/order';
 import { PaginationMeta } from '../../interfaces/pagination-meta';
 import { AddressInterface } from '../../interfaces/address-interface';
+import { OrderItems } from '../../interfaces/order/order-items';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,24 @@ export class OrderService {
     const url = `${environment.apiUrl}order/${id}`;
     return this.http.get<{data:Order,address:AddressInterface}>(url,{withCredentials:true});
   }
+
+  cancelOrder(id:number){
+    const url = `${environment.apiUrl}order/cancel/${id}`;
+    return this.http.post(url,{},{withCredentials:true});
+  }
+
+  getRefundPage(id:number){
+    const url = `${environment.apiUrl}order/refundInfo/${id}`;
+    return this.http.get<{data:OrderItems[]}>(url,{withCredentials:true});
+  }
+
+  createRefundRequest(id:number,payload:{order_items:{item_id:number,quantity:number}[],
+    reason:string})
+    {
+    const url = `${environment.apiUrl}order/refundRequest/${id}`;
+    return this.http.post(url,payload,{withCredentials:true});
+  }
+
 
 
 }

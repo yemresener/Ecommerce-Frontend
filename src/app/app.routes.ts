@@ -20,6 +20,7 @@ import { DashboardAddressComponent } from './dashboard/dashboard-address/dashboa
 import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fotter-layout.component';
 import { DashboardOrdersComponent } from './dashboard/dashboard-orders/dashboard-orders.component';
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
+import { OrderRefundComponent } from './orders/order-refund/order-refund.component';
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
@@ -40,7 +41,8 @@ export const routes: Routes = [
             {path:'hesabim',component:DashboardComponent,children:[
                 {path:'adreslerim',component:DashboardAddressComponent,title:'Adreslerim'},
                 {path:'siparislerim',component:DashboardOrdersComponent,title:'Siparişlerim'},
-                {path:'siparislerim/:id',component:OrderDetailComponent,title:'Siparişim'}
+                {path:'siparislerim/:id',component:OrderDetailComponent,title:'Siparişim'},
+                {path:'siparislerim/iade/:id',component:OrderRefundComponent,title:'İade'}
 
             ],title:'Hesabım'},
 

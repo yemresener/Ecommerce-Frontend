@@ -4,9 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Order } from '../../interfaces/order/order';
 import { ActivatedRoute } from '@angular/router';
 import { AddressInterface } from '../../interfaces/address-interface';
+import { MainToastComponent } from '../../shared/components/toast/main-toast/main-toast.component';
+import { DeleteConfirmComponent } from '../../shared/components/delete-confirm/delete-confirm.component';
+import { FullpageLoaderComponent } from '../../shared/fullpage-loader/fullpage-loader.component';
 @Component({
   selector: 'app-order-detail',
-  imports: [CommonModule],
+  imports: [CommonModule,MainToastComponent,DeleteConfirmComponent,FullpageLoaderComponent],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.css'
 })
@@ -35,5 +38,32 @@ export class OrderDetailComponent {
       }
     })
   }
+  toastMessage!:string;
+  status:'success' | 'error' | 'warning' | 'info' = 'success';
+
+  showCancelConfirm=false;
+  confirmMessage= 'Siparişi iptal etmek istediğinize emin misiniz?';
+  loading =false;
+  cancelOrder(){
+    this.loading = true;
+    this.showCancelConfirm=false;
+    this.service.cancelOrder(this.order.id).subscribe({
+      next:(res)=>{
+        this.order.status='cancelled';
+        this.status="success"
+        this.toastMessage='Sipariş iptal edildi.'
+        this.loading = false;
+
+      },
+      error:(err)=>{
+        this.status="error"
+        this.toastMessage=err.error.message;
+        this.loading = false;
+
+      }
+    })
+  }
+
+
 
 }
