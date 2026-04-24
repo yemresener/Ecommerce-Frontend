@@ -46,6 +46,33 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
   }
 }
 
+.card.alert-refund{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+
+  background: #f0f9ff; color: #2563eb; border: 1.5px solid #bfdbfe;
+  .alert-icon {
+    color: #2563eb;
+    span { font-size: 28px; }
+  }
+
+  .alert-content {
+    .alert-title {
+      color: #3B82F6;
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .alert-desc {
+      color: #3B82F6;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+}
+
 .status-badge {
   margin-left: auto;
   display: inline-flex; align-items: center; gap: 5px;
@@ -58,7 +85,9 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 /* Card */
-.card { background: white; border-radius: 14px; border: 1.5px solid #f0f0f0; padding: 20px; }
+.card { background: white;
+   border-radius: 14px;
+    border: 1.5px solid #f0f0f0; padding: 20px; }
 .card-title {
   font-size: 0.78rem; font-weight: 600; color: #6b7280;
   text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px;
@@ -154,4 +183,288 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
 @media (max-width: 580px) {
   .two-col { grid-template-columns: 1fr; }
   .status-badge { display: none; }
+}
+
+.refund-items-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+}
+
+.mini-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.mini-info .amount {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* İade Timeline Özelleştirme */
+.refund-timeline {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Footer & Kargo Bilgisi */
+.refund-footer {
+  display: grid;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.refund-footer div {
+  font-size: 0.75rem;
+  color: #4b5563;
+  margin: 4px 0;
+}
+
+.refund-footer strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.refund-box {
+  margin-bottom: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Yazı solda icon sağda */
+  padding: 10px 0;
+  padding-bottom: 0;
+  user-select: none;
+}
+
+.transition-icon {
+  transition: transform 0.3s ease;
+  color: #3B82F6;
+}
+
+.transition-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.refund-inner-card {
+  margin-top: 10px;
+  border-style: dashed; /* İade olduğunu belli etmek için ince bir detay */
+  border-color: #bfdbfe;
+  background-color: #f8fafc;
+}
+
+.footer-row {
+  display: flex;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  gap: 5px;
+
+}
+
+
+
+/* CARGO */
+
+/* Her Bir Kargo Grubu */
+.cargo-group {
+  border: 1px solid #f3f4f6;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.cargo-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Kargo Ürünleri ve Başlık Alanı */
+.cargo-products {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f9fafb;
+  margin-bottom: 20px;
+}
+
+.product-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #f3f4f6;
+}
+
+
+
+.cargo-item {
+  position: relative;
+  display: inline-block;
+}
+
+
+.item-quantity{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #3B82F6;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+
+.cargo-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Kargo Şirketi Rozeti */
+.cargo-badge {
+  background: #eff6ff; /* Hafif mavi arka plan */
+  color: #1d4ed8;    /* Koyu mavi yazı */
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Aradaki Nokta */
+.divider {
+  color: #d1d5db;
+  font-weight: bold;
+}
+
+/* Takip Numarası */
+.tracking-number {
+  font-family: 'Monaco', 'Consolas', monospace; /* Kod gibi dursun, okunması kolaydır */
+  font-size: 0.85rem;
+  color: #4b5563;
+  font-weight: 600;
+  background: #f9fafb;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #f3f4f6;
+}
+
+.refund-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge .material-symbols-outlined {
+  font-size: 13px; /* İkonu yazıya uydurmak için küçülttük */
+}
+
+/* Başarılı (Onaylanan) Rozeti */
+.badge-success {
+  background-color: #ecfdf5; /* Açık nane yeşili */
+  color: #059669; /* Koyu zümrüt yeşili */
+  border: 1px solid #a7f3d0;
+}
+
+/* Hatalı/Reddedilen Rozeti */
+.badge-danger {
+  background-color: #fef2f2; /* Açık kırmızı */
+  color: #dc2626; /* Koyu kırmızı */
+  border: 1px solid #fecaca;
+}
+
+
+/* --- MAĞAZA NOTU KUTUSU --- */
+.refund-admin-note {
+  background-color: #fff7ed; /* Çok hafif, göz yormayan turuncu/krem arka plan */
+  border-left: 4px solid #f97316; /* Sol tarafa dikkat çekici turuncu vurgu çizgisi */
+  border-radius: 0 8px 8px 0; /* Sol taraf düz (çizgi için), sağ taraf yuvarlak */
+  padding: 16px;
+  margin: 20px 0; /* Üstten ve alttan nefes alsın */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Tasarıma derinlik katan çok hafif gölge */
+}
+
+/* Başlık ve İkon Hizalaması */
+.refund-admin-note .note-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a3412; /* Başlık için koyu, okunaklı kiremit/turuncu tonu */
+  margin-bottom: 8px;
+}
+
+/* İkon Boyutu */
+.refund-admin-note .note-header .material-symbols-outlined {
+  font-size: 20px; /* Yazıyla aynı hizada ve orantılı durması için */
+}
+
+.refund-admin-note .note-header strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Mağaza Notu Metni */
+.refund-admin-note p {
+  margin: 0; /* Angular/Tarayıcı varsayılan boşluklarını eziyoruz */
+  color: #4b5563; /* Kapkara siyah yerine şık bir antrasit gri */
+  font-size: 0.9rem;
+  line-height: 1.5; /* Metin uzun olursa satırlar birbirine girmesin diye */
+}
+
+
+.refund-total-box {
+  display: flex;
+  justify-content: space-between; /* Yazıyı sola, parayı sağa atar */
+  align-items: center;
+  background-color: #f0fdf4; /* Çok hafif, ferah bir nane yeşili (para dönüşü hissi) */
+  border: 1px dashed #86efac; /* Kesik çizgili kenarlık, "fatura/fiş" hissiyatı verir */
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 20px;
+}
+
+.refund-total-box .total-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151; /* Koyu gri */
+}
+
+.refund-total-box .total-amount {
+  font-size: 1.25rem; /* Parayı büyük ve net gösteriyoruz */
+  font-weight: 800; /* Ekstra kalın */
+  color: #166534; /* Koyu, güven veren bir zümrüt yeşili */
+  letter-spacing: -0.5px; /* Rakamları hafif sıkıştırarak modern bir font havası verdik */
 }
