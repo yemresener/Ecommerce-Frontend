@@ -19,6 +19,16 @@ export class ReviewServiceService {
   }
 
 
+  review(){
+    const url = `${environment.apiUrl}review`;
+    return this.http.get<{data:Review[]}>(url,{withCredentials:true});
+  }
+
+  deleteReview(id:number){
+    const url = `${environment.apiUrl}review/${id}`;
+    return this.http.delete<{message:string}>(url,{withCredentials:true});
+  }
+
   
 
   filterReview(params:FilterParams){

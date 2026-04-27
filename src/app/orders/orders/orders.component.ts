@@ -32,10 +32,11 @@ export class OrdersComponent extends BasePaginationDirectiveDirective<Order>{
 
   fetchData(page:number){
     this.loading=true;
-
+    
     this.service.orders({ page, ...this.filters }).subscribe({
       next:(res)=> {
         this.handleSuccess(res.data,res.meta,page===1);
+        console.log(res);
       },
        
         error:(err)=>this.loading=false
@@ -43,6 +44,8 @@ export class OrdersComponent extends BasePaginationDirectiveDirective<Order>{
   }
 
   changeFilter(filter:{status:string | undefined}){
+    if(this.filters?.status=== filter.status) return;
+    
     this.filters = {
       ...this.filters,
       ...filter

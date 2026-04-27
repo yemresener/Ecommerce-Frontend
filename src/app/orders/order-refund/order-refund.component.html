@@ -16,7 +16,7 @@
     <div class="section">
       <div class="section-header">
         <span class="section-title">Ürünler</span>
-        <button class="select-all" onclick="toggleAll()">Tümünü Seç</button>
+       <!--  <button class="select-all" onclick="toggleAll()">Tümünü Seç</button> -->
       </div>
    
 
@@ -66,11 +66,11 @@
    
     <div class="section reason-section">
       <div class="section-header">
-        <span class="section-title">İade Sebebi</span>
+        <span class="section-title">İade / Değişim Sebebi</span>
       </div>
       <div class="reason-wrap">
      
-        <textarea id="reasonText" [(ngModel)]="refundReason" placeholder="İade sebebini yazınız. En fazla 200 karakter kabul edilmektedir."></textarea>
+        <textarea id="reasonText" [(ngModel)]="refundReason" placeholder="İade / Değişim sebebini yazınız. En fazla 200 karakter kabul edilmektedir."></textarea>
       </div>
     </div>
    
@@ -95,3 +95,5 @@
   (closed)="toastMessage=''"
   ></app-main-toast>
   
+
+  <app-fullpage-loader *ngIf="fullPageLoader"></app-fullpage-loader>

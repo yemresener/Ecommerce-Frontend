@@ -80,6 +80,10 @@ export class OrderDetailComponent extends BrowserAware{
       case 'preparing': return 15;
       case 'partial': return 100;
       case 'shipped': return 50;
+      
+      case 'received': return 75;
+      case 'rejected': return 100;
+
       case 'completed': return 100;
       case 'delivered': return 100;
 
@@ -106,5 +110,8 @@ export class OrderDetailComponent extends BrowserAware{
     }
   }
 
+  backBtn(){
+    this.router.navigate([`/hesabim/siparislerim`]);
+  }
 
 }

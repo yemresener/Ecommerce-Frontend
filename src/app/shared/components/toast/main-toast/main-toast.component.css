@@ -1,23 +1,21 @@
-
-
 .toast { 
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    z-index: 999999;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 999999;
 
-    width: 380px; 
-    background: white; 
-    border-radius: 12px; 
-    padding: 14px 16px; 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-    border: 0.5px solid var(--color-border-tertiary); 
-    overflow: hidden; 
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-
-  }
+  width: 380px; /* Masaüstü için varsayılan genişlik */
+  max-width: calc(100vw - 48px); /* Ekrandan taşmayı engeller */
+  background: white; 
+  border-radius: 12px; 
+  padding: 14px 16px; 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  border: 0.5px solid var(--color-border-tertiary); 
+  overflow: hidden; 
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08); /* Gölgelendirmeyi biraz yumuşattım */
+}
 
 .toast::before { 
   content: ''; 
@@ -72,6 +70,7 @@
   font-size: 14px;
   line-height: 1;
   color: var(--color-text-secondary);
+  transition: background 0.2s; /* Hafif bir geçiş efekti ekledim */
 }
 
 .toast-close:hover {
@@ -85,39 +84,69 @@
   background: var(--color-border-tertiary); 
 }
 
-.toast-progress-bar { height: 100%; }
+.toast-progress-bar { 
+  height: 100%; 
+  width: 100%;
+  animation: progress 3s linear forwards;
+}
+
 .toast.success .toast-progress-bar { background: #16a34a; }
 .toast.error .toast-progress-bar { background: #ef4444; }
 .toast.warning .toast-progress-bar { background: #f59e0b; }
 .toast.info .toast-progress-bar { background: #3b82f6; }
 
-
-.toast-progress-bar { 
-    height: 100%; 
-    width: 100%;
-    animation: progress 3s linear forwards;
-}
-
 @keyframes progress {
-    from { width: 100%; }
-    to { width: 0%; }
+  from { width: 100%; }
+  to { width: 0%; }
 }
 
-/* slideIn animasyonu */
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
+/* Masaüstü Animasyonları (Sağdan Sola) */
+@keyframes slideInDesktop {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes slideOut {
-    from { opacity: 1; transform: translateX(0); }
-    to { opacity: 0; transform: translateX(30px); }
+@keyframes slideOutDesktop {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(30px); }
 }
 
 .toast {
-    animation: slideIn 0.3s ease forwards;
+  animation: slideInDesktop 0.3s ease forwards;
 }
 
 .toast.hide {
-    animation: slideOut 0.3s ease forwards;
+  animation: slideOutDesktop 0.3s ease forwards;
+}
+
+/* =========================================
+   MOBİL UYUM (RESPONSIVE)
+   ========================================= */
+@media (max-width: 600px) {
+  .toast {
+    /* Mobilde sağa yaslamak yerine ekranı ortalayarak kaplamasını sağlıyoruz */
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    width: auto; 
+    max-width: none;
+    
+    /* Animasyonları mobilde yukarıdan aşağı inecek şekilde değiştiriyoruz */
+    animation: slideInMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .toast.hide {
+    animation: slideOutMobile 0.3s ease forwards;
+  }
+
+  /* Mobil Animasyonları (Yukarıdan Aşağı) */
+  @keyframes slideInMobile {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideOutMobile {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-40px); }
+  }
 }

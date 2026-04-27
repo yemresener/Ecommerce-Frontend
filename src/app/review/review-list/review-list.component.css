@@ -1,0 +1,318 @@
+.each-comment {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 18px 48px 18px 18px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.each-comment:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border-color: #e5e7eb;
+}
+
+.comment-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Rating */
+.comment-rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fdfaf2;
+    border: 1px solid #fbeec8;
+    border-radius: 20px;
+    padding: 3px 10px;
+}
+
+.stars-comment i, .comment-rating-badge i {
+    color: #f5a623;
+    font-size: 11px;
+}
+
+.rating-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #d48b11;
+}
+
+/* Status */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.status-approved { background: #ecfdf5; color: #065f46; }
+.status-approved .status-dot { background: #10b981; }
+
+.status-pending { background: #fffbeb; color: #92400e; }
+.status-pending .status-dot { background: #f59e0b; }
+
+.status-rejected { background: #fef2f2; color: #991b1b; }
+.status-rejected .status-dot { background: #ef4444; }
+
+.comment-date {
+    font-size: 12px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.comment-content {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.65;
+}
+
+/* Ürün */
+.comment-product {
+    flex-shrink: 0;
+}
+
+.comment-product a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.comment-product img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s ease;
+}
+
+
+
+.product-name {
+    font-size: 11px;
+    color: #6b7280;
+    text-align: center;
+    width: 64px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Settings */
+.settings-container {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.settings-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.settings-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    min-width: 140px;
+    overflow: hidden;
+    animation: fadeInDown 0.15s ease forwards;
+}
+
+.dropdown-item {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+}
+
+.dropdown-item:hover { background: #f9fafb; }
+
+.dropdown-item.delete-btn { color: #ef4444; }
+.dropdown-item.delete-btn i { color: #ef4444; }
+.dropdown-item.delete-btn:hover { background: #fef2f2; }
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobil */
+@media (max-width: 576px) {
+    .each-comment {
+        flex-direction: column;
+        padding: 16px 44px 16px 16px;
+        gap: 12px;
+    }
+
+    .comment-product {
+        width: 100%;
+    }
+
+    .comment-product a {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    .comment-product img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .product-name {
+        width: auto;
+        font-size: 12px;
+        color: #374151;
+        font-weight: 500;
+    }
+
+    .comment-date {
+        font-size: 11px;
+    }
+}
+
+
+
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background-color: #fafafa;
+    border: 2px dashed #e0e0e0;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.empty-state-container:hover {
+    background-color: #f5f5f5;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    color: #d48b11; /* Yıldızlarla ve hover efektinle uyumlu marka rengi */
+    margin-bottom: 16px;
+    opacity: 0.6;
+    /* Ufak bir zıplama animasyonu için hazırlık (opsiyonel) */
+    animation: floatPaw 3s ease-in-out infinite; 
+}
+
+.empty-state-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    margin: 0 0 10px 0;
+}
+
+.empty-state-desc {
+    font-size: 14px;
+    color: #777;
+    max-width: 350px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* İkona tatlı, hafif bir süzülme efekti */
+@keyframes floatPaw {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+
+.loading-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    background-color: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    color: #6b7280;
+    font-size: 14px;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.loading-paw-icon {
+    font-size: 32px;
+    color: #d48b11;
+    animation: pawPulse 1s infinite alternate; /* Nefes alma efekti */
+}
+
+@keyframes pawPulse {
+    from { 
+        transform: scale(0.9); 
+        opacity: 0.6; 
+    }
+    to { 
+        transform: scale(1.1); 
+        opacity: 1; 
+    }
+}

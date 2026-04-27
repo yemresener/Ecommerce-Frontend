@@ -1,0 +1,23 @@
+<h2>Değerlendirmelerim</h2>
+
+<app-review-list [reviews]="reviews"
+    (goToAdvert)="reDirectAdvert($event)"
+    (delete)="showDelete($event)"
+    [isLoading]="loading"
+></app-review-list>
+
+
+<app-main-toast *ngIf="toastMessage"
+[type]="status"
+[message]="toastMessage"
+(closed)="toastMessage=''"
+></app-main-toast>
+
+
+<app-delete-confirm [isOpen]="showDeleteConfirm"
+ [message]="confirmMessage"
+ (confirm)="deleteReview()"
+ (cancel)="onDeleteCancel()"
+ 
+ ></app-delete-confirm>
+

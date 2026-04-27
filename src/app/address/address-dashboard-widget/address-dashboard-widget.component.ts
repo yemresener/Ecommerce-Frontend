@@ -2,6 +2,7 @@ import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { AddressInterface } from '../../interfaces/address-interface';
 import { CommonModule } from '@angular/common';
 import { AddressListComponent } from '../address-list/address-list.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-address-dashboard-widget',
   imports: [CommonModule,AddressListComponent],
@@ -9,6 +10,7 @@ import { AddressListComponent } from '../address-list/address-list.component';
   styleUrl: './address-dashboard-widget.component.css'
 })
 export class AddressDashboardWidgetComponent {
+  constructor(private router:Router){}
   @Input() addresses: AddressInterface[] | null = null;
   @Input() loading: boolean = false;
 
@@ -17,6 +19,7 @@ export class AddressDashboardWidgetComponent {
   @Output() deleteRequest = new EventEmitter<number>();
   @Output() makeDefault = new EventEmitter<number>();
   
-  goBack() {
+  backBtn() {
+    this.router.navigate(['/hesabim']);
   }
 }

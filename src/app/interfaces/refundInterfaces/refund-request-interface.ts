@@ -9,6 +9,7 @@ export interface RefundRequestInterface {
     shipped_at:string,
     received_at:string,
     admin_note:string,
+    created_at:string,
     items:RefundRequestItemsInterface[]
     
 }

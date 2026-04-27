@@ -2,7 +2,7 @@
     
       <!-- Header -->
       <div class="page-header" >
-        <button class="back-btn">
+        <button class="back-btn" (click)="backBtn()">
           <span class="material-symbols-outlined">arrow_back</span>
           Siparişlerim
         </button>
@@ -227,10 +227,7 @@
                 </div>
               </div>
             </div>
-            <div class="refund-total-box">
-              <span class="total-label">İade Edilecek Toplam:</span>
-              <span class="total-amount">{{ order.refund_sum_amount }} TL</span>
-            </div>
+           
           </div>
           <div class="refund-admin-note" *ngIf="refund.admin_note">
             <div class="note-header">
@@ -246,16 +243,24 @@
             <div class="step active">
               <div class="step-circle"><span class="material-symbols-outlined">description</span></div>
               <span class="step-label">Talep Alındı</span>
-              <span class="step-date">{{ order.ordered_at }}</span> 
+              <span class="step-date">{{ refund.created_at }}</span> 
             </div>
       
-            <div class="step" [class.active]="refund.status === 'shipped' || refund.status === 'completed' || refund.status === 'partial'">
+            <div class="step" [class.active]="refund.status === 'shipped' || refund.status === 'received' ||refund.status === 'rejected'||
+             refund.status === 'completed' || refund.status === 'partial'">
               <div class="step-circle"><span class="material-symbols-outlined">local_shipping</span></div>
               <span class="step-label">İade Kargoda</span>
               <span class="step-date">{{ refund.shipped_at || 'Bekleniyor' }}</span>
             </div>
+
+            <div class="step" [class.active]="refund.status === 'received' ||  refund.status === 'rejected'||
+            refund.status === 'completed' || refund.status === 'partial'">
+              <div class="step-circle"><span class="material-symbols-outlined">hourglass_check</span></div>
+              <span class="step-label">İade Teslim Alındı</span>
+              <span class="step-date">{{ refund.shipped_at || 'Bekleniyor' }}</span>
+            </div>
       
-            <div class="step" *ngIf="refund.status !== 'partial'" [class.active]="refund.status === 'completed'">
+            <div class="step" *ngIf="refund.status !== 'partial' && refund.status !== 'rejected'" [class.active]="refund.status === 'completed'">
               <div class="step-circle"><span class="material-symbols-outlined">done_all</span></div>
               <span class="step-label">İade Onaylandı</span>
               <span class="step-date">{{ refund.received_at || '—' }}</span>
@@ -265,6 +270,12 @@
               <div class="step-circle"><span class="material-symbols-outlined">rule</span></div>
               <span class="step-label">Kısmen Onaylandı</span>
               <span class="step-date">{{ refund.received_at || '—' }}</span>
+            </div>
+            <div class="step" *ngIf="refund.status === 'rejected'" [class.active]="refund.status === 'rejected'">
+              <div class="step-circle"><span class="material-symbols-outlined">cancel</span></div>
+              <span class="step-label">İade reddedildi.</span>
+              <span class="step-date">{{ refund.received_at || '—' }}
+              </span>
             </div>
           </div>
 
@@ -284,6 +295,12 @@
               <span>{{ refund.reason }}</span>
             </div>
           </div>
+
+          
+        </div>
+        <div class="refund-total-box" *ngIf="order.refund_sum_amount">
+          <span class="total-label">İade Edilen Toplam:</span>
+          <span class="total-amount">{{ order.refund_sum_amount }} TL</span>
         </div>
       </div>
 

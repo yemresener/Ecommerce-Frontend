@@ -1,0 +1,73 @@
+<ng-container *ngIf="isLoading; else loadedState">
+    <div class="loading-state-container">
+        <i class="fas fa-paw loading-paw-icon"></i>
+        <span>Patili dostların yorumları getiriliyor...</span>
+    </div>
+</ng-container>
+
+<ng-template #loadedState>
+    
+    <ng-container *ngIf="reviews && reviews.length > 0; else noReviews">
+        <div class="each-comment" *ngFor="let item of reviews">
+
+            <div class="settings-container">
+                <button class="settings-btn" (click)="toggleMenu(item, $event)">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu" *ngIf="activeReview === item">
+                    <button class="dropdown-item delete-btn" (click)="deleteComment(item)">
+                        <i class="fas fa-trash-alt"></i> Sil
+                    </button>
+                </div>
+            </div>
+
+            <div class="comment-main">
+                <div class="comment-header">
+                    <div class="comment-meta">
+                        <div class="comment-rating-badge">
+                            <ng-container *ngFor="let star of [1,2,3,4,5]">
+                                <i class="fa-star" [ngClass]="star <= item.rating ? 'fas' : 'fa-regular'"></i>
+                            </ng-container>
+                            <span class="rating-text">{{item?.rating}}</span>
+                        </div>
+
+                        <span class="status-badge" [ngClass]="{
+                            'status-approved': item.status === 'Aktif',
+                            'status-pending':  item.status === 'Beklemede',
+                            'status-rejected': item.status === 'Pasif'
+                        }">
+                            <span class="status-dot"></span>
+                            {{item.status}}
+                        </span>
+                    </div>
+                    <label class="comment-date">{{item?.comment_date}}</label>
+                </div>
+
+                <div class="comment-content">
+                    {{item?.comment}}
+                </div>
+            </div>
+
+            <div class="comment-product">
+                <a href="urun/{{item.advert_slug}}">
+                    <img [src]="item.image || 'assets/images/defaultProduct.jpg'" alt="">
+                    <span class="product-name">{{item.product_name}}</span>
+                </a>
+            </div>
+
+        </div>
+    </ng-container>
+
+    <ng-template #noReviews>
+        <div class="empty-state-container">
+            <div class="empty-state-icon">
+                <i class="fas fa-paw"></i>
+            </div>
+            <h3 class="empty-state-title">Henüz Değerlendirme Yok</h3>
+            <p class="empty-state-desc">
+                Patili dostlarımız için bu ürün henüz yorum almamış. İlk değerlendirmeyi yaparak diğer kullanıcılara yol göster!
+            </p>
+        </div>
+    </ng-template>
+
+</ng-template>

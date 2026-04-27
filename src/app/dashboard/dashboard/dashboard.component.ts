@@ -40,7 +40,7 @@ export class DashboardComponent {
     if (this.isMainDashboard) {
 
       if (window.innerWidth > 780) {
-        this.router.navigate(['/hesabim/adreslerim'], { replaceUrl: true }); 
+        this.router.navigate(['/hesabim/siparislerim'], { replaceUrl: true }); 
       }
     }
   }
