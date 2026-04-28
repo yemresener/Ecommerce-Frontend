@@ -1,9 +1,9 @@
 <h2>Değerlendirmelerim</h2>
 
-<app-review-list [reviews]="reviews"
+<app-review-list [reviews]="reviews()"
     (goToAdvert)="reDirectAdvert($event)"
     (delete)="showDelete($event)"
-    [isLoading]="loading"
+    [isLoading]="loading()"
 ></app-review-list>
 
 

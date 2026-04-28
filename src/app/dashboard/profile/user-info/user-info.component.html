@@ -1,0 +1,127 @@
+<div class="widget-header">
+    <div class="header-left-group">
+      <button class="back-btn" >
+        <span class="material-symbols-outlined">arrow_back_ios</span>
+      </button>
+      <h2 class="widget-title">Kullanıcı Bilgilerim</h2>
+    </div>
+  </div>
+<div class="profile-settings-widget">
+ 
+  
+    <div class="settings-grid">
+      <div class="settings-card">
+        <div class="card-header">
+          <h3>Kişisel Bilgiler</h3>
+          <p>Ad ve soyad bilgilerinizi buradan güncelleyebilirsiniz.</p>
+        </div>
+
+        <form class="settings-form" [formGroup]="infoForm" (ngSubmit)="updateInfo()">
+          <div class="form-row">
+            <div class="form-group">
+                <div class="top-label">
+                    <label>Ad</label>
+
+                    <span class="error" *ngIf="name?.invalid && name?.touched">
+                        <span *ngIf="name?.errors?.['required']">( Ad alanı zorunlu )</span>
+                        <span *ngIf="name?.errors?.['minlength']">( En az 3 karakter olmalı ) </span>
+                      </span>
+                </div>
+              <input formControlName="name" type="text" placeholder="Adınız"
+              [class.empty]="name?.invalid && name?.touched"
+              >
+             
+            </div>
+            <div class="form-group">
+                <div class="top-label">
+                    <label>Soyad</label>
+
+                    <span class="error" *ngIf="surname?.invalid && surname?.touched">
+                        <span *ngIf="surname?.errors?.['required']">( Soyad alanı zorunlu )</span>
+                        <span *ngIf="surname?.errors?.['minlength']">( En az 2 karakter olmalı ) </span>
+                      </span>
+                </div>
+              <input formControlName="surname" type="text" placeholder="Soyadınız"
+              [class.empty]="surname?.invalid && surname?.touched"
+              >
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit"  [disabled]="infoFormUnchanged()"
+            [class.loading]="loading"
+            class="save-btn">Güncelle</button>
+          </div>
+        </form>
+      </div>
+  
+      <div class="settings-card">
+        <div class="card-header">
+          <h3>İletişim Bilgileri</h3>
+          <p>Hesabınıza giriş yapmak için kullandığınız adres.</p>
+         
+        </div>
+        <form class="settings-form" [formGroup]="comForm" (ngSubmit)="sendOtp()">
+          <div class="form-group">
+            <div class="top-label">
+                <label>E-posta Adresi</label>
+
+                <span class="error" *ngIf="email?.invalid && email?.touched">
+                    <span *ngIf="email?.errors?.['required']">( Email alanı zorunlu )</span>
+                    <span *ngIf="email?.errors?.['email']">( Email geçerli değil ) </span>
+                  </span>
+            </div>
+            <input formControlName="email" type="email" placeholder="E-posta adresiniz"
+            [class.empty]="email?.invalid && email?.touched"
+            >
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" [class.loading]="otpLoading" class="save-btn outline" [disabled]="comFormChanged()">E-posta Değiştir</button>
+          </div>
+
+          <!-- 
+          <div class="form-group">
+            <label>Telefon Numarası </label>
+            <input formControlName="email" type="email" placeholder="E-posta adresiniz">
+            <span style="font-size: 13px;">Telefon numarası değiştirilemez.</span>
+            </div>
+         -->
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="custom-modal-overlay" *ngIf="showOtpModal">
+    <div class="custom-modal">
+      <button class="close-btn" (click)="showOtpModal=!showOtpModal">
+        <span class="material-symbols-outlined" >close</span>
+      </button>
+      <div class="error-text" *ngIf="otpError">
+        <span class="material-symbols-outlined">error</span>
+        {{ otpError }}
+      </div>
+      <div class="modal-icon">
+        <span class="material-symbols-outlined">mark_email_read</span>
+      </div>
+      
+      <h3>Doğrulama Kodu</h3>
+      <p>{{otpMessage}}</p>
+      
+      <div class="otp-input-group">
+        <input type="text" [(ngModel)]="otp" maxlength="6" placeholder="• • • • • •" class="otp-input" autocomplete="one-time-code">
+      </div>
+
+    
+      
+      <button class="save-btn full-width" [class.loading]="otpLoading" (click)="updateEmail()">Doğrula ve Değiştir</button>
+    </div>
+  </div>
+
+
+
+
+  <app-main-toast *ngIf="message"
+    [type]="status"
+    [message]="message"
+    (closed)="message=''"
+    ></app-main-toast>

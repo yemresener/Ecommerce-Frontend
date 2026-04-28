@@ -22,14 +22,17 @@ import { DashboardOrdersComponent } from './dashboard/dashboard-orders/dashboard
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 import { OrderRefundComponent } from './orders/order-refund/order-refund.component';
 import { DashboardReviewsComponent } from './dashboard/dashboard-reviews/dashboard-reviews.component';
+import { UserInfoComponent } from './dashboard/profile/user-info/user-info.component';
+import { authGuard } from './core/guards/auth.guard';
+
 export const routes: Routes = [
     {path:'',
         component:AuthLayoutComponent,
         children:[
-            {path:'login',component:LoginComponent,title:'LoginComponent'},
-            {path:'register',component:RegisterComponent,title:'RegisterComponent'},
+            {path:'login',component:LoginComponent,title:'Giriş yap'},
+            {path:'register',component:RegisterComponent,title:'Kayıt ol'},
             {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
-            {path:'checkout',component:CheckoutComponent,title:'Checkout'},
+            {path:'checkout',component:CheckoutComponent,canActivate :[authGuard],title:'Checkout'},
             {path:'address',component:AddressComponent,title:'AddressComponent'},
             { path: 'payment/result', component: PaymentResultComponent },
             
@@ -39,12 +42,15 @@ export const routes: Routes = [
         path:'',
         component:NoneFotterLayoutComponent,
         children:[
-            {path:'hesabim',component:DashboardComponent,children:[
+            {path:'hesabim',component:DashboardComponent,canActivate :[authGuard],children:[
+
                 {path:'adreslerim',component:DashboardAddressComponent,title:'Adreslerim'},
                 {path:'siparislerim',component:DashboardOrdersComponent,title:'Siparişlerim'},
                 {path:'siparislerim/:id',component:OrderDetailComponent,title:'Siparişim'},
                 {path:'siparislerim/iade/:id',component:OrderRefundComponent,title:'İade'},
-                {path:'yorumlarim',component:DashboardReviewsComponent,title:'Yorumlarım'}
+                {path:'yorumlarim',component:DashboardReviewsComponent,title:'Yorumlarım'},
+                {path:'kullanici-bilgilerim',component:UserInfoComponent,title:'Kullanıcı bilgilerim'},
+                
 
             ],title:'Hesabım'},
 
@@ -55,9 +61,9 @@ export const routes: Routes = [
         component:MainLayoutComponent,
         children:[
             {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
-            {path:'home',component:HomeComponent,title:'Home'},
+            {path:'home',component:HomeComponent,title:'Home'}, 
             {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
-            {path:'cart',component:CartPageComponent,title:'Cart'},
+            {path:'cart',component:CartPageComponent,canActivate:[authGuard],title:'Cart'},
             
             {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
     

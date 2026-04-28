@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReviewListComponent } from '../../review/review-list/review-list.component';
 import { ReviewServiceService } from '../../Services/review-service.service';
@@ -14,30 +14,20 @@ import { DeleteConfirmComponent } from '../../shared/components/delete-confirm/d
   styleUrl: './dashboard-reviews.component.css'
 })
 export class DashboardReviewsComponent extends BrowserAware{
-  constructor(private service:ReviewServiceService, private router:Router){super()}
-  reviews!:Review[];
-  loading:boolean =true;
-  ngOnInit() {
-    if(this.isBrowser()){
-      this.getReviews();
-    }
+  service = inject(ReviewServiceService);
+
+  constructor( private router:Router){super()
   }
 
-  getReviews(){
-    this.loading=true;
-    this.service.review().subscribe({
-      next:(res)=>{
-        console.log(res);
-        this.reviews=res.data;
-        this.loading=false;
+  reviews = this.service.getReviews();
+  loading = this.service.getLoading(); 
 
-      },
-      error:(err)=>{
-        console.log(err);
-        this.loading=false;
-
+  ngOnInit() {
+    if(this.isBrowser()){
+      if(!this.reviews()?.length){
+        this.service.review();
       }
-    })
+    }
   }
 
 
@@ -62,9 +52,8 @@ export class DashboardReviewsComponent extends BrowserAware{
           console.log(res);
           this.toastMessage=res.message;
           this.status='success';
-          this.reviews = this.reviews.filter(r => r.id !== this.selectedReview!.id);
 
-  
+
         },
         error:(err)=>{
           console.log(err);

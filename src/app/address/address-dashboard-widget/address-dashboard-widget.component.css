@@ -6,9 +6,10 @@
     margin-bottom: 12px;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: 15px;
 
     .widget-title {
-      font-size: 15px;
+      font-size: 1.20rem;
       font-weight: 600;
       color: #111827;
     }
