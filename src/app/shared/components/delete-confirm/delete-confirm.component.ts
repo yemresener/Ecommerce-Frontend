@@ -9,7 +9,10 @@ import { CommonModule } from '@angular/common';
 export class DeleteConfirmComponent {
   @Input() message:string='';
   @Input() isOpen = false;
+  @Input() messageTitle:string='';
+  @Input() icon:string='';
 
+  
   @Output() confirm = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 

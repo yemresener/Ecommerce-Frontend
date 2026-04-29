@@ -4,9 +4,10 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { MainToastComponent } from '../../../shared/components/toast/main-toast/main-toast.component';
+import { DeleteConfirmComponent } from '../../../shared/components/delete-confirm/delete-confirm.component';
 @Component({
   selector: 'app-user-info',
-  imports: [CommonModule,ReactiveFormsModule,MainToastComponent,FormsModule],
+  imports: [CommonModule,ReactiveFormsModule,MainToastComponent,FormsModule,DeleteConfirmComponent],
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.css'
 })
@@ -104,6 +105,7 @@ export class UserInfoComponent {
   showOtpModal=false;
   otp:string='';
   sendOtp(){
+    this.showDeleteConfirm=false;
     if(this.otpLoading) return;
     console.log(this.comForm.value.email === this.userInfo()?.email)
     if(this.comFormChanged()) return;
@@ -132,11 +134,14 @@ export class UserInfoComponent {
 
   otpError:string='';
   updateEmail(){
-    this.otpLoading=true;
     console.log(this.token,this.otp);
     this.otpError='';
-    if(!this.token) return;
-    if(!this.otp) return;
+    if(!this.token){
+      this.message='Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyin.';
+    };
+    if(!this.otp || this.otp.length<5) return;
+    this.otpLoading=true;
+
     const body={
       token:this.token,
       code:this.otp
@@ -160,7 +165,15 @@ export class UserInfoComponent {
     })
   }
 
+  showDeleteConfirm = false;
+  confirmMessage = 'Aktif e-posta adresiniz silinecek.';
+  showDeleteModal(){
+    this.showDeleteConfirm = true;
+  }
 
+  onDeleteCancel(){
+    this.showDeleteConfirm = false;
+  }
 
 }
 

@@ -24,6 +24,8 @@ import { OrderRefundComponent } from './orders/order-refund/order-refund.compone
 import { DashboardReviewsComponent } from './dashboard/dashboard-reviews/dashboard-reviews.component';
 import { UserInfoComponent } from './dashboard/profile/user-info/user-info.component';
 import { authGuard } from './core/guards/auth.guard';
+import { ChangePasswordComponent } from './dashboard/profile/change-password/change-password.component';
+import { SavedCardComponent } from './saved_cards/saved-card/saved-card.component';
 
 export const routes: Routes = [
     {path:'',
@@ -50,6 +52,8 @@ export const routes: Routes = [
                 {path:'siparislerim/iade/:id',component:OrderRefundComponent,title:'İade'},
                 {path:'yorumlarim',component:DashboardReviewsComponent,title:'Yorumlarım'},
                 {path:'kullanici-bilgilerim',component:UserInfoComponent,title:'Kullanıcı bilgilerim'},
+                {path:'sifre-degistir',component:ChangePasswordComponent,title:'Şifre değiştir'},
+                {path:'kayitli-kartlarim',component:SavedCardComponent,title:'Kayıtlı kartlarım'},
                 
 
             ],title:'Hesabım'},

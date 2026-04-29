@@ -1,0 +1,433 @@
+/* =========================================
+   GENEL KAPSAYICI VE BAŞLIK
+   ========================================= */
+
+   .saved-cards-widget .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .saved-cards-widget .header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .saved-cards-widget .back-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 32px; 
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .saved-cards-widget .back-btn .material-symbols-outlined {
+    font-size: 16px;
+  }
+  
+  .saved-cards-widget .back-btn:active {
+    transform: scale(0.95);
+    background: #f9fafb;
+  }
+  
+  @media (max-width: 992px) {
+    .saved-cards-widget .back-btn {
+      display: flex;
+    }
+  }
+  
+  .saved-cards-widget .widget-title {
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: #111827; 
+  }
+  
+  /* =========================================
+     KARTLAR GRİDİ VE TASARIMI (MİNİMAL)
+     ========================================= */
+  
+  .saved-cards-widget .cards-grid {
+    display: grid;
+    /* Kartların devasa olmasını engeller, ideal boyutta tutar */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; 
+  }
+  
+  .saved-cards-widget .credit-card-box {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px; 
+    padding: 16px; 
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .saved-cards-widget .credit-card-box:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Varsayılan Kart - Daha Kibar Vurgu */
+  .saved-cards-widget .credit-card-box.default {
+    border: 1px solid #3b82f6; 
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.08);
+  }
+  
+  /* =========================================
+     KART ÜST KISMI (Header & Actions)
+     ========================================= */
+  
+  .saved-cards-widget .card-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px; 
+  }
+  
+  .saved-cards-widget .card-alias {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  /* İkonun etrafındaki kaba gri kutuyu kaldırdık, sadece zarif ikon kaldı */
+  .saved-cards-widget .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+  }
+  
+  .saved-cards-widget .icon-wrapper .material-symbols-outlined {
+    font-size: 20px; 
+  }
+  
+  .saved-cards-widget .credit-card-box.default .icon-wrapper {
+    color: #3b82f6;
+  }
+  
+  .saved-cards-widget .alias-text {
+    font-size: 13px; 
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  /* Varsayılan Etiketi - Daha zarif bir "Pill" */
+  .saved-cards-widget .default-badge {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px; 
+    border-radius: 6px;
+  }
+  
+  /* Sağ Üst Aksiyon Menüsü (3 Nokta) */
+  .saved-cards-widget .card-actions-wrapper {
+    position: relative;
+  }
+  
+  .saved-cards-widget .menu-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    width: 24px; 
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .saved-cards-widget .menu-btn .material-symbols-outlined {
+    font-size: 18px;
+  }
+  
+  .saved-cards-widget .menu-btn:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
+  
+  /* Açılır Menü (Dropdown) - Daha Kompakt */
+  .saved-cards-widget .action-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    width: 130px; 
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .saved-cards-widget .action-dropdown.active {
+    display: flex;
+  }
+  
+  .saved-cards-widget .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 12px; 
+    font-weight: 500;
+    color: #374151;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .saved-cards-widget .dropdown-item:hover {
+    background: #f3f4f6;
+  }
+  
+  .saved-cards-widget .dropdown-item.delete {
+    color: #ef4444;
+  }
+  
+  .saved-cards-widget .dropdown-item.delete:hover {
+    background: #fef2f2;
+  }
+  
+  .saved-cards-widget .dropdown-item .material-symbols-outlined {
+    font-size: 14px;
+  }
+
+  .saved-cards-widget .dropdown-item:disabled {
+    background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+    filter: grayscale(20%);
+  }
+  
+  
+  /* =========================================
+     KART NUMARASI VE ALT BİLGİLER
+     ========================================= */
+  
+  .saved-cards-widget .card-number {
+    font-size: 15px; 
+    font-weight: 600;
+    color: #111827;
+    letter-spacing: 1.5px; 
+    margin-bottom: 12px; 
+    /* Monospace kaldırıldı, modern görünüm için standart font kullanıldı */
+  }
+  
+  /* Çizgiyi kaldırdık, boşluklarla ayrımı sağladık (Çok daha temiz durur) */
+  .saved-cards-widget .card-box-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .saved-cards-widget .card-type-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px; 
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .saved-cards-widget .family-name {
+    color: #374151;
+    font-weight: 600;
+  }
+  
+  .saved-cards-widget .card-network {
+
+  }
+
+
+
+
+  /* SKELEOTN */
+
+  .saved-cards-widget .skeleton-element {
+    background: #f3f4f6;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 6px;
+  }
+  
+  /* Skeleton Kartın Kendisi (Hover efektini eziyoruz ki tıklanacakmış gibi durmasın) */
+  .saved-cards-widget .credit-card-box.skeleton-card {
+    border-color: #f3f4f6;
+    box-shadow: none;
+    pointer-events: none; /* Tıklamaları engelle */
+  }
+  
+  /* Spesifik Parçaların Boyutları */
+  
+  /* Sol üstteki kart ikonu yeri */
+  .saved-cards-widget .skel-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+  
+  /* Sağ üstteki 3 nokta yeri */
+  .saved-cards-widget .skel-icon-small {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }
+  
+  /* Yazı yer tutucuları (Genişlikleri farklı tutarak doğal bir his veriyoruz) */
+  .saved-cards-widget .skel-text-short {
+    width: 60px;
+    height: 12px;
+  }
+  
+  .saved-cards-widget .skel-text-medium {
+    width: 100px;
+    height: 12px;
+  }
+  
+  /* Ortadaki dev kart numarası yeri */
+  .saved-cards-widget .skel-text-long {
+    width: 180px;
+    height: 25px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+  }
+
+
+
+  .saved-cards-widget .empty-state-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 24px;
+    background: #f9fafb;
+    border: 2px dashed #e5e7eb; /* Kesik çizgili kenarlık */
+    border-radius: 16px;
+    margin-top: 16px;
+    animation: fadeIn 0.3s ease-in; /* Ekrana yumuşak gelsin */
+  }
+  
+  .saved-cards-widget .empty-state-box .empty-icon {
+    width: 64px;
+    height: 64px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+  
+  .saved-cards-widget .empty-state-box .empty-icon .material-symbols-outlined {
+    font-size: 32px;
+  }
+  
+  .saved-cards-widget .empty-state-box h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+  }
+  
+  .saved-cards-widget .empty-state-box p {
+    font-size: 14px;
+    color: #6b7280;
+    max-width: 320px; /* Metin çok uzamasın, derli toplu dursun */
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+  }
+  
+  /* Boş ekrandaki butonun biraz daha tok durması için özel class */
+  .saved-cards-widget .empty-state-box .add-btn.large {
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+  
+  /* Fade in animasyonu (Kartlar gelince pat diye çıkmasın diye) */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+
+
+
+  .saved-cards-widget .security-info-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px; /* Kartlardan veya boş durumdan biraz uzaklaştırır */
+    padding: 16px 20px;
+    background: #f0fdf4; /* Güven hissi veren çok hafif yeşil bir arkaplan */
+    border: 1px solid #d1fae5;
+    border-radius: 12px;
+  }
+  
+  @media (max-width: 576px) {
+    .saved-cards-widget .security-info-banner {
+      align-items: flex-start; /* Mobilde yazılar alt alta geçerse ikon yukarıda kalsın */
+      padding: 16px;
+    }
+  }
+  
+  .saved-cards-widget .security-info-banner .shield-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .saved-cards-widget .security-info-banner .shield-icon .material-symbols-outlined {
+    font-size: 32px;
+    color: #10b981; /* O meşhur 'Güvenli Onayı' yeşili */
+  }
+  
+  .saved-cards-widget .security-info-banner .security-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .saved-cards-widget .security-info-banner .security-text strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #065f46; /* Koyu, tok bir yeşil */
+  }
+  
+  .saved-cards-widget .security-info-banner .security-text p {
+    font-size: 12px;
+    color: #047857;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+
+  

@@ -5,7 +5,7 @@
       </button>
       <h2 class="widget-title">Kullanıcı Bilgilerim</h2>
     </div>
-  </div>
+</div>
 <div class="profile-settings-widget">
  
   
@@ -60,7 +60,7 @@
           <p>Hesabınıza giriş yapmak için kullandığınız adres.</p>
          
         </div>
-        <form class="settings-form" [formGroup]="comForm" (ngSubmit)="sendOtp()">
+        <form class="settings-form" [formGroup]="comForm" (ngSubmit)="showDeleteModal()">
           <div class="form-group">
             <div class="top-label">
                 <label>E-posta Adresi</label>
@@ -125,3 +125,9 @@
     [message]="message"
     (closed)="message=''"
     ></app-main-toast>
+    
+
+  
+    <app-delete-confirm [isOpen]="showDeleteConfirm" [message]="confirmMessage"
+    [messageTitle]="'E-posta adresinizi değiştirmek üzeresiniz.'"
+     (confirm)="sendOtp()" (cancel)="onDeleteCancel()"></app-delete-confirm>

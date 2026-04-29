@@ -1,0 +1,149 @@
+<div class="saved-cards-widget">
+  
+    <!-- Başlık ve Geri Butonu -->
+    <div class="widget-header">
+      <div class="header-left-group">
+        <button class="back-btn">
+          <span class="material-symbols-outlined">arrow_back_ios</span>
+        </button>
+        <h2 class="widget-title">Kayıtlı Kartlarım</h2>
+      </div>
+  
+    </div>
+  
+    <!-- Kartlar Gridi -->
+    <div class="cards-grid">
+      
+      <!-- 1. KART (Varsayılan) -->
+      <div class="credit-card-box" [class.default]="item.is_default" *ngFor="let item of cards">
+        
+        <!-- Kart Üst Kısmı (İsim ve Aksiyon) -->
+        <div class="card-box-header">
+          <div class="card-alias">
+            <div class="icon-wrapper">
+              <span class="material-symbols-outlined">credit_card</span>
+            </div>
+            <span class="alias-text">{{item.card_alias}}</span>
+            <span class="default-badge" *ngIf="item.is_default">Varsayılan</span>
+          </div>
+          
+          <!-- Sağ Üst Düzenleme / Aksiyon Menüsü -->
+          <div class="card-actions-wrapper">
+            <button class="menu-btn" (click)="toggleMenu(item,$event)">
+              <span class="material-symbols-outlined">more_vert</span>
+            </button>
+            
+            <!-- Angular'da *ngIf ile bu dropdown'ı açıp kapatabilirsin -->
+            <div class="action-dropdown" [class.active]="activeCard === item">
+              <button class="dropdown-item" [disabled]="item.is_default" (click)="onDefaultBtn(item)">Varsayılan Yap</button>
+              <button class="dropdown-item delete" (click)="onDeleteBtn(item)">
+                <span class="material-symbols-outlined">delete</span> Kartı Sil
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Kart Numarası -->
+        <div class="card-number">
+          {{item.bin_number}}** **** {{item.last_four}}
+        </div>
+  
+        <!-- Kart Alt Kısmı (Banka, Tip, Aile) -->
+        <div class="card-box-footer">
+          <div class="card-type-info">
+            <span class="family-name">{{item.card_family}}</span>
+            <span class="dot">•</span>
+            <span class="card-type"> {{item.card_type === 'CREDIT_CARD' ? 'Kredi kartı' : 'Banka kartı'}}</span>
+          </div>
+          <div class="card-network">
+            <img [src]="getCardLogo(item.card_bank)" alt="card logo" />
+          </div>
+        </div>
+      </div>
+  
+
+  
+    </div>
+
+
+    
+  <div class="cards-grid"  *ngIf="firstLoading">
+  
+    <!-- Görüntü dolsun diye 3 tane sahte (skeleton) kart koyuyoruz -->
+    <div class="credit-card-box skeleton-card">
+      <div class="card-box-header">
+        <div class="card-alias">
+          <div class="skeleton-element skel-icon"></div>
+          <div class="skeleton-element skel-text-short"></div>
+        </div>
+        <div class="skeleton-element skel-icon-small"></div>
+      </div>
+      
+      <div class="skeleton-element skel-text-long"></div>
+      
+      <div class="card-box-footer">
+        <div class="skeleton-element skel-text-medium"></div>
+        <div class="skeleton-element skel-text-short"></div>
+      </div>
+    </div>
+  
+    <div class="credit-card-box skeleton-card">
+      <div class="card-box-header">
+        <div class="card-alias">
+          <div class="skeleton-element skel-icon"></div>
+          <div class="skeleton-element skel-text-short"></div>
+        </div>
+        <div class="skeleton-element skel-icon-small"></div>
+      </div>
+      <div class="skeleton-element skel-text-long"></div>
+      <div class="card-box-footer">
+        <div class="skeleton-element skel-text-medium"></div>
+        <div class="skeleton-element skel-text-short"></div>
+      </div>
+    </div>
+  
+    <div class="credit-card-box skeleton-card">
+      <div class="card-box-header">
+        <div class="card-alias">
+          <div class="skeleton-element skel-icon"></div>
+          <div class="skeleton-element skel-text-short"></div>
+        </div>
+        <div class="skeleton-element skel-icon-small"></div>
+      </div>
+      <div class="skeleton-element skel-text-long"></div>
+      <div class="card-box-footer">
+        <div class="skeleton-element skel-text-medium"></div>
+        <div class="skeleton-element skel-text-short"></div>
+      </div>
+    </div>
+  
+  </div>
+
+  
+  <div class="empty-state-box" *ngIf="!firstLoading && cards?.length===0">
+    <div class="empty-icon">
+      <!-- İstersen 'wallet' veya 'add_card' ikonunu da kullanabilirsin -->
+      <span class="material-symbols-outlined">credit_card_off</span>
+    </div>
+    <h3>Henüz kart eklemediniz</h3>
+    <p>Hızlı ve güvenli alışveriş yapmak için alışverişinizden sonra bir kredi veya banka kartı kaydedin.</p>
+  </div>
+
+
+
+  <div class="security-info-banner" *ngIf="!firstLoading &&  cards?.length!==0" >
+    <div class="shield-icon">
+      <!-- Kalkan ve onay ikonu -->
+      <span class="material-symbols-outlined">gpp_good</span>
+    </div>
+    <div class="security-text">
+      <strong>%100 Güvenli Altyapı</strong>
+<p>Kart bilgileriniz sistemimizde saklanmaz. BDDK lisanslı ve PCI-DSS sertifikalı <strong>iyzico</strong> güvencesiyle uçtan uca şifrelenerek korunur.</p>    </div>
+
+    
+  </div>
+
+
+  </div>
+
+

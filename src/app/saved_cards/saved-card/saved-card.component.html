@@ -1,0 +1,26 @@
+<app-saved-card-list [cards]="savedCards()"
+(updateToDefault)="updateToDefault($event)"
+(deleteCard)="onDeleteCard($event)"
+[loading]="loading"
+[firstLoading]="firstLoading"
+></app-saved-card-list>
+
+<app-main-toast *ngIf="message"
+[type]="status"
+[message]="message"
+(closed)="message=''"
+></app-main-toast>
+
+<app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
+
+
+
+
+<app-delete-confirm [isOpen]="showDeleteConfirm"
+ [message]="'Kayıtlı kartınızı silmek istediğinize emin misiniz?'"
+ (confirm)="deleteCard()"
+ (cancel)="onDeleteCancel()"
+ [icon]="'delete'"
+ ></app-delete-confirm>
+
+
