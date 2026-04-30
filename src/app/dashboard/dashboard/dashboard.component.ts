@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Router,NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
-
+import { AuthService } from '../../core/services/auth.service';
+AuthService
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet,RouterLink,RouterLinkActive],
@@ -11,6 +12,8 @@ import { filter } from 'rxjs';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+  authService =inject(AuthService);
+
   isMainDashboard = true;
 
   constructor(private router: Router) {}
@@ -43,6 +46,10 @@ export class DashboardComponent {
         this.router.navigate(['/hesabim/siparislerim'], { replaceUrl: true }); 
       }
     }
+  }
+
+  logout(){
+    this.authService.logout().subscribe();
   }
 
 }

@@ -14,6 +14,7 @@ export class AuthService {
   private user = signal<User | null>(null);
   private savedCards = signal<CreditCardInterface[] | null>(null);
 
+
   getUser() { return this.user.asReadonly(); }
   getSavedCards() { return this.savedCards.asReadonly();}
 
@@ -29,10 +30,20 @@ export class AuthService {
     );
   }
 
+
   login(body: {email: string, password: string}) {
     const url = `${environment.apiUrl}login`;
     return this.http.post(url, body, {withCredentials: true});
   }
+
+  logout(){
+    const url = `${environment.apiUrl}logout`;
+    return this.http.post(url,{},{withCredentials:true}).pipe(
+      tap(()=>{
+        window.location.href = '';
+      })
+    )
+  } 
 
   updateInfo(body:{name:string,surname:string}){
     const url = `${environment.apiUrl}user`;

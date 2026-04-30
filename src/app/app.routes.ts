@@ -26,9 +26,34 @@ import { UserInfoComponent } from './dashboard/profile/user-info/user-info.compo
 import { authGuard } from './core/guards/auth.guard';
 import { ChangePasswordComponent } from './dashboard/profile/change-password/change-password.component';
 import { SavedCardComponent } from './saved_cards/saved-card/saved-card.component';
+import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
 
 export const routes: Routes = [
-    {path:'',
+
+
+    {
+        path:'',
+        component:MainLayoutComponent,
+        children:[
+            {path:'',component:HomeComponent,title:'YunusPet'},
+            {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
+            {path:'home',component:HomeComponent,title:'Home'}, 
+            {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
+            
+            {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
+    
+            {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
+            
+ 
+
+
+            
+        ]
+    },
+
+
+    {
+        path:'',
         component:AuthLayoutComponent,
         children:[
             {path:'login',component:LoginComponent,title:'Giriş yap'},
@@ -60,27 +85,24 @@ export const routes: Routes = [
 
         ]
     },
+
     {
         path:'',
-        component:MainLayoutComponent,
+        component:NavbarNoneCategoryLayoutComponent,
         children:[
-            {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
-            {path:'home',component:HomeComponent,title:'Home'}, 
-            {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
             {path:'cart',component:CartPageComponent,canActivate:[authGuard],title:'Cart'},
             
-            {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
-    
-            {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
-            
- 
+        ]
 
-
+    },
+   
+   {
+        path: '',
+        component: MainLayoutComponent,
+        children: [
             {path:':slug',component:CategoryPageComponent,title:'list'},
-            
         ]
     }
-   
   
 
 

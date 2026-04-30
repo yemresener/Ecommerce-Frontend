@@ -23,6 +23,7 @@ export class LoginComponent {
   loginForm:FormGroup;
   loading:boolean=false;
   successMessage:string='';
+
   constructor(private fb:FormBuilder, private service:LoginService,private toast:ToastrService,private router:Router,@Inject(PLATFORM_ID) private platformId: Object){
     this.loginForm = this.fb.group({
       email:['',[Validators.required, Validators.email]],
@@ -47,8 +48,7 @@ export class LoginComponent {
       next:(res)=>{
         console.log(res);
         this.loading=false;
-
-          this.router.navigate(['/home']);
+        window.location.href = '';
   
       },
       error:(err)=>{
@@ -64,6 +64,7 @@ export class LoginComponent {
   }
 
   ngOnInit(){
+
     if(this.successMessage) {
       this.toast.success(this.successMessage);
     }
