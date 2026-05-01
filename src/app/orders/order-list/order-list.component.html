@@ -2,7 +2,7 @@
   
     <div class="filter-section">
         <div (click)="filter()" [class.active]="filterParams===undefined" class="each-filter">Tümü</div>
-        <div (click)="filter('pending')"  [class.active]="filterParams==='pending'" class="each-filter">Devam Edenler</div>
+        <div (click)="filter('paid')"  [class.active]="filterParams==='paid'" class="each-filter">Devam Edenler</div>
         <div (click)="filter('cancelled')" [class.active]="filterParams==='cancelled'"  class="each-filter">İptaller</div>
         <div (click)="filter('completed')"  [class.active]="filterParams==='completed'"  class="each-filter">Tamamlananlar</div>
    

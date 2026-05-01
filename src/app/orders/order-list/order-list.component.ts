@@ -23,7 +23,7 @@ export class OrderListComponent {
 
   getStatusClass(status: string): string {
     const statusMap: { [key: string]: string } = {
-      'pending': 'Sipariş alındı',
+      'paid': 'Sipariş alındı',
       'shipped': 'Kargoya verildi',
       'completed': 'Teslim edildi',
       'cancelled': 'İptal edildi'

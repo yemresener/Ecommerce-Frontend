@@ -137,8 +137,8 @@ h2 {
 .status-badge.completed { background: #dcfce7; color: #16a34a; }
 .status-badge.completed .status-dot { background: #16a34a; }
 
-.status-badge.pending { background: #fef9c3; color: #ca8a04; }
-.status-badge.pending .status-dot { background: #ca8a04; }
+.status-badge.paid { background: #fef9c3; color: #ca8a04; }
+.status-badge.paid .status-dot { background: #ca8a04; }
 
 .status-badge.cancelled { background: #fee2e2; color: #dc2626; }
 .status-badge.cancelled .status-dot { background: #dc2626; }

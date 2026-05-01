@@ -79,8 +79,8 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
   font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 999px;
 }
 .status-badge.shipped   { background: #dbeafe; color: #2563eb; }
-.status-badge.pending   { background: #fef3c7; color: #d97706; }
-.status-badge.delivered { background: #d1fae5; color: #059669; }
+.status-badge.paid   { background: #fef3c7; color: #d97706; }
+.status-badge.completed { background: #d1fae5; color: #059669; }
 .status-badge.cancelled { background: #fee2e2; color: #dc2626; }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
@@ -148,6 +148,24 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
 .product-name { font-size: 0.8125rem; font-weight: 500; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .product-variant { font-size: 0.7rem; color: #9ca3af; margin-top: 2px; }
 .product-price { font-size: 0.875rem; font-weight: 700; color: #111827; flex-shrink: 0; }
+
+.price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Fiyatları sağa yaslar */
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 2px; /* Eski ve yeni fiyat arası ufak boşluk */
+}
+
+/* İndirimsiz (Üzeri Çizili) Fiyat */
+.original-price {
+  font-size: 0.75rem; /* Yeni fiyattan bilerek küçük yapıyoruz */
+  color: #9ca3af;
+  text-decoration: line-through; /* Üzerini çizen sihirli kod */
+  font-weight: 500;
+}
+
 
 /* Two col */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }

@@ -12,7 +12,12 @@
         </div>
         <span class="status-badge" [ngClass]="order.status">
           <span class="status-dot"></span> 
-          {{ order.status === 'cancelled' ? 'İptal Edildi' : order.status }}
+          {{ 
+            order.status === 'paid' ? 'Sipariş Alındı' :
+            order.status === 'shipped' ? 'Kargoya Verildi' :
+            order.status === 'completed' ? 'Tamamlandı' :
+            order.status === 'cancelled' ? 'İptal Edildi' : order.status 
+          }}        
         </span>
         </div>
         <div class="card alert-cancelled" *ngIf="order.status === 'cancelled'">
@@ -123,7 +128,14 @@
               <div class="product-name">{{item.name}}</div>
               <div class="product-variant"> Adet: {{item.quantity}}</div>
             </div>
-            <span class="product-price">{{item.total }} TL</span>
+            <div class="price-group">
+              <!-- İndirim varsa üstte çizili şekilde eski fiyatı göster -->
+              <span class="original-price" *ngIf="item.original_total && item.original_total > item.total">
+                {{item.original_total}} TL
+              </span>
+              <span class="product-price">{{item.total}} TL</span>
+            </div>
+          
           </div>
     
 
@@ -183,7 +195,7 @@
     
           <!-- shipped → sadece iptal butonu -->
           <div class="btn-row">
-            <button (click)="showCancelConfirm=true" class="btn btn-cancel" *ngIf="order.status ==='pending' ">Siparişi İptal Et</button>
+            <button (click)="showCancelConfirm=true" class="btn btn-cancel" *ngIf="order.status ==='paid' ">Siparişi İptal Et</button>
             <button (click)="navigateRefund()" class="btn btn-refund" *ngIf="order.status ==='completed' && !order.fully_refunded ">Ürünleri iade et</button>
 
           </div>

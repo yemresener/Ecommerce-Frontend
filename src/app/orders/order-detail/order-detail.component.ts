@@ -76,7 +76,7 @@ export class OrderDetailComponent extends BrowserAware{
 
   getCargoProgress(status: string): number {
     switch (status) {
-      case 'pending': return 15;
+      case 'paid': return 15;
       case 'preparing': return 15;
       case 'partial': return 100;
       case 'shipped': return 50;
