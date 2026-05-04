@@ -14,6 +14,8 @@ AuthService
 export class DashboardComponent {
   authService =inject(AuthService);
 
+  user= this.authService.getUser();
+
   isMainDashboard = true;
 
   constructor(private router: Router) {}
@@ -51,5 +53,7 @@ export class DashboardComponent {
   logout(){
     this.authService.logout().subscribe();
   }
+
+  
 
 }

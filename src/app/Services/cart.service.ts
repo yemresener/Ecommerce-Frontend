@@ -39,7 +39,11 @@ export class CartService {
 
   addCart(slug:string,quantity:number=1){
     const url = `${environment.apiUrl}storeCart`;
-    return this.http.post<{message:string}>(url,{advert_slug:slug,quantity:quantity},{withCredentials:true});
+    return this.http.post<{message:string}>(url,{advert_slug:slug,quantity:quantity},{withCredentials:true}).pipe(
+      tap(()=>{
+        this.cartCount.set((this.cartCount() ?? 0) + 1);
+      })
+    )
   }
 
   deleteCart(slug:string, delete_all:boolean=false){

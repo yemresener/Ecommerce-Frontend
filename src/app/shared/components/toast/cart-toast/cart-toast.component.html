@@ -1,5 +1,5 @@
 <div class="cart-toast"  [class.hide]="hiding" *ngIf="visible">
-  <img [src]="item?.images?.[0]?.path" />
+  <img [src]="item?.images?.[0]?.path ?? item.image" />
 
   <div class="cart-toast-info">
     <span class="title">{{ item.title }}</span>

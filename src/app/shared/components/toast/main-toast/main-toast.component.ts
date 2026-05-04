@@ -1,4 +1,4 @@
-import { Component,Input,Output ,EventEmitter} from '@angular/core';
+import { Component,Input,Output ,EventEmitter,ElementRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAware } from '../../../base/browser-aware';
 @Component({
@@ -8,6 +8,9 @@ import { BrowserAware } from '../../../base/browser-aware';
   styleUrl: './main-toast.component.css'
 })
 export class MainToastComponent extends BrowserAware{
+  constructor(private el: ElementRef) {
+    super();
+  }
   @Input() type: 'success' | 'error' | 'warning' | 'info' = 'success';
   @Input() title!: string;
   @Input() message!: string;
@@ -19,6 +22,8 @@ export class MainToastComponent extends BrowserAware{
 
   ngOnInit(){
     if(this.isBrowser()){
+      document.body.appendChild(this.el.nativeElement);
+
       setTimeout(() => this.close(), 3000);
 
     }
@@ -30,6 +35,9 @@ export class MainToastComponent extends BrowserAware{
         this.visible = false;
         this.closed.emit(); 
       }, 500);
+      if (this.isBrowser()) {
+        this.el.nativeElement.remove();
+      }
     }
 
 get icon(){

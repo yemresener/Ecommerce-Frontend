@@ -1,3 +1,5 @@
+import { MiniAdvert } from "./mini-advert";
+
 export interface Navbar {
     id:number,
     parent_id:number | null,
@@ -5,5 +7,5 @@ export interface Navbar {
     slug:string,
     image:string | null,
     children?:Navbar[],
-    popular_adverts?:any[]
+    popular_adverts?:MiniAdvert[]
 }

@@ -3,7 +3,7 @@
   top: 24px;
   right: 24px;
   z-index: 999999;
-
+  
   width: 380px; /* Masaüstü için varsayılan genişlik */
   max-width: calc(100vw - 48px); /* Ekrandan taşmayı engeller */
   background: white; 

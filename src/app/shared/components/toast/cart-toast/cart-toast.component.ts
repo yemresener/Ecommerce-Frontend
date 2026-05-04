@@ -1,4 +1,4 @@
-import { Component,Input,PLATFORM_ID,inject } from '@angular/core';
+import { Component,Input,PLATFORM_ID,inject,ElementRef } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { MiniAdvert } from '../../../../interfaces/mini-advert';
 import { BrowserAware } from '../../../base/browser-aware';
@@ -13,11 +13,13 @@ BrowserAware
 export class CartToastComponent extends BrowserAware {
   @Input() item!:MiniAdvert;
   @Input() message?:string;
-  constructor(private router:Router){super()}
+  constructor(private router:Router,private el: ElementRef){super()}
   visible=true;
   hiding=false;
   ngOnInit(){
     if(this.isBrowser()){
+      document.body.appendChild(this.el.nativeElement);
+
       setTimeout(() => this.close(), 3000);
 
     }
@@ -27,6 +29,8 @@ export class CartToastComponent extends BrowserAware {
     this.hiding=true;
      if(this.isBrowser()){
       setTimeout(() => this.visible = false, 300);
+      this.el.nativeElement.remove();
+
      }
 
   }

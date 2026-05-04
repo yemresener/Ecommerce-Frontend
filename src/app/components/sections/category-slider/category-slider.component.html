@@ -14,25 +14,18 @@
         <div class="slider-track">
 
           <!-- REAL -->
-          <ng-container *ngIf="!skeleton; else skeletonList">
             <div class="category-item" *ngFor="let c of categorySlider.items">
-              <div class="item-inner">
-                <img [src]="c.image"
-               
-                 alt="">
-              </div>
-              <p class="item-title">{{c.name}}</p>
+              <a style="text-decoration: none; color: black; font-weight: 500;" href="{{c.slug}}">
+                <div class="item-inner">
+                  <img [src]="c.image"
+                  
+                  alt="">
+                </div>
+                <p class="item-title">{{c.name}}</p>
+              </a>
             </div>
-          </ng-container>
 
-          <!-- SKELETON -->
-          <ng-template #skeletonList>
-
-            <div class="category-item  skeleton-item" *ngFor="let s of [1,2,3,4,5,6]">
-              <div class="sk-image shimmer"></div>
-              <div class="sk-title shimmer"></div>
-            </div>
-          </ng-template>
+  
 
         </div>
       </div>

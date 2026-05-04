@@ -16,7 +16,7 @@ export class NavbarCategoryService {
   constructor(private http:HttpClient) { }
 
   getCategories(): Observable<ApiResponse<Navbar[]>>{
-    const url= `${environment.apiUrl}getCategories`;
+    const url= `${environment.apiUrl}categories`;
     return this.http.get<ApiResponse<Navbar[]>>(url);
   }
 }

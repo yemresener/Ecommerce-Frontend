@@ -188,7 +188,10 @@ body {
   transform: scale(1.1); /* Hover olunca hafif büyüsün */
 }
 
-
+.nav-hover-wrapper {
+  position: relative;
+  width: 100%;
+}
 /* Category Bar */
 .category-bar {
     border-top: 2px solid #f0f9ff;
@@ -285,107 +288,210 @@ body {
   font-weight: 500;
 }
 
+
+@keyframes menuFadeIn {
+  from { 
+      opacity: 0; 
+      transform: translateX(-50%) translateY(10px); 
+  }
+  to { 
+      opacity: 1; 
+      transform: translateX(-50%) translateY(0); 
+  }
+}
+
+
 .mega-menu {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%); /* Gerçek ortalama */
-  width: 970px;
-  max-width: 97vw;             /* Ekran taşmasını engeller */
-  background: white;
-  padding: 30px;
+  /* margin-top vererek kategori barı ile arasına şık bir boşluk koyduk ama hover kopmasın diye padding ile destekledik */
+  top: 100%;
+  
+  width: 900px;
+  max-width: 95vw;
+  background: #ffffff;
+  padding: 1.5rem; /* İç boşlukları dengeledik */
   display: flex;
-  gap: 40px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-
-  border-radius: 8px;
+  gap: 2rem;
+  
+  /* Premium Katmanlı Gölge ve İnce Border */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+  border-radius: 3px; /* Daha modern yuvarlak hatlar */
+  
   z-index: 9999;
   box-sizing: border-box;
-  margin-top: 0;
-  /* Animasyon (isteğe bağlı) */
-  opacity: 1;
+  opacity: 0; 
   pointer-events: auto;
-  transition: all 0.25s ease-out;
-  top: 100%;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
   
+  /* Animasyonu tetikliyoruz */
+  animation: menuFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Kategori menüsü ok ucu (Tooltip efekti - Premium detay) */
+.mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-left: 1px solid #f1f5f9;
+  border-top: 1px solid #f1f5f9;
+  border-top-left-radius: 2px;
 }
 
 
 
 .mega-col {
-  width: 200px;
+  min-width: 220px;
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 
 .mega-col h4 {
-  margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af; /* Soft gri */
   font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .mega-col a {
   text-decoration: none;
-  color: #444;
-  font-size: 14px;
-  margin: 4px 0;
-  transition: 0.15s;
+  color: #4b5563;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: block;
 }
 
 .mega-col a:hover {
-  color: #e91e63;
+  background: #f0f9ff;
+  color: #3B82F6;
+  transform: translateX(4px); /* Üzerine gelince hafif sağa kayma efekti */
 }
-
 
 /* mega menu products */
 .mega-products {
-    flex: 1;
-    border-left: 1px solid #f0f0f0;
-    padding-left: 30px;
-  }
-  
-  .mega-products-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-  
-  .products-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 14px;
-  }
-  
-  .product-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: 0.2s ease;
-  }
-  
-  .product-box:hover {
-    transform: translateY(-3px);
-  }
-  
-  .product-image {
-    width: 88px;
-    height: 88px;
-    object-fit: cover;
-    border-radius: 12px;
-    background: #f5f7fa;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  }
-  
-  .product-label {
-    font-size: 12.5px;
-    text-align: center;
-    color: #333;
-    line-height: 1.2;
-  }
+  flex: 1;
+  background: #f8fafc; /* Sağ tarafı ayırmak için çok soft bir zemin rengi */
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #f1f5f9;
+}
 
+.mega-products-title {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+  
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+}
+
+.product-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-box:hover {
+  transform: translateY(-4px); /* Havalanma efekti */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+  border-color: #e2e8f0;
+}
+.product-wrapper-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+.image-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #f1f5f9;
+}
+
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-label {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 30px; /* Yazıların hizası bozulmasın diye sabit yükseklik */
+}
+
+.product-price-row {
+  display: flex;
+  flex-direction: column; /* Üst üste binmesi daha premium durur, istersen row yapabilirsin */
+  align-items: center;
+  gap: 2px;
+}
+
+.old-price {
+  font-size: 0.7rem;
+  color: #94a3b8; /* Soft gri */
+  text-decoration: line-through; /* Üstünü çizen sihirli kod */
+  font-weight: 400;
+}
+
+.current-price {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1f365a;
+}
+
+/* Hover Efekti Güncelleme */
+.product-box:hover .product-image {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
 
   .right{
     display: flex;

@@ -3,8 +3,7 @@
     <!-- REAL -->
     <ng-container *ngIf="item && !skeleton; else skeletonTpl">
   
-      <a class="card-link" [attr.href]="'/urun/' + item.slug"></a>
-  
+      <a class="card-link" href="urun/{{item.slug}}"></a>
     
     <div class="image-box" style="background: #fafafa;" [class.small]="itemSize>=1">
       <span 
@@ -21,7 +20,7 @@
         </span>
       </ng-container>
   
-    </span>
+      </span>
         <img [src]="item.image" alt="">
       </div>
   
@@ -47,9 +46,14 @@
           </span>
         </div>
         
-        <button class="add-cart">
-          <i class="fa-solid fa-cart-plus"></i>
+        <button (click)="addToCart(item)" class="add-cart" [disabled]="cartLoading === item.id">
+          <!-- Yükleniyor İkonu -->
+          <i *ngIf="cartLoading === item.id" class="fa-solid fa-circle-notch fa-spin"></i>
+          
+          <!-- Normal İkon (Sadece yükleme yoksa görünür) -->
+          <i *ngIf="cartLoading !== item.id" class="fa-solid fa-cart-plus"></i>
         </button>
+
       </div>
   
     </ng-container>
@@ -69,5 +73,11 @@
       </div>
     </ng-template>
   
-  </div>
+</div>
   
+
+  <app-cart-toast *ngIf="cartItemAdded" [item]="selectedAdvert" [message]="cartMessage"></app-cart-toast>
+
+  <app-main-toast *ngIf="cartErrorMessage" [type]="'error'" [message]="cartErrorMessage"
+  (closed)="cartErrorMessage = ''"
+  ></app-main-toast>

@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="bread-box" *ngFor="let item of breadcrumb; let last = last">
-                    <span>{{ item?.name }}</span>
+                    <a class="bread-link" href="{{item.slug}}">{{ item?.name }}</a>
                     <i class="fas fa-chevron-right" *ngIf="!last"></i>
                 </div>
 

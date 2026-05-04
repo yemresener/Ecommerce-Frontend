@@ -23,9 +23,8 @@ import { MainSectionComponent } from '../components/sections/main-section/main-s
 export class HomeComponent {
  
   constructor(public sliderService:SliderServiceService){}
-  currentIndex=0;
+
   ngOnInit() {
-    //this.loadSliders();
     this.loadLayouts();
   }
 

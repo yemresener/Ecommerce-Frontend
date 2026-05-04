@@ -32,8 +32,16 @@ export class CategorySectionComponent {
   }
 
   ngOnInit(): void {
-    if (!this.isBrowser() && this.sort <3) {
-      this.getItems(); 
+    if (!this.isBrowser()) {
+      if (this.sort < 3) {
+        this.getItems();
+      }
+      return;
+    }
+    
+    // Browser: TransferState varsa kullan, lazy ise observe et
+    if (!this.lazy) {
+      this.getItems();
     }
   }
 
