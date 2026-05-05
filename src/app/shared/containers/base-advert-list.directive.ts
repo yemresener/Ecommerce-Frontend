@@ -1,7 +1,7 @@
   import { Directive, ViewChild, ViewChildren, ElementRef, QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
   import { ActivatedRoute, Router } from '@angular/router';
   import { combineLatest } from 'rxjs';
-  import { debounceTime } from 'rxjs/operators';
+  import { debounceTime, filter } from 'rxjs/operators';
   import { PaginationMeta } from '../../interfaces/pagination-meta';
   import { MiniAdvert } from '../../interfaces/mini-advert';
   import { FilterParams } from '../../interfaces/filter-params';
@@ -13,6 +13,7 @@
 
   export abstract class BaseAdvertListDirective 
     implements OnInit, AfterViewInit, OnDestroy{
+
       @ViewChild('scrollAnchor') anchor!: ElementRef;
       @ViewChildren('pageBlock') pageBlocks!: QueryList<ElementRef>;
 
@@ -46,10 +47,16 @@
 
       // INIT
 
+      mode: 'category' | 'search' = 'category';
+      query?: string;
+
       ngOnInit(): void {
         this.pages = [{ page: 0, items: this.skeletonItems }];
+
+        this.mode = this.route.snapshot.data['mode'] ?? 'category';
+
         if (this.isBrowser()) {
-          history.scrollRestoration = 'manual'; //  ssr
+          history.scrollRestoration = 'manual'; //  ssr 
         }combineLatest([
           this.route.paramMap,
           this.route.queryParams
@@ -57,8 +64,16 @@
         .pipe(debounceTime(0))
         .subscribe(([params, query]) => {
     
-          const slug = params.get('slug') ?? '';
+          const slug = this.mode === 'category' 
+          ? (params.get('slug') ?? '') 
+          : '__search__';
+
+          const searchQuery = this.mode === 'search' 
+          ? (query['q'] ?? '') 
+          : undefined;
+
           const page = Number(query['page'] ?? 1);
+
           console.log('PAGE GELDİ KNK',page)
           const filters: FilterParams = {};
 
@@ -68,16 +83,19 @@
           if (query['max_price']) filters.max_price = Number(query['max_price']);
     
           const slugChanged = this.slug !== slug;
+          const queryChanged = this.query !== searchQuery; 
+
           const filtersChanged =
             JSON.stringify(filters) !== JSON.stringify(this.currentFilters);
     
-          if (slugChanged || filtersChanged) {
-    
+          if (slugChanged || filtersChanged || queryChanged) {
+
             this.slug = slug;
+            this.query = searchQuery; 
             this.currentFilters = filters;
             this.resetState();
     
-            if (slugChanged) {
+            if (slugChanged || queryChanged) {
               this.onSlugChange(); // 🔥 override edilecek
             }
     
@@ -107,9 +125,12 @@
     private pendingFetch = false;
 
     protected triggerFetch(reset: boolean, forcedPage?: number) {
+      console.log('DENİYOR');
       if (this.loading || this.pendingFetch) return;
+      console.log('DENİYOR');
 
       if (!reset && (!this.meta || this.meta.current_page >= this.meta.last_page)) return;
+      console.log('DENİYOR');
       
       this.pendingFetch = true; 
       this.loading = true;
@@ -127,6 +148,7 @@
     }
 
     protected handleSuccess(res: any, page: number) {
+
       this.pendingFetch = false; 
       const isPrev = this.isPreviousLoad;
       this.isPreviousLoad = false;
@@ -274,12 +296,14 @@
     }
 
     onFilterChange(params: FilterParams) {
+  
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: {
+          q:this.query,
           ...params,
           page: undefined
-        }
+        },
       });
     }
 

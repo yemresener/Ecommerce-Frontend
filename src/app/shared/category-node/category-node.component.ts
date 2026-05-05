@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './category-node.component.css'
 })
 export class CategoryNodeComponent {
-  @Input() node: any;
+  @Input() node?: any;
   @Input() activeSlug!: string;
 
   @Input() defaultOpen = false; // 🔥 ekledik

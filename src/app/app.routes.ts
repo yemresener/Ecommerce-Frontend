@@ -100,7 +100,9 @@ export const routes: Routes = [
         path: '',
         component: MainLayoutComponent,
         children: [
-            {path:':slug',component:CategoryPageComponent,title:'list'},
+            {path:'ara',component:CategoryPageComponent,data:{mode:'search'},title:'list'},
+
+            {path:':slug',component:CategoryPageComponent,data:{mode:'category'},title:'list'},
         ]
     }
   

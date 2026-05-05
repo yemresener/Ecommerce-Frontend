@@ -1,4 +1,4 @@
-    <div class="filter-category">
+    <div class="filter-category" >
         <label class="filter-title" (click)="categoryOpen=!categoryOpen">Kategoriler
         <i class="fa-solid" style="font-size: 12px;" [ngClass]="{'fa-caret-down': !categoryOpen, 'fa-caret-up': categoryOpen}"></i>
 
@@ -7,10 +7,19 @@
 
         <!-- Children -->
         <div class="category-child-wrapper" [class.open]="categoryOpen">
-        <div *ngIf="activeCategory?.slug">
-            <app-category-node [node]="category_tree" [activeSlug]="activeCategory.slug"
-            [defaultOpen]="true"></app-category-node>
-        </div>
+
+            <div *ngIf="activeCategory && activeCategory.slug"  >
+                <app-category-node [node]="category_tree" [activeSlug]="activeCategory.slug"
+                [defaultOpen]="true"></app-category-node>
+            </div>
+
+            <div *ngIf="categories?.length">
+                <a class="category-flat-item" 
+                *ngFor="let cat of categories"
+                routerLink="/{{cat.slug}}">
+                {{ cat.name }}
+                </a>
+            </div>
         </div>
     </div>
 

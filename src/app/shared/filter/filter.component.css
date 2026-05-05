@@ -232,5 +232,40 @@ input[type=number] {
       }
     }
 
+/* FLAT ITEM*/
 
+.category-flat-item {
+    display: block;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-left: 5px; /* Node yapısıyla hizalı dursun diye */
+}
+
+/* Hover Durumu */
+.category-flat-item:hover {
+    background: #f6f8ff;
+    color: rgb(100, 100, 255);
+    padding-left: 14px; /* Hafif sağa kayma efekti - Premium durur */
+}
+
+/* Aktif Kategori (RouterLinkActive ile kullanırsan tadından yenmez) */
+.category-flat-item.active {
+    background: #f0f3ff;
+    color: rgb(100, 100, 255);
+    font-weight: 600;
+}
+
+/* Mobilde dokunma alanını biraz daha büyütelim */
+@media (max-width: 768px) {
+    .category-flat-item {
+        padding: 10px 12px;
+        border-bottom: 1px solid #f9f9f9;
+        margin-left: 0;
+    }
+}
     

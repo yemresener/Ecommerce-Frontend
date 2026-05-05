@@ -5,13 +5,13 @@
       <!-- Filtre Alanı -->
       <aside class="filter" [class.open]="mobileFilter" >
 
-        <app-filter [activeCategory]="activeCategory" 
-        [category_tree]="category_tree"
+        <app-filter   [activeCategory]="mode === 'category' ? activeCategory : undefined"
+        [category_tree]="mode === 'category' ? category_tree : undefined"
+        [categories]="mode === 'search' ? categories() : undefined"
         (applyPrice)="onPriceChange($event)"
         [priceFilter]="{ min: min_price, max: max_price }"
 
         ></app-filter>
- 
   
       </aside>
 
@@ -27,7 +27,7 @@
       <!-- Ürün Alanı -->
       <section class="adverts">
         
-          <div class="breadcrumb">
+          <div class="breadcrumb" *ngIf="mode === 'category'">
             <div class="bread-skeleton-wrapper"
              [class.hide]="!breadSkeleton">
 
@@ -55,9 +55,16 @@
           
             <!-- Gerçek içerik -->
             <div class="label-content" [class.hide]="breadSkeleton">
-              {{activeCategory?.name}}
+              <ng-container *ngIf="mode === 'category'">
+                {{ activeCategory?.name }}
+              </ng-container>
+              
+              <ng-container *ngIf="mode === 'search'">
+                "{{ query }}" için sonuçlar
+              </ng-container>
+
               <span class="product-count">
-                {{meta?.total ?? oldMeta?.total}} ürün
+                {{ meta?.total ?? oldMeta?.total }} ürün
               </span>
             </div>
         
@@ -65,7 +72,7 @@
         
  
 
-          <div class="" style="display: flex; align-items: center; gap: 2px;">
+          <div *ngIf="!isLoading && adverts?.length !== 0"  class="" style="display: flex; align-items: center; gap: 2px;">
 
             <button class="mobile-filter-btn" 
             [class.active]="min_price || max_price"
@@ -78,7 +85,7 @@
               [filters]="currentFilters"
             >
           </app-category-filter>
-
+          
           </div>
 
 
@@ -118,12 +125,16 @@
         
           <h3>Ürün Bulunamadı</h3>
         
-          <p>
+          <p *ngIf="mode==='category'">
             Seçtiğiniz filtrelere uygun ürün bulunamadı.
             Filtreleri temizleyerek tekrar deneyebilirsiniz.
           </p>
+          <p *ngIf="mode==='search'">
+            Aramanız için sonuç bulamadık.
+            Farklı bir kelime ile tekrar deneyebilirsiniz.
+          </p>
         
-          <button (click)="applyPrices()" class="reset-btn">
+          <button *ngIf="mode==='category'" (click)="applyPrices()" class="reset-btn">
             Filtreleri Temizle
           </button>
         </div>

@@ -30,4 +30,13 @@ export class ListService {
 
   }
 
+  search(params:FilterParams){
+    const url = `${environment.apiUrl}search`;
+    return this.http.get<ApiResponse<MiniAdvert[]>>(url,{
+      params:params as any,
+      withCredentials:true
+    });
+
+  }
+
 }

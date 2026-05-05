@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Category } from '../../interfaces/category';
 import { CategoryNodeComponent } from '../category-node/category-node.component';
+import { Navbar } from '../../interfaces/navbar';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-filter',
-  imports: [CommonModule,FormsModule,CategoryNodeComponent],
+  imports: [CommonModule,FormsModule,CategoryNodeComponent,RouterLink],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css'
 })
 export class FilterComponent {
-  @Input() activeCategory!:Category;
-  @Input() category_tree!:Category;
+  @Input() activeCategory?:Category;
+  @Input() category_tree?:Category;
   @Input() priceFilter?: { min?: number; max?: number };
+  @Input() categories?:Navbar[];
 
 
   @Output() applyPrice = new EventEmitter<{ min?: number; max?: number }>();
@@ -29,6 +32,7 @@ export class FilterComponent {
       this.draftMin = this.priceFilter?.min;
       this.draftMax = this.priceFilter?.max;
     }
+    console.log(this.priceFilter,'PRICE FILTER');
   }
 
   applyPrices(){
@@ -48,6 +52,7 @@ export class FilterComponent {
 
     this.draftMin=undefined;
     this.draftMax=undefined;
+    console.log('UNDEFINED YAPILDı')
     this.emit();
   }
 

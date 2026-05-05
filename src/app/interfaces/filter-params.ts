@@ -4,6 +4,7 @@ export interface FilterParams {
   sort_by?: string | null;
   order?: 'asc' | 'desc' | null;
   page?:number;
-  min_price?:number | null;
-  max_price?:number | null;
+  q?:string;
+  min_price?:number;
+  max_price?:number;
 }

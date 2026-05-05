@@ -26,7 +26,13 @@ export class CategoryFilterComponent {
   ngOnChanges(): void {
    
     this.sortLabel = this.labelService.labelOnChanges(this.filters,this.sortOptions);
-    this.filterParams= {...this.filters};
+
+    this.filterParams = {
+      ...this.filters,        
+      sort_by: this.filters?.sort_by,
+      order: this.filters?.order,
+    };
+    
     
   }
 

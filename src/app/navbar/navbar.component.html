@@ -13,7 +13,18 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input type="search" class="search-input" placeholder="Ürün, kategori veya marka ara...">
+                    
+                    <!-- Input Alanı -->
+                    <input type="search" 
+                           class="search-input" 
+                           [formControl]="searchControl"
+                           (focus)="isSearchFocused = true"
+                           (keyup.enter)="goToSearch()"
+                           placeholder="Ürün, kategori veya marka ara...">
+
+                    <!-- Arama Sonuçları Dropdown -->
+                    <ng-container *ngTemplateOutlet="searchResultsTpl"></ng-container>
+                    
                 </div>
 
 
@@ -92,12 +103,17 @@
                       <circle cx="11" cy="11" r="8"></circle>
                       <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input 
-                      type="search" 
-                      class="search-input" 
-                      placeholder="Ara..."
-                      [autofocus]="isSearchOpen">
-                  </div>
+                
+
+                      <div class="mobile-search-inner">
+                        <input type="search" class="search-input" placeholder="Ara..." 
+                            [formControl]="searchControl" (focus)="isSearchFocused = true"
+                            (keyup.enter)="goToSearch()" [autofocus]="isSearchOpen">
+                        
+                        <!-- Mobile Dropdown -->
+                        <ng-container *ngTemplateOutlet="searchResultsTpl"></ng-container>
+                    </div>
+                </div>
 
 
             </div>
@@ -167,10 +183,37 @@
 
 
         
-<!-- 
-    <div class="navbar">
-        <div class="nav-brand">           
-                     <img class="logo-img" src="assets/images/favLast.png" alt="">
+    <ng-template #searchResultsTpl>
+        <div class="search-results-dropdown" *ngIf="isSearchFocused && (searchResults.length > 0 || isSearching || ((searchControl.value?.length ?? 0) >= 2 && !isSearching))">
+            <div class="search-info" *ngIf="isSearching">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Aranıyor...
+            </div>
+    
+            <div class="result-item" *ngFor="let product of searchResults" (click)="goToAdvert(product)">
+                <img [src]="product.image || 'assets/images/placeholder.png'" class="result-img">
+                <div class="result-details">
+                    <span class="result-title">{{ product.title }}</span>
+                    <span class="result-price">{{ (product.discount_price || product.original_price) }} TL</span>
+                </div>
+                <i class="fa-solid fa-chevron-right result-arrow"></i>
+            </div>
+
+            <div class="see-all-results" *ngIf="searchResults.length > 0 && !isSearching" (click)="goToSearch()">
+                <span>"<strong>{{ searchControl.value }}</strong>" için tüm sonuçları gör  <i class="fa-solid fa-arrow-right"></i></span>
+              
+            </div>
+    
+            <div class="search-info no-results" *ngIf="searchResults.length === 0 && !isSearching">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 8px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="8" y1="15" x2="16" y2="15"></line>
+                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+                <span>"<strong>{{ searchControl.value }}</strong>" için sonuç bulamadık.</span>
+                <small>Farklı bir kelime ile tekrar deneyebilirsin.</small>
+            </div>
+
+          
         </div>
-    </div>
--->
+    </ng-template>

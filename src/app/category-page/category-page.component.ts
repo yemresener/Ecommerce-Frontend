@@ -1,4 +1,4 @@
-import { Component, ViewChild,ElementRef,ViewChildren,QueryList } from '@angular/core';
+import { Component, ViewChild,ElementRef,ViewChildren,QueryList,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
 import { CardComponent } from '../shared/components/product/card/card.component';
@@ -14,6 +14,7 @@ import { FilterComponent } from '../shared/filter/filter.component';
 import { BaseAdvertListDirective } from '../shared/containers/base-advert-list.directive';
 
 import { ListItemsComponent } from '../list-items/list-items.component';
+import { NavbarCategoryService } from '../Services/navbar-category.service';
 @Component({
   selector: 'app-category-page',
   imports: [CommonModule,FormsModule,RouterModule,CardComponent,FilterComponent,CategoryNodeComponent,CategoryFilterComponent,ListItemsComponent],
@@ -22,6 +23,9 @@ import { ListItemsComponent } from '../list-items/list-items.component';
 })
 export class CategoryPageComponent extends BaseAdvertListDirective {
 
+  navbarService = inject(NavbarCategoryService);
+
+  categories = this.navbarService.getNavbarCategories();
 
   
   constructor(
@@ -46,31 +50,60 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
 
 
   protected fetchData(page: number): void {
-    if (!this.slug) {
-      console.warn('Slug boş, API çağrısı yapılmayacak');
-      return;
+    this.min_price = this.currentFilters.min_price;
+    this.max_price = this.currentFilters.max_price;
+
+    if(this.mode  === 'search'){
+      if(!this.query) return;
+
+      this.service.search({
+        q:this.query,
+        ...this.currentFilters,
+        page
+      }).subscribe(res=>{
+        this.handleSuccess(res,page);
+        this.isLoading=false;
+        this.breadSkeleton = false;
+        
+      }, err=> console.log(err))
+    }else{
+
+    
+      if (!this.slug) {
+        console.warn('Slug boş, API çağrısı yapılmayacak');
+        return;
+      }
+      this.mobileFilter = false;
+      console.log(page,'page')
+      this.service.adverts({
+        slug: this.slug,
+        ...this.currentFilters,
+        page
+      }).subscribe(res => {
+        console.log('FETCH E GELEN PAGE',page)
+        this.handleSuccess(res, page);
+        this.breadSkeleton = false;
+        this.isLoading=false;
+        console.log(this.max_price,this.min_price,'MIN MAX PRICES')
+        console.log('LOADİGNLER',this.isLoading,this.breadSkeleton)
+      }, err => {
+        this.loading = false;
+        console.error(err);
+      });
+      
     }
-    this.mobileFilter = false;
-    console.log(page,'page')
-    this.service.adverts({
-      slug: this.slug,
-      ...this.currentFilters,
-      page
-    }).subscribe(res => {
-      console.log('FETCH E GELEN PAGE',page)
-      this.handleSuccess(res, page);
-      this.breadSkeleton = false;
-      this.isLoading=false;
-      console.log('LOADİGNLER',this.isLoading,this.breadSkeleton)
-    }, err => {
-      this.loading = false;
-      console.error(err);
-    });
   }
+  
 
   protected onSlugChange(): void {
-    this.breadSkeleton = true;
-    this.getCategoryTree();
+    console.log('ONSLUG CHANGED BROTHER')
+
+    if (this.mode === 'category') {
+      this.breadSkeleton = true;
+      this.getCategoryTree();
+    }else{
+      
+    }
   }
 
   private getCategoryTree(): void {
