@@ -1,0 +1,553 @@
+/* =========================================
+   ANA WIDGET YAPISI
+   ========================================= */
+   h2 { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: #111827; 
+  }
+
+  .container{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto;
+    background: #fff;
+    border-radius: 16px;
+    margin-top: 30px;
+    
+  }
+  /* Başlık ve Geri Butonu */
+  .profile-settings-widget {max-width: 1000px;
+    margin: 0 auto;}
+  
+  .widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  
+  .header-left-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+
+  
+  .profile-settings-widget .back-btn .material-symbols-outlined {
+    font-size: 18px;
+  }
+  
+  .profile-settings-widget .back-btn:active {
+    transform: scale(0.9);
+  }
+  
+  .profile-settings-widget .radio-group {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .profile-settings-widget .radio-card {
+    flex: 1; /* Kutuların yan yana eşit genişlikte olmasını sağlar */
+    cursor: pointer;
+    position: relative;
+  }
+  
+  /* Orijinal yuvarlak radio butonunu gizliyoruz */
+  .profile-settings-widget .radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* Tıklanabilir Kart Görünümü */
+  .profile-settings-widget .radio-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .profile-settings-widget .radio-content .material-symbols-outlined {
+    font-size: 18px;
+    color: #6b7280;
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover (Üzerine Gelme) Durumu */
+  .profile-settings-widget .radio-card:hover .radio-content {
+    border-color: #9ca3af;
+  }
+  
+  /* 🟢 SEÇİLİ (CHECKED) DURUMU */
+  .profile-settings-widget .radio-card input[type="radio"]:checked + .radio-content {
+    background: #eff6ff; /* Çok uçuk mavi arka plan */
+    border-color: #2563eb; /* Ana mavi çerçeven */
+    color: #1d4ed8;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+  
+  .profile-settings-widget .radio-card input[type="radio"]:checked + .radio-content .material-symbols-outlined {
+    color: #2563eb; /* İkonu da mavi yapıyoruz */
+  }
+  @media (max-width: 992px) {
+    .profile-settings-widget .back-btn {
+      display: flex;
+    }
+  }
+  
+  .profile-settings-widget .widget-title {
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+  }
+
+
+  
+  /* =========================================
+     FORM KARTLARI
+     ========================================= */
+  .profile-settings-widget .settings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .profile-settings-widget .settings-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  }
+  
+  @media (max-width: 576px) {
+    .profile-settings-widget .settings-card {
+      padding: 16px;
+        border: none;
+    }
+  }
+  
+  .profile-settings-widget .card-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 16px;
+  }
+  
+  .profile-settings-widget .card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 4px 0;
+  }
+  
+  .profile-settings-widget .card-header p {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  /* =========================================
+     FORM İÇERİĞİ, İNPUTLAR, SELECT VE TEXTAREA
+     ========================================= */
+  .profile-settings-widget .settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .profile-settings-widget .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  @media (max-width: 576px) {
+    .profile-settings-widget .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .profile-settings-widget .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .profile-settings-widget .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+  
+  /* Ortak Form Elemanı Stilleri (Input, Select, Textarea) */
+  .profile-settings-widget .form-group input,
+  .profile-settings-widget .form-group select,
+  .profile-settings-widget .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #111827;
+    font-family: inherit;
+    background: hsl(0, 0%, 98%);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  
+  /* Select ve Textarea için ekstra ayarlar */
+  .profile-settings-widget .form-group select,
+  .profile-settings-widget .form-group textarea {
+    appearance: none;
+  }
+  
+  /* Select için özel aşağı ok ikonu */
+  .profile-settings-widget .form-group select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+  }
+  
+  /* Textarea boyutu ayarlama */
+  .profile-settings-widget .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  /* Placeholder ve Invalid durumları */
+  .profile-settings-widget .form-group input::placeholder,
+  .profile-settings-widget .form-group textarea::placeholder,
+  .profile-settings-widget .form-group select:invalid {
+    color: #9ca3af;
+  }
+  
+  /* Odaklanma (Focus) durumları */
+  .profile-settings-widget .form-group input:focus,
+  .profile-settings-widget .form-group select:focus,
+  .profile-settings-widget .form-group textarea:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+  
+  .profile-settings-widget .form-group input.empty,
+  .profile-settings-widget .form-group select.empty,
+  .profile-settings-widget .form-group textarea.empty {
+    border: 1px solid red;
+    background-color: rgb(255, 233, 233);
+  }
+  
+  .top-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .error, .select-error {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ef4444;
+  }
+  
+  /* =========================================
+     BUTONLAR
+     ========================================= */
+  .profile-settings-widget .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  .form-actions-wrapper {
+    display: flex;
+    flex-direction: column; /* Üst üste binsinler */
+    align-items: flex-end;  /* Butonla birlikte sağa yasla */
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  /* Turnstile kutusunun butonun şeklini bozmasını engeller */
+  .turnstile-wrapper {
+    min-height: 65px; /* Yüklenirken alanın zıplamasını engeller */
+  }
+  
+
+  .profile-settings-widget .save-btn {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+  }
+  
+  .profile-settings-widget .save-btn:hover {
+    background: #1d4ed8;
+  }
+  
+  .profile-settings-widget .save-btn:active {
+    transform: scale(0.97);
+  }
+  
+  .profile-settings-widget .save-btn:disabled {
+    background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+    filter: grayscale(20%);
+  }
+  
+  .profile-settings-widget .save-btn.loading {
+    position: relative;
+    pointer-events: none;
+    color: transparent !important;
+  }
+  
+  /* Spinner Çemberi */
+  .profile-settings-widget .save-btn.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); 
+    animation: button-spin 0.8s linear infinite;
+  }
+  
+  /* Outline Buton */
+  .profile-settings-widget .save-btn.outline {
+    background: transparent;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+    box-shadow: none;
+  }
+  
+  .profile-settings-widget .save-btn.outline:hover {
+    background: #eff6ff;
+  }
+  
+  .profile-settings-widget .save-btn.outline.loading::after {
+    border-top: 2px solid #1d4ed8;
+  }
+  
+  @keyframes button-spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  /* =========================================
+     OTP MODAL STİLLERİ
+     ========================================= */
+  .custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .custom-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+    padding: 32px 24px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: modalPopUp 0.3s ease-out;
+    box-sizing: border-box;
+  }
+  
+  .custom-modal .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #f3f4f6;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .custom-modal .close-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+  }
+  
+  .custom-modal .modal-icon {
+    width: 56px;
+    height: 56px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+  }
+  
+  .custom-modal .modal-icon .material-symbols-outlined {
+    font-size: 28px;
+  }
+  
+  .custom-modal h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 8px 0;
+  }
+  
+  .custom-modal p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+  }
+  
+  .custom-modal .otp-input-group {
+    margin-bottom: 24px;
+  }
+  
+  .custom-modal .otp-input {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 12px;
+    font-weight: 700;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    color: #111827;
+    transition: 0.2s;
+    box-sizing: border-box;
+  }
+  
+  .custom-modal .otp-input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  }
+  
+  .custom-modal .otp-input::placeholder {
+    letter-spacing: 4px;
+    color: #d1d5db;
+  }
+  
+  .custom-modal .save-btn.full-width {
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-sizing: border-box;
+  }
+  
+  .custom-modal .save-btn.full-width:active {
+    transform: scale(0.98);
+  }
+  
+  .custom-modal .save-btn.loading {
+    position: relative;
+    pointer-events: none;
+    color: transparent !important;
+  }
+  
+  .custom-modal .save-btn.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: button-spin 0.8s linear infinite;
+  }
+  
+  @keyframes modalPopUp {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .custom-modal .error-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #ef4444;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    animation: errorShake 0.4s ease-in-out;
+  }
+  
+  .custom-modal .error-text .material-symbols-outlined {
+    font-size: 16px;
+  }
+  
+  /* İNPUT HATA DURUMU (.has-error) */
+  .custom-modal .otp-input.has-error {
+    border-color: #ef4444;
+    color: #ef4444;
+    animation: errorShake 0.4s ease-in-out;
+  }
+  
+  /* Hata durumundayken input'a tıklanırsa çıkacak kırmızı parlama */
+  .custom-modal .otp-input.has-error:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+  }
+  
+  /* TİTREME (SHAKE) ANİMASYONU */
+  @keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }

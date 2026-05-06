@@ -27,6 +27,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { ChangePasswordComponent } from './dashboard/profile/change-password/change-password.component';
 import { SavedCardComponent } from './saved_cards/saved-card/saved-card.component';
 import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
+import { SupportRequestComponent } from './support-request/support-request.component';
 
 export const routes: Routes = [
 
@@ -38,6 +39,8 @@ export const routes: Routes = [
             {path:'',component:HomeComponent,title:'YunusPet'},
             {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
             {path:'home',component:HomeComponent,title:'Home'}, 
+            {path:'destek',component:SupportRequestComponent,title:'Destek'}, 
+
             {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
             
             {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},

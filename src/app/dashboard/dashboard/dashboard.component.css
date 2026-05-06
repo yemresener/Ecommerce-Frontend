@@ -40,7 +40,7 @@
     width: 280px;
     flex-shrink: 0;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 18px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
     position: sticky;
@@ -151,7 +151,7 @@
   .right {
     flex: 1;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
@@ -161,7 +161,7 @@
 
     @media (max-width: 576px) {
       padding: 14px;
-      border-radius: 16px;
+      border-radius: 10px;
     }
   }
 
