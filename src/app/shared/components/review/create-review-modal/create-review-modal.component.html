@@ -1,0 +1,44 @@
+<div class="modal-overlay" (click)="close.emit()">
+    <div class="create-container" (click)="$event.stopPropagation()">
+
+        <!-- Kapatma Butonu -->
+        <button class="close-button" (click)="close.emit()" aria-label="Kapat">
+            &times;
+        </button>
+
+        <div class="create-box">
+            
+            <!-- Başlık Kısmı -->
+            <div class="header-section">
+                <h3 class="rating-title">Ürünü Değerlendir</h3>
+            </div>
+
+            <!-- Yıldızlar -->
+            <div class="rating-box">
+                <div class="create-stars" (mouseleave)="clearHover()">
+                    <i *ngFor="let star of [1,2,3,4,5]" class="fa-solid fa-star"
+                       [class.active]="(hoverRating || rating) >= star"
+                       (mouseenter)="setHover(star)"
+                       (click)="setRating(star)">
+                    </i>
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="input-group">
+                <textarea spellcheck="false" 
+                          placeholder="Bu ürün hakkında paylaşmak istediğiniz tecrübe ve deneyimlerinizi yazınız..."
+                          class="create-text-area"
+                          [(ngModel)]="commentText">
+                </textarea>
+            </div>
+
+            <!-- Butonlar -->
+            <div class="action-buttons">
+                <button class="cancel-button" (click)="close.emit()">Vazgeç</button>
+                <button class="create-button" (click)="confirmButton()">Gönder</button>
+            </div>
+
+        </div>
+    </div>
+</div>

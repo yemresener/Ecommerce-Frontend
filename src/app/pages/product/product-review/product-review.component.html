@@ -123,10 +123,7 @@
                     <i class="fas fa-shopping-cart"></i> Sepete Ekle
                   </button>
               
-                  <button *ngIf="reviews?.length" class="comment-create"
-                          (click)="commentPopUp = 1;">
-                    Yorum Yaz
-                  </button>
+                
                 </ng-container>
               
               </div>
@@ -196,8 +193,7 @@
             <div *ngIf="!skeleton && !reviews?.length" class="reviews-empty" (click)="commentPopUp = 1;">
               <div class="empty-icon"><i class="fa-regular fa-comment-dots"></i></div>
               <h3>Henüz yorum yok</h3>
-              <p>İlk yorumu yapan sen ol! Deneyimini paylaş.</p>
-              <button class="comment-create-empty" style="width: 50%;">Yorum Yap</button>
+              <p>Ürünü hemen satın al ve ilk yorumu yapan sen ol! Deneyimini paylaş.</p>
             </div>
 
 
@@ -214,33 +210,3 @@
 <app-fullpage-loader *ngIf="isLoading"></app-fullpage-loader>
 
 <!-- Comment Create Layout -->
-<div class="modal-overlay" *ngIf="commentPopUp" (click)="commentPopUp=0">
-    <div class="create-container"  (click)="$event.stopPropagation()">
-
-        <div class="create-box">
-            <button class="close-button" (click)="commentPopUp=0" >
-                &times;
-            </button>
-            <label class="rating-title">Ürünü Puanla <hr style="margin-top: 20px; border: 1px solid rgb(204, 204, 204);"></label>
-
-            <div class="rating-box">
-            
-                <div class="create-stars" data-rating="0"   (mouseleave)="clearHover()">
-                    <i *ngFor="let star of [1,2,3,4,5]" class="fa-solid fa-star"
-                    [class.active]="(hoverRating || rating)>=star"
-                    (mouseenter)="setHover(star)"
-                    (click)="setRating(star)"
-                    ></i>
-                </div>
-            
-                <input type="hidden" id="rating-value" value="0">
-
-            </div>
-            <textarea spellcheck="false" placeholder="Bu ürün hakkında paylaşmak istediğiniz tecrübe ve deneyimlerinizi yazınız" class="create-text-area"></textarea>
-            <div class="action-buttons">
-                <button class="cancel-button"  (click)="commentPopUp=0">Vazgeç</button>
-                <button class="create-button">Gönder</button>
-            </div>
-        </div>
-    </div>
-</div>

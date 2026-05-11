@@ -30,7 +30,7 @@
   
       <div class="item-rating"  [class.none]="!item.total_comments" >
             <i class="fa-solid fa-star" style="color:rgb(255, 223, 40);"></i>
-            {{ item.avg_rating | number:'1.0'  }}
+            {{ item.avg_rating | number:'1.0-1'  }}
             <span>({{ item.total_comments | number:'1.0-1' }})</span>
         </div>
   

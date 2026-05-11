@@ -7,4 +7,7 @@ export interface OrderItems {
     name:string,
     image:string,
     available_quantity:number,
+    review:{
+        rating:number
+    }
 }

@@ -127,6 +127,26 @@
             <div class="product-info">
               <div class="product-name">{{item.name}}</div>
               <div class="product-variant"> Adet: {{item.quantity}}</div>
+
+              <div class="product-review-section" *ngIf="order.status === 'completed' || 
+              order.status === 'refunded'
+              "> 
+                
+                <!-- Yorum Varsa Yıldızları Göster -->
+                <div class="stars-container" *ngIf="item.review">
+                  
+                  <app-rating-stars
+                    [rating]="item.review.rating ?? 0">
+                  </app-rating-stars>
+                  <span class="rating-text">({{item.review.rating}})</span>
+                </div>
+
+                <!-- Yorum Yoksa Buton Göster -->
+                <button class="btn-review" (click)="reviewOpen(item.id)" *ngIf="!item.review">
+                  Yorum Yap
+                </button>
+
+              </div>
             </div>
             <div class="price-group">
               <!-- İndirim varsa üstte çizili şekilde eski fiyatı göster -->
@@ -335,4 +355,8 @@
     <app-fullpage-loader *ngIf="loading"></app-fullpage-loader>
 
 
-    
+    <app-create-review-modal *ngIf="reviewShow"
+    (close)="reviewClose()"
+    (confirm)="onReviewConfirm($event)"
+    ></app-create-review-modal>
+

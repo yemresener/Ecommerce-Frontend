@@ -8,18 +8,24 @@ import { MainToastComponent } from '../../shared/components/toast/main-toast/mai
 import { DeleteConfirmComponent } from '../../shared/components/delete-confirm/delete-confirm.component';
 import { FullpageLoaderComponent } from '../../shared/fullpage-loader/fullpage-loader.component';
 import { BrowserAware } from '../../shared/base/browser-aware';
-
+import { RatingStarsComponent } from '../../shared/rating/rating-stars/rating-stars.component';
+import { CreateReviewModalComponent } from '../../shared/components/review/create-review-modal/create-review-modal.component';
+import { UserReviewService } from '../../Services/user-review.service';
 @Component({
   selector: 'app-order-detail',
-  imports: [CommonModule,MainToastComponent,DeleteConfirmComponent,FullpageLoaderComponent,],
+  imports: [CommonModule,MainToastComponent,DeleteConfirmComponent,
+    FullpageLoaderComponent,RatingStarsComponent,CreateReviewModalComponent],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.css'
 })
 export class OrderDetailComponent extends BrowserAware{
-  constructor(private service:OrderService,private route:ActivatedRoute,private router:Router){super()}
+  constructor(private service:OrderService,private route:ActivatedRoute,
+    private router:Router, private userService:UserReviewService ){super()}
+
   order!:Order;
   id!:number;
   address!:AddressInterface;
+
   ngOnInit(): void {
     
     this.route.paramMap.subscribe(params=>{
@@ -114,4 +120,49 @@ export class OrderDetailComponent extends BrowserAware{
     this.router.navigate([`/hesabim/siparislerim`]);
   }
 
+
+  reviewShow=false;
+  selectedId?:number;
+
+  reviewOpen(id:number){
+    console.log(id);
+    this.selectedId = id;
+    this.reviewShow=true;
+  }
+
+  reviewClose(){
+    this.selectedId=undefined;
+    this.reviewShow=false;
+  }
+
+  onReviewConfirm(body:{rating:number,commentText:string}){
+    if(!this.selectedId) return;
+    this.loading=true;
+    const payload = {
+      rating:body.rating,
+      comment:body.commentText,
+      order_item_id:this.selectedId
+    }
+    this.userService.createReview(payload).subscribe({
+      next:(res)=>{
+        const item = this.order.order_items.find(i => i.id === this.selectedId);
+        if(item) item.review = {rating:res.rating};
+        console.log(res);
+        this.toastMessage=res.message;
+        this.status='success';
+        this.reviewClose();
+        this.loading=false;
+        
+      },
+      error:(err)=>{
+        console.log(err);
+
+        this.toastMessage=err.error.message;
+        this.status='error';
+
+        this.loading=false;
+      }
+    })
+  }
+  
 }

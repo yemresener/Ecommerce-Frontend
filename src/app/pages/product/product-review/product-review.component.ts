@@ -58,17 +58,8 @@ export class ProductReviewComponent {
 
 
   commentPopUp = 0;
-  rating=0;
-  hoverRating=0;
 
-  setRating(value:number){
-    this.rating=value;
-  }
-  setHover(value:number){
-    this.hoverRating=value;
-  }
-  clearHover(){
-    this.hoverRating=0;
-  }
+
+
 
 }

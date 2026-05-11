@@ -1,0 +1,241 @@
+/* Arka plan overlay - Glassmorphism etkisi eklendi */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.4); /* Daha koyu ama saydam bir gri/lacivert */
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: fadeIn 0.25s ease;
+    padding: 16px;
+}
+
+/* Ana Kutu */
+.create-container {
+    width: 100%;
+    max-width: 520px; /* Textarea 100% olduğu için burayı 520px tuttuk */
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Daha yumuşak bir açılış animasyonu */
+}
+
+/* Çarpı Butonu */
+.close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border-radius: 50%; /* Tam yuvarlak */
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.close-button:hover {
+    background-color: #e5e7eb;
+    color: #111827;
+    transform: rotate(90deg); /* Üzerine gelince tatlı bir dönüş */
+}
+
+.create-box {
+    padding: 32px 24px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Başlık Alanı */
+.header-section {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f3f4f6; /* Hr yerine daha temiz bir alt çizgi */
+}
+
+.rating-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 6px 0;
+}
+
+.rating-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Yıldızlar */
+.rating-box {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-stars {
+    display: flex;
+    gap: 8px;
+    font-size: 36px;
+}
+
+.create-stars i {
+    color: #e5e7eb;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+}
+
+.create-stars i:hover {
+    transform: scale(1.15);
+}
+
+.create-stars i.active {
+    color: #f59e0b; /* Daha sıcak, modern bir sarı/turuncu tonu */
+    filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.2)); /* Aktif yıldıza hafif parlama */
+}
+
+/* Textarea (Yorum Alanı) */
+.input-group {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.create-text-area {
+    font-family: 'Inter', sans-serif;
+    width: 100%; /* Sabit px yerine %100 yaptık */
+    height: 140px;
+    padding: 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #1f2937;
+    background-color: #f9fafb; /* Çok hafif grimsi bir zemin */
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-sizing: border-box;
+    resize: none;
+    transition: all 0.2s ease;
+}
+
+.create-text-area::placeholder {
+    color: #9ca3af;
+}
+
+.create-text-area:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Butonlar */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.cancel-button, .create-button {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.cancel-button {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.cancel-button:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.create-button {
+    background-color: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+}
+
+.create-button:hover {
+    background-color: #2563eb;
+    box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.3);
+    transform: translateY(-1px);
+}
+
+/* ======================
+   RESPONSIVE (MOBİL UYUM)
+====================== */
+
+@media (max-width: 640px) {
+    .create-box {
+        padding: 24px 16px 20px;
+    }
+
+    .create-stars {
+        font-size: 32px;
+        gap: 6px;
+    }
+    
+    .rating-title {
+        font-size: 1.15rem;
+    }
+
+    .create-text-area {
+        height: 120px;
+        font-size: 0.9rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .cancel-button, .create-button {
+        width: 100%;
+        padding: 14px; /* Mobilde parmakla basmak daha kolay olsun diye padding artırıldı */
+    }
+    
+    /* Mobilde vazgeç butonunu alta almak daha iyi bir UX sunar */
+    .cancel-button {
+        order: 2; 
+        background-color: transparent; /* Mobilde daha sade dursun */
+    }
+    
+    .create-button {
+        order: 1;
+    }
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.98); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
