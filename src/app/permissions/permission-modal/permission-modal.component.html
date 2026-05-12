@@ -1,0 +1,31 @@
+<div class="modal-overlay" (click)="close.emit()">
+  
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      
+      <!-- Kapatma Butonu -->
+      <button class="close-button" (click)="close.emit()" aria-label="Kapat">&times;</button>
+  
+      <!-- Modalın İçeriği (List Componentini çağırıyoruz ve Inputları aktarıyoruz) -->
+      <div class="modal-body-scroll">
+
+        <app-pre-info-list 
+        *ngIf="modalType === 'pre-info'"
+          [user]="user()"
+          [selectedAddress]="selectedAddress"
+          [cartItems]="cartItems"
+          [summarry]="summarry">
+        </app-pre-info-list>
+
+        <app-distance-sales-list 
+        *ngIf="modalType === 'distance-sales'"
+        [user]="user()"
+        [selectedAddress]="selectedAddress"
+        [cartItems]="cartItems"
+        [summarry]="summarry">
+      </app-distance-sales-list>
+      </div>
+  
+
+
+    </div>
+  </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { Step3CreateAccComponent } from './step3-create-acc/step3-create-acc.component';
 import { RegisterService } from '../../Services/auth/register.service';
@@ -8,14 +8,15 @@ import { OtpApiResponse } from '../../interfaces/otp-api-response';
 import { CreateAcc } from '../../interfaces/register/create-acc';
 import { Step1EmailComponent } from '../../shared/components/auth/step1-email/step1-email.component';
 import { Step2VerifyCodeComponent } from '../../shared/components/auth/step2-verify-code/step2-verify-code.component';
+import { BrowserAware } from '../../shared/base/browser-aware';
 @Component({
   selector: 'app-register',
   imports: [CommonModule,RouterLink,Step3CreateAccComponent,Step1EmailComponent,Step2VerifyCodeComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
-  constructor(private service:RegisterService){}
+export class RegisterComponent extends BrowserAware{
+  constructor(private service:RegisterService, private router:Router){super()}
 
   step:string='emailOtp';
   userMail!:string;
@@ -102,6 +103,11 @@ export class RegisterComponent {
         this.loadingStep3=false;
 
         // yönlendirme yapılacak
+        if(this.isBrowser()){
+          this.router.navigate(['/login'],{
+            state:{message:'Hesabınız oluşturuldu. Giriş yapabilirsiniz.'}
+          });
+        }
 
       },
       error:(err)=>{

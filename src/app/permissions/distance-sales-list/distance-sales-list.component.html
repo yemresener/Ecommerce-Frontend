@@ -1,0 +1,169 @@
+<div class="distance-selling-wrapper">
+    <div class="distance-selling-container">
+      
+      <!-- Header -->
+      <div class="distance-selling-header">
+        <h1 class="distance-selling-title">Mesafeli Satış Sözleşmesi</h1>
+        <div class="distance-selling-meta">
+          <span>YunusPet</span>
+          <span class="divider">•</span>
+          <span>{{ currentDate ? (currentDate | date:'dd.MM.yyyy') : '12 Mayıs 2026' }}</span>
+        </div>
+      </div>
+  
+      <!-- Content -->
+      <div class="distance-selling-content">
+        
+        <!-- Bölüm 1 -->
+        <section class="distance-selling-section">
+          <h2>1. Taraflar</h2>
+          
+          <div class="sub-section">
+            <h3>SATICI</h3>
+            <div class="company-info-box">
+              <div class="info-row"><strong>Ünvan:</strong> <span>YunusPet Şahıs Şirketi</span></div>
+              <div class="info-row"><strong>Adres:</strong> <span>[ŞİRKET ADRESİ]</span></div>
+              <div class="info-row"><strong>E-posta:</strong> <span><a href="mailto:info@yunuspet.com">info&#64;yunuspet.com</a></span></div>
+              <div class="info-row"><strong>Web:</strong> <span><a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a></span></div>
+            </div>
+          </div>
+  
+          <!-- DİNAMİK ALICI KISMI -->
+          <div class="sub-section">
+            <h3>ALICI</h3>
+            <div class="company-info-box buyer-box" *ngIf="user">
+              <div class="info-row"><strong>Ad Soyad:</strong> 
+                <span>{{ user?.name ? user.name + ' ' + user.surname : '[ALICI AD SOYAD]' }}</span>
+              </div>
+              <div class="info-row"><strong>Adres:</strong> 
+                <span>{{ selectedAddress?.address_line || '[ALICI TESLİMAT ADRESİ]' }}</span>
+              </div>
+              <div class="info-row"><strong>Telefon:</strong> 
+                <span>{{ user?.phone_number || '[ALICI TELEFON NUMARASI]' }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <!-- Bölüm 2 -->
+        <section class="distance-selling-section">
+          <h2>2. Konu</h2>
+          <p>İşbu sözleşme, 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği kapsamında, Alıcı'nın <a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a> üzerinden sipariş ettiği ürün/ürünlerin satışı ve teslimatına ilişkin tarafların hak ve yükümlülüklerini düzenlemektedir.</p>
+        </section>
+  
+        <!-- Bölüm 3 - DİNAMİK ÜRÜN TABLOSU -->
+        <section class="distance-selling-section">
+          <h2>3. Sözleşme Konusu Ürünler</h2>
+          <p>Aşağıda cinsi ve türü, miktarı, marka/modeli, rengi ve tüm vergiler dâhil satış bedeli belirtilen ürünlerin satışı ve teslimi işbu sözleşmenin konusunu oluşturur.</p>
+          
+          <!-- Eğer sepette ürün varsa bu tablo çıkar -->
+          <div class="order-table-container" *ngIf="cartItems && cartItems.length > 0; else noItems">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Ürün Adı</th>
+                  <th style="text-align: center;">Adet</th>
+                  <th style="text-align: right;">Birim Fiyat</th>
+                  <th style="text-align: right;">Ara Toplam</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cartItems">
+                  <td>{{ item.title }}</td>
+                  <td style="text-align: center;">{{ item.quantity }}</td>
+                  <td style="text-align: right;">{{ item.price }} TL</td>
+                  <td style="text-align: right; font-weight: 600;">{{ item.total }} TL</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" style="text-align: right;">Kargo Ücreti:</td>
+                  <td style="text-align: right;">{{ summarry.cartCargoFee > 0 ? summarry.cartCargoFee + ' TL' : 'Ücretsiz' }}</td>
+                </tr>
+                <tr class="total-row">
+                  <td colspan="3" style="text-align: right;"><strong>GENEL TOPLAM:</strong></td>
+                  <td style="text-align: right; color: #3b82f6;"><strong>{{ summarry.total }} TL</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+  
+          <!-- Ürün yoksa (Footer'dan girilmişse) bu taslak çıkar -->
+          <ng-template #noItems>
+            <div class="placeholder-box">
+              [SİPARİŞ VERİLECEK ÜRÜNLERİN LİSTESİ VE BİRİM FİYATLARI BURADA YER ALACAKTIR]
+            </div>
+          </ng-template>
+
+        </section>
+  
+        <!-- Bölüm 4 -->
+        <section class="distance-selling-section">
+          <h2>4. Ödeme</h2>
+          <p>Alıcı, sipariş sırasında seçtiği ödeme yöntemi ile ödemeyi gerçekleştirmekle yükümlüdür. Kredi kartı ile yapılan ödemelerde kart bilgileri YunusPet tarafından saklanmamakta olup ödeme, PCI-DSS uyumlu ödeme altyapı sağlayıcısı üzerinden gerçekleştirilmektedir. Ödemenin herhangi bir nedenle bankaca onaylanmaması halinde sipariş iptal edilir.</p>
+        </section>
+  
+        <!-- Bölüm 5 -->
+        <section class="distance-selling-section">
+          <h2>5. Teslimat</h2>
+          <p>Teslimat, Alıcı'nın belirttiği adrese anlaşmalı kargo firması aracılığıyla yapılır. Stokta bulunan ürünler için teslimat süresi sipariş onayından itibaren ortalama 2-5 iş günüdür. Adres hatası veya Alıcı kaynaklı teslim alınamaması durumundan YunusPet sorumlu tutulamaz. Ürün tesliminde hasar tespit edilmesi halinde kargo firması ile tutanak tutulması gerekmektedir.</p>
+        </section>
+  
+        <!-- Bölüm 6 -->
+        <section class="distance-selling-section">
+          <h2>6. Cayma Hakkı</h2>
+          <p>Alıcı, ürünü teslim aldığı tarihten itibaren 14 (on dört) gün içinde herhangi bir gerekçe göstermeksizin ve cezai şart ödemeksizin sözleşmeden cayma hakkına sahiptir. Cayma hakkının kullanılabilmesi için aşağıdaki koşulların sağlanması gerekmektedir:</p>
+          <ul>
+            <li>Ürünün kullanılmamış, orijinal ambalajında ve eksiksiz olması</li>
+            <li>Ürüne ait tüm aksesuarların iade edilmesi</li>
+            <li>Cayma bildiriminin <a href="mailto:info@yunuspet.com">info&#64;yunuspet.com</a> adresine yazılı olarak iletilmesi</li>
+          </ul>
+          <p>Cayma hakkı kapsamında iade kargo bedeli Alıcı'ya aittir. YunusPet, iade ürünü teslim aldıktan sonra 14 gün içinde ödemeyi iade eder.</p>
+        </section>
+  
+        <!-- Bölüm 7 -->
+        <section class="distance-selling-section">
+          <h2>7. Cayma Hakkının İstisnaları</h2>
+          <p>Aşağıdaki durumlarda cayma hakkı kullanılamaz:</p>
+          <ul>
+            <li>Alıcı'nın özel talebi veya açık kişisel ihtiyaçları doğrultusunda hazırlanan ürünler</li>
+            <li>Ambalajı açılmış, iade edilmesi sağlık ve hijyen açısından uygun olmayan ürünler (açılmış kedi kumu, mama vb.)</li>
+            <li>Niteliği itibarıyla geri gönderilmeye elverişli olmayan veya çabuk bozulma tehlikesi olan ürünler</li>
+          </ul>
+        </section>
+  
+        <!-- Bölüm 8 -->
+        <section class="distance-selling-section">
+          <h2>8. Garanti ve Ayıplı Mal</h2>
+          <p>Ürünlerde ayıp tespit edilmesi halinde Alıcı, 6502 sayılı Kanun kapsamındaki yasal haklarını kullanabilir. Bu haklar; ücretsiz onarım, değiştirme, bedel indirimi veya sözleşmeden dönme olarak sıralanabilir. Ayıplı mal bildirimi için <a href="mailto:info@yunuspet.com">info&#64;yunuspet.com</a> adresine başvurulabilir.</p>
+        </section>
+  
+        <!-- Bölüm 9 -->
+        <section class="distance-selling-section">
+          <h2>9. Gizlilik ve Kişisel Veriler</h2>
+          <p>Alıcı'ya ait kişisel veriler, KVKK Aydınlatma Metni ve Gizlilik Politikası kapsamında işlenmektedir. Veriler yalnızca siparişin yerine getirilmesi ve yasal yükümlülüklerin karşılanması amacıyla kullanılır.</p>
+        </section>
+  
+        <!-- Bölüm 10 -->
+        <section class="distance-selling-section">
+          <h2>10. Uyuşmazlık Çözümü</h2>
+          <p>İşbu sözleşmeden doğacak uyuşmazlıklarda, 6502 sayılı Kanun'da belirtilen parasal sınırlar dahilinde Alıcı'nın yerleşim yerindeki veya satın almanın yapıldığı yerdeki Tüketici Hakem Heyeti; sınırları aşan uyuşmazlıklarda ise Tüketici Mahkemeleri yetkilidir.</p>
+        </section>
+  
+        <!-- Bölüm 11 -->
+        <section class="distance-selling-section">
+          <h2>11. Yürürlük</h2>
+          <p>Alıcı, sipariş onayı aşamasında işbu sözleşmeyi elektronik ortamda onaylamakla tüm hükümlerini okuduğunu, anladığını ve kabul ettiğini beyan eder. Sözleşme, Alıcı'nın onayı ile birlikte yürürlüğe girer.</p>
+        </section>
+  
+      </div>
+  
+      <!-- Footer -->
+      <div class="distance-selling-footer">
+        <span>YunusPet</span>
+        <span class="divider">|</span>
+        <a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a>
+      </div>
+  
+    </div>
+  </div>

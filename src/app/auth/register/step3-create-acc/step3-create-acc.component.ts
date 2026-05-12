@@ -21,7 +21,12 @@ export class Step3CreateAccComponent extends ErrorBase {
       name:['',[Validators.required,Validators.minLength(2)]],
       surname:['',[Validators.required,Validators.minLength(2)]],
       password:['',[Validators.required,Validators.minLength(6)]],
-      phone_number:['',[Validators.pattern(/^(\+90|0)?5[0-9]{9}$/)]]
+      phone_number:['',[Validators.pattern(/^(\+90|0)?5[0-9]{9}$/)]],
+
+      agreements: [false, [Validators.requiredTrue]],
+      marketing_consent:[false]
+
+      
 
     })
   }
@@ -30,6 +35,8 @@ export class Step3CreateAccComponent extends ErrorBase {
   get password() {return this.registerForm.get('password')};
   get phone_number() {return this.registerForm.get('phone_number')};
 
+  get agreements() { return this.registerForm.get('agreements'); }
+  get marketingConsent() { return this.registerForm.get('marketingConsent'); }
 
   onSubmit(){
     if(this.registerForm.invalid){

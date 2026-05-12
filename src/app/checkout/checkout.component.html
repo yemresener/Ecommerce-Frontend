@@ -132,6 +132,7 @@
                   <div class="product-price">{{ item.total }} TL</div>
               </div>
           </div>
+
       </div>
  
         
@@ -163,14 +164,41 @@
           <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           Ödemeyi tamamla
         </button>
+    
+
+        <form [formGroup]="permissionsForm">
+          <div class="legal-checkboxes">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="preliminaryInformation">
+              <span class="label-text">
+                <a (click)="activeModalType = 'distance-sales'">Mesafeli Satış Sözleşmesi</a>'ni okudum, kabul ediyorum.
+              </span>
+            </label>
+            
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="distanceSales">
+              <span class="label-text">
+               <a (click)="activeModalType = 'pre-info'">Ön Bilgilendirme Formu</a>'nu okudum, kabul ediyorum.
+              </span>
+            </label>
+
+            <span class="error" *ngIf="(distanceSales?.invalid && distanceSales?.touched) || (preliminaryInformation?.invalid && preliminaryInformation?.touched)">
+              <span>Lütfen sözleşmeleri ve formları onaylayınız.</span>
+            </span>
+            
+          </div>
+        </form>
+
+
         <div class="security-note">
           <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           256-bit SSL şifreleme ile korunmaktadır
         </div>
+
+
       </div>
     </div>
 
-    
   </div>
 </div>
 
@@ -299,3 +327,14 @@
 
 <app-fullpage-loader *ngIf="redirectToPayment"></app-fullpage-loader>
 
+
+<app-permission-modal
+*ngIf="activeModalType !== null" 
+  [modalType]="activeModalType"
+  [selectedAddress]="address" 
+  [cartItems]="carts" 
+  [summarry]="summary"
+  (close)="activeModalType = null"
+>
+
+</app-permission-modal>

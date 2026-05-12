@@ -27,10 +27,13 @@ import { SavedCardPayload } from '../interfaces/payment/payload/saved-card-paylo
 
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 import { DeliveryMessageService } from '../NoApiServices/delivery-message.service';
+import { PermissionModalComponent } from '../permissions/permission-modal/permission-modal.component';
+
 @Component({
   selector: 'app-checkout',
   imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,
-    FullpageLoaderComponent,NgxMaskDirective,ReactiveFormsModule,PaymentMethodsComponent],
+    FullpageLoaderComponent,NgxMaskDirective,ReactiveFormsModule,
+    PaymentMethodsComponent,PermissionModalComponent],
   templateUrl: './checkout.component.html',
     host: { ngSkipHydration: 'true' }, // ssr 
     providers: [provideNgxMask()],
@@ -46,10 +49,17 @@ export class CheckoutComponent extends BrowserAware{
     private paymentService:PaymentService,
     private deliveryService:DeliveryMessageService
   ){super()
-
-
+    this.permissionsForm = this.fb.group({
+      preliminaryInformation: [false, [Validators.requiredTrue]],
+      distanceSales: [false, [Validators.requiredTrue]]
+    })
   }
 
+  get preliminaryInformation() { return this.permissionsForm.get('preliminaryInformation'); }
+  get distanceSales() { return this.permissionsForm.get('distanceSales'); }
+
+  permissionsForm:FormGroup;
+  activeModalType: 'pre-info' | 'distance-sales' | null = null;
 
   @ViewChild(PaymentMethodsComponent) paymentMethodsComp!: PaymentMethodsComponent;
   @ViewChild(AddressComponent) addressComp!: AddressComponent;
@@ -87,6 +97,7 @@ export class CheckoutComponent extends BrowserAware{
   redirectToPayment=false;
   savedCards?:CreditCardInterface[];
   deliveryMessage?:string;
+
   checkout(){
     this.loading=true;
     this.service.checkout().subscribe({
@@ -128,8 +139,13 @@ export class CheckoutComponent extends BrowserAware{
 
   payment(){
     this.toastMessage='';
-    this.redirectToPayment=true;
     const child = this.paymentMethodsComp;
+
+    if(this.permissionsForm.invalid){
+      this.permissionsForm.markAllAsTouched();
+      return;
+    }
+    this.redirectToPayment=true;
 
     if(this.activeCardContext==='new'){
 
@@ -154,7 +170,9 @@ export class CheckoutComponent extends BrowserAware{
           expire_month:expire_month,
           expire_year:expire_year,
           cvc:cvv,
-          installment:this.selectedInstallment
+          installment:this.selectedInstallment,
+          pre_info_at:this.permissionsForm.value.preliminaryInformation,
+          dist_sales_at:this.permissionsForm.value.distanceSales
       }
 
       this.handleNewCardApiCall(payload);
@@ -164,7 +182,9 @@ export class CheckoutComponent extends BrowserAware{
 
       const payload: SavedCardPayload = {
         saved_card_id: this.selectedSavedCard,
-        installment: this.selectedInstallment
+        installment: this.selectedInstallment,
+        pre_info_at:this.permissionsForm.value.preliminaryInformation,
+        dist_sales_at:this.permissionsForm.value.distanceSales
       };
       
       this.handleSavedCardApiCall(payload);

@@ -1,0 +1,139 @@
+<div class="pre-info-wrapper">
+  <div class="pre-info-container">
+    
+    <!-- Header -->
+    <div class="pre-info-header">
+      <h1 class="pre-info-title">Ön Bilgilendirme Formu</h1>
+      <div class="pre-info-meta">
+        <span>YunusPet</span>
+        <span class="divider">•</span>
+        <span>{{ currentDate ? (currentDate | date:'dd.MM.yyyy') : '12 Mayıs 2026' }}</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pre-info-content">
+      
+      <!-- Bölüm 1 -->
+      <section class="pre-info-section">
+        <h2>1. Taraflar</h2>
+        
+        <div class="sub-section">
+          <h3>SATICI</h3>
+          <div class="company-info-box">
+            <div class="info-row"><strong>Ünvan:</strong> <span>YunusPet Şahıs Şirketi</span></div>
+            <div class="info-row"><strong>Adres:</strong> <span>[ŞİRKET ADRESİ]</span></div>
+            <div class="info-row"><strong>E-posta:</strong> <span><a href="mailto:info@yunuspet.com">info&#64;yunuspet.com</a></span></div>
+            <div class="info-row"><strong>Web:</strong> <span><a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a></span></div>
+          </div>
+        </div>
+
+        <!-- DİNAMİK ALICI KISMI -->
+        <div class="sub-section">
+          <h3>ALICI</h3>
+          <div class="company-info-box buyer-box" *ngIf="user">
+            <div class="info-row"><strong>Ad Soyad:</strong> 
+              <span>{{ user?.name ? user.name + ' ' + user.surname : '[ALICI AD SOYAD]' }}</span>
+            </div>
+            <div class="info-row"><strong>Adres:</strong> 
+              <span>{{ selectedAddress?.address_line || '[ALICI TESLİMAT ADRESİ]' }}</span>
+            </div>
+            <div class="info-row"><strong>Telefon:</strong> 
+              <span>{{ user?.phone_number || '[ALICI TELEFON NUMARASI]' }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bölüm 2 -->
+      <section class="pre-info-section">
+        <h2>2. Konu</h2>
+        <p>İşbu formun konusu, Alıcı'nın Satıcı'ya ait <a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a> web sitesinden elektronik ortamda siparişini yaptığı ürünlerin satışı ve teslimatı ile ilgili olarak 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince Alıcı'nın bilgilendirilmesidir.</p>
+      </section>
+
+      <!-- Bölüm 3 - DİNAMİK ÜRÜN TABLOSU -->
+      <section class="pre-info-section">
+        <h2>3. Sözleşme Konusu Ürünler ve Fiyat</h2>
+        <p>Satın alınan ürünlerin temel özellikleri, adetleri, vergiler dahil toplam satış fiyatı ve ödeme yöntemi aşağıda belirtilmiştir.</p>
+        
+        <!-- Eğer sepette ürün varsa bu tablo çıkar -->
+        <div class="order-table-container" *ngIf="cartItems && cartItems.length > 0; else noItems">
+          <table class="order-table">
+            <thead>
+              <tr>
+                <th>Ürün Adı</th>
+                <th style="text-align: center;">Adet</th>
+                <th style="text-align: right;">Birim Fiyat</th>
+                <th style="text-align: right;">Ara Toplam</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>{{ item.title }}</td>
+                <td style="text-align: center;">{{ item.quantity }}</td>
+                <td style="text-align: right;">{{ item.price }} TL</td>
+                <td style="text-align: right; font-weight: 600;">{{ item.total }} TL</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="text-align: right;">Kargo Ücreti:</td>
+                <td style="text-align: right;">{{ summarry.cartCargoFee > 0 ? summarry.cartCargoFee + ' TL' : 'Ücretsiz' }}</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="3" style="text-align: right;"><strong>GENEL TOPLAM:</strong></td>
+                <td style="text-align: right; color: #3b82f6;"><strong>{{ summarry.total }} TL</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Ürün yoksa (Footer'dan girilmişse) bu taslak çıkar -->
+        <ng-template #noItems>
+          <div class="placeholder-box">
+            [SİPARİŞ VERİLECEK ÜRÜNLERİN LİSTESİ VE BİRİM FİYATLARI BURADA YER ALACAKTIR]
+          </div>
+        </ng-template>
+      </section>
+
+      <!-- Bölüm 4 -->
+      <section class="pre-info-section">
+        <h2>4. Teslimat Şartları</h2>
+        <p>Ürün/ürünler, Alıcı'nın belirttiği teslimat adresine, yasal 30 günlük süreyi aşmamak kaydıyla teslim edilir. Kargo ücreti aksi belirtilmediği sürece Alıcı tarafından karşılanır ve sipariş toplamına eklenir. Alıcı'nın adresinde bulunmaması durumunda Satıcı edimini tam ve eksiksiz olarak yerine getirmiş kabul edilecektir.</p>
+      </section>
+
+      <!-- Bölüm 5 -->
+      <section class="pre-info-section">
+        <h2>5. Cayma Hakkı</h2>
+        <p>Alıcı, satın aldığı malı teslim aldığı tarihten itibaren 14 (on dört) gün içerisinde hiçbir hukuki ve cezai sorumluluk üstlenmeksizin ve hiçbir gerekçe göstermeksizin reddederek sözleşmeden cayma hakkına sahiptir. Cayma hakkının kullanımı için <a href="mailto:info@yunuspet.com">info&#64;yunuspet.com</a> adresine bildirimde bulunulması yeterlidir.</p>
+      </section>
+
+      <!-- Bölüm 6 -->
+      <section class="pre-info-section">
+        <h2>6. Cayma Hakkı Kullanılamayacak Ürünler</h2>
+        <p>Mevzuat gereği aşağıdaki ürünlerde cayma hakkı kullanılamaz:</p>
+        <ul>
+          <li>Ambalajı, bandrolü veya koruyucu paketi açılmış olan ürünler (kedi/köpek maması, kumu vb.)</li>
+          <li>Sağlık ve hijyen açısından iadesi uygun olmayan ürünler.</li>
+          <li>Alıcı'nın istekleri doğrultusunda özel olarak hazırlanan ürünler.</li>
+          <li>Çabuk bozulabilen veya son kullanma tarihi geçme ihtimali olan ürünler.</li>
+        </ul>
+      </section>
+
+      <!-- Bölüm 7 -->
+      <section class="pre-info-section">
+        <h2>7. Uyuşmazlık Çözümü</h2>
+        <p>İşbu Ön Bilgilendirme Formu'nun uygulanmasında, Ticaret Bakanlığı'nca her yıl ilan edilen parasal sınırlar dâhilinde Alıcı'nın malı satın aldığı veya ikametgahının bulunduğu yerdeki Tüketici Hakem Heyetleri ile Tüketici Mahkemeleri yetkilidir.</p>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="pre-info-footer">
+      <span>YunusPet</span>
+      <span class="divider">|</span>
+      <a href="https://www.yunuspet.com" target="_blank">www.yunuspet.com</a>
+    </div>
+
+  </div>
+</div>

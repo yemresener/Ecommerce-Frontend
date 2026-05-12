@@ -209,7 +209,7 @@
                 <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.productCount}})</label>
                 <label (click)="mPrice=!mPrice"  class="m-price">{{summary?.total}} TL <i [class]="mPrice ? 'fa-angle-up' : 'fa-angle-down'" class="fa-solid"></i></label>
             </div>
-            <button class="m-approve-btn">Sepeti Onayla</button>  
+            <button class="m-approve-btn"  (click)="navigateCheckout()">Sepeti Onayla</button>  
         </div>
     </div>
 

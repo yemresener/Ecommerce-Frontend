@@ -28,6 +28,11 @@ import { ChangePasswordComponent } from './dashboard/profile/change-password/cha
 import { SavedCardComponent } from './saved_cards/saved-card/saved-card.component';
 import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
 import { SupportRequestComponent } from './support-request/support-request.component';
+import { Step3CreateAccComponent } from './auth/register/step3-create-acc/step3-create-acc.component';
+import { PermissionsComponent } from './permissions/permissions.component';
+import { KvkkPermissionComponent } from './permissions/kvkk-permission/kvkk-permission.component';
+import { MembershipPermissionComponent } from './permissions/membership-permission/membership-permission.component';
+import { PreInfoPermissionComponent } from './permissions/pre-info-permission/pre-info-permission.component';
 
 export const routes: Routes = [
 
@@ -40,6 +45,7 @@ export const routes: Routes = [
             {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
             {path:'home',component:HomeComponent,title:'Home'}, 
             {path:'destek',component:SupportRequestComponent,title:'Destek'}, 
+            {path:'deneme123',component:Step3CreateAccComponent,title:'Destek'}, 
 
             {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
             
@@ -85,6 +91,23 @@ export const routes: Routes = [
                 
 
             ],title:'Hesabım'},
+
+        ]
+    },
+
+    {
+        path:'',
+        component:NoneFotterLayoutComponent,
+        children:[
+            {path:'izinler',component:PermissionsComponent,children:[
+                {path:'kvkk',component:KvkkPermissionComponent,title:'KVKK'},
+                {path:'uyelik-sozlesmesi',component:MembershipPermissionComponent,title:'KVKK'},
+                {path:'mesafeli-satis-sozlesmesi',component:PreInfoPermissionComponent,title:'KVKK'},
+
+        
+                
+
+            ],title:'İzinler'},
 
         ]
     },

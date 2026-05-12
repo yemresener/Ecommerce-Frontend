@@ -1,0 +1,164 @@
+/* Ana Kapsayıcı */
+.kvkk-wrapper {
+    background-color: #f9fafb;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #374151;
+    line-height: 1.5; /* 1.6'dan 1.5'e düşürüldü, satırlar biraz daha toplu dursun */
+    font-size: 0.9rem; /* Genel yazı boyutu küçültüldü */
+  }
+  
+  /* Beyaz Metin Kutusu */
+  .kvkk-container {
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 10px; /* Senin ayarladığın padding */
+  }
+  
+  /* Header Alanı */
+  .kvkk-header {
+    border-bottom: 1px solid #f3f4f6; /* 2px'den 1px'e inceltildi */
+    padding-bottom: 16px; /* 24'ten 16'ya çekildi */
+    margin-bottom: 20px; /* 32'den 20'ye çekildi */
+  }
+  
+  .kvkk-title {
+    font-size: 1.4rem; /* 1.75'ten 1.4'e düşürüldü */
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+  
+  .kvkk-meta {
+    font-size: 0.8rem; /* 0.9'dan 0.8'e düşürüldü */
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .kvkk-meta .divider {
+    margin: 0 6px;
+    color: #d1d5db;
+  }
+  
+  /* İçerik ve Bölümler */
+  .kvkk-section {
+    margin-bottom: 24px; /* Bölümler arası boşluk daraltıldı (36 -> 24) */
+  }
+  
+  .kvkk-section h2 {
+    font-size: 1.1rem; /* 1.25'ten 1.1'e düşürüldü */
+    font-weight: 600;
+    color: #3b82f6;
+    margin: 0 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .sub-section {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .sub-section h3 {
+    font-size: 0.95rem; /* 1.05'ten 0.95'e */
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 6px 0;
+  }
+  
+  .kvkk-section p {
+    margin: 0 0 10px 0;
+  }
+  
+  /* Şirket Bilgi Kutusu */
+  .company-info-box {
+    background-color: #eff6ff;
+    border-left: 3px solid #3b82f6; /* 4px'ten 3px'e inceltildi */
+    padding: 12px 16px; /* Kutu içi boşluklar daraltıldı */
+    border-radius: 0 6px 6px 0;
+    margin-top: 12px;
+  }
+  
+  .info-row {
+    display: flex;
+    margin-bottom: 6px;
+    font-size: 0.85rem; /* Yazılar küçültüldü */
+  }
+  
+  .info-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .info-row strong {
+    min-width: 110px; /* 130'dan 110'a düşürüldü, daha sıkı dursun */
+    color: #111827;
+  }
+  
+  /* Liste (Maddeler) Tasarımı */
+  .kvkk-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+  }
+  
+  .kvkk-section ul li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 6px;
+  }
+  
+  /* Noktaları marka rengiyle özel çiziyoruz */
+  .kvkk-section ul li::before {
+    content: "•";
+    color: #3b82f6;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 0;
+    top: -1px;
+  }
+  
+  /* Linkler */
+  .kvkk-container a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .kvkk-container a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  /* Alt Bilgi (Footer) */
+  .kvkk-footer {
+    margin-top: 24px; /* 40'tan 24'e çekildi */
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  
+  .kvkk-footer .divider {
+    margin: 0 10px;
+    color: #d1d5db;
+  }
+  
+  /* Mobil Uyumluluk */
+  @media (max-width: 640px) {
+    .kvkk-title {
+      font-size: 1.2rem; /* Mobilde başlık daha da küçültüldü */
+    }
+    
+    .info-row {
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+    
+    .info-row strong {
+      margin-bottom: 2px;
+    }
+  }

@@ -58,9 +58,34 @@
                 <span class="spinner"></span>
               </ng-container>
             </button>
+
+                    
+        <div class="legal-checkboxes">
+          <label class="checkbox-label" [class.error-state]="agreements?.invalid && agreements?.touched">
+            <input type="checkbox" formControlName="agreements">
+            <span class="label-text">
+              <a href="/izinler/uyelik-sozlesmesi" target="_blank" rel="noopener">Üyelik Sözleşmesi</a>'ni ve 
+              <a href="/izinler/kvkk" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a>'ni okudum.
+            </span>
+
+          </label>
+
+         
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="marketing_consent">
+            <span class="label-text">
+              Kampanya ve indirimlerden haberdar olmak için elektronik ileti (E-posta/SMS) almayı kabul ediyorum.
+            </span>
+          </label>
+
+         
+          
+        </div>
+
         </form>
         
-        <label type="button" class="forgot">Üyelik şartlarını kabul etmis sayılırsınız</label>
+
+
 
     </div>
     

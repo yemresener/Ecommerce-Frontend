@@ -7,6 +7,8 @@ export interface NewCardPayload {
     expire_year: number;
     cvc: string;
     installment: number;
+    pre_info_at:boolean;
+    dist_sales_at:boolean;
 
       
 }
