@@ -33,6 +33,9 @@ import { PermissionsComponent } from './permissions/permissions.component';
 import { KvkkPermissionComponent } from './permissions/kvkk-permission/kvkk-permission.component';
 import { MembershipPermissionComponent } from './permissions/membership-permission/membership-permission.component';
 import { PreInfoPermissionComponent } from './permissions/pre-info-permission/pre-info-permission.component';
+import { DistanceSalesPermissionComponent } from './permissions/distance-sales-permission/distance-sales-permission.component';
+import { PrivacyPolicyPermissionComponent } from './permissions/privacy-policy-permission/privacy-policy-permission.component';
+import { CookiePolicyPermissionComponent } from './permissions/cookie-policy-permission/cookie-policy-permission.component';
 
 export const routes: Routes = [
 
@@ -101,8 +104,11 @@ export const routes: Routes = [
         children:[
             {path:'izinler',component:PermissionsComponent,children:[
                 {path:'kvkk',component:KvkkPermissionComponent,title:'KVKK'},
-                {path:'uyelik-sozlesmesi',component:MembershipPermissionComponent,title:'KVKK'},
-                {path:'mesafeli-satis-sozlesmesi',component:PreInfoPermissionComponent,title:'KVKK'},
+                {path:'uyelik-sozlesmesi',component:MembershipPermissionComponent,title:'Üyelik Sözleşmesi'},
+                {path:'mesafeli-satis-sozlesmesi',component:DistanceSalesPermissionComponent,title:'Mesafeli Satış Sözleşmesi'},
+                {path:'on-bilgilendirme-formu',component:PreInfoPermissionComponent,title:'Ön Bilgilendirme Formu'},
+                {path:'gizlilik-politikasi',component:PrivacyPolicyPermissionComponent,title:'Gizlilik Politikası'},
+                {path:'cerez-politikasi',component:CookiePolicyPermissionComponent,title:'Çerez Politikası'},
 
         
                 

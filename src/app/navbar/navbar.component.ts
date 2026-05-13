@@ -43,6 +43,11 @@ export class NavbarComponent extends BrowserAware{
     this.onSearchChange();
     if(this.isBrowser()){
     
+      if (!document.cookie.includes('is_logged=')) {
+        this.isLoading = false;
+        return;
+      }
+      
       if(!this.user()){
         this.authService.me().subscribe({
           next:(res)=>{
