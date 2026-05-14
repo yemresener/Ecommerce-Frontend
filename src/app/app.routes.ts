@@ -1,145 +1,112 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { HomeComponent } from './home/home.component';
-import { EachItemPageComponent } from './each-item-page/each-item-page.component';
-import { CartPageComponent } from './cart-page/cart-page.component';
-import { ReviewPageComponent } from './review-page/review-page.component';
-import { ListItemsComponent } from './list-items/list-items.component';
-import { CategoryPageComponent } from './category-page/category-page.component';
-import { CampaignPageComponent } from './campaign-page/campaign-page.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { ForgotMainComponent } from './auth/forgotPassword/forgot-main/forgot-main.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { AddressComponent } from './shared/address/address/address.component';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { PaymentResultComponent } from './payment/payment-result/payment-result.component';
-import { DashboardAddressComponent } from './dashboard/dashboard-address/dashboard-address.component';
 import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fotter-layout.component';
-import { DashboardOrdersComponent } from './dashboard/dashboard-orders/dashboard-orders.component';
-import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
-import { OrderRefundComponent } from './orders/order-refund/order-refund.component';
-import { DashboardReviewsComponent } from './dashboard/dashboard-reviews/dashboard-reviews.component';
-import { UserInfoComponent } from './dashboard/profile/user-info/user-info.component';
-import { authGuard } from './core/guards/auth.guard';
-import { ChangePasswordComponent } from './dashboard/profile/change-password/change-password.component';
-import { SavedCardComponent } from './saved_cards/saved-card/saved-card.component';
 import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
-import { SupportRequestComponent } from './support-request/support-request.component';
-import { Step3CreateAccComponent } from './auth/register/step3-create-acc/step3-create-acc.component';
-import { PermissionsComponent } from './permissions/permissions.component';
-import { KvkkPermissionComponent } from './permissions/kvkk-permission/kvkk-permission.component';
-import { MembershipPermissionComponent } from './permissions/membership-permission/membership-permission.component';
-import { PreInfoPermissionComponent } from './permissions/pre-info-permission/pre-info-permission.component';
-import { DistanceSalesPermissionComponent } from './permissions/distance-sales-permission/distance-sales-permission.component';
-import { PrivacyPolicyPermissionComponent } from './permissions/privacy-policy-permission/privacy-policy-permission.component';
-import { CookiePolicyPermissionComponent } from './permissions/cookie-policy-permission/cookie-policy-permission.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+  // ------------------------------------------
+  // MAIN LAYOUT (Ana Sayfa ve İçerikler)
+  // ------------------------------------------
 
 
-    {
-        path:'',
-        component:MainLayoutComponent,
-        children:[
-            {path:'',component:HomeComponent,title:'YunusPet'},
-            {path:'anasayfa',component:HomePageComponent,title:'Ana Sayfa'},
-            {path:'home',component:HomeComponent,title:'Home'}, 
-            {path:'destek',component:SupportRequestComponent,title:'Destek'}, 
-            {path:'deneme123',component:Step3CreateAccComponent,title:'Destek'}, 
+  // ------------------------------------------
+  // AUTH LAYOUT (Giriş, Kayıt, Checkout)
+  // ------------------------------------------
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent), title: 'Giriş Yap' },
+      { path: 'register', loadComponent: () => import('./auth/register/register.component').then(m => m.RegisterComponent), title: 'Kayıt Ol' },
+      { path: 'sifremi-unuttum', loadComponent: () => import('./auth/forgotPassword/forgot-main/forgot-main.component').then(m => m.ForgotMainComponent), title: 'Şifremi Unuttum' },
+      { path: 'checkout', loadComponent: () => import('./checkout/checkout.component').then(m => m.CheckoutComponent), canActivate: [authGuard], title: 'Checkout' },
+      { path: 'payment/result', loadComponent: () => import('./payment/payment-result/payment-result.component').then(m => m.PaymentResultComponent), title: 'Ödeme Sonucu' },
+    ]
+  },
 
-            {path:':slug/yorumlar',component:ReviewPageComponent,title:'Comment'},
-            
-            {path:'urun/:slug',component:EachItemPageComponent,title:'Each Item'},
-    
-            {path:'kampanya/:slug',component:CampaignPageComponent,title:'Kampanya'},
-            
- 
-
-
-            
-        ]
-    },
-
-
-    {
-        path:'',
-        component:AuthLayoutComponent,
-        children:[
-            {path:'login',component:LoginComponent,title:'Giriş yap'},
-            {path:'register',component:RegisterComponent,title:'Kayıt ol'},
-            {path:'sifremi-unuttum',component:ForgotMainComponent,title:'Sifremi unuttum'},
-            {path:'checkout',component:CheckoutComponent,canActivate :[authGuard],title:'Checkout'},
-            {path:'address',component:AddressComponent,title:'AddressComponent'},
-            { path: 'payment/result', component: PaymentResultComponent },
-            
-        ]
-    },
-    {
-        path:'',
-        component:NoneFotterLayoutComponent,
-        children:[
-            {path:'hesabim',component:DashboardComponent,canActivate :[authGuard],children:[
-
-                {path:'adreslerim',component:DashboardAddressComponent,title:'Adreslerim'},
-                {path:'siparislerim',component:DashboardOrdersComponent,title:'Siparişlerim'},
-                {path:'siparislerim/:id',component:OrderDetailComponent,title:'Siparişim'},
-                {path:'siparislerim/iade/:id',component:OrderRefundComponent,title:'İade'},
-                {path:'yorumlarim',component:DashboardReviewsComponent,title:'Yorumlarım'},
-                {path:'kullanici-bilgilerim',component:UserInfoComponent,title:'Kullanıcı bilgilerim'},
-                {path:'sifre-degistir',component:ChangePasswordComponent,title:'Şifre değiştir'},
-                {path:'kayitli-kartlarim',component:SavedCardComponent,title:'Kayıtlı kartlarım'},
-                
-
-            ],title:'Hesabım'},
-
-        ]
-    },
-
-    {
-        path:'',
-        component:NoneFotterLayoutComponent,
-        children:[
-            {path:'izinler',component:PermissionsComponent,children:[
-                {path:'kvkk',component:KvkkPermissionComponent,title:'KVKK'},
-                {path:'uyelik-sozlesmesi',component:MembershipPermissionComponent,title:'Üyelik Sözleşmesi'},
-                {path:'mesafeli-satis-sozlesmesi',component:DistanceSalesPermissionComponent,title:'Mesafeli Satış Sözleşmesi'},
-                {path:'on-bilgilendirme-formu',component:PreInfoPermissionComponent,title:'Ön Bilgilendirme Formu'},
-                {path:'gizlilik-politikasi',component:PrivacyPolicyPermissionComponent,title:'Gizlilik Politikası'},
-                {path:'cerez-politikasi',component:CookiePolicyPermissionComponent,title:'Çerez Politikası'},
-
-        
-                
-
-            ],title:'İzinler'},
-
-        ]
-    },
-
-    {
-        path:'',
-        component:NavbarNoneCategoryLayoutComponent,
-        children:[
-            {path:'cart',component:CartPageComponent,canActivate:[authGuard],title:'Cart'},
-            
-        ]
-
-    },
-   
-   {
-        path: '',
-        component: MainLayoutComponent,
+  // ------------------------------------------
+  // NONE FOOTER LAYOUT (Hesabım ve İzinler)
+  // ------------------------------------------
+  {
+    path: '',
+    component: NoneFotterLayoutComponent,
+    children: [
+      {
+        path: 'hesabim',
+        loadComponent: () => import('./dashboard/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        canActivate: [authGuard],
+        title: 'Hesabım',
         children: [
-            {path:'ara',component:CategoryPageComponent,data:{mode:'search'},title:'list'},
-
-            {path:':slug',component:CategoryPageComponent,data:{mode:'category'},title:'list'},
+          { path: 'adreslerim', loadComponent: () => import('./dashboard/dashboard-address/dashboard-address.component').then(m => m.DashboardAddressComponent), title: 'Adreslerim' },
+          { path: 'siparislerim', loadComponent: () => import('./dashboard/dashboard-orders/dashboard-orders.component').then(m => m.DashboardOrdersComponent), title: 'Siparişlerim' },
+          { path: 'siparislerim/:id', loadComponent: () => import('./orders/order-detail/order-detail.component').then(m => m.OrderDetailComponent), title: 'Siparişim' },
+          { path: 'siparislerim/iade/:id', loadComponent: () => import('./orders/order-refund/order-refund.component').then(m => m.OrderRefundComponent), title: 'İade' },
+          { path: 'yorumlarim', loadComponent: () => import('./dashboard/dashboard-reviews/dashboard-reviews.component').then(m => m.DashboardReviewsComponent), title: 'Yorumlarım' },
+          { path: 'kullanici-bilgilerim', loadComponent: () => import('./dashboard/profile/user-info/user-info.component').then(m => m.UserInfoComponent), title: 'Kullanıcı Bilgilerim' },
+          { path: 'sifre-degistir', loadComponent: () => import('./dashboard/profile/change-password/change-password.component').then(m => m.ChangePasswordComponent), title: 'Şifre Değiştir' },
+          { path: 'kayitli-kartlarim', loadComponent: () => import('./saved_cards/saved-card/saved-card.component').then(m => m.SavedCardComponent), title: 'Kayıtlı Kartlarım' },
         ]
-    }
-  
+      },
+      {
+        path: 'izinler',
+        loadComponent: () => import('./permissions/permissions.component').then(m => m.PermissionsComponent),
+        title: 'İzinler',
+        children: [
+          { path: 'kvkk', loadComponent: () => import('./permissions/kvkk-permission/kvkk-permission.component').then(m => m.KvkkPermissionComponent), title: 'KVKK' },
+          { path: 'uyelik-sozlesmesi', loadComponent: () => import('./permissions/membership-permission/membership-permission.component').then(m => m.MembershipPermissionComponent), title: 'Üyelik Sözleşmesi' },
+          { path: 'mesafeli-satis-sozlesmesi', loadComponent: () => import('./permissions/distance-sales-permission/distance-sales-permission.component').then(m => m.DistanceSalesPermissionComponent), title: 'Mesafeli Satış Sözleşmesi' },
+          { path: 'on-bilgilendirme-formu', loadComponent: () => import('./permissions/pre-info-permission/pre-info-permission.component').then(m => m.PreInfoPermissionComponent), title: 'Ön Bilgilendirme Formu' },
+          { path: 'gizlilik-politikasi', loadComponent: () => import('./permissions/privacy-policy-permission/privacy-policy-permission.component').then(m => m.PrivacyPolicyPermissionComponent), title: 'Gizlilik Politikası' },
+          { path: 'cerez-politikasi', loadComponent: () => import('./permissions/cookie-policy-permission/cookie-policy-permission.component').then(m => m.CookiePolicyPermissionComponent), title: 'Çerez Politikası' },
+        ]
+      }
+    ]
+  },
 
+  // ------------------------------------------
+  // NAVBAR NONE CATEGORY LAYOUT (Sepet vs.)
+  // ------------------------------------------
+  {
+    path: '',
+    component: NavbarNoneCategoryLayoutComponent,
+    children: [
+      { path: 'cart', loadComponent: () => import('./cart-page/cart-page.component').then(m => m.CartPageComponent), canActivate: [authGuard], title: 'Sepet' },
+    ]
+  },
 
+  // ------------------------------------------
+  // DYNAMIC ROUTES (Kategori & Arama)
+  // Not: Bunlar en altta olmalı ki üsttekileri ezmesin
+  // ------------------------------------------
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: 'ara', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
+      { path: 'kategori/:slug', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' }, },
+    ]
+  },
 
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
+      { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
 
+      { path: 'destek', loadComponent: () => import('./support-request/support-request.component').then(m => m.SupportRequestComponent), title: 'Destek' },
+      { path: 'kampanya/:slug', loadComponent: () => import('./campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), title: 'Kampanya' },
+
+      { path: ':slug/yorumlar', loadComponent: () => import('./review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar' },
+      { path: ':slug', loadComponent: () => import('./each-item-page/each-item-page.component').then(m => m.EachItemPageComponent), title: 'Ürün' },
+
+    ]
+  },
+
+  // ------------------------------------------
+  // WILDCARD ROUTE (Bulunamayan Sayfalar İçin)
+  // ------------------------------------------
+  { path: '**', redirectTo: '' }
 ];

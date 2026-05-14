@@ -7,6 +7,7 @@ import { Review } from '../interfaces/review';
 import { ReviewResponse } from '../interfaces/review-response';
 import { AdvertResponse } from '../interfaces/advert-response';
 import { environment } from '../../environments/environment';
+import { ReviewStats } from '../interfaces/review/review-stats';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class EachItemService {
 
   getAdvert(slug:string){
     const url = `${environment.apiUrl}advert/${slug}`;
-    return this.http.get<ApiResponse<AdvertResponse>>(url,{withCredentials:true});
+    return this.http.get<ApiResponse<AdvertResponse> & {stats:ReviewStats}>(url,{withCredentials:true});
   }
 
   popularAdvertsByCategory(slug:string){

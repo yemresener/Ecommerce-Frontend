@@ -1,6 +1,7 @@
 import { Feature } from "./feature";
 import { Product } from "./product"
 import { ProductImage } from "./product-image";
+import { Review } from "./review";
 
 export interface Advert {
     id:number,
@@ -19,4 +20,5 @@ export interface Advert {
     features:Feature[] | null,
 
     images:ProductImage[] | null,
+    reviews:Review[];
 }

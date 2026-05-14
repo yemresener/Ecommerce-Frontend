@@ -172,7 +172,9 @@
                         </div>
 
                         <span class="rating-text">{{item?.rating}}</span>
-                        <label class="comment-date">{{item?.comment_date}}</label>
+                        <label class="comment-date">
+                          <time [attr.datetime]="item.comment_date_iso">{{ item.comment_date }}</time>
+                        </label>
                     </div>
                     <div class="comment-content">
                         {{item?.comment}}

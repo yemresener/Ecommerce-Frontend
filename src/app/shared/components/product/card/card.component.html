@@ -3,7 +3,7 @@
     <!-- REAL -->
     <ng-container *ngIf="item && !skeleton; else skeletonTpl">
   
-      <a class="card-link" href="urun/{{item.slug}}"></a>
+      <a class="card-link" href="{{item.slug}}"></a>
     
     <div class="image-box" style="background: #fafafa;" [class.small]="itemSize>=1">
       <span 
@@ -21,7 +21,7 @@
       </ng-container>
   
       </span>
-        <img [src]="item.image" alt="">
+        <img [src]="item.image" alt="{{item.title}}">
       </div>
   
       <label class="item-title">

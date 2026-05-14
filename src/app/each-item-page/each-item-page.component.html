@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="bread-box" *ngFor="let item of breadcrumb; let last = last">
-                    <a class="bread-link" href="{{item.slug}}">{{ item?.name }}</a>
+                    <a class="bread-link" href="kategori/{{item.slug}}">{{ item?.name }}</a>
                     <i class="fas fa-chevron-right" *ngIf="!last"></i>
                 </div>
 
@@ -55,7 +55,7 @@
                     <img
                         *ngFor="let item of itemSlider.items"
                         [src]="item.path"
-                        alt=""
+                        alt="{{advert.title}}"
                     />
                     
                     </div>
@@ -88,7 +88,7 @@
 
 
         <div class="product-details">
-            <label class="product-title">
+            <h1 class="product-title">
 
                 <span [class.hide]="advert?.title" class="title-skeleton shimmer"></span>
               
@@ -97,7 +97,7 @@
                 </span>
               
             
-            </label>   
+            </h1>   
               
             <div class="rating-section">
 
@@ -223,8 +223,8 @@
                 <!-- text (element hep var, sadece içerik şartlı) -->
                 <p class="description-text">
                     <ng-container *ngIf="advert">
-                    {{ advert.description }} Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. 
-                    Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar.
+                    {{ advert.description ?? ' Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. 
+                    Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar' }}.
                     </ng-container>
                 </p>
 
@@ -321,7 +321,7 @@
     [stats]="stats"
     [meta]="meta">
     <div review-title  class="review-box" *ngIf="advert">
-        <label  class="review-title">Kullanıcı Yorumları <label style="font-weight: 100;
+        <label  class="review-title">Kullanıcı Yorumları <label *ngIf="advert.total_comments" style="font-weight: 100;
             font-size: 18px;
             color: gray;">({{advert.total_comments}})</label></label>
         </div>

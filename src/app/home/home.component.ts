@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from '../shared/components/slider/slider.component';
-import { SliderModel } from '../shared/components/slider/slider.model';
 import { CardComponent } from '../shared/components/product/card/card.component';
 import { SliderServiceService } from '../Services/slider-service.service';
 import { HomeSection } from '../models/home-section';
 import { BannerSectionComponent } from '../components/sections/banner-section/banner-section.component';
 import { CategorySliderComponent } from '../components/sections/category-slider/category-slider.component';
 import { ProductSectionComponent } from '../components/sections/product-section/product-section.component';
-import { MainSliderComponent } from '../components/sections/main-slider/main-slider.component';
 import { CategorySectionComponent } from '../components/sections/category-section/category-section.component';
 import { MainSectionComponent } from '../components/sections/main-section/main-section.component';
+import { SeoService } from '../core/services/seo.service';
 
 
 
@@ -22,10 +21,11 @@ import { MainSectionComponent } from '../components/sections/main-section/main-s
 })
 export class HomeComponent {
  
-  constructor(public sliderService:SliderServiceService){}
+  constructor(public sliderService:SliderServiceService, private seoService:SeoService){}
 
   ngOnInit() {
     this.loadLayouts();
+    this.seoService.setHomePageSEO();
   }
 
   sliders:HomeSection[]=[];

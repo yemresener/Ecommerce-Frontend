@@ -5,7 +5,7 @@
       class="category-label"
       (click)="open = !open"
     >
-    <a class="category-label"  [class.active]="node?.slug === activeSlug" [routerLink]="['/', node?.slug]">
+    <a class="category-label"  [class.active]="node?.slug === activeSlug" [routerLink]="['/kategori', node?.slug]">
       {{ node?.name }} 
     </a>
      

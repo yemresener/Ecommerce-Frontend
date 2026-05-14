@@ -8,7 +8,7 @@
 
     <ng-template #imageLoad>
       <div  class="campaign-banner" *ngIf="campaign">
-        <img [src]="campaign?.image" alt="Campaign Image">
+        <img [src]="campaign?.image" alt="{{campaign.title}}">
       </div>
     </ng-template>
     

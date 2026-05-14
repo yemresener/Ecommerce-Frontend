@@ -7,6 +7,7 @@ export interface Review {
     status:string,
     comment:string | null,
     comment_date:string,
+    comment_date_iso:string,
     image:string,
     advert_slug:string,
     product_name:string,

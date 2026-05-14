@@ -15,6 +15,8 @@ import { BaseAdvertListDirective } from '../shared/containers/base-advert-list.d
 
 import { ListItemsComponent } from '../list-items/list-items.component';
 import { NavbarCategoryService } from '../Services/navbar-category.service';
+import { SeoService } from '../core/services/seo.service';
+
 @Component({
   selector: 'app-category-page',
   imports: [CommonModule,FormsModule,RouterModule,CardComponent,FilterComponent,CategoryNodeComponent,CategoryFilterComponent,ListItemsComponent],
@@ -31,7 +33,8 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
   constructor(
     router: Router,
     route: ActivatedRoute,
-    private service: ListService
+    private service: ListService,
+    private seoService:SeoService
   ) {
     super(router, route);
   }
@@ -61,9 +64,16 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
         ...this.currentFilters,
         page
       }).subscribe(res=>{
+        console.log(res,'GELEN RESPONSE')
         this.handleSuccess(res,page);
         this.isLoading=false;
         this.breadSkeleton = false;
+
+        if(this.query && page===1){
+          console.log(this.query,'QUEY')
+          this.seoService.setSearchPage(this.query,res.meta.total)
+          console.log('ÇALIŞTI KN')
+        }
         
       }, err=> console.log(err))
     }else{
@@ -80,12 +90,15 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
         ...this.currentFilters,
         page
       }).subscribe(res => {
-        console.log('FETCH E GELEN PAGE',page)
+        console.log(res)
         this.handleSuccess(res, page);
         this.breadSkeleton = false;
         this.isLoading=false;
-        console.log(this.max_price,this.min_price,'MIN MAX PRICES')
-        console.log('LOADİGNLER',this.isLoading,this.breadSkeleton)
+        if (this.mode === 'category' && page === 1) {
+          console.log(res);
+          this.seoService.setCategoryPage(res.category,res.data);
+        }
+
       }, err => {
         this.loading = false;
         console.error(err);

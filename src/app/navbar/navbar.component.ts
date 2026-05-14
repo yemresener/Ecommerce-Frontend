@@ -145,7 +145,7 @@ export class NavbarComponent extends BrowserAware{
   
   goToAdvert(item:MiniAdvert){
      this.isSearchFocused = false;
-      window.location.href = `/urun/${item.slug}`
+      window.location.href = `/${item.slug}`
   }
 
   @HostListener('document:click', ['$event'])

@@ -21,9 +21,11 @@ import { ProductSliderComponent } from '../components/sections/product-slider/pr
 import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../Services/cart.service';
 import { CartToastComponent } from '../shared/components/toast/cart-toast/cart-toast.component';
-import { ToastrService } from 'ngx-toastr';
 import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
 import { DeliveryMessageService } from '../NoApiServices/delivery-message.service';
+import { SeoService } from '../core/services/seo.service';
+import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-each-item-page',
   imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,
@@ -41,8 +43,8 @@ export class EachItemPageComponent {
   constructor(private route:ActivatedRoute,
     private itemService:EachItemService, 
     private cartService:CartService,
-    private toast:ToastrService,
-    private deliveryService:DeliveryMessageService
+    private deliveryService:DeliveryMessageService,
+    private seoService:SeoService
   ){}
 
   slug!:string;
@@ -66,7 +68,41 @@ export class EachItemPageComponent {
       next:(res)=>{
         this.advert=res.data.advert;
         this.breadcrumb=res.data.bread_crumb;
-        this.isActive=res.data.active_stock;        
+        this.isActive=res.data.active_stock;     
+        this.reviews=res.data.advert.reviews;
+        console.log(this.reviews,'REVİEWS');
+        this.stats=res.stats;
+        this.skeleton=false;
+        console.log(res.stats,'RESSSS')
+        console.log(this.stats,'STAT');
+        this.seoService.setAdvertPage(this.advert,this.reviews);   
+        if(this.advert.images){
+          this.itemSlider={
+            items:this.advert.images,
+            index:0,
+            visible:1
+          }
+          console.log('slider',this.itemSlider);
+        }
+
+       
+
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
+
+
+/*
+  getAdvert(){
+    this.itemService.getAdvert(this.slug).subscribe({
+      next:(res)=>{
+        this.advert=res.data.advert;
+        this.breadcrumb=res.data.bread_crumb;
+        this.isActive=res.data.active_stock;     
+        this.seoService.setAdvertPage(this.advert);   
         if(this.advert.images){
           this.itemSlider={
             items:this.advert.images,
@@ -84,6 +120,26 @@ export class EachItemPageComponent {
       }
     })
   }
+
+  getReviews(){
+    this.itemService.getReviews(this.advert?.slug).subscribe({
+      next:(res:ApiResponse<ReviewResponse>)=>{
+        console.log('RESSS',res)
+        this.reviews=res.data.reviews;
+        this.meta=res.meta;
+        this.stats=res.data.stats;
+          console.log('reviews',this.reviews)
+        console.log('counts',this.meta)
+        console.log('STATS',this.stats);
+        this.skeleton=false;
+
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+  */
 
   popularAdverts: MiniAdvert[] = [];
   getPopularAdverts(){
@@ -118,25 +174,7 @@ export class EachItemPageComponent {
   stats!:ReviewStats;
   skeleton=true;
 
-  getReviews(){
-    this.itemService.getReviews(this.advert?.slug).subscribe({
-      next:(res:ApiResponse<ReviewResponse>)=>{
-        console.log('RESSS',res)
-        this.reviews=res.data.reviews;
-        this.meta=res.meta;
-        this.stats=res.data.stats;
-          console.log('reviews',this.reviews)
-        console.log('counts',this.meta)
-        console.log('STATS',this.stats);
-        this.skeleton=false;
 
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-  }
-  
   sliderSkeleton:boolean=true;
   ngAfterViewInit(): void {
       if (!this.isBrowser()) return; 

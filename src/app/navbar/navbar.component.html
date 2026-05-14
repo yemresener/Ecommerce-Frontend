@@ -126,7 +126,7 @@
                     <ul class="category-list">
                         <li *ngFor="let item of categories" (mouseenter)="activeCategory = item" class="category-item">
                             <!-- href yerine routerLink -->
-                            <a href="{{item.slug}}" class="category-link">{{item.name}}</a>
+                            <a href="kategori/{{item.slug}}" class="category-link">{{item.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -139,7 +139,7 @@
                     <!-- Alt kategoriler listesi -->
                     <div class="mega-col" *ngIf="activeCategory.children?.length">
                         <h4>{{activeCategory.name}}</h4>
-                        <a href="{{child.slug}}" *ngFor="let child of activeCategory.children" >
+                        <a href="kategori/{{child.slug}}" *ngFor="let child of activeCategory.children" >
                             {{child.name}}
                         </a>
                     </div>
@@ -149,7 +149,7 @@
                         <h4 class="mega-products-title">Popüler Ürünler</h4>
                         <div class="products-container">
                             <div class="product-box" *ngFor="let advert of activeCategory.popular_adverts">
-                                <a href="urun/{{advert.slug}}" class="product-wrapper-link">
+                                <a href="{{advert.slug}}" class="product-wrapper-link">
                                     <div class="image-container">
                                         <img [src]="advert.image || 'assets/images/placeholder.png'" [alt]="advert.title" class="product-image">
                             

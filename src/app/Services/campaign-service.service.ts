@@ -14,7 +14,7 @@ export class CampaignServiceService {
 
   getAdverts(params:FilterParams,slug:string){
     const url = `${environment.apiUrl}getCampaignAdverts/${slug}`;
-    return this.http.get<ApiResponse<{advert:MiniAdvert,campaign:Campaign}>>(url,{
+    return this.http.get<ApiResponse<MiniAdvert[]> & {campaign:Campaign}>(url,{
       params:params as any,
       withCredentials:true
     }

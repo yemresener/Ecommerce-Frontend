@@ -54,7 +54,7 @@
             <div class="label-skeleton shimmer" [class.hide]="!breadSkeleton"></div>
           
             <!-- Gerçek içerik -->
-            <div class="label-content" [class.hide]="breadSkeleton">
+            <h1 class="label-content" [class.hide]="breadSkeleton">
               <ng-container *ngIf="mode === 'category'">
                 {{ activeCategory?.name }}
               </ng-container>
@@ -66,13 +66,13 @@
               <span class="product-count">
                 {{ meta?.total ?? oldMeta?.total }} ürün
               </span>
-            </div>
+            </h1>
         
           </div>  
         
  
 
-          <div *ngIf="!isLoading && adverts?.length !== 0"  class="" style="display: flex; align-items: center; gap: 2px;">
+          <div   class="" style="display: flex; align-items: center; gap: 2px;">
 
             <button class="mobile-filter-btn" 
             [class.active]="min_price || max_price"

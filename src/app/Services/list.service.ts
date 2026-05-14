@@ -6,6 +6,7 @@ import { FilterParams } from '../interfaces/filter-params';
 import { ApiResponse } from '../interfaces/api-response';
 import { CategoryFilters } from '../interfaces/category-filters';
 import { environment } from '../../environments/environment';
+import { Category } from '../interfaces/category';
 
 
 
@@ -18,7 +19,7 @@ export class ListService {
 
   adverts(params:FilterParams){
     const url = `${environment.apiUrl}searchByCategory`;
-    return this.http.get<ApiResponse<MiniAdvert[]>>(url,{
+    return this.http.get<ApiResponse<MiniAdvert[]> & { category: Category }>(url,{
       params:params as any,
       withCredentials:true
     });
