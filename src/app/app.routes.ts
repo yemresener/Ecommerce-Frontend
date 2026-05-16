@@ -61,6 +61,18 @@ export const routes: Routes = [
           { path: 'gizlilik-politikasi', loadComponent: () => import('./permissions/privacy-policy-permission/privacy-policy-permission.component').then(m => m.PrivacyPolicyPermissionComponent), title: 'Gizlilik Politikası' },
           { path: 'cerez-politikasi', loadComponent: () => import('./permissions/cookie-policy-permission/cookie-policy-permission.component').then(m => m.CookiePolicyPermissionComponent), title: 'Çerez Politikası' },
         ]
+      },
+      {
+        path: 'yardim',
+        loadComponent: () => import('./help-center/help-center.component').then(m => m.HelpCenterComponent),
+        title: 'İletişim',
+        children: [
+          { path: 'destek', loadComponent: () => import('./support-request/support-request.component').then(m => m.SupportRequestComponent), title: 'Destek' },
+          { path: 'teslimat-kosullari', loadComponent: () => import('./help-center/delivery-policy/delivery-policy.component').then(m => m.DeliveryPolicyComponent), title: 'Teslimat Koşulları' },
+          { path: 'iade-sureci', loadComponent: () => import('./help-center/refund-policy/refund-policy.component').then(m => m.RefundPolicyComponent), title: 'İade ve Garanti' },
+          { path: 'iletisim', loadComponent: () => import('./help-center/contact/contact.component').then(m => m.ContactComponent), title: 'İletişim' },
+        
+        ]
       }
     ]
   },
@@ -95,8 +107,8 @@ export const routes: Routes = [
     children: [
       { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
       { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
+      { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
 
-      { path: 'destek', loadComponent: () => import('./support-request/support-request.component').then(m => m.SupportRequestComponent), title: 'Destek' },
       { path: 'kampanya/:slug', loadComponent: () => import('./campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), title: 'Kampanya' },
 
       { path: ':slug/yorumlar', loadComponent: () => import('./review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar' },

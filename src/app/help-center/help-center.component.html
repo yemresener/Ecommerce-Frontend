@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&text=package_2,rate_reviews,home_pin,Logout,account_circle,shopping_bag,credit_card,unfold_more,visibility_off,visibility" />
+<div class="container dashboard-container" [class.is-child-page]="!isMainDashboard">
+    <aside class="left">
+      <div class="info-title">
+        <div class="meta">
+          <span class="text">Yardım Merkezi</span> <br>
+
+        </div>
+      </div>
+  
+      <nav class="left-routes">
+        <div class="each-section">
+            <a routerLink="teslimat-kosullari" routerLinkActive="active">
+              Teslimat Koşulları
+            </a>
+  
+            <span  class="material-symbols-outlined chevron">
+              chevron_right
+              </span>
+        </div>
+
+        <div class="each-section">
+            <a routerLink="iade-sureci" routerLinkActive="active">
+              İade ve Garanti
+            </a>
+  
+            <span  class="material-symbols-outlined chevron">
+              chevron_right
+              </span>
+          </div>
+          
+
+          
+        <div class="each-section">
+          <a routerLink="iletisim" routerLinkActive="active">
+            İletişim
+          </a>
+
+          <span  class="material-symbols-outlined chevron">
+            chevron_right
+            </span>
+        </div>
+        
+        <div class="each-section">
+          <a routerLink="destek" routerLinkActive="active">
+            Destek Talebi
+          </a>
+
+          <span  class="material-symbols-outlined chevron">
+            chevron_right
+            </span>
+        </div>
+        
+        
+    
+       
+       
+      </nav>
+    </aside>
+  
+    <main class="right">
+      
+      <router-outlet></router-outlet>
+      
+    </main>
+  </div>
+

@@ -1,0 +1,164 @@
+/* Ana Kapsayıcı (Diğer sayfalarla %100 uyumlu) */
+.refund-policy-wrapper {
+    background-color: #f9fafb;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #374151;
+    line-height: 1.5;
+    font-size: 0.9rem;
+  }
+  
+  /* Beyaz Metin Kutusu */
+  .refund-policy-container {
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 10px; 
+  }
+  
+  /* Header Alanı */
+  .refund-policy-header {
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .refund-policy-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+  
+  .refund-policy-meta {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .refund-policy-meta .divider {
+    margin: 0 6px;
+    color: #d1d5db;
+  }
+  
+  /* İçerik ve Bölümler */
+  .refund-policy-section {
+    margin-bottom: 24px;
+  }
+  
+  .refund-policy-section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3b82f6;
+    margin: 0 0 10px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .refund-policy-section p {
+    margin: 0 0 10px 0;
+  }
+  
+  /* --- Mavi Bilgi Kutusu (Ayıplı Ürün İçin) --- */
+  .refund-info-box {
+    background-color: #eff6ff;
+    border-left: 3px solid #3b82f6; 
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 12px;
+  }
+  
+  .refund-info-box p {
+    margin-bottom: 8px;
+    color: #111827;
+  }
+  
+  .refund-info-box ul {
+    margin-bottom: 0 !important; /* Kutunun altı taşmasın diye */
+  }
+  
+  /* Liste (Maddeler) Tasarımı */
+  .refund-policy-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+  }
+  
+  .refund-policy-section ul li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 6px;
+  }
+  
+  .refund-policy-section ul li::before {
+    content: "•";
+    color: #3b82f6;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 0;
+    top: -1px;
+  }
+  
+  /* Özel Adım Adım (Sıralı) Liste Tasarımı */
+  .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: step-counter; /* Numaralandırıcıyı başlat */
+  }
+  
+  .step-list li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  
+  .step-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter) ".";
+    color: #3b82f6;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  /* Linkler */
+  .refund-policy-container a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .refund-policy-container a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  /* Alt Bilgi (Footer) */
+  .refund-policy-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  
+  .refund-policy-footer .divider {
+    margin: 0 10px;
+    color: #d1d5db;
+  }
+  
+  /* Mobil Uyumluluk */
+  @media (max-width: 640px) {
+    .refund-policy-container {
+      padding: 12px 16px;
+    }
+    .refund-policy-title {
+      font-size: 1.2rem;
+    }
+  }

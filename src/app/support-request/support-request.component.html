@@ -1,148 +1,140 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
 
-<div class="container">
-    <div class="profile-settings-widget">
+<div class="support-wrapper">
+  <div class="support-container">
+    
+    <!-- KVKK Tarzı Header -->
+    <div class="support-header">
+      <h1 class="support-title">Destek Talebi Oluştur</h1>
+      <div class="support-meta">
+        <span>YunusPet</span>
+        <span class="divider">•</span>
+        <span>Müşteri Hizmetleri</span>
+      </div>
+    </div>
   
-        <div class="widget-header card-header">
-          <div class="header-left-group">
-            <h2 class="widget-title">Destek Talebi Oluştur</h2>
+    <!-- KVKK Tarzı İçerik -->
+    <div class="support-section">
+      <h2>Size Nasıl Yardımcı Olabiliriz?</h2>
+      <p>Siparişleriniz veya YunusPet hizmetleri hakkında destek almak için formu doldurun. Ekibimiz en kısa sürede kayıtlı e-posta veya telefon numaranız üzerinden size dönüş yapacaktır.</p>
+    </div>
+
+    <!-- Sıkılaştırılmış Form Alanı -->
+    <form class="support-form" [formGroup]="form" (ngSubmit)="updateInfo()">
+      
+      <!-- İsim & E-posta -->
+      <div class="form-row">
+        <div class="form-group">
+          <div class="top-label">
+            <label>Ad Soyad</label>
+            <span class="error" *ngIf="fullname?.invalid && fullname?.touched">
+                <span *ngIf="fullname?.errors?.['required']">(Zorunlu)</span>
+                <span *ngIf="fullname?.errors?.['minlength']">(En az 3 karakter)</span>
+            </span>
           </div>
+          <input type="text" formControlName="fullname" placeholder="Adınız Soyadınız">
         </div>
-      
-        <div class="settings-grid">
-          <div class="settings-card">
-            <div class="card-header">
-              <h3>Size Nasıl Yardımcı Olabiliriz?</h3>
-              <p>Siparişleriniz veya YunusPet hizmetleri hakkında destek almak için formu doldurun. Ekibimiz en kısa sürede size dönüş yapacaktır.</p>
-            </div>
-      
-            <!-- Angular formGroup buraya eklenecek -->
-            <form class="settings-form" [formGroup]="form" (ngSubmit)="updateInfo()">
-              
-              <!-- İsim & E-posta (Eğer kullanıcı giriş yapmamışsa gösterilecek alanlar) -->
-              <div class="form-row">
-                <div class="form-group">
-                  <div class="top-label">
-                    <label>Ad Soyad</label>
-                    <span class="error" *ngIf="fullname?.invalid && fullname?.touched">
-                        <span *ngIf="fullname?.errors?.['required']">( Ad alanı zorunlu )</span>
-                        <span *ngIf="fullname?.errors?.['minlength']">( En az 3 karakter olmalı ) </span>
-                    </span>
-                    <!-- Angular validation hatası varsa burada .error class'ı ile gösterirsin -->
-                  </div>
-                  <input type="text" formControlName="fullname" placeholder="Adınız Soyadınız">
-                </div>
-                <div class="form-group">
-                  <div class="top-label">
 
-                  <label>E-posta Adresi</label>
-                    <span class="error" *ngIf="email?.invalid && email?.touched">
-                        <span *ngIf="email?.errors?.['required']">( E-posta zorunlu )</span>
-                        <span *ngIf="email?.errors?.['email']">( E-posta geçersiz ) </span>
-                    </span>
-                    </div>
-                  <input type="email" formControlName="email"  placeholder="ornek@mail.com">
-                </div>
-              </div>
-      
-              <!-- Telefon & Sipariş No -->
-              <div class="form-row">
-                <div class="form-group">
-                  <div class="top-label">
-                    <label>Telefon Numarası (Opsiyonel)</label>
-                    <span class="error" *ngIf="phone_number?.invalid && phone_number?.touched">
-                        <span *ngIf="phone_number?.errors?.['pattern']">( Telefon numarası geçersiz )</span>
-                    </span>
-                    </div>
-                  <input type="tel" formControlName="phone_number" 
-                  mask="(000) 000 00 00" placeholder="(___) ___ __ __">
-                </div>
-
-                <div class="form-group" *ngIf="user()">
-                  <label>Sipariş Numarası (Opsiyonel)</label>
-                  <input type="text" formControlName="order_id"  placeholder="Örn: YNS-123456">
-                </div>
-              </div>
-      
-              <!-- Konu & İletişim Tercihi -->
-              <div class="form-row">
-                <div class="form-group">
-                    <div class="top-label">
-                        <label>Destek Konusu</label>
-                        <span class="error" *ngIf="topic?.invalid && topic?.touched">
-                            <span *ngIf="topic?.errors?.['required']">( Destek konusu alanı zorunlu )</span>
-                            <span *ngIf="topic?.errors?.['maxlength']">( Destek konusu en fazla 100 karakter olabilir )</span>
-                            <span *ngIf="topic?.errors?.['minlength']">( Destek konusu en az 10 karakter olmalı )</span>
-
-                        </span>
-                    </div>
-                  <input type="text" formControlName="topic"  placeholder="Destek almak istediğiniz konu">
-                 
-                </div>
-
-                <div class="form-group">
-                    <label>İletişim Tercihi</label>
-                    <div class="radio-group">
-                      
-                      <label class="radio-card">
-                        <input type="radio" formControlName="contact_type" value="email">
-                        <div class="radio-content">
-                          <span class="material-symbols-outlined">mail</span>
-                          <span>E-posta</span>
-                        </div>
-                      </label>
-                  
-                      <label class="radio-card">
-                        <input type="radio" formControlName="contact_type" value="phone">
-                        <div class="radio-content">
-                          <span class="material-symbols-outlined">call</span>
-                          <span>Telefon</span>
-                        </div>
-                      </label>
-                  
-                    </div>
-                  </div>
-
-
-              </div>
-      
-              <!-- Mesaj Alanı -->
-              <div class="form-group">
-                <div class="top-label">
-                    <label>Mesajınız</label>
-                    <span class="error" *ngIf="message?.invalid && message?.touched">
-                        <span *ngIf="message?.errors?.['required']">( Mesaj alanı zorunlu )</span>
-                        <span *ngIf="message?.errors?.['maxlength']">( Mesaj en fazla 500 karakter olabilir )</span>
-                        <span *ngIf="message?.errors?.['minlength']">( Mesaj en az 10 karakter olmalı )</span>
-
-                    </span>
-                </div>
-                <textarea formControlName="message" 
-                 rows="4" placeholder="Lütfen karşılaştığınız durumu veya sorunuzu detaylıca yazın..."></textarea>
-              </div>
-      
-              <!-- Gönder Butonu -->
-              <div class="form-actions-wrapper">
-                <!-- Turnstile artık burada, butondan bağımsız bir satırda -->
-                <div id="turnstile-container" class="turnstile-wrapper"></div>
-              
-                <div class="form-actions">
-                  <button type="submit" class="save-btn" [class.loading]="loading" [disabled]="!turnstileToken">
-                    Talebi Gönder
-                  </button>
-                </div>
-              </div>
-      
-            </form>
+        <div class="form-group">
+          <div class="top-label">
+            <label>E-posta Adresi</label>
+            <span class="error" *ngIf="email?.invalid && email?.touched">
+                <span *ngIf="email?.errors?.['required']">(Zorunlu)</span>
+                <span *ngIf="email?.errors?.['email']">(Geçersiz)</span>
+            </span>
           </div>
+          <input type="email" formControlName="email" placeholder="ornek@mail.com">
         </div>
       </div>
+
+      <!-- Telefon & Sipariş No -->
+      <div class="form-row">
+        <div class="form-group">
+          <div class="top-label">
+            <label>Telefon Numarası (Opsiyonel)</label>
+            <span class="error" *ngIf="phone_number?.invalid && phone_number?.touched">
+                <span *ngIf="phone_number?.errors?.['pattern']">(Geçersiz Numara)</span>
+            </span>
+          </div>
+          <input type="tel" formControlName="phone_number" mask="(000) 000 00 00" placeholder="(___) ___ __ __">
+        </div>
+
+        <div class="form-group" *ngIf="user()">
+          <div class="top-label">
+            <label>Sipariş Numarası (Opsiyonel)</label>
+          </div>
+          <input type="text" formControlName="order_id" placeholder="Örn: YNS-123456">
+        </div>
+      </div>
+
+      <!-- Konu & İletişim Tercihi -->
+      <div class="form-row">
+        <div class="form-group">
+            <div class="top-label">
+                <label>Destek Konusu</label>
+                <span class="error" *ngIf="topic?.invalid && topic?.touched">
+                    <span *ngIf="topic?.errors?.['required']">(Zorunlu)</span>
+                    <span *ngIf="topic?.errors?.['maxlength']">(Maks 100 Karakter)</span>
+                    <span *ngIf="topic?.errors?.['minlength']">(Min 10 Karakter)</span>
+                </span>
+            </div>
+          <input type="text" formControlName="topic" placeholder="Hangi konuda destek istiyorsunuz?">
+        </div>
+
+        <div class="form-group">
+            <label>İletişim Tercihi</label>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" formControlName="contact_type" value="email">
+                <div class="radio-content">
+                  <span class="material-symbols-outlined">mail</span>
+                  <span>E-posta</span>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" formControlName="contact_type" value="phone">
+                <div class="radio-content">
+                  <span class="material-symbols-outlined">call</span>
+                  <span>Telefon</span>
+                </div>
+              </label>
+            </div>
+        </div>
+      </div>
+
+      <!-- Mesaj Alanı -->
+      <div class="form-group">
+        <div class="top-label">
+            <label>Mesajınız</label>
+            <span class="error" *ngIf="message?.invalid && message?.touched">
+                <span *ngIf="message?.errors?.['required']">(Zorunlu)</span>
+                <span *ngIf="message?.errors?.['maxlength']">(Maks 500 Karakter)</span>
+                <span *ngIf="message?.errors?.['minlength']">(Min 10 Karakter)</span>
+            </span>
+        </div>
+        <textarea formControlName="message" rows="4" placeholder="Lütfen karşılaştığınız durumu veya sorunuzu detaylıca yazın..."></textarea>
+      </div>
+
+      <!-- Gönder Butonu ve Turnstile -->
+      <div class="form-actions-wrapper">
+        <div id="turnstile-container" class="turnstile-wrapper"></div>
+        <div class="form-actions">
+          <button type="submit" class="save-btn" [class.loading]="loading" [disabled]="!turnstileToken">
+            Talebi Gönder
+          </button>
+        </div>
+      </div>
+
+    </form>
+    
+    <!-- Footer Alanı (Senin KVKK footer stilinle) -->
+    <div class="support-footer">
+      <span>YunusPet</span>
+      <span class="divider">|</span>
+      <span>0850 255 10 01</span>
+    </div>
+
+  </div>
 </div>
 
-
-
-<app-main-toast *ngIf="toastMessage"
-[type]="status"
-[message]="toastMessage"
-(closed)="toastMessage=''"
-></app-main-toast>
+<app-main-toast *ngIf="toastMessage" [type]="status" [message]="toastMessage" (closed)="toastMessage=''"></app-main-toast>

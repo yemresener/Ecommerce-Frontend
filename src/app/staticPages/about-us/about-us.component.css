@@ -1,0 +1,202 @@
+/* Ana Kapsayıcı */
+.about-wrapper {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #374151;
+    line-height: 1.6;
+    font-size: 0.95rem; /* Geniş ekranda okuması kolay olsun diye bir tık büyütüldü */
+    padding: 40px 20px;
+  }
+  
+  /* 1200px Geniş Konteyner */
+  .about-container {
+    max-width: 1200px; /* İstediğin 1200px sınır */
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 16px; /* Geniş kutuya 16px kavis daha çok yakışır */
+    padding: 40px 50px; /* 1200px'de 10px padding boğucu olur, ferahlık verildi */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* Premium hafif gölge */
+    box-sizing: border-box;
+  }
+  
+  /* Header Alanı */
+  .about-header {
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .about-title {
+    font-size: 2rem; /* Başlık ana sayfa hissi versin diye büyük */
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+  }
+  
+  .about-meta {
+    font-size: 0.9rem;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .about-meta .divider {
+    margin: 0 10px;
+    color: #d1d5db;
+  }
+  
+  /* İçerik Başlıkları */
+  .about-intro {
+    max-width: 900px;
+  }
+  
+  .about-intro h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #3b82f6; /* YunusPet Mavisi */
+    margin: 0 0 16px 0;
+  }
+  
+  .about-intro p {
+    margin: 0 0 16px 0;
+    color: #4b5563;
+    font-size: 1rem;
+  }
+  
+  /* Vizyon & Misyon Grid (Kartlar) */
+  .vision-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+  
+  .vm-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .vm-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+    border-color: #bfdbfe;
+  }
+  
+  .vm-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #eff6ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+  }
+  
+  .vm-icon .material-symbols-outlined {
+    font-size: 30px;
+    color: #3b82f6;
+  }
+  
+  .vm-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 12px 0;
+  }
+  
+  .vm-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.95rem;
+  }
+  
+  /* Neden Biz Alanı */
+  .about-reasons {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .about-reasons h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+    border-bottom: 2px solid #eff6ff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .reason-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .reason-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 16px;
+    color: #4b5563;
+  }
+  
+  .reason-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #3b82f6;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .reason-list li strong {
+    color: #111827;
+  }
+  
+  /* Footer Alanı */
+  .about-footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #f3f4f6;
+    text-align: center;
+  }
+  
+  .about-footer p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 16px 0;
+  }
+  
+  .footer-links a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  .footer-links .divider {
+    margin: 0 15px;
+    color: #d1d5db;
+  }
+  
+  /* Mobil Uyumluluk */
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 24px 20px;
+    }
+    .vision-mission-grid {
+      grid-template-columns: 1fr; /* Mobilde kartlar alt alta geçer */
+      gap: 20px;
+    }
+    .about-title {
+      font-size: 1.6rem;
+    }
+  }
