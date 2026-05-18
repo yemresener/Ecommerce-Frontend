@@ -1,6 +1,7 @@
 import { Component,Input  } from '@angular/core';
 import { SliderModel } from './slider.model';
 import { CommonModule } from '@angular/common';
+import { BrowserAware } from '../../base/browser-aware';
 
 @Component({
   selector: 'app-slider',
@@ -8,11 +9,44 @@ import { CommonModule } from '@angular/common';
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css'
 })
-export class SliderComponent<T> {
+export class SliderComponent<T> extends BrowserAware{
 
   @Input() slider!: SliderModel<T>;
   @Input() itemWidth= 242;
   @Input() type='';
+
+  @Input() autoPlay = false;
+  @Input() intervalMs = 5000;
+  private autoPlayTimer: any;
+  isHovered = false;
+  ngOnInit() {
+    if (this.autoPlay && this.isBrowser()) {
+      this.startAutoPlay();
+    }
+  }
+
+  ngOnDestroy() {
+    this.stopAutoPlay(); // Component yok olduğunda intervali temizle (Memory leak'i önler)
+  }
+
+  startAutoPlay() {
+    if (this.autoPlayTimer) return; // Zaten çalışıyorsa tekrar başlatma
+
+    this.autoPlayTimer = setInterval(() => {
+      // Sadece kullanıcı sürüklemiyorsa VE mouse slider'ın üzerinde değilse kaydır
+      if (!this.isDragging && !this.isHovered) {
+        this.next();
+      }
+    }, this.intervalMs);
+  }
+
+  stopAutoPlay() {
+    if (this.autoPlayTimer) {
+      clearInterval(this.autoPlayTimer);
+      this.autoPlayTimer = null;
+    }
+  }
+
   maxIndex(){
     return Math.max(0, this.slider.items.length - this.slider.visible); 
   }

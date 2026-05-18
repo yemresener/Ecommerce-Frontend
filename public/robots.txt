@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Index edilmesini istemediğimiz sayfalar
+Disallow: /hesabim/
+Disallow: /checkout
+Disallow: /cart
+Disallow: /login
+Disallow: /register
+Disallow: /sifremi-unuttum
+Disallow: /izinler/
+
+Sitemap: https://yunuspet.com/sitemap.xml   

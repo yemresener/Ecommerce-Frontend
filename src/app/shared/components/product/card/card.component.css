@@ -284,3 +284,53 @@
 
     
   }
+
+  /* OUT OF STOCK */
+
+  .best-item.out-of-stock:hover {
+    transform: none; /* Stoksuz ürün havaya zıplamasın, stabil kalsın */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  
+  /* Resmi ve başlığı hafifçe soluklaştırarak arka plana itiyoruz */
+  .best-item.out-of-stock .image-box img,
+  .best-item.out-of-stock .item-title,
+  .best-item.out-of-stock .item-rating,
+  .best-item.out-of-stock .price-box {
+    opacity: 0.5;
+    filter: grayscale(40%); /* Renkleri hafif soldurmak premium algı yaratır */
+  }
+  
+  /* Fiyatın yeşil rengini stok yokken griye çekiyoruz ki kafa karıştırmasın */
+
+  
+  /* --- TÜKENDİ OVERLAY (Görselin tam üstünü kaplayan katman) --- */
+  .out-of-stock-overlay {
+    position: absolute;
+    inset: 0; /* Tüm image-box alanını kapla */
+    background: rgba(80, 80, 80, 0.4); /* Resmin üstüne hafif beyaz bir perde */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none; /* Tıklama olayları arkadaki .card-link'e geçsin! */
+  }
+  
+  /* Modern Siyah "Tükendi" Rozeti */
+  .out-of-stock-overlay span {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 6px 16px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    animation: fadeInBlur 0.3s ease;
+    background: #222222;
+    text-align: center;
+  }
+  
+  /* Yumuşak bir beliriş efekti */
+  @keyframes fadeInBlur {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }

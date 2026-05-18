@@ -1,4 +1,4 @@
-<div class="best-item" [class.small]="itemSize>=1">
+<div class="best-item" [class.small]="itemSize>=1" [class.out-of-stock]="!item?.active_stock">
 
     <!-- REAL -->
     <ng-container *ngIf="item && !skeleton; else skeletonTpl">
@@ -21,7 +21,13 @@
       </ng-container>
   
       </span>
+
         <img [src]="item.image" alt="{{item.title}}">
+
+        <div *ngIf="!item.active_stock" class="out-of-stock-overlay">
+          <span>Tükendi</span>
+        </div>
+
       </div>
   
       <label class="item-title">

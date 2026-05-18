@@ -14,5 +14,6 @@ export interface MiniAdvert {
     discount_price:number | null,
     discount_type:string | null,
     discount_value:number | null,
+    active_stock?:boolean
 
 }

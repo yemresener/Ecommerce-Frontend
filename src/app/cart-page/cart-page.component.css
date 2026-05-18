@@ -14,6 +14,7 @@ body{
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     max-width: 1200px;
     margin: 0 auto;
+    color: #222222;
 
     
 }
@@ -38,12 +39,12 @@ body{
 
 .cart-title{
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     color: #222;
     margin-bottom: 24px;
     display: block;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
 .cart-box{
@@ -547,6 +548,9 @@ body{
 .qty-btn.trashcan{
     display: none;
 }
+.cart-title{
+    font-size: 18px;
+}
 
 }
 @media (max-width:940px){
@@ -559,6 +563,7 @@ body{
     .m-detail-container{
         display:grid;
     }
+    
 }
 
 @media(max-width:576px){
@@ -615,12 +620,32 @@ body{
 
     .item-price{
         align-self: flex-end;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
     }
 
     .trashcan{
         display: none;
+    }
+
+    /* YAN YAN GETİRİYOR */
+    .product-price-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end; 
+        width: 100%;
+        gap: 8px;
+    }
+}
+@media(max-width:370px){
+    .product-price-box {
+        display: flex;
+        flex-direction:column;
+        justify-content: space-between;
+        align-items: flex-end; 
+        width: 100%;
+        gap: 8px;
     }
 }
 

@@ -16,6 +16,7 @@ export class CartToastComponent extends BrowserAware {
   constructor(private router:Router,private el: ElementRef){super()}
   visible=true;
   hiding=false;
+
   ngOnInit(){
     if(this.isBrowser()){
       document.body.appendChild(this.el.nativeElement);
@@ -36,6 +37,7 @@ export class CartToastComponent extends BrowserAware {
   }
 
   cartBtn(){
+    this.close();
     this.router.navigate(['/cart']);
   }
 

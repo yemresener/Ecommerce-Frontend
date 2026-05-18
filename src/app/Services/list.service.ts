@@ -18,7 +18,7 @@ export class ListService {
   constructor(private http:HttpClient) { }
 
   adverts(params:FilterParams){
-    const url = `${environment.apiUrl}searchByCategory`;
+    const url = `${environment.apiUrl}searchByCategory/${params.slug}`;
     return this.http.get<ApiResponse<MiniAdvert[]> & { category: Category }>(url,{
       params:params as any,
       withCredentials:true
