@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!notFound">
     <div class="breadcrumb"
         [class.loading]="!breadcrumb"
         >
@@ -205,7 +205,7 @@
             </span>
             <span class="delivery-span" *ngIf="advert && isActive">
               <i class="fas fa-truck-fast"></i>
-              {{deliveryMessage}} Kargoda!
+              {{deliveryMessage}}
             </span>
             </div>
     
@@ -314,7 +314,7 @@
 
 
 
-<app-product-review
+<app-product-review *ngIf="!notFound"
     [skeleton]="skeleton"
     [advert]="advert"
     [reviews]="reviews"
@@ -328,7 +328,7 @@
     
 </app-product-review>
 
-<div #categoryAdverts>
+<div #categoryAdverts *ngIf="!notFound">
         <app-product-slider
         [title]="'Kategorinin  Öne Çıkan Ürünleri'"
         [items]="popularAdverts"
@@ -338,7 +338,7 @@
 </div>
 
 
-<app-product-slider
+<app-product-slider *ngIf="!notFound"
 [title]="'Önerilen Ürünler'"
 [items]="recoAdverts"
 [skeleton]="sliderSkeleton"
@@ -352,3 +352,5 @@
 <app-main-toast *ngIf="cartErrorMessage" [type]="'error'" [message]="cartErrorMessage"
   (closed)="cartErrorMessage = ''"
 ></app-main-toast>
+
+<app-not-found *ngIf="notFound"></app-not-found>

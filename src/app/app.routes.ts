@@ -6,6 +6,7 @@ import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-categor
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+
   // ------------------------------------------
   // MAIN LAYOUT (Ana Sayfa ve İçerikler)
   // ------------------------------------------
@@ -14,6 +15,23 @@ export const routes: Routes = [
   // ------------------------------------------
   // AUTH LAYOUT (Giriş, Kayıt, Checkout)
   // ------------------------------------------
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
+      { 
+        path: 'home', 
+        redirectTo: '', 
+        pathMatch: 'full' 
+      },
+      { 
+        path: 'anasayfa', 
+        redirectTo: '', 
+        pathMatch: 'full' 
+      },
+    ]
+  },
   {
     path: '',
     component: AuthLayoutComponent,
@@ -29,6 +47,7 @@ export const routes: Routes = [
   // ------------------------------------------
   // NONE FOOTER LAYOUT (Hesabım ve İzinler)
   // ------------------------------------------
+  
   {
     path: '',
     component: NoneFotterLayoutComponent,
@@ -88,34 +107,32 @@ export const routes: Routes = [
     ]
   },
 
-  // ------------------------------------------
-  // DYNAMIC ROUTES (Kategori & Arama)
-  // Not: Bunlar en altta olmalı ki üsttekileri ezmesin
-  // ------------------------------------------
-  {
-    path: '',
-    component: MainLayoutComponent,
-    children: [
-      { path: 'ara', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
-      { path: 'kategori/:slug', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' }, },
-    ]
-  },
 
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
-      { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
+
+      { path: 'ara', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
+      { path: 'kategori/:slug', loadComponent: () => import('./category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' }, },
+
       { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
 
       { path: 'kampanya/:slug', loadComponent: () => import('./campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), title: 'Kampanya' },
 
       { path: ':slug/yorumlar', loadComponent: () => import('./review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar' },
-      { path: ':slug', loadComponent: () => import('./each-item-page/each-item-page.component').then(m => m.EachItemPageComponent), title: 'Ürün' },
+      { path: ':slug', loadComponent: () => import('./each-item-page/each-item-page.component').then(m => m.EachItemPageComponent)},
+
 
     ]
   },
+
+  // ------------------------------------------
+  // DYNAMIC ROUTES (Kategori & Arama)
+  // Not: Bunlar en altta olmalı ki üsttekileri ezmesin
+  // ------------------------------------------
+
+
 
   // ------------------------------------------
   // WILDCARD ROUTE (Bulunamayan Sayfalar İçin)

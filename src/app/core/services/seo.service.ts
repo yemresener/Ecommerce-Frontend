@@ -282,6 +282,11 @@ export class SeoService {
     }
   }
   
+  setNotFound() {
+    this.title.setTitle('Sayfa Bulunamadı | YunusPet');
+    this.meta.updateTag({ name: 'description', content: 'Aradığınız sayfa bulunamadı.' });
+    this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
+  }
 
   setDefault() {
     this.title.setTitle('YunusPet - Evcil Hayvan Ürünleri');

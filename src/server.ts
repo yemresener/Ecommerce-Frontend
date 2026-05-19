@@ -8,7 +8,7 @@ import bootstrap from './main.server';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 const indexHtml = join(serverDistFolder, 'index.server.html');
-
+import { RESPONSE_TOKEN } from './app/core/tokens/response.token';
 const app = express();
 const commonEngine = new CommonEngine({
   allowedHosts:['localhost']
@@ -49,7 +49,9 @@ app.get('**', (req, res, next) => {
       documentFilePath: indexHtml,
       url: `${protocol}://${headers.host}${originalUrl}`,
       publicPath: browserDistFolder,
-      providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+      providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },
+        { provide: RESPONSE_TOKEN, useValue: res }
+      ],
     })
     .then((html) => res.send(html))
     .catch((err) => next(err));

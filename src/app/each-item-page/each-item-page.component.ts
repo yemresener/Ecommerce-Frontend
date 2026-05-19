@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef,PLATFORM_ID, inject } from '@angular/core';
+import { Component,ViewChild,ElementRef,Optional,Inject, TransferState, makeStateKey } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductReviewComponent } from '../pages/product/product-review/product-review.component';
@@ -18,34 +18,36 @@ import { RatingStarsComponent } from '../shared/rating/rating-stars/rating-stars
 import { BreadCrumb } from '../interfaces/bread-crumb';
 import { RouterModule } from '@angular/router';
 import { ProductSliderComponent } from '../components/sections/product-slider/product-slider.component';
-import { isPlatformBrowser } from '@angular/common';
 import { CartService } from '../Services/cart.service';
 import { CartToastComponent } from '../shared/components/toast/cart-toast/cart-toast.component';
 import { MainToastComponent } from '../shared/components/toast/main-toast/main-toast.component';
 import { DeliveryMessageService } from '../NoApiServices/delivery-message.service';
 import { SeoService } from '../core/services/seo.service';
-import { forkJoin } from 'rxjs';
+import { BrowserAware } from '../shared/base/browser-aware';
+import { RESPONSE_TOKEN } from '../core/tokens/response.token';
+import { NotFoundComponent } from '../shared/components/not-found/not-found.component';
 
 @Component({
   selector: 'app-each-item-page',
   imports: [ProductSliderComponent,FormsModule,CommonModule,ProductReviewComponent,
     SliderComponent,CardComponent,RatingStarsComponent,RouterModule,CartToastComponent,
-  MainToastComponent,],
+  MainToastComponent,NotFoundComponent],
   templateUrl: './each-item-page.component.html',
   styleUrl: './each-item-page.component.css'
 })
 
-export class EachItemPageComponent {
+export class EachItemPageComponent extends BrowserAware{
   @ViewChild('categoryAdverts') categoryAdverts!: ElementRef;
-  private platformId = inject(PLATFORM_ID);
-  private isBrowser() { return isPlatformBrowser(this.platformId); }
 
-  constructor(private route:ActivatedRoute,
+  constructor(
+    private route:ActivatedRoute,
     private itemService:EachItemService, 
     private cartService:CartService,
     private deliveryService:DeliveryMessageService,
-    private seoService:SeoService
-  ){}
+    private seoService:SeoService,
+    private transferState: TransferState,
+    @Optional() @Inject(RESPONSE_TOKEN) private response: any
+  ){super()}
 
   slug!:string;
   ngOnInit(){
@@ -62,8 +64,20 @@ export class EachItemPageComponent {
   breadcrumb!: BreadCrumb[];
   isActive?:boolean;
   deliveryMessage?:string;
+  notFound=false
 
   getAdvert(){
+
+    const ERROR_KEY = makeStateKey<boolean>('404_error_' + this.slug);
+    console.log('ERROR SLUG',ERROR_KEY);
+  // 2. ADIM: Eğer tarayıcıdaysak ve sunucu "bu sayfa 404" diye not bıraktıysa, API'ye HİÇ GİTME!
+    if (this.transferState.hasKey(ERROR_KEY)) {
+      this.notFound = true;
+    console.log('ERROR SLUG',ERROR_KEY);
+
+      return; // Fonksiyonu burada kes, 2. isteği engelle
+    }
+
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
         this.advert=res.data.advert;
@@ -89,7 +103,15 @@ export class EachItemPageComponent {
 
       },
       error:(err)=>{
-        console.log(err)
+        console.log(err);
+        this.notFound = true;
+        this.seoService.setNotFound();
+        if (!this.isBrowser()) {
+          this.transferState.set(ERROR_KEY, true);
+          this.response.status(404);
+ 
+        }
+        
       }
     })
   }
