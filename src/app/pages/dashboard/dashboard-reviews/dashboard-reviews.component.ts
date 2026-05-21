@@ -7,9 +7,12 @@ import { MainToastComponent } from '../../../shared/components/toast/main-toast/
 import { DeleteConfirmComponent } from '../../../shared/components/delete-confirm/delete-confirm.component';
 import { ReviewListComponent } from '../../../features/review/review-list/review-list.component';
 import { ReviewServiceService } from '../../../features/review/services/review-service.service';
+import { DashboardBackButtonComponent } from '../dashboard-back-button/dashboard-back-button.component';
 @Component({
   selector: 'app-dashboard-reviews',
-  imports: [CommonModule,ReviewListComponent,MainToastComponent,DeleteConfirmComponent],
+  imports: [CommonModule,ReviewListComponent,MainToastComponent,DeleteConfirmComponent
+    ,DashboardBackButtonComponent
+  ],
   templateUrl: './dashboard-reviews.component.html',
   styleUrl: './dashboard-reviews.component.css'
 })

@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/user-service/auth.service';
 import { MainToastComponent } from '../../../../shared/components/toast/main-toast/main-toast.component';
 import { DeleteConfirmComponent } from '../../../../shared/components/delete-confirm/delete-confirm.component';
+import { DashboardBackButtonComponent } from '../../dashboard-back-button/dashboard-back-button.component';
+
 @Component({
   selector: 'app-change-password',
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,MainToastComponent,DeleteConfirmComponent],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,MainToastComponent,DeleteConfirmComponent,DashboardBackButtonComponent],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })

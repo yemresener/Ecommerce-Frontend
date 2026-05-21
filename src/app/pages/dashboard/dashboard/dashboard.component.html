@@ -10,68 +10,57 @@
       </div>
   
       <nav class="left-routes">
-        <div class="each-section">
-          <a routerLink="siparislerim" routerLinkActive="active">
-            <span class="material-symbols-outlined">package_2</span> Siparişlerim
-          </a>
 
-          <span  class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
-        <div class="each-section">
-          <a routerLink="yorumlarim" routerLinkActive="active">
-            <span class="material-symbols-outlined ">
-                reviews
-                </span> Değerlendirmelerim
-          </a>
-        <span class="material-symbols-outlined chevron ">
-          chevron_right
-          </span>
-        </div>
-        <div class="each-section">
-          <a routerLink="adreslerim" routerLinkActive="active">
-            <span class="material-symbols-outlined">home_pin</span> Adreslerim
-          </a>
-          <span class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
-        <div class="each-section">
-          <a routerLink="kullanici-bilgilerim" routerLinkActive="active">
-            <span class="material-symbols-outlined">account_circle</span> Kullanıcı Bilgilerim
-          </a>
-          <span class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
+      <div class="each-section">
+        <a routerLink="siparislerim" routerLinkActive="active">
+          <span><span style="text-align: center;" class="material-symbols-outlined">package_2</span> Siparişlerim</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+            
+      <div class="each-section">
+        <a routerLink="yorumlarim" routerLinkActive="active">
+          <span><span class="material-symbols-outlined">reviews</span> Değerlendirmelerim</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
 
-        <div class="each-section">
-          <a routerLink="sifre-degistir" routerLinkActive="active">
-            <span class="material-symbols-outlined">password</span> Şifre İşlemleri
-          </a>
-          <span class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
-        
-        <div class="each-section">
-          <a routerLink="kayitli-kartlarim" routerLinkActive="active">
-            <span class="material-symbols-outlined">credit_card_gear</span> Kayıtlı Kartlarım
-          </a>
-          <span class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
-       
-        <div class="each-section" (click)="logout()">
-          <a style="cursor: pointer;">
-            <span class="material-symbols-outlined">Logout</span> Çıkış Yap
-          </a>
-          <span class="material-symbols-outlined chevron">
-            chevron_right
-            </span>
-        </div>
+      <div class="each-section">
+        <a routerLink="adreslerim" routerLinkActive="active">
+          <span><span class="material-symbols-outlined">home_pin</span> Adreslerim</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+
+      <div class="each-section">
+        <a routerLink="kullanici-bilgilerim" routerLinkActive="active">
+          <span><span class="material-symbols-outlined">account_circle</span> Kullanıcı Bilgilerim</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+
+      <div class="each-section">
+        <a routerLink="sifre-degistir" routerLinkActive="active">
+          <span><span class="material-symbols-outlined">password</span> Şifre İşlemleri</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+
+      <div class="each-section">
+        <a routerLink="kayitli-kartlarim" routerLinkActive="active">
+          <span><span class="material-symbols-outlined">credit_card_gear</span> Kayıtlı Kartlarım</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+
+      <div class="each-section">
+        <a (click)="logout()" style="cursor: pointer;">
+          <span><span class="material-symbols-outlined">logout</span> Çıkış Yap</span>
+          <span class="material-symbols-outlined chevron">chevron_right</span>
+        </a>
+      </div>
+
+
       </nav>
     </aside>
   

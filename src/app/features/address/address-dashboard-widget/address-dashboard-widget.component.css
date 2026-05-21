@@ -3,15 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 15px;
 
     .widget-title {
-      font-size: 1.20rem;
-      font-weight: 600;
-      color: #111827;
+     font-size: 1.25rem; 
+    font-weight: 700; 
+    color: #111827; 
+    margin-bottom: 16px; 
     }
 
     .add-btn {
@@ -41,35 +40,7 @@
   }
 
   /* --- BACK BUTTON CSS --- */
-  .back-btn {
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: none;
-    background: #f3f4f6; 
-    color: #111827;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    i {
-      font-size: 16px;
-    }
-
-    &:hover {
-      background: #e5e7eb;
-    }
-
-    &:active {
-      transform: scale(0.9); 
-      background: #d1d5db;
-    }
-
-    @media (max-width: 992px) {
-      display: flex; 
-    }
-  }
+ 
 
   /* Address List - Mobile-first Grid */
   app-address-list {

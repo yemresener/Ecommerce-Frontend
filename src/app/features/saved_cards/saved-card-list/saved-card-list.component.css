@@ -1,7 +1,7 @@
 /* =========================================
    GENEL KAPSAYICI VE BAŞLIK
    ========================================= */
-
+  @import '../../../pages/dashboard/shared.css';
    .saved-cards-widget .widget-header {
     display: flex;
     justify-content: space-between;

@@ -3,10 +3,8 @@
     <div class="widget-header">
 
       <div class="header-left-group">
-        <button class="back-btn" (click)="backBtn()">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <span class="widget-title">Adreslerim</span>
+        <app-dashboard-back-button></app-dashboard-back-button>
+        <h2 class="widget-title">Adreslerim</h2>
       </div>
 
       <button class="add-btn" (click)="openModal.emit('create')">+ Yeni adres</button>

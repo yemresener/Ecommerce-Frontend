@@ -4,3 +4,11 @@ h2 {
     color: #111827; 
     margin-bottom: 16px; 
 }
+
+
+.box{
+     display: flex;
+    align-items: center;
+    gap: 12px;
+
+}

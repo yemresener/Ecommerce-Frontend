@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component,Input,Output,EventEmitter,HostListener } from '@angular/core';
 import { CreditCardInterface } from '../../payment/interfaces/credit-card-interface';
+import { DashboardBackButtonComponent } from '../../../pages/dashboard/dashboard-back-button/dashboard-back-button.component';
+
 @Component({
   selector: 'app-saved-card-list',
-  imports: [CommonModule],
+  imports: [CommonModule,DashboardBackButtonComponent],
   templateUrl: './saved-card-list.component.html',
   styleUrl: './saved-card-list.component.css'
 })

@@ -197,9 +197,10 @@ export class SeoService {
     this.document.head.appendChild(canonicalLink);
 
     // WebSite ve Organization Şemaları
-    const homeSchema = [
+   const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "YunusPet",
         "url": "https://yunuspet.com/",
@@ -210,7 +211,6 @@ export class SeoService {
         }
       },
       {
-        "@context": "https://schema.org",
         "@type": "Organization",
         "name": "YunusPet",
         "url": "https://yunuspet.com/",
@@ -223,7 +223,8 @@ export class SeoService {
           "availableLanguage": "Turkish"
         }
       }
-    ];
+      ]
+    };
 
     const script = this.document.createElement('script');
     script.setAttribute('id', 'home-schema');

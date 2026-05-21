@@ -3,9 +3,11 @@ import { AddressInterface } from '../address-interface';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AddressListComponent } from '../address-list/address-list.component';
+import { DashboardBackButtonComponent } from '../../../pages/dashboard/dashboard-back-button/dashboard-back-button.component';
+
 @Component({
   selector: 'app-address-dashboard-widget',
-  imports: [CommonModule,AddressListComponent],
+  imports: [CommonModule,AddressListComponent,DashboardBackButtonComponent],
   templateUrl: './address-dashboard-widget.component.html',
   styleUrl: './address-dashboard-widget.component.css'
 })

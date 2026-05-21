@@ -5,9 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../../core/user-service/auth.service';
 import { MainToastComponent } from '../../../../shared/components/toast/main-toast/main-toast.component';
 import { DeleteConfirmComponent } from '../../../../shared/components/delete-confirm/delete-confirm.component';
+import { DashboardBackButtonComponent } from '../../dashboard-back-button/dashboard-back-button.component';
+
 @Component({
   selector: 'app-user-info',
-  imports: [CommonModule,ReactiveFormsModule,MainToastComponent,FormsModule,DeleteConfirmComponent],
+  imports: [CommonModule,ReactiveFormsModule,MainToastComponent,FormsModule,DeleteConfirmComponent,DashboardBackButtonComponent],
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.css'
 })
