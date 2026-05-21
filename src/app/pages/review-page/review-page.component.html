@@ -1,0 +1,27 @@
+
+
+<app-advert-review [skeleton]="skeleton" [isLoading]="isLoading" [addCart]="true" [advert]="advert" [reviews]="reviews" [stats]="stats" [links]="links"
+(loadMore)=loadMore()
+>
+    
+
+    <div review-title  class="review-box" *ngIf="advert">
+    <label  class="review-title">Kullanıcı Yorumları <label *ngIf="advert?.total_comments" style="font-weight: 100;
+        font-size: 18px;
+        color: gray;">({{advert.total_comments}})</label></label>
+        <a class="product-detail" [attr.href]="'/' + advert.slug" for=""> <i class="fas fa-reply reply-icon"></i> Ürün Detayları</a>
+    </div>
+
+
+
+    <app-review-filter review-filter [stats]="stats" 
+     (filterChange)="onFilterChange($event)"
+     [filters]="currentFilters"
+     >
+     
+    </app-review-filter>
+
+
+</app-advert-review>
+
+

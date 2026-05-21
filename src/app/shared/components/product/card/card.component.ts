@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { MiniAdvert } from '../../../../interfaces/mini-advert';
-import { CartService } from '../../../../Services/cart.service';
+import { MiniAdvert } from '../../../../features/advert/interfaces/mini-advert';
+import { CartService } from '../../../../features/cart/cart.service';
 import { CartToastComponent } from '../../toast/cart-toast/cart-toast.component';
 import { MainToastComponent } from '../../toast/main-toast/main-toast.component';
 @Component({

@@ -1,9 +1,9 @@
 import { Component,EventEmitter,Input,Output,OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Category } from '../../interfaces/category';
-import { CategoryNodeComponent } from '../category-node/category-node.component';
-import { Navbar } from '../../interfaces/navbar';
+import { Category } from '../../features/category/interfaces/category';
+import { CategoryNodeComponent } from '../../features/category/category-node/category-node.component';
+import { Navbar } from '../layouts/navbar/navbar';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-filter',

@@ -9,7 +9,6 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { PaymentServiceService } from '../Services/payment-service.service';
 import { CommonModule } from '@angular/common';
 import {
   Stripe,
@@ -20,7 +19,7 @@ import {
 
 import { ProductServiceService } from '../Services/product-service.service';
 
-import { Feature } from '../interfaces/feature';
+import { Feature } from '../features/product/interfaces/feature';
 
 @Component({
   selector: 'app-home-page',
@@ -29,7 +28,7 @@ import { Feature } from '../interfaces/feature';
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
-  constructor(private http:HttpClient, private payment:PaymentServiceService, private productService:ProductServiceService){}
+  constructor(private http:HttpClient,  private productService:ProductServiceService){}
   @ViewChild('cardInfo') cardInfo!: ElementRef<HTMLDivElement>;
 
   stripe:Stripe|null=null;
@@ -81,7 +80,6 @@ export class HomePageComponent {
 
 
   async ngOnInit(){
-    this.stripe = await this.payment.initStripe('pk_test_51SLRSx4CnKn7VYYXyAR7kd2qdw59vlREtXoPRrLbhNDxUSGoSQymSjg5xfv1afn2NdssZlTsFHwaDbfVsIuEsm6600u9j5e6IA');
     this.setupCardElement();
   }
 
@@ -94,8 +92,7 @@ export class HomePageComponent {
       this.loading = true;
       this.paymentMessage = '';
     
-    const res:any = await this.payment.createPayment();
-    const clientSecret=res.client_secret;
+    const clientSecret='qwe';
 
     
     if (!clientSecret) {

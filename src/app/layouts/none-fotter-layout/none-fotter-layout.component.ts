@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { NavbarComponent } from '../../shared/layouts/navbar/navbar.component';
 @Component({
   selector: 'app-none-fotter-layout',
   imports: [RouterOutlet,NavbarComponent],

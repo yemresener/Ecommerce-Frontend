@@ -3,8 +3,8 @@
   import { combineLatest } from 'rxjs';
   import { debounceTime, filter } from 'rxjs/operators';
   import { PaginationMeta } from '../../interfaces/pagination-meta';
-  import { MiniAdvert } from '../../interfaces/mini-advert';
-  import { FilterParams } from '../../interfaces/filter-params';
+  import { MiniAdvert } from '../../features/advert/interfaces/mini-advert';
+  import { FilterParams } from '../filter/filter-params';
 
   import { isPlatformBrowser } from '@angular/common';
   import { PLATFORM_ID, inject } from '@angular/core';

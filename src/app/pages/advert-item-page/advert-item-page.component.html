@@ -1,0 +1,356 @@
+<div class="container" *ngIf="!notFound">
+    <div class="breadcrumb"
+        [class.loading]="!breadcrumb"
+        >
+            <ng-container *ngIf="breadcrumb; else breadSkeleton">
+
+                <div class="bread-box">
+                <span><i class="fas fa-home"></i> Ana Sayfa</span>
+                <i class="fas fa-chevron-right"></i>
+                </div>
+
+                <div class="bread-box" *ngFor="let item of breadcrumb; let last = last">
+                    <a class="bread-link" href="kategori/{{item.slug}}">{{ item?.name }}</a>
+                    <i class="fas fa-chevron-right" *ngIf="!last"></i>
+                </div>
+
+            </ng-container>
+
+            <ng-template #breadSkeleton>
+                <div class="bread-skeleton shimmer"></div>
+            </ng-template>
+    </div>
+
+
+    <div class="product-content">
+        
+        
+        <div class="product-image-section">
+
+            <ng-container *ngIf="!advert; else realSlider">
+
+                <div class="product-image shimmer"></div>
+
+                <div class="thumbs">
+                    <div class="thumb shimmer">
+                    </div>
+                    <div class="thumb shimmer" >
+                    </div>
+                    <div class="thumb shimmer" >
+                    </div>
+                </div>
+
+            </ng-container>
+
+            <ng-template #realSlider>
+                <div class="product-image">
+                    <button *ngIf="itemSlider.items.length>1" (click)="prev()" class="image-button left">&#10094;</button>
+
+                <div class="image-window"   (touchstart)="onTouchStart($event)"
+                (touchend)="onTouchEnd($event)">
+                    <div
+                    class="image-track"
+                    [style.transform]="getTransform()"
+                    >
+                    <img
+                        *ngFor="let item of itemSlider.items"
+                        [src]="item.path"
+                        alt="{{advert.title}}"
+                    />
+                    
+                    </div>
+                
+                    <div class="image-counter">
+                        {{itemSlider.index+1 }}/{{itemSlider.items.length}}
+                    </div>
+
+                </div>
+
+                <button *ngIf="itemSlider.items.length>1" (click)="next()" class="image-button right">&#10095;</button>
+
+                </div>
+        
+
+                
+                <div class="thumbs">
+                    <div
+                    class="thumb"
+                    *ngFor="let item of itemSlider?.items; let i=index"
+                    [class.active]="i ===itemSlider?.index"
+                    (click)="itemSlider.index=i"
+                    >
+                    <img [src]="item.path" alt="">
+                    </div>
+                </div>
+
+            </ng-template>  
+        </div>
+
+
+        <div class="product-details">
+            <h1 class="product-title">
+
+                <span [class.hide]="advert?.title" class="title-skeleton shimmer"></span>
+              
+                <span [class.hide]="!advert?.title">
+                  {{ advert?.title }}
+                </span>
+              
+            
+            </h1>   
+              
+            <div class="rating-section">
+
+                <!-- skeleton -->
+                <div class="rating-skeleton" style="margin-top: 20px;"  [class.hide]="advert">
+                  <span class="sk sk-text shimmer"></span>
+                  <span class="sk sk-stars shimmer"></span>
+                  <span class="sk sk-count shimmer"></span>
+                </div>
+              
+                <!-- gerçek içerik -->
+                <div class="rating-content"  *ngIf="advert?.avg_rating" [class.hide]="!advert">
+              
+                  <span class="rating-text">
+                    {{ advert?.avg_rating ?? 0 | number:'1.0-1' }}
+                  </span>
+              
+                  <app-rating-stars
+                    [rating]="advert?.avg_rating ?? 0">
+                  </app-rating-stars>
+              
+                  <span class="review-count">
+                    {{ advert?.total_comments }} Değerlendirme
+                  </span>
+              
+                </div>
+              
+            </div>
+
+
+            <div class="price-section">
+
+                <!-- skeleton -->
+                <div class="price price-skeleton" [class.hide]="advert?.original_price">
+                  <span class="sk sk-price shimmer"></span>
+                </div>
+              
+                <!-- gerçek -->
+
+                <div class="price-box" *ngIf="advert as item">
+
+
+                    <span class="new-price">
+                        {{ item.discount_price ?? item.original_price }}
+                        <small class="currency"> TL</small>
+                      </span>
+
+                    <div class="old-box">
+                        <span class="old-price" *ngIf="item.discount_price">
+                            {{ item.original_price }} 
+                        </span>
+                            <span class="discount-badge" *ngIf="item.discount_type">
+                              <ng-container [ngSwitch]="item.discount_type">
+                          
+                                <span *ngSwitchCase="'percent'">
+                                  %{{ item.discount_value | number:'1.0-0' }}
+                                </span>
+                          
+                                <span *ngSwitchCase="'fixed'">
+                                  -{{ item.discount_value | number:'1.0-0' }} TL
+                                </span>
+                          
+                              </ng-container>
+                            </span>
+                         
+                    </div>
+                    
+                  
+                  
+                   
+                  
+                </div>
+              
+            </div>
+
+            <div class="actions">
+
+            <button
+              (click)="addToCart(advert.slug)"
+              class="add-to-cart"
+              [class.skeleton]="!advert"
+              [class.loading]="cartLoading"
+              [disabled]="!advert || cartLoading || !isActive"
+              [class.none-stock]="!isActive"
+              >
+              <ng-container *ngIf="!cartLoading; else loadingTpl">
+                <i *ngIf="advert" class="fas fa-shopping-cart"></i>
+                
+                <span *ngIf="advert">Sepete Ekle</span>
+              </ng-container>
+
+              <ng-template #loadingTpl>
+                <div class="spinner"></div>
+              </ng-template>
+            </button>
+              
+            </div>
+
+            <div class="delivery-badge"
+            [class.loading]="!advert"
+            [class.none-stock]="!isActive"
+            >
+            <span class="delivery-span" *ngIf="!isActive">
+              <i class="fas fa-clock"></i> En yakın zamanda stoklarda.
+            </span>
+            <span class="delivery-span" *ngIf="advert && isActive">
+              <i class="fas fa-truck-fast"></i>
+              {{deliveryMessage}}
+            </span>
+            </div>
+    
+
+            <div class="description-section"
+                [class.loading]="!advert"
+                >
+
+                <!-- title -->
+                <div class="description-title">
+                    <i *ngIf="advert" class="fas fa-info-circle"></i>
+                    <span *ngIf="advert">Ürün Açıklaması</span>
+                </div>
+
+                <!-- text (element hep var, sadece içerik şartlı) -->
+                <p class="description-text">
+                    <ng-container *ngIf="advert">
+                    {{ advert.description ?? ' Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. 
+                    Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar' }}.
+                    </ng-container>
+                </p>
+
+                <!-- features (container hep var) -->
+                <div class="features">
+
+                    <!-- gerçek liste -->
+                    <ng-container *ngIf="advert; else featureSkeleton">
+                    <div
+                        class="feature-item"
+                        *ngFor="let item of advert.features"
+                    >
+                        <i class="fas fa-check-circle"></i>
+                        <span>{{ item.label }}</span>
+                    </div>
+                    </ng-container>
+
+                    <!-- loading -->
+                    <ng-template #featureSkeleton>
+                    <div class="feature-item sk shimmer"></div>
+                    <div class="feature-item sk shimmer"></div>
+                    <div class="feature-item sk shimmer"></div>
+                    <div class="feature-item sk shimmer"></div>
+                    </ng-template>
+
+                </div>
+
+            </div>
+
+
+
+            
+        </div>
+    </div>
+</div>
+
+<div class="price-section-mobile" *ngIf="advert">
+
+    
+    <div class="price-mobile-box">
+        <div class="old-mobile-box">
+            <span class="old-price-mobile"  *ngIf="advert.discount_price"> {{ advert.original_price }}
+            </span>
+            <span class="discount-badge-mobile" [class.none-stock]="!isActive" *ngIf="advert.discount_type">
+                <ng-container [ngSwitch]="advert.discount_type">
+            
+                <span *ngSwitchCase="'percent'">
+                    %{{ advert.discount_value | number:'1.0-0' }}
+                </span>
+            
+                <span *ngSwitchCase="'fixed'">
+                    -{{ advert.discount_value | number:'1.0-0' }} TL
+                </span>
+            
+                </ng-container>
+            </span>  
+        </div>
+        <div class="price-row">
+          <span class="new-price-mobile" >{{ advert.discount_price || advert.original_price }}<span class="currency">TL</span></span>
+
+        </div>
+      </div>
+
+    
+
+       <button
+              (click)="addToCart(advert.slug)"
+              class="add-to-cart-mobile"
+              [class.skeleton]="!advert"
+              [class.loading]="cartLoading"
+              [disabled]="!advert || cartLoading || !isActive"
+              [class.none-stock]="!isActive"
+              >
+              <ng-container *ngIf="!cartLoading; else loadingTpl">
+                <i *ngIf="advert" class="fas fa-shopping-cart"></i>
+                <span *ngIf="advert">Sepete Ekle</span>
+              </ng-container>
+
+              <ng-template #loadingTpl>
+                <div class="spinner"></div>
+              </ng-template>
+            </button>
+</div>
+
+
+
+
+
+
+<app-advert-review *ngIf="!notFound"
+    [skeleton]="skeleton"
+    [advert]="advert"
+    [reviews]="reviews"
+    [stats]="stats"
+    [meta]="meta">
+    <div review-title  class="review-box" *ngIf="advert">
+        <label  class="review-title">Kullanıcı Yorumları <label *ngIf="advert.total_comments" style="font-weight: 100;
+            font-size: 18px;
+            color: gray;">({{advert.total_comments}})</label></label>
+        </div>
+    
+</app-advert-review>
+
+<div #categoryAdverts *ngIf="!notFound">
+        <app-product-slider
+        [title]="'Kategorinin  Öne Çıkan Ürünleri'"
+        [items]="popularAdverts"
+        [skeleton]="sliderSkeleton"
+        >
+        </app-product-slider>  
+</div>
+
+
+<app-product-slider *ngIf="!notFound"
+[title]="'Önerilen Ürünler'"
+[items]="recoAdverts"
+[skeleton]="sliderSkeleton"
+>
+</app-product-slider>
+
+
+
+<app-cart-toast *ngIf="cartItemAdded" [item]="advert" [message]="cartMessage"></app-cart-toast>
+
+<app-main-toast *ngIf="cartErrorMessage" [type]="'error'" [message]="cartErrorMessage"
+  (closed)="cartErrorMessage = ''"
+></app-main-toast>
+
+<app-not-found *ngIf="notFound"></app-not-found>

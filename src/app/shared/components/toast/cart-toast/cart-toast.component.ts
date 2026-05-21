@@ -1,6 +1,6 @@
 import { Component,Input,PLATFORM_ID,inject,ElementRef } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { MiniAdvert } from '../../../../interfaces/mini-advert';
+import { MiniAdvert } from '../../../../features/advert/interfaces/mini-advert';
 import { BrowserAware } from '../../../base/browser-aware';
 import { Router } from '@angular/router';
 BrowserAware
