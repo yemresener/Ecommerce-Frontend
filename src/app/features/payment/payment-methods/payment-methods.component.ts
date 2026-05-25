@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Installment } from '../interfaces/installment';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { PaymentService } from './payment.service';
-import { FormValidatorService } from '../../../NoApiServices/form-validator.service';
+import { FormValidatorService } from '../../../Services/NoApiServices/form-validator.service';
 
 @Component({
   selector: 'app-payment-methods',

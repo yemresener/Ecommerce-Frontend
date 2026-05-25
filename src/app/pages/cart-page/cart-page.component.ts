@@ -7,7 +7,7 @@ import { CartSummary } from '../../features/cart/interfaces/cart-summary';
 import { FullpageLoaderComponent } from '../../shared/fullpage-loader/fullpage-loader.component';
 import { MainToastComponent } from '../../shared/components/toast/main-toast/main-toast.component';
 import { BrowserAware } from '../../shared/base/browser-aware';
-import { ErrorMessageService } from '../../NoApiServices/error-message.service';
+import { ErrorMessageService } from '../../Services/NoApiServices/error-message.service';
 import { Router } from '@angular/router';
 import { CartMessageComponent } from '../../shared/components/toast/cart-message/cart-message.component';
 import { SliderComponent } from '../../shared/components/sliders/slider/slider.component';

@@ -2,7 +2,7 @@ import { Component,Input,Output,EventEmitter,HostListener } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { SortOption } from '../../../interfaces/sort-option';
 import { FilterParams } from '../../../shared/filter/filter-params';
-import { FilterLabelServiceService } from '../../../NoApiServices/filter-label-service.service';
+import { FilterLabelServiceService } from '../../../Services/NoApiServices/filter-label-service.service';
 @Component({
   selector: 'app-category-filter',
   imports: [CommonModule],

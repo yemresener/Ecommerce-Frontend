@@ -20,12 +20,12 @@ import { ProductSliderComponent } from '../../shared/components/sliders/product-
 import { CartService } from '../../features/cart/cart.service';
 import { CartToastComponent } from '../../shared/components/toast/cart-toast/cart-toast.component';
 import { MainToastComponent } from '../../shared/components/toast/main-toast/main-toast.component';
-import { DeliveryMessageService } from '../../NoApiServices/delivery-message.service';
 import { SeoService } from '../../core/seo-service/seo.service';
 import { BrowserAware } from '../../shared/base/browser-aware';
 import { RESPONSE_TOKEN } from '../../core/tokens/response.token';
 import { NotFoundComponent } from '../../shared/components/not-found/not-found.component';
 import { SliderComponent } from '../../shared/components/sliders/slider/slider.component';
+import { DeliveryMessageService } from '../../Services/NoApiServices/delivery-message.service';
 
 @Component({
   selector: 'app-advert-item-page',

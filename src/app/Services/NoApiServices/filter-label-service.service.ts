@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FilterParams } from '../shared/filter/filter-params';
-import { SortOption } from '../interfaces/sort-option';
-
+import { FilterParams } from '../../shared/filter/filter-params';
+import { SortOption } from '../../interfaces/sort-option';
 @Injectable({
   providedIn: 'root'
 })

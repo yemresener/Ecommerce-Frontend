@@ -7,7 +7,7 @@ import { CartSummary } from '../../features/cart/interfaces/cart-summary';
 import { AddressInterface } from '../../features/address/address-interface';
 import { Router,ActivatedRoute } from '@angular/router';
 import { MainToastComponent } from '../../shared/components/toast/main-toast/main-toast.component';
-import { ErrorMessageService } from '../../NoApiServices/error-message.service';
+import { ErrorMessageService } from '../../Services/NoApiServices/error-message.service';
 import { AddressComponent } from '../../features/address/address/address.component';
 import { FullpageLoaderComponent } from '../../shared/fullpage-loader/fullpage-loader.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
@@ -17,7 +17,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormValidatorService } from '../../NoApiServices/form-validator.service';
+import { FormValidatorService } from '../../Services/NoApiServices/form-validator.service';
 import { Installment } from '../../features/payment/interfaces/installment';
 import { debounce, debounceTime, first,finalize } from 'rxjs';
 import { CreditCardInterface } from '../../features/payment/interfaces/credit-card-interface';
@@ -25,7 +25,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NewCardPayload } from '../../features/payment/interfaces/new-card-payload';
 import { SavedCardPayload } from '../../features/payment/interfaces/saved-card-payload';
 
-import { DeliveryMessageService } from '../../NoApiServices/delivery-message.service';
+import { DeliveryMessageService } from '../../Services/NoApiServices/delivery-message.service';
 import { PermissionModalComponent } from '../../staticPages/permissions/permission-modal/permission-modal.component';
 import { PaymentMethodsComponent } from '../../features/payment/payment-methods/payment-methods.component';
 
