@@ -26,6 +26,7 @@ import { RESPONSE_TOKEN } from '../../core/tokens/response.token';
 import { NotFoundComponent } from '../../shared/components/not-found/not-found.component';
 import { SliderComponent } from '../../shared/components/sliders/slider/slider.component';
 import { DeliveryMessageService } from '../../Services/NoApiServices/delivery-message.service';
+import { LayoutService } from '../../Services/layout.service';
 
 @Component({
   selector: 'app-advert-item-page',
@@ -46,11 +47,13 @@ export class EachItemPageComponent extends BrowserAware{
     private deliveryService:DeliveryMessageService,
     private seoService:SeoService,
     private transferState: TransferState,
+    private layoutService:LayoutService,  
     @Optional() @Inject(RESPONSE_TOKEN) private response: any
   ){super()}
 
   slug!:string;
   ngOnInit(){
+    
     this.route.paramMap.subscribe(params=>{
       this.slug = params.get('slug') ?? '';
       this.getAdvert();
@@ -59,6 +62,11 @@ export class EachItemPageComponent extends BrowserAware{
     })
 
   }
+
+  ngOnDestroy() {
+    this.layoutService.showLayout.set(true);
+  }
+
   advert!:Advert;
   itemSlider!:SliderModel<any>
   breadcrumb!: BreadCrumb[];
@@ -74,12 +82,13 @@ export class EachItemPageComponent extends BrowserAware{
     if (this.transferState.hasKey(ERROR_KEY)) {
       this.notFound = true;
     console.log('ERROR SLUG',ERROR_KEY);
-
+        this.layoutService.showLayout.set(false);
       return; // Fonksiyonu burada kes, 2. isteği engelle
     }
 
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
+
         this.advert=res.data.advert;
         this.breadcrumb=res.data.bread_crumb;
         this.isActive=res.data.active_stock;     
@@ -104,7 +113,13 @@ export class EachItemPageComponent extends BrowserAware{
       },
       error:(err)=>{
         console.log(err);
+        console.log('SALAMLAR');
         this.notFound = true;
+          console.log('showLayout önce:', this.layoutService.showLayout());
+
+        this.layoutService.showLayout.set(false);
+          console.log('showLayout sonra:', this.layoutService.showLayout());
+
         this.seoService.setNotFound();
         if (!this.isBrowser()) {
           this.transferState.set(ERROR_KEY, true);
@@ -200,7 +215,7 @@ export class EachItemPageComponent extends BrowserAware{
   sliderSkeleton:boolean=true;
   ngAfterViewInit(): void {
       if (!this.isBrowser()) return; 
-
+      if(!this.advert) return;
       
       const observer = new IntersectionObserver(enter=>{
         if(enter[0].isIntersecting){
