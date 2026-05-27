@@ -91,7 +91,8 @@
             Ödeme yöntemi
           </div>
         </div>
-        
+
+        <!--  Kart methodları
         <app-payment-methods [savedCards]="savedCards" 
         [initialInstallments]="initalInstallment"
         [firstSum]="firstSum"
@@ -101,6 +102,8 @@
         (installmentChanged)="onChangeInstallment($event)"
         
         ></app-payment-methods>
+
+        -->
        
       </div>
  
@@ -160,7 +163,7 @@
           </div>
         </div>
  
-        <button class="pay-btn" (click)="payment()">
+        <button class="pay-btn" (click)="handleIyzicoCheckoutForm()">
           <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
           Ödemeyi tamamla
         </button>
@@ -311,6 +314,23 @@
   </div>
 </div>
 
+
+<div class="iyzico-modal-overlay" *ngIf="isModalOpen">
+  <div class="iyzico-modal-card">
+    
+    <button class="modal-close-btn" (click)="closeModal()">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <div class="modal-header">
+      <h3>Güvenli Ödeme Sayfası</h3>
+      <p>iyzico altyapısıyla 256-bit korumalı ödeme</p>
+    </div>
+
+    <div id="iyzipay-checkout-form" class="responsive"></div>
+
+  </div>
+</div>
 
 
 </body>

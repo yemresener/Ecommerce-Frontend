@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,ViewChild,Renderer2,Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckoutService } from '../../features/checkout/checkout.service';
 import { BrowserAware } from '../../shared/base/browser-aware';
@@ -28,7 +28,7 @@ import { SavedCardPayload } from '../../features/payment/interfaces/saved-card-p
 import { DeliveryMessageService } from '../../Services/NoApiServices/delivery-message.service';
 import { PermissionModalComponent } from '../../staticPages/permissions/permission-modal/permission-modal.component';
 import { PaymentMethodsComponent } from '../../features/payment/payment-methods/payment-methods.component';
-
+import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-checkout',
   imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,
@@ -41,13 +41,15 @@ import { PaymentMethodsComponent } from '../../features/payment/payment-methods/
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent extends BrowserAware{
-  safeHtml: SafeHtml | null = null;
+  isModalOpen = false;
+  private injectedScript: HTMLElement | null = null;
 
   constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService, private route:ActivatedRoute,
     private fb:FormBuilder,
-    private validatorService:FormValidatorService,
     private paymentService:PaymentService,
-    private deliveryService:DeliveryMessageService
+    private deliveryService:DeliveryMessageService,
+    private renderer: Renderer2, 
+    @Inject(DOCUMENT) private document: Document
   ){super()
     this.permissionsForm = this.fb.group({
       preliminaryInformation: [false, [Validators.requiredTrue]],
@@ -258,4 +260,74 @@ export class CheckoutComponent extends BrowserAware{
     this.address = address;
   }
 
+handleIyzicoCheckoutForm(): void {
+  if (this.permissionsForm.invalid) {
+    this.permissionsForm.markAllAsTouched();
+    return;
+  }
+
+  this.redirectToPayment = true;
+
+  this.paymentService.paymentForm().subscribe({
+    next: (res) => {
+      if (res.status === 'success' && res.checkoutFormContent) {
+        this.isModalOpen = true;
+        this.redirectToPayment = false;
+
+        setTimeout(() => {
+          this.injectCheckoutForm(res.checkoutFormContent);
+        }, 200);
+      }
+    },
+    error: (err) => {
+      this.redirectToPayment = false;
+      console.error('Ödeme başlatılamadı:', err);
+      this.handleErrorResponse(err);
+    }
+  });
+}
+
+private injectCheckoutForm(htmlContent: string): void {
+  const container = this.document.getElementById('iyzipay-checkout-form');
+  if (!container) return;
+
+  // Temizle
+  container.innerHTML = '';
+
+  const oldScripts = this.document.querySelectorAll('script[src*="iyzico"], script[src*="iyzipay"]');
+  oldScripts.forEach(s => s.remove());
+
+  // Script tag'ini parse et
+  const parser = new DOMParser();
+  const parsed = parser.parseFromString(htmlContent, 'text/html');
+  const scriptEl = parsed.querySelector('script');
+
+  if (!scriptEl) return;
+
+  const newScript = this.renderer.createElement('script') as HTMLScriptElement;
+
+  if (scriptEl.src) {
+    newScript.src = scriptEl.src;
+  } else {
+    newScript.text = scriptEl.textContent || '';
+  }
+
+  newScript.onload = () => {
+    window.dispatchEvent(new Event('resize'));
+  };
+
+  this.renderer.appendChild(container, newScript);
+}
+
+closeModal(): void {
+  const container = this.document.getElementById('iyzipay-checkout-form');
+  if (container) container.innerHTML = '';
+
+    try {
+    (window as any).iyziInit = undefined;
+    (window as any).iyzipay = undefined;
+  } catch (e) {
+  }
+  this.isModalOpen = false;
+}
 }
