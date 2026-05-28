@@ -260,74 +260,81 @@ export class CheckoutComponent extends BrowserAware{
     this.address = address;
   }
 
-handleIyzicoCheckoutForm(): void {
-  if (this.permissionsForm.invalid) {
-    this.permissionsForm.markAllAsTouched();
-    return;
-  }
-
-  this.redirectToPayment = true;
-
-  this.paymentService.paymentForm().subscribe({
-    next: (res) => {
-      if (res.status === 'success' && res.checkoutFormContent) {
-        this.isModalOpen = true;
-        this.redirectToPayment = false;
-
-        setTimeout(() => {
-          this.injectCheckoutForm(res.checkoutFormContent);
-        }, 200);
-      }
-    },
-    error: (err) => {
-      this.redirectToPayment = false;
-      console.error('Ödeme başlatılamadı:', err);
-      this.handleErrorResponse(err);
+  handleIyzicoCheckoutForm(): void {
+    if (this.permissionsForm.invalid) {
+      this.permissionsForm.markAllAsTouched();
+      return;
     }
-  });
-}
 
-private injectCheckoutForm(htmlContent: string): void {
-  const container = this.document.getElementById('iyzipay-checkout-form');
-  if (!container) return;
+    this.redirectToPayment = true;
 
-  // Temizle
-  container.innerHTML = '';
+    this.paymentService.paymentForm().subscribe({
+      next: (res) => {
+        if (res.status === 'success' && res.checkoutFormContent) {
+          this.isModalOpen = true;
 
-  const oldScripts = this.document.querySelectorAll('script[src*="iyzico"], script[src*="iyzipay"]');
-  oldScripts.forEach(s => s.remove());
+          setTimeout(() => {
+            this.injectCheckoutForm(res.checkoutFormContent);
 
-  // Script tag'ini parse et
-  const parser = new DOMParser();
-  const parsed = parser.parseFromString(htmlContent, 'text/html');
-  const scriptEl = parsed.querySelector('script');
-
-  if (!scriptEl) return;
-
-  const newScript = this.renderer.createElement('script') as HTMLScriptElement;
-
-  if (scriptEl.src) {
-    newScript.src = scriptEl.src;
-  } else {
-    newScript.text = scriptEl.textContent || '';
+          }, 200);
+        }
+      },
+      error: (err) => {
+        this.redirectToPayment = false;
+        console.error('Ödeme başlatılamadı:', err);
+        this.handleErrorResponse(err);
+      }
+    });
   }
 
-  newScript.onload = () => {
-    window.dispatchEvent(new Event('resize'));
-  };
+  private injectCheckoutForm(htmlContent: string): void {
+    const container = this.document.getElementById('iyzipay-checkout-form');
+    if (!container) return;
 
-  this.renderer.appendChild(container, newScript);
-}
+    container.innerHTML = '';
 
-closeModal(): void {
-  const container = this.document.getElementById('iyzipay-checkout-form');
-  if (container) container.innerHTML = '';
+    const oldScripts = this.document.querySelectorAll('script[src*="iyzico"], script[src*="iyzipay"]');
+    oldScripts.forEach(s => s.remove());
 
-    try {
-    (window as any).iyziInit = undefined;
-    (window as any).iyzipay = undefined;
-  } catch (e) {
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(htmlContent, 'text/html');
+    
+    const scriptEl = parsed.querySelector('script');
+
+    if (!scriptEl) return;
+
+    const newScript = this.renderer.createElement('script') as HTMLScriptElement;
+
+    if (scriptEl.src) {
+      newScript.src = scriptEl.src;
+    } else {
+      newScript.text = scriptEl.textContent || '';
+    }
+
+    newScript.onload = () => {
+      window.dispatchEvent(new Event('resize'));
+    };
+
+
+    this.renderer.appendChild(container, newScript);
+
+    setTimeout(()=>{ // ortalama script ms'i sonra oberserver ile hallet
+      this.redirectToPayment = false;
+    },400)
+
   }
-  this.isModalOpen = false;
-}
+
+  closeModal(): void {
+    const container = this.document.getElementById('iyzipay-checkout-form');
+    if (container) container.innerHTML = '';
+
+      try {
+      (window as any).iyziInit = undefined;
+      (window as any).iyzipay = undefined;
+    } catch (e) {
+    }
+    this.isModalOpen = false;
+  }
+
+  
 }
