@@ -46,7 +46,7 @@
       <div class="row">
         <span>Kargo Fiyatı</span>
         <strong [ngClass]="{'text-success': order.cargo_fee < 1}">
-          {{ (order.cargo_fee===0) ? order.cargo_fee + ' ₺' : 'Ücretsiz' }}
+          {{ (order.cargo_fee!==0) ? order.cargo_fee + ' ₺' : 'Ücretsiz' }} 
         </strong>
       </div>
       

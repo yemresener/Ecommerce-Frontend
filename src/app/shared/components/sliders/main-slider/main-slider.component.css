@@ -4,8 +4,14 @@
     padding: 0 15px;
     margin-top: 50px;
 
+    margin-bottom: 60px;
     
-    
+  }
+  @media (max-width:480px){
+    .container{
+    margin-bottom: 25px;
+
+    }
   }
   
   /* Slider Base */

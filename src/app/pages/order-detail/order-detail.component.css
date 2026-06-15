@@ -82,6 +82,8 @@ body { font-family: 'Inter', sans-serif; background: #f4f6f9; padding: 24px; col
 .status-badge.paid   { background: #fef3c7; color: #d97706; }
 .status-badge.completed { background: #d1fae5; color: #059669; }
 .status-badge.cancelled { background: #fee2e2; color: #dc2626; }
+.status-badge.refunded { background: #618ded; color: #ecf3fb; }
+
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 /* Card */

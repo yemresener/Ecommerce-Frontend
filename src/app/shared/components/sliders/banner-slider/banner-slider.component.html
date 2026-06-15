@@ -2,11 +2,11 @@
 
   <!-- LABEL -->
   <ng-container *ngIf="!skeleton; else labelSk">
-    <label class="best-label" style="margin-top: 20px;">{{title}}</label>
+    <label class="title-label">{{title}}</label>
   </ng-container>
 
   <ng-template #labelSk>
-    <div class="best-label sk-label shimmer" style="margin-top:20px;"></div>
+    <div class="title-label sk-label shimmer"></div>
   </ng-template>
 
 

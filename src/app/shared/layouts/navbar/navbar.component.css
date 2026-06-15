@@ -719,7 +719,7 @@ body {
 }
 
 .skeleton-cart-text {
-  width: 60px; /* "Sepetim" yazısı ortalama genişliği */
+  width: 10px; /* "Sepetim" yazısı ortalama genişliği */
   height: 16px;
   border-radius: 4px;
 }
@@ -837,5 +837,9 @@ body {
   }
   .premium-btn {
       padding: 0.5rem;
+  }
+  .premium-skeleton {
+    width: 24px;
+    height: 24px;
   }
 }
