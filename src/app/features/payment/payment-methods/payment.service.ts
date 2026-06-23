@@ -29,9 +29,9 @@ export class PaymentService {
     return this.http.post(url,payload,{withCredentials:true});
   }
 
-    paymentForm() : Observable<any> {
+    paymentForm(coupon_code?:string) : Observable<any> {
     const url = `${environment.apiUrl}payment/charge/form`;
-    return this.http.post(url,{},{withCredentials:true});
+    return this.http.post(url,{coupon_code},{withCredentials:true});
   }
 
 

@@ -1,7 +1,6 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
     margin-top: 50px;
 
     margin-bottom: 60px;
@@ -16,7 +15,7 @@
   
   /* Slider Base */
   .slider {
-    border-radius: 14px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     background: #f4f4f4;

@@ -14,10 +14,10 @@ export class CartService {
   constructor(private http:HttpClient) { }
 
   cart(){
-    const url= `${environment.apiUrl}getUsersCart`;
+    const url= `${environment.apiUrl}getCart`;
     return this.http.get<CartApiResponse>(url,{withCredentials:true}).pipe(
       tap(res=>{
-        this.cartCount.set(res.summary.productCount);  
+        this.cartCount.set(res.summary.quantitySum);  
       })
     )
   }
@@ -41,7 +41,7 @@ export class CartService {
     const url = `${environment.apiUrl}storeCart`;
     return this.http.post<{message:string}>(url,{advert_slug:slug,quantity:quantity},{withCredentials:true}).pipe(
       tap(()=>{
-        this.cartCount.set((this.cartCount() ?? 0) + 1);
+        this.cartCount.set((this.cartCount() ?? 0) + (quantity ?? 1));
       })
     )
   }

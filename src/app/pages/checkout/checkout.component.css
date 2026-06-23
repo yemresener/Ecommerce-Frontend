@@ -679,6 +679,186 @@ body {
   stroke-linejoin: round;
 }
 
+
+/* coupon side */
+
+
+.coupon-container {
+    border: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background-color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Kutu açıkken veya kupon varken border rengi değişimi */
+.coupon-container.is-open {
+    border-color: #3b82f6; /* Senin açık mavi */
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1); 
+}
+.coupon-container.has-coupon {
+    border-color: #10b981; /* Başarılı yeşili */
+    background-color: #f0fdf4; 
+}
+
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.coupon-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b; /* Koyu metin rengi */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ticket-icon {
+    color: #2563eb; /* Senin koyu mavi */
+    font-size: 16px;
+}
+
+.success-text {
+    color: #10b981; /* Başarılı yeşili */
+}
+
+.coupon-angle {
+    color: #64748b; /* Pasif gri ikon rengi */
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.coupon-content {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    animation: fadeInSlide 0.3s ease-out;
+}
+
+/* --- Kupon Giriş Ekranı (Input + Buton) --- */
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.coupon-input {
+    flex: 1;
+    border: 2px solid #e2e8f0;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    color: #1e293b;
+}
+
+.coupon-input:focus {
+    border-color: #3b82f6; /* Focus olduğunda senin açık mavi */
+}
+
+.coupon-input:disabled {
+    background-color: #f8fafc;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.submit-coupon {
+    background-color: #2563eb; /* Senin koyu mavi */
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.submit-coupon:hover:not(:disabled) {
+    background-color: #3b82f6; /* Hover'da senin açık mavi */
+}
+
+.submit-coupon:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error-text {
+    color: #ef4444; /* Hata kırmızısı */
+    font-size: 13px;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+/* --- Kupon İptal Ekranı (Yeşil Kutu) --- */
+.success-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #10b981; /* Başarılı yeşili */
+    padding: 14px 18px;
+    border-radius: 8px;
+}
+
+.success-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.success-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #10b981;
+    margin: 0;
+}
+
+.success-desc {
+    font-size: 13px;
+    color: #1e293b;
+    margin: 3px 0 0 0;
+}
+
+.remove-coupon-btn {
+    background: none;
+    color: #ef4444; /* İptal kırmızısı */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.remove-coupon-btn:hover:not(:disabled) {
+    background-color: #fef2f2;
+}
+
+.remove-coupon-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- Animasyon --- */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .navbar {

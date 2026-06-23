@@ -29,6 +29,8 @@ import { DeliveryMessageService } from '../../Services/NoApiServices/delivery-me
 import { PermissionModalComponent } from '../../staticPages/permissions/permission-modal/permission-modal.component';
 import { PaymentMethodsComponent } from '../../features/payment/payment-methods/payment-methods.component';
 import { DOCUMENT } from '@angular/common';
+import { CouponService } from '../../features/coupon/coupon.service';
+import { Coupon } from '../../features/coupon/interfaces/coupon';
 @Component({
   selector: 'app-checkout',
   imports: [CommonModule,FormsModule,MainToastComponent,AddressComponent,
@@ -44,7 +46,8 @@ export class CheckoutComponent extends BrowserAware{
   isModalOpen = false;
   private injectedScript: HTMLElement | null = null;
 
-  constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService, private route:ActivatedRoute,
+  constructor(private service:CheckoutService,private router:Router,private errorService:ErrorMessageService,
+     private route:ActivatedRoute, private couponService:CouponService,
     private fb:FormBuilder,
     private paymentService:PaymentService,
     private deliveryService:DeliveryMessageService,
@@ -99,6 +102,84 @@ export class CheckoutComponent extends BrowserAware{
   redirectToPayment=false;
   savedCards?:CreditCardInterface[];
   deliveryMessage?:string;
+ 
+  couponOpened: boolean = false;    
+  couponLoading: boolean = false;    
+  couponErrorMsg: string | null = null;  
+
+  // Veri Bağlama Değişkenleri
+  couponCode?:string;         // Input'a yazılan kod (NgModel)
+  
+
+
+
+  appliedCoupon?:Coupon;
+  discountValue: number = 0;      
+
+
+
+  toggleCoupon() {
+    this.couponOpened = !this.couponOpened;
+    this.couponErrorMsg = null; // Kutu kapanıp açılırken hatayı temizle
+  }
+
+  applyCoupon() {
+    if (!this.couponCode || this.couponCode.trim() === '') {
+      this.couponErrorMsg = 'Lütfen bir kupon kodu giriniz.';
+      return;
+    }
+
+    this.couponLoading = true;
+    this.couponErrorMsg = null;
+    
+    console.log(`API'ye giden kupon kodu: ${this.couponCode}`);
+    this.couponService.applyCoupon(this.couponCode).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.summary=res.summary;
+
+        this.appliedCoupon=res.coupon;
+        this.discountValue = this.summary.couponDiscountTotal ?? 0;
+        this.couponLoading = false;
+
+      },error:(err)=>{
+        console.log(err);
+        this.couponErrorMsg=err.error.message;
+        this.couponLoading=false;
+
+      }
+    })
+    
+
+  }
+
+  removeCoupon() {
+    this.couponLoading = true;
+    this.couponErrorMsg = null;
+
+    console.log(`API'ye giden kupon KALDIRMA isteği (null giden kod)`);
+
+    this.couponService.getCart().subscribe({
+      next:(res)=>{
+        this.carts=res.data;
+        this.summary=res.summary;
+
+        this.couponOpened=false;
+        this.couponCode=undefined;
+        this.appliedCoupon = undefined;
+        this.discountValue = 0;
+        this.couponLoading = false;
+      },
+      error:(err)=>{
+        console.log(err);
+        this.appliedCoupon = undefined;
+        this.discountValue = 0;
+        this.couponLoading = false;
+      }
+    })
+
+  }
+
 
   checkout(){
     this.loading=true;
@@ -268,7 +349,7 @@ export class CheckoutComponent extends BrowserAware{
 
     this.redirectToPayment = true;
 
-    this.paymentService.paymentForm().subscribe({
+    this.paymentService.paymentForm(this.appliedCoupon?.code ?? undefined).subscribe({
       next: (res) => {
         if (res.status === 'success' && res.checkoutFormContent) {
           this.isModalOpen = true;

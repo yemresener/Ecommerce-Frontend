@@ -567,7 +567,9 @@ body{
 }
 
 @media(max-width:576px){
-
+    .container{
+        width: 99%;  /* YENİ EKLENDİ */
+    }
     .reco-label {
         font-size: 18px;
     }
@@ -577,6 +579,7 @@ body{
     .item-price{
         font-size: 15px;
     }
+    
     
 }
 

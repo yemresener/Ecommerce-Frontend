@@ -39,6 +39,7 @@ import { LayoutService } from '../../Services/layout.service';
 
 export class EachItemPageComponent extends BrowserAware{
   @ViewChild('categoryAdverts') categoryAdverts!: ElementRef;
+  @ViewChild('reviewSection', { read: ElementRef }) reviewSection!: ElementRef;
 
   constructor(
     private route:ActivatedRoute,
@@ -52,6 +53,7 @@ export class EachItemPageComponent extends BrowserAware{
   ){super()}
 
   slug!:string;
+  isFeaturesOpen: boolean = false;
   ngOnInit(){
     
     this.route.paramMap.subscribe(params=>{
@@ -313,6 +315,15 @@ export class EachItemPageComponent extends BrowserAware{
 
   // MOBILE SWIPE 
 
+
+  scrollToReviews():void{
+    if(this.reviewSection){
+      this.reviewSection.nativeElement.scrollIntoView({
+        behavior: 'smooth', 
+        block: 'start'
+      })
+    }
+  }
 
 }
 

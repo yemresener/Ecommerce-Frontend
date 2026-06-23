@@ -153,22 +153,7 @@
                         
                     </div>
     
-                    <div (click)="couponInput=1" class="coupon-box"  [class.hidden]="couponInput">
-                        <div class="label-angle" [class.open]="couponInput" >
-                            <label class="coupon-label" >İndirim Kodu Ekle</label>
-
-                            <i class="coupon-angle" *ngIf="!couponInput" 
-                            [class]="couponInput ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down '" ></i>
-
-                        </div>
-                        
-    
-                        <div class="couponHidden" (click)="$event.stopPropagation()" *ngIf="couponInput">
-                            
-                            <input class="coupon-input" type="text" placeholder="İndirim Kodunu Giriniz">
-                            <button class="submit-coupon">Uygula</button>
-                        </div>
-                    </div>
+                  
     
             </div>
     

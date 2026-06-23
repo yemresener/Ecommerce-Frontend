@@ -5,7 +5,7 @@
             <ng-container *ngIf="breadcrumb; else breadSkeleton">
 
                 <div class="bread-box">
-                <span><i class="fas fa-home"></i> Ana Sayfa</span>
+                <a href="" class="bread-link"><i class="fas fa-home"></i> Ana Sayfa</a>
                 <i class="fas fa-chevron-right"></i>
                 </div>
 
@@ -109,7 +109,7 @@
                 </div>
               
                 <!-- gerçek içerik -->
-                <div class="rating-content"  *ngIf="advert?.avg_rating" [class.hide]="!advert">
+                <div class="rating-content" (click)="scrollToReviews()"  *ngIf="advert?.avg_rating" [class.hide]="!advert">
               
                   <span class="rating-text">
                     {{ advert?.avg_rating ?? 0 | number:'1.0-1' }}
@@ -235,7 +235,7 @@
                     <ng-container *ngIf="advert; else featureSkeleton">
                     <div
                         class="feature-item"
-                        *ngFor="let item of advert.features"
+                        *ngFor="let item of advert.features | slice:0:(isFeaturesOpen ? advert?.features?.length : 6)"
                     >
                         <i class="fas fa-check-circle"></i>
                         <span>{{ item.label }}</span>
@@ -250,7 +250,15 @@
                     <div class="feature-item sk shimmer"></div>
                     </ng-template>
 
+                
+
                 </div>
+                  <div class="show-more-container" *ngIf="advert && advert.features">
+                      <button *ngIf="advert.features.length > 6" class="show-more-btn" (click)="isFeaturesOpen = !isFeaturesOpen">
+                          {{ isFeaturesOpen ? 'Daha Az Göster' : 'Daha Fazla Göster (' + (advert.features.length - 6) + ')' }}
+                          <i class="fas" [ngClass]="isFeaturesOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                      </button>
+                  </div>
 
             </div>
 
@@ -314,7 +322,7 @@
 
 
 
-<app-advert-review *ngIf="!notFound"
+<app-advert-review #reviewSection *ngIf="!notFound"
     [skeleton]="skeleton"
     [advert]="advert"
     [reviews]="reviews"

@@ -196,6 +196,9 @@
     color: #64748b;
     font-size: 14px;
 }
+.review-count:hover{
+    text-decoration: underline;
+}
 
 .price-section {
     border-radius: 16px;
@@ -417,6 +420,37 @@
     font-size: 16px;
 }
 
+.show-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.show-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #10b981; /* Senin check iconunun rengiyle eşitledim kanka */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.show-more-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.show-more-btn i {
+    font-size: 11px;
+}
+
 /* THUMBS */
 .thumbs {
     width: 500px;
@@ -548,8 +582,9 @@
 .rating-content {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 /* base skeleton */
