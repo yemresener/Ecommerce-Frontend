@@ -98,6 +98,7 @@ export class EachItemPageComponent extends BrowserAware{
         console.log(this.reviews,'REVİEWS');
         this.stats=res.stats;
         this.skeleton=false;
+        console.log(res);
         console.log(res.stats,'RESSSS')
         console.log(this.stats,'STAT');
         this.seoService.setAdvertPage(this.advert,this.reviews);   

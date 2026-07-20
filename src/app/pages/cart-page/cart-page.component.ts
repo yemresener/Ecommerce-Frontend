@@ -44,6 +44,7 @@ export class CartPageComponent extends BrowserAware{
         if(this.isBrowser()){
         this.getCart(); 
     } 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   

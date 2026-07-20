@@ -85,6 +85,7 @@ export class CheckoutComponent extends BrowserAware{
     })
     this.checkout();
     this.deliveryMessage=this.deliveryService.deliveryMessage;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   toastMessage = '';
