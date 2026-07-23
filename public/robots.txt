@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Index edilmesini istemediğimiz sayfalar
+ 
 Disallow: /hesabim/
 Disallow: /checkout
 Disallow: /cart
@@ -10,4 +10,4 @@ Disallow: /register
 Disallow: /sifremi-unuttum
 Disallow: /izinler/
 
-Sitemap: https://yunuspet.com/sitemap.xml   
+Sitemap: https://gurmepet.com.tr/sitemap.xml   

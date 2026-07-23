@@ -19,7 +19,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent), title: 'YunusPet' },
+      { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent), title: 'GurmePet' },
       { 
         path: 'home', 
         redirectTo: '', 

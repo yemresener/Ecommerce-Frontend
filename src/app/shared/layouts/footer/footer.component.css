@@ -31,7 +31,7 @@
   .adv-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
-    border-left-color: #3b82f6; /* Hover'da sol tarafta YunusPet mavisi belirmesi çok premium durur */
+    border-left-color: #3b82f6; /* Hover'da sol tarafta gurmepet.com.tr mavisi belirmesi çok premium durur */
   }
   
   .adv-icon {
@@ -200,7 +200,7 @@
 }
 
 .social-links a:hover img {
-  /* Hover olunca ikonları tam YunusPet Mavisine (#3b82f6) boyar */
+  /* Hover olunca ikonları tam gurmepet.com.tr Mavisine (#3b82f6) boyar */
   filter: invert(44%) sepia(80%) saturate(1637%) hue-rotate(195deg) brightness(97%) contrast(96%);
 }
 

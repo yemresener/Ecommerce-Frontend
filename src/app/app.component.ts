@@ -9,5 +9,5 @@ import { FooterComponent } from './shared/layouts/footer/footer.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'YunusPet';
+  title = 'GurmePet';
 }
