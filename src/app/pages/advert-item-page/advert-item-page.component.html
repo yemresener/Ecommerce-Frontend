@@ -346,7 +346,7 @@
 </div>
 
 
-<app-product-slider *ngIf="!notFound"
+<app-product-slider *ngIf="!notFound && !recoEmpty"
 [title]="'Önerilen Ürünler'"
 [items]="recoAdverts"
 [skeleton]="sliderSkeleton"

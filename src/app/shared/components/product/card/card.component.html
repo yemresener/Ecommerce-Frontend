@@ -52,7 +52,7 @@
           </span>
         </div>
         
-        <button (click)="addToCart(item)" class="add-cart" [disabled]="cartLoading === item.id">
+        <button (click)="addToCart(item)" class="add-cart" [disabled]="cartLoading === item.id || !item.active_stock">
           <!-- Yükleniyor İkonu -->
           <i *ngIf="cartLoading === item.id" class="fa-solid fa-circle-notch fa-spin"></i>
           

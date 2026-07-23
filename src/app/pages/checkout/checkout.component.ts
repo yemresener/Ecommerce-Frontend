@@ -206,8 +206,10 @@ export class CheckoutComponent extends BrowserAware{
           this.activeCardContext='new' 
           this.showCardForm=true;
         }
+        /*
         this.initalInstallment={bin_number:res.default_card.bin_number,
           Installment:res.installments}
+          */
       },
       error:(err)=>{
         console.log(err);

@@ -197,10 +197,14 @@ export class EachItemPageComponent extends BrowserAware{
   }
 
   recoAdverts!:MiniAdvert[];
+  recoEmpty:boolean=false;
   getRecoAdverts(){
     this.itemService.recoAdvertsByFeature(this.slug).subscribe({
       next:(res:ApiResponse<MiniAdvert[]>)=>{
         this.recoAdverts=res.data;
+        if(res.data === undefined){
+          this.recoEmpty=true;
+        }
         console.log('RECOLAR',this.recoAdverts);
       },
       error:(err)=>{
