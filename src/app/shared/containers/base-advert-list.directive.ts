@@ -18,7 +18,7 @@
       @ViewChildren('pageBlock') pageBlocks!: QueryList<ElementRef>;
 
       private platformId = inject(PLATFORM_ID);
-      private isBrowser() { return isPlatformBrowser(this.platformId); }
+      public isBrowser() { return isPlatformBrowser(this.platformId); }
 
       protected abstract fetchData(page: number): void;
       protected abstract onSlugChange(): void;
@@ -50,6 +50,7 @@
       mode: 'category' | 'search' = 'category';
       query?: string;
 
+      private isInitialLoad = true;
       ngOnInit(): void {
         this.pages = [{ page: 0, items: this.skeletonItems }];
 
@@ -97,9 +98,32 @@
     
             if (slugChanged || queryChanged) {
               this.onSlugChange(); // 🔥 override edilecek
+              console.log('SLUG CHANGED BRz')
             }
-    
-            this.triggerFetch(true, page);
+            
+            if (this.isInitialLoad) {
+              // 1. İLK YÜKLEME: API'ye gitme! Resolver'ın getirdiği veriyi kullan.
+              // Not: Route dosyasında resolve: { resolvedData: ... } şeklinde isim verdiğini varsayıyorum
+              const preFetchedData = this.route.snapshot.data['resolvedData']; 
+              if (preFetchedData) {
+                
+                this.maxPageLoaded = page; // Sayfa 3'ten girdiyse maxPage = 3 oldu.
+                if (page > 1) {
+                  this.minPageLoaded = page; // Sayfa 3'ten girdiyse minPage de 3 oldu ki "Öncekileri Yükle" çalışsın.
+                }
+                this.handleSuccess(preFetchedData,page);
+
+                 
+              } else {
+                  this.triggerFetch(true, page);
+              }
+              
+              // Kilidi kapat, bir daha buraya girmesin
+              this.isInitialLoad = false; 
+          } else {
+              // 2. İSTEMCİ FİLTRELEMESİ: Kullanıcı sayfayı, filtreyi değiştirdi. Artık API'ye git!
+              this.triggerFetch(true, page);
+          }
           }
         });
       }
@@ -176,7 +200,7 @@
         this.pages.push({ page, items: res.data });
         this.adverts = [...this.adverts, ...res.data];
         this.meta = res.meta;
-
+       
 
       }
 

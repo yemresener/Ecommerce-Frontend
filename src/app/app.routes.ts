@@ -4,7 +4,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fotter-layout.component';
 import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
 import { authGuard } from './core/guards/auth.guard';
-
+import { CategoryResolver } from './features/category/resolvers/category.resolver';
 export const routes: Routes = [
 
   // ------------------------------------------
@@ -114,17 +114,22 @@ export const routes: Routes = [
     children: [
 
       { path: 'ara', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
-      { path: 'kategori/:slug', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' }, },
+      { path: 'kategori/:slug', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' },
+      resolve: { resolvedData:CategoryResolver } },
 
       { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
 
-      { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), title: 'Kampanya' },
+      { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), },
 
       { path: ':slug/yorumlar', loadComponent: () => import('./pages/review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar' },
       { path: ':slug', loadComponent: () => import('./pages/advert-item-page/advert-item-page.component').then(m => m.EachItemPageComponent)},
 
 
     ]
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./shared/components/not-found/not-found.component').then(m=> m.NotFoundComponent),title:'Sayfa Bulunamadı'
   },
 
   // ------------------------------------------

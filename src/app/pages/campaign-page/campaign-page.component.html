@@ -1,5 +1,5 @@
 
-<section class="campaign-details">
+<section class="campaign-details" *ngIf="!notFound">
 
     <!-- FULL WIDTH IMAGE -->
     <ng-container *ngIf="!campaign; else imageLoad">
@@ -19,7 +19,7 @@
 
 
 
-<div class="container">
+<div class="container" *ngIf="!notFound">
     <div class="title-box">
         <label class="title">Kampanyalı Ürünler</label>
         <app-category-filter
@@ -47,7 +47,7 @@
 
 
  <!-- ORTALI CONTENT -->
- <div class="detail-box" *ngIf="campaign">
+ <div class="detail-box" *ngIf="campaign && !notFound">
     <div class="campaign-texts">
       <h1 class="campaign-title">{{ campaign.title }}</h1>
       <p class="campaign-description">{{ campaign.description }}</p>
@@ -58,3 +58,6 @@
     </div>
 
 </div>
+
+
+<app-not-found *ngIf="notFound"></app-not-found>

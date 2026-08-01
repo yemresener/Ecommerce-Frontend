@@ -50,62 +50,61 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
   sortOption = false;
   mobileFilter = false;
 
+  override ngOnInit() {
+    // 1. Resolver'ın API'den çekip kapıda hazır ettiği veriyi alıyoruz
+    const data = this.route.snapshot.data['resolvedData'];
+    
+    console.log('Resolverdan gelen tertemiz veri:', data);
 
-  protected fetchData(page: number): void {
+    super.ngOnInit(); 
+  }
+
+  override handleSuccess(res: any, page: number) {
+    // 1. Önce Base sınıf (Baba) kendi işini yapsın (adverts listesini doldurma, pagination vs.)
+    super.handleSuccess(res, page);
+  
+    // 2. Sonra bizim (Çocuk) component'e özel UI ve SEO işlemleri çalışsın
+    this.isLoading = false;
+    this.breadSkeleton = false;
     this.min_price = this.currentFilters.min_price;
     this.max_price = this.currentFilters.max_price;
-
-    if(this.mode  === 'search'){
-      if(!this.query) return;
-
-      this.service.search({
-        q:this.query,
-        ...this.currentFilters,
-        page
-      }).subscribe(res=>{
-        console.log(res,'GELEN RESPONSE')
-        this.handleSuccess(res,page);
-        this.isLoading=false;
-        this.breadSkeleton = false;
-
-        if(this.query && page===1){
-          console.log(this.query,'QUEY')
-          this.seoService.setSearchPage(this.query,res.meta.total)
-          console.log('ÇALIŞTI KN')
-        }
-        
-      }, err=> console.log(err))
-    }else{
-
-    
-      if (!this.slug) {
-        console.warn('Slug boş, API çağrısı yapılmayacak');
-        return;
-      }
-      this.mobileFilter = false;
-      console.log(page,'page')
-      this.service.adverts({
-        slug: this.slug,
-        ...this.currentFilters,
-        page
-      }).subscribe(res => {
-        console.log(res)
-        this.handleSuccess(res, page);
-        this.breadSkeleton = false;
-        this.isLoading=false;
-        if (this.mode === 'category' && page === 1) {
-          console.log(res);
-          this.seoService.setCategoryPage(res.category,res.data);
-        }
-
-      }, err => {
-        this.loading = false;
-        console.error(err);
-      });
-      
+  
+    if (this.mode === 'search' && this.query && page === 1) {
+      this.seoService.setSearchPage(this.query, res.meta.total);
+    } else if (this.mode === 'category' && page === 1) {
+      this.seoService.setCategoryPage(res.category, res.data);
     }
   }
   
+  // fetchData artık sadece "Getirici" (Kurye) görevi görüyor.
+  protected fetchData(page: number): void {
+  
+  
+    if (this.mode === 'search') {
+      if (!this.query) return;
+      this.service.search({
+        q: this.query, ...this.currentFilters, page
+      }).subscribe({
+        next: (res) => this.handleSuccess(res, page),
+        error: (err) => {
+           this.loading = false;
+           console.log(err);
+        }
+      });
+    } else {
+      if (!this.slug) return;
+      this.mobileFilter = false;
+      this.service.adverts({
+        slug: this.slug, ...this.currentFilters, page
+      }).subscribe({
+        next: (res) => this.handleSuccess(res, page),
+        error: (err) => {
+          this.loading = false;
+          console.error(err);
+        }
+      });
+    }
+  }
 
   protected onSlugChange(): void {
     console.log('ONSLUG CHANGED BROTHER')
@@ -120,14 +119,19 @@ export class CategoryPageComponent extends BaseAdvertListDirective {
 
   private getCategoryTree(): void {
 
-    this.service.category(this.slug).subscribe(res => {
-
-      this.category_tree = res.filters.category_tree;
-      this.breadcrumb = res.filters.breadcrumb;
-      this.activeCategory = res.filters.active_category;
-
-    }, err => {
-      console.error(err);
+    this.service.category(this.slug).subscribe({
+      next:(res)=>{
+        this.category_tree = res.filters.category_tree;
+        this.breadcrumb = res.filters.breadcrumb;
+        this.activeCategory = res.filters.active_category;
+        console.log(this.breadcrumb,'ACTIVE ONE ');
+        this.breadSkeleton = false;
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+   
+   
     });
   }
 
