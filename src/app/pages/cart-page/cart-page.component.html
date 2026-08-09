@@ -113,6 +113,9 @@
             
 
             <div class="cart-detail-box"  *ngIf=" summary && summary.cartCount>=1">
+                <ng-container *ngTemplateOutlet="freeShippingPromoTemplate"></ng-container>
+           
+
                     <div class="cart-detail">
                         <label class="cart-detail-title">Sipariş Özeti</label>
                         <div class="each-detail">
@@ -167,7 +170,11 @@
     </div>
 
    <div class="m-detail-container" [class.open]="mPrice" *ngIf=" summary && summary.cartCount>=1">
+    
+
         <div class="m-show-detail">
+        <ng-container *ngTemplateOutlet="freeShippingPromoTemplate"></ng-container>
+
             <div class="m-show-box">
 
                 <div class="m-each-detail">
@@ -177,18 +184,16 @@
 
                 <div class="m-each-detail">
                     <label class="m-product-title">Kargo</label>
-                    <label class="cart-items-cargo"><label class="cargo-fee">{{summary.cargoFee}}</label> 
-                            {{summary.cartCargoFee>0 ? summary.cartCargoFee : 'Bedava'}}</label>
+                    <label class="cart-items-cargo"><label [class.hiddenFee]="!summary.isFreeShippingEligible || !summary.productCount" class="cargo-fee">{{summary.cargoFee}}</label> 
+                            {{!summary.isFreeShippingEligible ? summary.cartCargoFee : 'Bedava'}}</label>
                 </div>
 
-                 <div class="m-each-detail" *ngIf="summary.discountTotal>0">
+                <div class="m-each-detail" *ngIf="summary.discountTotal>0">
                             <label class="m-product-title" style="    color: rgb(6, 119, 45);">Kazancın</label>
                             <label class="m-product-price" style="    color: rgb(6, 119, 45);">{{summary.discountTotal}} TL</label>
                 </div>
             </div>
         </div>
-
-
         <div class="m-detail">
             <div class="m-detail-box">
                 <label class="m-cart-count">SEÇİLEN ÜRÜNLER ({{summary?.productCount}})</label>
@@ -196,6 +201,8 @@
             </div>
             <button class="m-approve-btn"  (click)="navigateCheckout()">Sepeti Onayla</button>  
         </div>
+
+
     </div>
 
 
@@ -270,3 +277,33 @@
 
   </div>
 </div>
+
+<!-- ORTAK ÜCRETSİZ KARGO ŞABLONU -->
+<ng-template #freeShippingPromoTemplate>
+    <div class="free-shipping-promo" *ngIf="summary && summary.cartCount >= 1">
+        <div class="promo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+        </div>
+        
+        <!-- Kargo Ücreti Varsa -->
+        <div class="promo-content" *ngIf="!summary.isFreeShippingEligible; else freeCargoAchieved">
+            <span class="promo-title"><strong>Ücretsiz</strong> kargo için {{summary.remainingForFreeShipping ?? summary.freeShippingThreshold}} TL'lik ürün daha ekleyin.</span>
+            
+            <div class="promo-progress-bg">
+                <div class="promo-progress-fill" [style.width.%]="(summary.subTotal / summary.freeShippingThreshold) * 100"></div>
+            </div>
+        </div>
+
+        <!-- Kargo Ücretsiz Olduğunda -->
+        <ng-template #freeCargoAchieved>
+            <div class="promo-content success">
+                <span class="promo-title">Tebrikler! <strong>Ücretsiz Kargo</strong> kazandın!</span>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>

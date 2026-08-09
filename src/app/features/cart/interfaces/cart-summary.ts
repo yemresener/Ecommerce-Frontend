@@ -3,8 +3,13 @@ export interface CartSummary {
     productCount:number,
     quantitySum:number
     subTotal:number,
+
     cargoFee:number,
     cartCargoFee:number,
+    remainingForFreeShipping:number,
+    isFreeShippingEligible: boolean,
+    freeShippingThreshold:number,
+
     originalTotal:number,
     discountTotal:number,
     couponDiscountTotal:number,
