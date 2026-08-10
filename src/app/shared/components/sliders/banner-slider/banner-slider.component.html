@@ -14,13 +14,16 @@
 
     <!-- REAL -->
     <ng-container *ngIf="!skeleton; else imagesSk">
+      <a  *ngFor="let b of items" [href]="b.link">
       <img
         class="category-image"
-        *ngFor="let b of items"
+        
         [src]="b.image"
         alt="{{b.title}}"
       >
+    </a>
     </ng-container>
+
 
     <!-- SKELETON -->
     <ng-template #imagesSk>
