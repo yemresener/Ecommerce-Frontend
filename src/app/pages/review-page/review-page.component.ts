@@ -24,10 +24,15 @@ export class ReviewPageComponent {
   constructor(private reviewService:ReviewServiceService,private route:ActivatedRoute,private router: Router){}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params=>{
-      this.slug=params.get('slug') ?? '';
-      this.getPage()
-    })
+    this.slug = this.route.snapshot.paramMap.get('slug') ?? '';
+    const data = this.route.snapshot.data['resolvedData'];
+    if (data && data.data) {
+      console.log('Resolver verisi devrede, API isteği engellendi!', data);
+      this.advert = data.data.advert;
+      this.stats = data.data.stats;
+    }
+
+    
     this.route.queryParams.subscribe(params => {
       const filters: FilterParams = {};
 

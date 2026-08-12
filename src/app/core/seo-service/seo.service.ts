@@ -217,7 +217,6 @@ export class SeoService {
         "logo": "https://gurmepet.com.tr/assets/images/fav-gurme.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+90-850-255-10-01",
           "contactType": "customer service",
           "areaServed": "TR",
           "availableLanguage": "Turkish"

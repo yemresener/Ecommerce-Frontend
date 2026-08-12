@@ -5,6 +5,7 @@ import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fot
 import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
 import { authGuard } from './core/guards/auth.guard';
 import { CategoryResolver } from './features/category/resolvers/category.resolver';
+import { ReviewPageResolver } from './features/review/resolvers/review-page-resolver';
 export const routes: Routes = [
 
   // ------------------------------------------
@@ -106,7 +107,10 @@ export const routes: Routes = [
       { path: 'cart', loadComponent: () => import('./pages/cart-page/cart-page.component').then(m => m.CartPageComponent), canActivate: [authGuard], title: 'Sepet' },
     ]
   },
-
+  {
+    path: '404',
+    loadComponent: () => import('./shared/components/not-found/not-found.component').then(m=> m.NotFoundComponent),title:'Sayfa Bulunamadı'
+  },
 
   {
     path: '',
@@ -121,16 +125,15 @@ export const routes: Routes = [
 
       { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), },
 
-      { path: ':slug/yorumlar', loadComponent: () => import('./pages/review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar' },
+      { path: ':slug/yorumlar', loadComponent: () => import('./pages/review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar',
+        resolve: { resolvedData:ReviewPageResolver }
+       },
       { path: ':slug', loadComponent: () => import('./pages/advert-item-page/advert-item-page.component').then(m => m.EachItemPageComponent)},
 
 
     ]
   },
-  {
-    path: '404',
-    loadComponent: () => import('./shared/components/not-found/not-found.component').then(m=> m.NotFoundComponent),title:'Sayfa Bulunamadı'
-  },
+
 
   // ------------------------------------------
   // DYNAMIC ROUTES (Kategori & Arama)
