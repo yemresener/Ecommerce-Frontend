@@ -39,9 +39,11 @@ export class CartService {
 
   addCart(slug:string,quantity:number=1){
     const url = `${environment.apiUrl}storeCart`;
+
     return this.http.post<{message:string}>(url,{advert_slug:slug,quantity:quantity},{withCredentials:true}).pipe(
       tap(()=>{
-        this.cartCount.set((this.cartCount() ?? 0) + (quantity ?? 1));
+
+        this.cartCount.set(Number(this.cartCount() ?? 0) + (quantity ?? 1));
       })
     )
   }
