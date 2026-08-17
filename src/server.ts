@@ -11,7 +11,7 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 import { RESPONSE_TOKEN } from './app/core/tokens/response.token';
 const app = express();
 const commonEngine = new CommonEngine({
-  allowedHosts:['localhost']
+  allowedHosts: ['localhost', 'gurmepet.com.tr', 'www.gurmepet.com.tr', 'admin.gurmepet.com.tr']
 });
 
 /**
