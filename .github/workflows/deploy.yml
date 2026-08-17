@@ -15,8 +15,7 @@ jobs:
       - name: Küçük harfli kullanıcı adı üret
         id: lowercase
         run: echo "owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
-      - name: QEMU Kurulumu (ARM emülasyonu için)
-        uses: docker/setup-qemu-action@v3
+   
       - name: Docker Buildx Kurulumu
         uses: docker/setup-buildx-action@v3
       - name: GitHub Container Registry'e Giriş
@@ -29,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/arm64
+          platforms: linux/amd64
           push: true
           tags: |
             ghcr.io/${{ steps.lowercase.outputs.owner }}/gurmepet-frontend:latest
