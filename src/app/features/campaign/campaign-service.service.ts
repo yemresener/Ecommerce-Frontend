@@ -4,7 +4,7 @@ import { ApiResponse } from '../../interfaces/api-response';
 import { MiniAdvert } from '../advert/interfaces/mini-advert';
 import { Campaign } from './campaign';
 import { FilterParams } from '../../shared/filter/filter-params';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
