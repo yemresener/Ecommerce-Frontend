@@ -6,6 +6,7 @@ import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-categor
 import { authGuard } from './core/guards/auth.guard';
 import { CategoryResolver } from './features/category/resolvers/category.resolver';
 import { ReviewPageResolver } from './features/review/resolvers/review-page-resolver';
+import { CampaignResolver } from './features/campaign/resolvers/campaing.resolver';
 export const routes: Routes = [
 
   // ------------------------------------------
@@ -123,7 +124,9 @@ export const routes: Routes = [
 
       { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
 
-      { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent), },
+      { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent),
+        resolve:{resolvedData:CampaignResolver}
+       },
 
       { path: ':slug/yorumlar', loadComponent: () => import('./pages/review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar',
         resolve: { resolvedData:ReviewPageResolver }
