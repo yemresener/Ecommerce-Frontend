@@ -62,7 +62,7 @@
           this.route.paramMap,
           this.route.queryParams
         ])
-        .pipe(debounceTime(0))
+        .pipe()
         .subscribe(([params, query]) => {
     
           const slug = this.mode === 'category' 
