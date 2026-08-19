@@ -200,6 +200,7 @@ body {
     font-size: 0.875rem;
     outline: none;
     transition: all 0.3s ease;
+    max-width: 590px;
 }
 .search-input::-webkit-search-cancel-button {
   cursor: pointer;
@@ -700,7 +701,7 @@ body {
 
 /* Giriş Yap / Hesabım Skeleton */
 .skeleton-nav-link {
-  width:75px; /* İkon + Yazı ortalama genişliği */
+  width:752px; /* İkon + Yazı ortalama genişliği */
   height: 20px; /* Yazı yüksekliği */
   border-radius: 4px;
 }
@@ -822,10 +823,10 @@ body {
 
 /* Skeleton Güncellemesi (Pill şeklinde tam otursun diye) */
 .premium-skeleton {
-  width: 100px;
+  width: 105px;
   height: 36px;
   border-radius: 9999px;
-  margin: 0 0.25rem;
+ 
 }
 
 @media (max-width: 480px) {
@@ -839,7 +840,9 @@ body {
       padding: 0.5rem;
   }
   .premium-skeleton {
-    width: 24px;
-    height: 24px;
+    width: 36px;       /* Gerçek buton genişliğiyle aynı */
+    height: 34px;      /* Gerçek buton yüksekliğiyle aynı */
+    margin: 0;         /* Gerçek butonda margin olmadığı için bunu sıfırlıyoruz */
+    border-radius: 50%;
   }
 }

@@ -1,12 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 100%;
+  ascent-override: 96.875%;
+  descent-override: 24.1211%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @import "@ng-select/ng-select/themes/default.theme.css";
 *{
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter','Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 }
+
 
 html {
   scrollbar-gutter: stable;
