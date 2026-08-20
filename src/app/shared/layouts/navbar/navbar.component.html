@@ -151,7 +151,8 @@
                             <div class="product-box" *ngFor="let advert of activeCategory.popular_adverts">
                                 <a href="{{advert.slug}}" class="product-wrapper-link">
                                     <div class="image-container">
-                                        <img [src]="advert.image || 'assets/images/placeholder.png'" [alt]="advert.title" class="product-image">
+                                        <img [src]="(advert.image && advert.image !== null ) ? advert.image : 'assets/images/placeholder.png'"
+                                        [alt]="advert.title" class="product-image">
                             
                                     </div>
                                     <div class="product-info">

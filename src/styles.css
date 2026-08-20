@@ -20,7 +20,14 @@
   font-family: 'Inter','Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 }
-
+input, button, textarea, select {
+  font-family: inherit; /* Senin sitenin fontunu kullanmalarını zorlar */
+  appearance: none;     /* Tarayıcının varsayılan işletim sistemi stilini kaldırır */
+  -webkit-appearance: none; /* Safari için kritik */
+  -moz-appearance: none;    /* Firefox için kritik */
+  outline: none;
+  border: none;
+}
 
 html {
   scrollbar-gutter: stable;

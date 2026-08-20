@@ -16,7 +16,7 @@ export class SliderComponent<T> extends BrowserAware{
   @Input() type='';
 
   @Input() autoPlay = false;
-  @Input() intervalMs = 5000;
+  @Input() intervalMs = 10000;
   private autoPlayTimer: any;
   isHovered = false;
   ngOnInit() {
