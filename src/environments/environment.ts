@@ -1,4 +1,4 @@
 export const environment = {
     production:true,
-    apiUrl:`http://gurmepet.com.tr/api/`
+    apiUrl:`https://gurmepet.com.tr/api/`
 };
