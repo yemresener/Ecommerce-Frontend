@@ -6,6 +6,10 @@ COPY . .
 RUN npm run build
 
 FROM node:20-alpine
+
+COPY ssl/gurmepet.crt /usr/local/share/ca-certificates/gurmepet.crt
+RUN apk add --no-cache ca-certificates && update-ca-certificates
+
 WORKDIR /app
 
 ENV NODE_ENV=production

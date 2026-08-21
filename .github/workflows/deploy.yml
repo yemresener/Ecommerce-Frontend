@@ -16,6 +16,18 @@ jobs:
         id: lowercase
         run: echo "owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
    
+      - name: Inject SSL Certificate for Build
+        run: |
+          mkdir -p ssl
+          cat << 'EOF' > ssl/gurmepet.crt
+          ${{ secrets.GURMEPET_CRT }}
+          EOF
+          
+      - name: Verify certificate is valid
+        run: |
+          openssl x509 -in ssl/gurmepet.crt -noout -text > /dev/null
+          echo "Sertifika geçerli formatta."
+
       - name: Docker Buildx Kurulumu
         uses: docker/setup-buildx-action@v3
       - name: GitHub Container Registry'e Giriş
