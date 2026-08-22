@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { NoneFotterLayoutComponent } from './layouts/none-fotter-layout/none-fotter-layout.component';
-import { NavbarNoneCategoryLayoutComponent } from './layouts/navbar-none-category-layout/navbar-none-category-layout.component';
+
 import { authGuard } from './core/guards/auth.guard';
 import { CategoryResolver } from './features/category/resolvers/category.resolver';
 import { ReviewPageResolver } from './features/review/resolvers/review-page-resolver';
 import { CampaignResolver } from './features/campaign/resolvers/campaing.resolver';
+import { AdvertItemResolver } from './features/advert-item/advert-item.resolver';
 export const routes: Routes = [
 
   // ------------------------------------------
@@ -19,7 +17,7 @@ export const routes: Routes = [
   // ------------------------------------------
   {
     path: '',
-    component: MainLayoutComponent,
+    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
     children: [
       { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent), title: 'GurmePet' },
       { 
@@ -32,11 +30,18 @@ export const routes: Routes = [
         redirectTo: '', 
         pathMatch: 'full' 
       },
+      
+      { path: 'ara', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
+
+
+      { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
+
+
     ]
   },
   {
     path: '',
-    component: AuthLayoutComponent,
+    loadComponent: () => import('./layouts/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
     children: [
       { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent), title: 'Giriş Yap' },
       { path: 'register', loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent), title: 'Kayıt Ol' },
@@ -52,7 +57,7 @@ export const routes: Routes = [
   
   {
     path: '',
-    component: NoneFotterLayoutComponent,
+    loadComponent: () => import('./layouts/none-fotter-layout/none-fotter-layout.component').then(m => m.NoneFotterLayoutComponent),
     children: [
       {
         path: 'hesabim',
@@ -103,7 +108,7 @@ export const routes: Routes = [
   // ------------------------------------------
   {
     path: '',
-    component: NavbarNoneCategoryLayoutComponent,
+    loadComponent: () => import('./layouts/navbar-none-category-layout/navbar-none-category-layout.component').then(m => m.NavbarNoneCategoryLayoutComponent),
     children: [
       { path: 'cart', loadComponent: () => import('./pages/cart-page/cart-page.component').then(m => m.CartPageComponent), canActivate: [authGuard], title: 'Sepet' },
     ]
@@ -113,16 +118,16 @@ export const routes: Routes = [
     loadComponent: () => import('./shared/components/not-found/not-found.component').then(m=> m.NotFoundComponent),title:'Sayfa Bulunamadı'
   },
 
+
   {
     path: '',
-    component: MainLayoutComponent,
+    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
     children: [
 
-      { path: 'ara', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'search' }, title: 'Arama' },
+      
       { path: 'kategori/:slug', loadComponent: () => import('./pages/category-page/category-page.component').then(m => m.CategoryPageComponent), data: { mode: 'category' },
       resolve: { resolvedData:CategoryResolver } },
 
-      { path: 'hakkimizda', loadComponent: () => import('./staticPages/about-us/about-us.component').then(m => m.AboutUsComponent), title: 'Biz kimiz?' },
 
       { path: 'kampanya/:slug', loadComponent: () => import('./pages/campaign-page/campaign-page.component').then(m => m.CampaignPageComponent),
         resolve:{resolvedData:CampaignResolver}
@@ -131,11 +136,13 @@ export const routes: Routes = [
       { path: ':slug/yorumlar', loadComponent: () => import('./pages/review-page/review-page.component').then(m => m.ReviewPageComponent), title: 'Yorumlar',
         resolve: { resolvedData:ReviewPageResolver }
        },
-      { path: ':slug', loadComponent: () => import('./pages/advert-item-page/advert-item-page.component').then(m => m.EachItemPageComponent)},
-
+      { path: ':slug', loadComponent: () => import('./pages/advert-item-page/advert-item-page.component').then(m => m.EachItemPageComponent),
+        resolve:{resolvedData:AdvertItemResolver}
+      },
 
     ]
   },
+  
 
 
   // ------------------------------------------
@@ -147,6 +154,6 @@ export const routes: Routes = [
 
   // ------------------------------------------
   // WILDCARD ROUTE (Bulunamayan Sayfalar İçin)
-  // ------------------------------------------
-  { path: '**', redirectTo: '' }
+  // ------------------------------------------ // ssr bozuyordu direkt 404 atılsın '' yerine
+  { path: '**', loadComponent: () => import('./shared/components/not-found/not-found.component').then(m=> m.NotFoundComponent),title:'Sayfa Bulunamadı' }
 ];

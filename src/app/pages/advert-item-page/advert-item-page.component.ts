@@ -55,13 +55,30 @@ export class EachItemPageComponent extends BrowserAware{
   slug!:string;
   isFeaturesOpen: boolean = false;
   ngOnInit(){
-    
-    this.route.paramMap.subscribe(params=>{
-      this.slug = params.get('slug') ?? '';
-      this.getAdvert();
-      this.deliveryMessage=this.deliveryService.deliveryMessage;
+    this.slug = this.route.snapshot.paramMap.get('slug') ?? '';
+    const data = this.route.snapshot.data['resolvedData'];
+    if(data && data.data){
+      this.advert=data.data.advert;
+      this.breadcrumb=data.data.bread_crumb;
+      this.isActive=data.data.active_stock;     
+      this.reviews=data.data.advert.reviews;
+      this.stats=data.stats;
+      this.skeleton=false;
+      if(this.advert.images){
+        this.itemSlider={
+          items:this.advert.images,
+          index:0,
+          visible:1
+        }
+        this.seoService.setAdvertPage(this.advert,this.reviews);   
 
-    })
+      }
+      
+    }else{
+      this.notFound=true;
+      this.seoService.setNotFound();
+    }
+    this.deliveryMessage=this.deliveryService.deliveryMessage;
 
   }
 
@@ -76,17 +93,11 @@ export class EachItemPageComponent extends BrowserAware{
   deliveryMessage?:string;
   notFound=false
 
+
+  // resolverden geliyor gereksiz 
   getAdvert(){
 
-    const ERROR_KEY = makeStateKey<boolean>('404_error_' + this.slug);
-    console.log('ERROR SLUG',ERROR_KEY);
-  // 2. ADIM: Eğer tarayıcıdaysak ve sunucu "bu sayfa 404" diye not bıraktıysa, API'ye HİÇ GİTME!
-    if (this.transferState.hasKey(ERROR_KEY)) {
-      this.notFound = true;
-    console.log('ERROR SLUG',ERROR_KEY);
-        this.layoutService.showLayout.set(false);
-      return; // Fonksiyonu burada kes, 2. isteği engelle
-    }
+    
 
     this.itemService.getAdvert(this.slug).subscribe({
       next:(res)=>{
@@ -115,20 +126,11 @@ export class EachItemPageComponent extends BrowserAware{
 
       },
       error:(err)=>{
-        console.log(err);
-        console.log('SALAMLAR');
-        this.notFound = true;
-          console.log('showLayout önce:', this.layoutService.showLayout());
 
-        this.layoutService.showLayout.set(false);
-          console.log('showLayout sonra:', this.layoutService.showLayout());
+        this.notFound = true;
 
         this.seoService.setNotFound();
-        if (!this.isBrowser()) {
-          this.transferState.set(ERROR_KEY, true);
-          this.response.status(404);
  
-        }
         
       }
     })
