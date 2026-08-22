@@ -118,7 +118,64 @@
 
             </div>
 
-      
+            <div class="nav-hover-wrapper" *ngIf="categoryActive" (mouseleave)="activeCategory = null">
+    
+                <!-- Category Bar -->
+                <div class="category-bar">
+                    <!-- div yerine ul kullandık -->
+                    <ul class="category-list">
+                        <li *ngFor="let item of categories" (mouseenter)="activeCategory = item" class="category-item">
+                            <!-- href yerine routerLink -->
+                            <a href="kategori/{{item.slug}}" class="category-link">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Şartı düzelttik: Alt kategori YADA popüler ürün varsa açılacak -->
+                <div class="mega-menu" 
+                     *ngIf="activeCategory && (activeCategory.children?.length || activeCategory.popular_adverts?.length)" 
+                     (mouseleave)="activeCategory = null">
+                     
+                    <!-- Alt kategoriler listesi -->
+                    <div class="mega-col" *ngIf="activeCategory.children?.length">
+                        <h4>{{activeCategory.name}}</h4>
+                        <a href="kategori/{{child.slug}}" *ngFor="let child of activeCategory.children" >
+                            {{child.name}}
+                        </a>
+                    </div>
+            
+                    <!-- Popüler ürünler listesi -->
+                    <div class="mega-products" *ngIf="activeCategory.popular_adverts?.length">
+                        <h4 class="mega-products-title">Popüler Ürünler</h4>
+                        <div class="products-container">
+                            <div class="product-box" *ngFor="let advert of activeCategory.popular_adverts">
+                                <a href="{{advert.slug}}" class="product-wrapper-link">
+                                    <div class="image-container">
+                                        <img [src]="(advert.image && advert.image !== null ) ? advert.image : 'assets/images/placeholder.png'"
+                                        [alt]="advert.title" class="product-image">
+                            
+                                    </div>
+                                    <div class="product-info">
+                                        <span class="product-label">{{advert.title}}</span>
+
+                                        <div class="product-price-row">
+
+                                            <span class="old-price" *ngIf="advert.discount_price">
+                                                {{ advert.original_price }} TL
+                                            </span>
+                                            
+                                            <span class="current-price" >
+                                                {{ (advert.discount_price || advert.original_price) }} TL
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
         
         
 
