@@ -11,7 +11,14 @@ export const ReviewPageResolver: ResolveFn<any> = (route)=>{
 
     const slug = route.paramMap.get('slug');
     //const queryParams = route.queryParams;
-    if(!slug) return EMPTY;
+    if (!slug) {
+        if(response){
+            response.status(404);
+        }
+        router.navigate(['/404'], { skipLocationChange: true });
+        return EMPTY; 
+    }
+    
     return service.getReview(slug).pipe(
         catchError((error)=>{
             if(error.status === 404){
