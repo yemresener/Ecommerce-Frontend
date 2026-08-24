@@ -8,7 +8,7 @@ import { AuthService } from '../../core/user-service/auth.service';
 import { BrowserAware } from '../../shared/base/browser-aware';
 import { SupportRequestInterface } from '../../features/support-request/support-request-interface';
 import { MainToastComponent } from '../../shared/components/toast/main-toast/main-toast.component';
-
+import { environment } from '../../../environments/environment.development';
 declare const turnstile: any;
 
 @Component({
@@ -72,7 +72,10 @@ export class SupportRequestComponent extends BrowserAware{
       this.form.markAllAsTouched();
       return;
     }
-    if(!this.turnstileToken) return;
+    if(!this.turnstileToken){
+      this.toastMessage='Güvenlik doğrulaması başarısız, lütfen daha sonra tekrar deneyiniz.';
+      return;
+    }
 
     this.loading = true;
     const body:SupportRequestInterface = {
@@ -99,38 +102,73 @@ export class SupportRequestComponent extends BrowserAware{
         this.message?.reset();
 
 
-        turnstile.reset();
+        this.resetTurnstile();
       },
       error:(err)=>{
         console.log(err)
         this.loading = false;
         this.toastMessage=err.error.message;
         this.status='error'
+        this.resetTurnstile();
       }
     })
   }
 
 
   turnstileToken: string | null = null;
+  widgetId: string | null = null;
 
   ngAfterViewInit(): void {
     if(!this.isBrowser()) return
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-    script.async = true;
-    document.head.appendChild(script);
+    const existingScript = document.getElementById('turnstile-script');
 
-    script.onload = () => {
-      turnstile.render('#turnstile-container', {
-        sitekey: '1x00000000000000000000AA',
-        callback: (token: string) => {
-          this.turnstileToken = token;
-        },
-        'expired-callback': () => {
-          this.turnstileToken = null;
-        }
-      });
-    };
+    if(!existingScript){
+
+      const script = document.createElement('script');
+      script.id = 'turnstile-script';
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+      script.onload = () => {
+        this.renderTurnstile();
+      };
+    } else {
+      // Script zaten yüklüyse doğrudan render et
+      if (typeof turnstile !== 'undefined') {
+        this.renderTurnstile();
+      }
+    
+    }
+    
   }
 
+  renderTurnstile(): void {
+    // render metodundan dönen değeri widgetId'ye eşitliyoruz
+    this.widgetId = turnstile.render('#turnstile-container', {
+      sitekey: environment.turnstileSiteKey, // Production key environment'tan geliyor
+      callback: (token: string) => {
+        this.turnstileToken = token;
+      },
+      'error-callback': () => {
+        this.turnstileToken = null;
+      },
+      'expired-callback': () => {
+        this.turnstileToken = null;
+      }
+    });
+  }
+  resetTurnstile(): void {
+    if (this.isBrowser() && this.widgetId && typeof turnstile !== 'undefined') {
+      turnstile.reset(this.widgetId);
+      this.turnstileToken = null;
+    }
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.isBrowser() && this.widgetId && typeof turnstile !== 'undefined') {
+      turnstile.remove(this.widgetId);
+    }
+  }
 }
