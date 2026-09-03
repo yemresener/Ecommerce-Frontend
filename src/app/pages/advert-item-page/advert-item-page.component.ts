@@ -136,6 +136,12 @@ export class EachItemPageComponent extends BrowserAware{
     })
   }
 
+  isDescriptionExpanded: boolean = false;
+
+  toggleDescription(): void {
+    this.isDescriptionExpanded = !this.isDescriptionExpanded;
+  }
+
 
 /*
   getAdvert(){

@@ -341,23 +341,12 @@
 }
 
 .delivery-badge.none-stock {
-    background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%); /* Standart kırmızı yerine Rose tonu */
-    box-shadow: 0 8px 24px -6px rgba(244, 63, 94, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #eff6ff; /* Çok uçuk mavi (Ferah bir zemin) */
+    color: #3B82F6; /* Senin rengin (Yazı) */
+    border: 1px solid #bfdbfe; /* Ana renginle uyumlu soft bir kenarlık */
+    font-weight: 500;
+    box-shadow: none; /* Chill durması için gölgeye gerek yok */
 }
-
-.delivery-badge.none-stock {
-    background: transparent; 
-    color: #6b7280; 
-    box-shadow: none;  
-    border: none; 
-    padding: 8px 4px; 
-    justify-content: left;  
-    font-size: 14px;
-    font-weight: 500;  
-    margin-top: 0px;
-}
-
 .delivery-badge.none-stock i {
     color: #f59e0b;  
     font-size: 16px;
@@ -369,6 +358,7 @@
     box-shadow: none;
     cursor: default;
 }
+
 
 
 .description-section {
@@ -396,6 +386,44 @@
     line-height: 1.7;
     font-size: 15px;
 }
+
+.text-wrapper {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .description-text {
+    line-height: 1.6;
+    color: #475569; /* Tatlı bir gri tonu */
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .text-wrapper.collapsed .description-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Kaç satırda kesileceği */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Metin kapalıyken altta oluşan hafif solma efekti */
+  .text-wrapper.collapsed::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    pointer-events: none; /* Tıklamayı engellememesi için */
+  }
+  
+  /* --- BUTON VE YERLEŞİM KISMI --- */
+  .action-row {
+    display: flex;
+    justify-content: flex-start; /* Ortalamak istersen 'center' yapabilirsin */
+    margin-top: 12px;
+  }
 
 .features {
     display: grid;

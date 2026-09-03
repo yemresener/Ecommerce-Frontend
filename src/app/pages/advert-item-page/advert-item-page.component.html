@@ -176,6 +176,7 @@
             <div class="actions">
 
             <button
+              *ngIf="isActive"
               (click)="addToCart(advert.slug)"
               class="add-to-cart"
               [class.skeleton]="!advert"
@@ -200,8 +201,8 @@
             [class.loading]="!advert"
             [class.none-stock]="!isActive"
             >
-            <span class="delivery-span" *ngIf="!isActive">
-              <i class="fas fa-clock"></i> En yakın zamanda stoklarda.
+            <span class="delivery-span none-stock-message" *ngIf="!isActive">
+             En yakın zamanda stoklarda
             </span>
             <span class="delivery-span" *ngIf="advert && isActive">
               <i class="fas fa-truck-fast"></i>
@@ -221,12 +222,25 @@
                 </div>
 
                 <!-- text (element hep var, sadece içerik şartlı) -->
-                <p class="description-text">
-                    <ng-container *ngIf="advert">
-                    {{ advert.description ?? ' Kısırlaştırılmış kediler için özel olarak formüle edilmiş bu besleyici mama, kedinizin sağlıklı kalmasını ve ideal kilosunu korumasını sağlar. 
-                    Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar' }}.
-                    </ng-container>
-                </p>
+                <ng-container *ngIf="(advert.description || 'Dengeli protein ve enerji içeriği ile kedilerin beslenme ihtiyaçlarını karşılar.') as desc">
+    
+                  <!-- Metni saran wrapper. Solma efekti ve class yönetimi burada -->
+                  <div class="text-wrapper" [ngClass]="{'collapsed': !isDescriptionExpanded}">
+                    <p class="description-text">
+                      {{ desc }}
+                    </p>
+                  </div>
+                  
+                  <!-- Butonu ortalamak veya sola yaslamak için bir kapsayıcı -->
+                  <div class="action-row" *ngIf="desc.length > 150">
+                    <button (click)="toggleDescription()" class="show-more-btn">
+                      <span>{{ isDescriptionExpanded ? 'Daha Az Göster' : 'Devamını Oku' }}</span>
+                      <!-- İkon, duruma göre yön değiştiriyor (FontAwesome class'ları) -->
+                      <i class="fa-solid" [ngClass]="isDescriptionExpanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                    </button>
+                  </div>
+              
+                </ng-container>
 
                 <!-- features (container hep var) -->
                 <div class="features">
