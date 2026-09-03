@@ -5,5 +5,5 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'cart', renderMode: RenderMode.Client },
   { path: 'checkout', renderMode: RenderMode.Client },
   { path: 'ara', renderMode: RenderMode.Server },
-  { path: '**', renderMode: RenderMode.Prerender },
+  { path: '**', renderMode: RenderMode.Server },
 ];
