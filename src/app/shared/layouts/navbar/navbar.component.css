@@ -678,10 +678,18 @@ body {
         display: flex;
         justify-content: space-between;
         gap: 0px;
+        padding: 0px;   /* mobil için yeni eklendi üste yapısıyor */
+        padding-bottom: 5px;   /* mobil için yeni eklendi üste yapısıyor */
     }
     .mobile-search.open{
         margin-top: 10px;
     }
+
+    .logo-img{
+      width: 95px;
+      height: auto;
+  }
+  
   
 }
 

@@ -22,7 +22,7 @@
 .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 
     padding: 16px 24px;
     font-size: 14px;
@@ -34,7 +34,7 @@
 .bread-box {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 
     color: #64748b;
     cursor: pointer;
@@ -806,8 +806,30 @@
     }
   
     .breadcrumb {
-        display: none;
+        font-size: 12px;
+        border-bottom: none;
+        align-items: center;
+        padding: 5px;
+
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto; /* Yatay scroll aç */
+        -webkit-overflow-scrolling: touch; /* iOS için yumuşak kaydırma */
+        scrollbar-width: none;
     }
+
+    .breadcrumb::-webkit-scrollbar {
+        display: none; 
+    }
+    
+    .bread-box {
+        flex-shrink: 0; /* Elemanların ezilmesini engelle */
+    }
+
+    
+
+
+
 
     .product-content {
         grid-template-columns: 1fr;

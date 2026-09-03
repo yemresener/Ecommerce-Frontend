@@ -357,9 +357,56 @@ border: 1px solid rgb(100, 100, 255);
 @media (max-width: 389px) {
 
   .products {
-    grid-template-columns: repeat(1, 1fr);
+
+    gap: 5px;
   }
 }
+@media (max-width: 374px) {
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px; /* Ekran çok daraldığı için boşluğu küçültmek hayat kurtarır */
+      margin-bottom: 27px;
+    }
+
+    .products ::ng-deep app-card .best-item {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      padding: 4px !important; 
+    }
+  
+    .products ::ng-deep app-card .image-box {
+      height: 140px !important;
+    }
+  
+    .products ::ng-deep app-card .item-title, .item-rating, .item-bottom {
+      font-size: 13px !important;
+    }
+
+    .products ::ng-deep app-card .item-rating{
+      font-size: 12px !important;
+    }
+    .products ::ng-deep app-card .item-bottom .price-box .old-price{
+      font-size: 11px !important;
+    }
+    .products ::ng-deep app-card .item-bottom .price-box .new-price{
+      font-size: 14px !important;
+    }
+    
+  }
+
+  @media (max-width: 320px) {
+
+    .products ::ng-deep app-card .item-bottom .price-box .old-price{
+      font-size: 10px !important;
+    }
+    .products ::ng-deep app-card .item-bottom .price-box .new-price{
+      font-size: 12px !important;
+    }
+  }
+  
+
 
 .hide {
   display: none;
